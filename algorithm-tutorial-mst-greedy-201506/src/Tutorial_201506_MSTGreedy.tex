@@ -1,0 +1,812 @@
+%% LaTeX Beamer presentation template (requires beamer package)
+%% see http://bitbucket.org/rivanvx/beamer/wiki/Home
+%% idea contributed by H. Turgut Uyar
+%% template based on a template by Till Tantau
+%% this template is still evolving - it might differ in future releases!
+
+\documentclass{beamer}
+\mode<presentation>
+{
+ 	\usetheme{Pittsburgh} % ,
+	\setbeamertemplate{footline}[frame number]
+	\usefonttheme{serif}
+
+	\setbeamertemplate{navigation symbols}{}
+    \setbeamertemplate{caption}[numbered]
+    \setbeamertemplate{frametitle}[default][left]
+% 	\setbeamercovered{transparent}
+}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{pifont}
+
+\newcommand{\cmark}{\textcolor{red}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}}
+
+\usepackage{graphics}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\newcommand{\set}[1]{\{ #1 \}}
+\newcommand{\problemno}[1]{\textcolor{blue}{\scriptsize [Problem #1]}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for fig without caption: #1: width/size; #2: fig file
+\newcommand{\fignocaption}[2]
+{
+  \begin{figure}[htp]
+    \centering
+      \includegraphics[#1]{#2}
+  \end{figure}
+}
+
+% for fig without caption: #1: width/size; #2: fig file; #3: fig caption
+\newcommand{\fig}[3]
+{
+  \begin{figure}[htp]
+    \centering
+      \includegraphics[#1]{#2}
+      \caption[labelInTOC]{#3}
+  \end{figure}
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Greedy Algorithms}
+
+\author{Hengfeng Wei}
+\institute{hengxin0912@gmail.com}
+
+\date{\today}
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSubsection[]
+{
+	\begin{frame}<beamer>
+		\frametitle{Outline}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+
+\AtBeginSection[]
+{
+	\begin{frame}<beamer>
+		\frametitle{Outline}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outline}
+	\tableofcontents
+% You might wish to add the option [pausesections]
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%
+\section{Minimum Spanning Tree}
+
+%%%%%%%%%%%%
+\subsection{MST Property, Cut Property, and Cycle Property}
+
+%%%%%%%%%%%%%
+\begin{frame}{Three properties of MST}
+  \begin{block}{MST Property}
+    \begin{itemize}
+      \item $G = (V, E, w)$; $T$ is an MST of $G$
+      \item $e \in G \setminus T$; $T + \set{e}$ creates a cycle $C$
+    \end{itemize}
+    Then, $e$ is one of the maximum-weight edge in $C$.
+  \end{block}
+
+  \fignocaption{width = 0.30\textwidth}{fig/mst-property.pdf}
+
+  \begin{proof}
+	By contradiction (for ``$\Rightarrow$'').
+	\begin{itemize}
+	  \item Suppose $\exists e' \in C: w(e') > w(e)$
+	  \item $T' = T + \set{e} - \set{e'}$
+	  \item $w(T') < w(T)$
+	\end{itemize}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Three properties of MST}
+  \begin{block}{Cut Property \problemno{6.2.4 (a)}}
+    \begin{itemize}
+	  \item Graph $G = (V, E)$
+	  \item A cut $(S, V \setminus S)$ where $S, V-S \neq \emptyset$
+	  \item Let $e$ be the minimum-weight edge across the cut
+	\end{itemize}
+	Then $e$ must be in \emph{some} MST of $G$.
+  \end{block}
+
+  \fignocaption{width = 0.40\textwidth}{fig/cut-property-no-name.pdf}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}
+  \begin{block}{Cut Property \problemno{6.2.4 (a)}}
+  \begin{proof}
+    Basic idea: $e \notin T \Rightarrow e \in T'$.
+	\begin{itemize}
+	  \item $T + \set{e}$ to construct a cycle $C$
+	  \item $\exists e'\in C$ such that $e'$ crossing the cut; $w(e')
+	  \geq w(e)$
+	  \item $T' = T + \set{e} - \set{e'}$
+	  \item $w(T') \le w(T) \Rightarrow w(T') = w(T) \Rightarrow T' \textrm{ is
+	  an MST}$
+	\end{itemize}
+  \end{proof}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Three properties of MST}
+  \begin{block}{Cut Property [Another Version]}
+    \begin{itemize}
+	  \item Graph $G = (V, E)$; $X$ is part of an MST $T$.
+	  \item A cut $(S, V \setminus S)$ \emph{respecting} $X$ ($X$ does not cross
+	  $(S, V \setminus S)$)
+	  \item Let $e$ be a minimum-weight edge crossing $(S, V \setminus S)$
+	\end{itemize}
+	Then, $X + \set{e}$ is part of some MST.
+  \end{block}
+
+  \begin{proof}
+    Same As Above.
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Three properties of MST}
+  \begin{alertblock}{Remark:}
+    \begin{itemize}
+      \item Kruskal's and Prim's algorithm in terms of Cut
+     Property.
+     \item exchange argument
+    \end{itemize}
+  \end{alertblock}
+
+  \fignocaption{width = 0.20\textwidth}{fig/mst-proof.pdf}
+
+  \begin{block}{Divide-and-conquer algorithm for MST \problemno{6.2.15}}
+    \fignocaption{width = 0.30\textwidth}
+  	  {fig/divide-conqure-mst-counterexample.pdf}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Three properties of MST}
+  \begin{block}{Cycle Property \problemno{6.2.4 (b), 6.2.6 (b)}}
+	\begin{itemize}
+	  \item $G = (V,E,w)$
+	  \item Let $C$ be any cycle in $G$
+	  \item $e$ is a maximum-weight edge in $C$
+	\end{itemize}
+	Then $\exists \textrm{ MST } T: e \notin T$.
+  \end{block}
+
+  \fignocaption{width = 0.40\textwidth}{fig/cycle-property.pdf}
+
+  \begin{alertblock}{Question.}
+    What if all edge weights are distinct?
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Three properties of MST}
+  \begin{block}{Cycle Property \problemno{6.2.4 (b), 6.2.6 (b)}}
+  \begin{proof}
+    Basic idea: $e \in T \Rightarrow e \notin T'$.
+    \begin{itemize}
+      \item $T - \set{e}$ creates cut $(S, V \setminus S)$
+      \item $\exists e' \in C$ crossing the cut; $w(e') \leq w(e)$
+      \item $T' = T - \set{e} + \set{e'}$
+      \item $w(T') \leq w(T) \Rightarrow T'$ is an MST
+    \end{itemize}
+  \end{proof}
+  \end{block}
+
+  \begin{alertblock}{Remark:}
+    \begin{itemize}
+      \item Why don't we pick any $e' \in C$?
+      \item ``Anti-Kruskal'' (reverse-delete; also by Kruskal) \problemno{6.2.6
+      (c)}
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Three properties of MST}
+  \begin{enumerate}
+	\item The MST contains the minimum-weighted edge in every cycle
+	\problemno{6.2.4 (c)}.
+		\fignocaption{width = 0.20\textwidth}{fig/cycle-property-inverse.pdf}
+	\item If $e$ does not belong to any cycle, then $e$ is in every MST
+	\problemno{6.2.6 (a)}.
+	  \begin{itemize}
+	    \item Bridge!
+	    \item OR: $T + \set{e}$ produces cycle
+	  \end{itemize}
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Three properties of MST}
+  \begin{block}{\problemno{6.2.1}}
+  \begin{enumerate}
+	\item \xmark $|E| > |V| - 1$, $e$ is the unique maximum edge $\Rightarrow$
+	$e$ does not belong to any MST.
+	\item \cmark If $G$ has a cycle with a unique maximum edge $e$, then $e$ cannot
+	be part of any MST. (\textcolor{blue}{Prove}: Cycle property)
+	\item \cmark Let $e$ be any edge of minimum edge in $G$. Then $e$ belongs to
+	some MST. (\textcolor{blue}{Prove}: Cut property)
+	\item \cmark If the minimum edge is unique, then it belongs to every MST.
+	\item \xmark If $G$ has a cycle with a unique minimum edge $e$, then $e$
+	belongs to every MST.
+	  \fignocaption{width = 0.20\textwidth}{fig/cycle-property-inverse.pdf}
+	    \newcounter{enumTemp}
+    	\setcounter{enumTemp}{\theenumi}
+  \end{enumerate}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Three properties of MST}
+  \begin{block}{\problemno{6.2.1}}
+  \begin{enumerate}
+    \setcounter{enumi}{\theenumTemp}
+	\item \xmark The shortest-path tree computed by Dijkstra's algorithm is
+	necessarily an MST.
+	\item \xmark The shortest path between two nodes is necessarily part of some
+	MST.
+	\fignocaption{width = 0.10\textwidth}{fig/mst-sssp.pdf}
+	\item \cmark Prim's algorithm works correctly when there are negative edges.
+	\item \cmark If $e$ belongs to some MST, then $e$ is a minimum edge across some
+	cut.
+	\item \cmark $w > 0$; Vertex $s$; shortest-path tree of $s$ and some MST share
+	a common edge
+	\problemno{6.1.5}
+	\item \cmark $w'(e) = \left(w(e)\right)^2$ \problemno{6.2.2}
+  \end{enumerate}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%
+\subsection{Updating MST}
+
+\begin{frame}{}
+  \begin{block}{Updating MST \problemno{6.1.1, 6.1.6}}
+	$G$ and an MST $T$
+    \begin{enumerate}
+      \item $w(e)$ is decreased: $w'(e) = w(e) - k$
+      \item $w(e)$ is increased
+    \end{enumerate}
+  \end{block}
+
+  \begin{block}{Solution for (1).}
+    \begin{itemize}
+      \item $e \in T$: no need to update $T' = T$.
+      $w'(T') = w(T) - k \Rightarrow w'(T') < w(T)$.
+
+		  To prove that $T'$ is an MST of $G'$:
+
+		  Suppose $\exists T'':$ $T''$ is an ST of $G'$ and
+		  $w'(T'') < w'(T')$.
+		  \begin{itemize}
+		    \item $e \notin T''$: $w(T'') = w'(T'') < w'(T') < w(T)$
+		    \item $e \in T''$: $w(T'') = w'(T'') + k < w'(T') + k = w(T)$
+		  \end{itemize}
+      \item $e \notin T$: $T' = T + \set{e} - \set{e'}$; $e'$ is the
+      maximum-weight edge in cycle and $w(e') > w(e)$
+		\begin{itemize}
+		  \item $e \notin T''$: $w(T'') = w'(T'') < w'(T') < w(T)$
+		  \item $e \in T''$: \textcolor{red}{???}
+		\end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \textcolor{red}{To verify it:} \url{http://cs.stackexchange.com/q/43309/4911}
+\end{frame}
+%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Critical edge: \problemno{6.1.8}}
+	To find critical edge $e$: remove it, $w(T)$ increases
+  \end{block}
+
+  \begin{block}{}
+  An MST $T$:
+    \begin{itemize}
+      \item $e \notin T$: not critical
+      \item $e \in T$:
+        \begin{itemize}
+	      \item $T - \set{e}$ to produce a cut $(S, V \setminus S)$
+	      \item $\forall e' \neq e$ across $(S, V \setminus S)$, $w(e') > w(e)$
+        \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Algorithm.}
+    Using Kruskal's algorithm to find such $e$'s: unique minimum-weight edge
+    crossing cut.
+  \end{block}
+
+  \begin{proof}
+    No missing critical edges: during Kruskal's algorithm.
+  \end{proof}
+
+  \begin{block}{Question.}
+    Prim's algorithm?
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Adding vertex to MST \problemno{6.1.2}}
+    \begin{itemize}
+      \item $G = (V,E)$; an MST $T$
+      \item $G' = (V',E')$: $V' = V + \set{X}, E' = E + E_X$; $E_X$: incident
+      edges to $X$
+      \item To find an MST $T'$ of $G'$
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Algorithm.}
+    \begin{enumerate}
+      \item
+        \begin{itemize}
+      	  \item Adding $E_X$ into $G$ one at a time ($T + \set{e} \Rightarrow C$)
+          \item $O(n) \times O(n) = O(n^2)$ (not $O(n) \times O(m)$)
+        \end{itemize}
+      \item
+        \begin{itemize}
+          \item There \emph{exists} an MST of $G'$ that includes no edges in $G
+          \setminus T$
+          \item Run MST alg. on $G'' =(V + \set{X}, T + E_X)$
+          \item $O(n \lg n)$
+        \end{itemize}
+      \item
+        \begin{itemize}
+          \item ``On Finding and Updating Spanning Tress and Shortest Paths'',
+          1975
+          \item ``Algorithms for Updating Minimum Spanning Trees'', 1978
+          \item $O(n)$
+        \end{itemize}
+    \end{enumerate}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\subsection{Variants of MST}
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Feedback Edge Set (FES): \problemno{6.1.4}}
+	\begin{enumerate}
+	  \item maximum spanning tree
+	  \item (minimum) feedback edge set:
+	    \begin{itemize}
+	      \item a set of edges which, when removed from the graph, leave an acyclic
+	      graph $G'$
+	      \item assuming $G$ is connected $\Rightarrow$ $G'$ is connected
+	      \item feedback \emph{arc} set: ``cycle'' $\Rightarrow$ circular
+	      dependency
+	    \end{itemize}
+	\end{enumerate}
+  \end{block}
+
+  \begin{block}{Algorithm.}
+  \begin{itemize}
+    \item $G'$ is connected + acyclic $\Rightarrow$ $G'$ is an ST
+    \item $\textrm{FES} \Leftrightarrow G \setminus \textrm{Max-ST}$
+  \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{MST with specified leaves: \problemno{6.1.7}}
+    \begin{itemize}
+      \item $G = (V, E), U \subset V$
+      \item finding an MST with $U$ as leaves
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Algorithm.}
+    \begin{columns}
+      \column{0.50\textwidth}
+	    \begin{itemize}
+	      \item $G' = G \setminus U$
+	      \item MST $T'$ for $G'$
+	      \item $\forall u \in U$, attach it to $T'$
+	    \end{itemize}
+      \column{0.50\textwidth}
+  		\fignocaption{width = 0.50\textwidth}{fig/mst-specified-leaves.pdf}
+    \end{columns}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{ST with specified edges: \problemno{6.1.10}}
+    \begin{itemize}
+      \item $G = (V,E), S \subset E$ (no cycle in S)
+      \item finding an MST with $E$ as edges
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Algorithm.}
+    \begin{itemize}
+      \item contract each isolated component of $S$ to a \emph{super-vertex}
+      \item $G \to G'$
+      \item find MST of $G'$
+    \end{itemize}
+  \end{block}
+
+  \begin{proof}
+    Prove by contradiction.
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Unique MST \problemno{6.2.7}}
+    Distinct weights $\Rightarrow$ unique MST.
+  \end{block}
+
+  \fignocaption{width = 0.35\textwidth}{fig/mst-unique.pdf}
+
+  \begin{proof}
+	By contradiction: two MSTs $T_1 \neq T_2$.
+	\begin{itemize}
+	  \item $\Delta E = \set{e \mid e \in T_1 \setminus T_2 \lor e \in T_2
+	  \setminus T_1}$
+	  \item $e = \min \Delta E$. Suppose $e \in T_1 \setminus T_2$
+	  \item $T_2 + \set{e} \Rightarrow C$
+	  \item $\exists (e' \in C) \notin T_1: w(e') < w(e)$ (MST property)
+	  \item $e' \in T_2 \setminus T_1 \Rightarrow e' \in \Delta E$
+	\end{itemize}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Conditions for Unique MST \problemno{6.2.5}}
+    \begin{enumerate}
+      \item Example: unique MST, with equal weights
+        \fignocaption{width = 0.20\textwidth}{fig/unique-mst-partition.pdf}
+      \item Counterexamples:
+        \begin{enumerate}
+          \item \xmark cut: minimum-weight edge across any cut is unique
+          \item \xmark cycle: maximum-weight edge in any cycle is unique
+        \end{enumerate}
+        \begin{columns}
+          \column{0.50\textwidth}
+            \fignocaption{width = 0.40\textwidth}{fig/unique-mst-partition.pdf}
+          \column{0.50\textwidth}
+            \fignocaption{width = 0.45\textwidth}{fig/unique-mst-cycle.pdf}
+        \end{columns}
+    \end{enumerate}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%
+\section{Greedy Algorithms on Intervals}
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Points cover intervals \problemno{6.2.10, 6.2.12}}
+    every interval contains at least one point in $P$
+  \end{block}
+
+  \begin{block}{Algorithm and Example.}
+    \begin{enumerate}
+      \item sorted by finishing times
+      \item pick the first uncovered interval
+    \end{enumerate}
+    \fignocaption{width = 0.50\textwidth}{fig/point-cover-interval-example.png}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Points cover intervals \problemno{6.2.10, 6.2.12}}
+    Every interval contains at least one point in $P$ (\emph{``stab''}).
+  \end{block}
+
+  \begin{proof}
+    contradiction ($m < k$) + mathematical induction + exchange argument ($g_j
+    \Rightarrow o_j$)
+    \begin{itemize}
+      \item $g_1, g_2, \ldots, g_m, \ldots, g_k$; $o_1, o_2, \ldots, o_m$
+      (\textbf{sorted})
+      \item Base case: $o_1 \Rightarrow g_1$
+        \begin{itemize}
+          \item $o_1 \le g_1$
+          \item $o_1$ covers $I$ $\Rightarrow$ $g_1$ covers $I$ (by
+          contradiction again!)
+        \end{itemize}
+      \item Inductive step:
+		\begin{itemize}
+           \item $g_1, g_2, \ldots, g_{j-1}, g_{j}, \ldots, g_m, \ldots, g_k$;
+           $g_1, g_2, g_{j-1}, o_{j}, \ldots, o_m$
+           \item $o_j \Rightarrow g_j$
+           \item consider the next $I$ for $g$ to cover
+       \end{itemize}
+      \item $m < k \Rightarrow o $ is not a solution.
+    \end{itemize}
+  \end{proof}
+
+  \begin{alertblock}{Question.}
+    \begin{itemize}
+      \item points-cover-intervals vs. interval-scheduling
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Tiling path \problemno{6.2.11}}
+    \begin{itemize}
+      \item $X$: a set of intervals; finding $Y \subseteq X$ to cover all
+      intervals.
+	  \item To minimize $|Y|$.
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Algorithm:}
+    \begin{itemize}
+      \item heuristics: longest (overlapping wasted); starts/finishes
+      first
+      \fignocaption{width = 0.20\textwidth}{fig/tiling-path-example.pdf}
+      \item greedy:
+        \begin{itemize}
+          \item you need to cover the first interval
+          \item what then?
+      	  \item always pick the interval reaching furthest right
+        \end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Tiling path \problemno{6.2.11}}
+    \begin{itemize}
+      \item $X$: a set of intervals; finding $Y \subseteq X$ to cover the real
+      line.
+	  \item To minimize $|Y|$.
+    \end{itemize}
+  \end{block}
+
+  \fignocaption{width = 0.50\textwidth}{fig/tiling-path.png}
+
+  \begin{proof}
+	\begin{itemize}
+	  \item $o_1, o_2, \ldots, o_m$ sorted/identified by finishing times
+	  \item contradiction + induction + exchange argument
+	\end{itemize}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Interval coloring/partition \problemno{6.2.13}}
+    \begin{itemize}
+      \item applications: scheduling conflicting
+        \begin{itemize}
+      	  \item lectures (intervals) : (as few as possible) classrooms;
+      	  \item jobs : machines
+        \end{itemize}
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Algorithm and Example.}
+    \begin{itemize}
+      \item sorted all times
+      \item lock/unlock colors
+    \end{itemize}
+
+    \fignocaption{width = 0.60\textwidth}{fig/interval-coloring-example.png}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Interval coloring/partition \problemno{6.2.13}}
+  \end{block}
+
+  \begin{block}{proof}
+    \begin{enumerate}
+      \item Observation: \#colors $\geq$ depth $D$ of intervals
+		\begin{itemize}
+		  \item $t: I_t = \set{I \mid t \in I}$
+		  \item $D = \max_{t} |I_t|$
+		\end{itemize}
+	  \item Greedy algorithm: $\#\textrm{colors} = D$
+	    \begin{itemize}
+	      \item no two overlapping intervals are assigned the same color (color is
+	      locked)
+	      \item each interval $I$ is colored
+	        \begin{itemize}
+	          \item at least one color is free for $I$
+	        \end{itemize}
+	    \end{itemize}
+    \end{enumerate}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Base stations \problemno{6.2.16}}
+    \begin{itemize}
+      \item houses: $x_1 < x_2 < \cdots < x_n$
+      \item base stations: $s_1 < s_2 < \cdots < s_k$
+      \item coverage of base station: $t$
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Algorithm.}
+	No overlapping coverage allowed.
+    \begin{itemize}
+      \item the first station: $s_1 = x_1 + t$
+      \item remove the houses covered by $s_1$
+      \item recurs on other houses
+    \end{itemize}
+  \end{block}
+
+  \begin{proof}
+	\begin{itemize}
+	  \item $o_1 \Rightarrow g_1$: $o_1 \le x_1 + t$
+	  \item $o_j \Rightarrow g_j$: $g_j$ is the rightmost position to cover the
+	  first uncovered house
+	  \item $m < k$: contradiction.
+	\end{itemize}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Rest stop \problemno{6.2.17}}
+    \begin{itemize}
+      \item rest stops: $x_1 < x_2 < \cdots < x_n$
+      \item one charging for 100\emph{km}
+      \item to minimize the times of charging
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Algorithm.}
+    Go as far as possible.
+    \begin{itemize}
+      \item the farthest rest stop he can reach
+      \item recurs on the rest of rest stops
+    \end{itemize}
+  \end{block}
+
+  \begin{proof}
+    \begin{itemize}
+      \item $g$ and $o$ consist of positions of rest stops
+    \end{itemize}
+    Relation with ``tiling path'' \problemno{6.2.11}.
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Total service time \problemno{6.2.20}}
+    \begin{itemize}
+      \item a server : $n$ customers
+      \item service time for customer $i$: $t_i$
+      \item to minimize $T = \sum_{i=1}^{n} (\sum_{j=1}^{i} t_j)$
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Algorithm.}
+    Sorted by increasing service times
+  \end{block}
+
+  \begin{proof}
+    \begin{itemize}
+      \item To prove: $T$ is minimized $\Leftrightarrow$ any solution $o_1, o_2,
+    	\ldots, o_n$ is increasingly sorted.
+   	  \item contradiction + exchange argument
+    \end{itemize}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Optional Greedy Algorithms}
+
+%%%%%%%%%%%%%
+\begin{frame}
+  \begin{block}{(Optional) Bottleneck spanning tree: \problemno{6.2.14}}
+  	$G = (V,E)$ has a set $\mathcal{T}$ of spanning trees of $G$; the most
+  	expensive edge is as cheap as possible:
+	\[
+	  \min_{T \in \mathcal{T}} \left( \max_{e \in T} w(e) \right)
+	\]
+  \end{block}
+
+  \begin{block}{Solution}
+    \begin{itemize}
+      \item $\textrm{MST} \Rightarrow \textrm{BST}$
+        \begin{itemize}
+          \item $e \in T, e' \in T', w(e') < w(e)$
+          \item $T - \set{e} \Rightarrow (S, V \setminus S): \forall e''
+          \textrm{ across } (S, V \setminus S), w(e'') \geq w(e) > w(e')$
+          \item $T'$ is not an ST.
+        \end{itemize}
+      \item $\textrm{MST} \nLeftarrow \textrm{BST}$
+        \fignocaption{width = 0.20\textwidth}
+        	{fig/bottleneck-spanning-tree-example.pdf}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{(Optional) Bottleneck spanning tree: \problemno{6.2.14}}
+  	$G = (V,E)$; a set $\mathcal{T}$ of spanning trees of $G$:
+	\[
+	  \min_{T \in \mathcal{T}} \left( \max_{e \in T} w(e) \right)
+	\]
+  \end{block}
+
+  \begin{block}{$\Theta(m)$ algorithm $\textrm{BST}(G)$:}
+    \[
+      T(m) = T(m/2) + \Theta(m)
+    \]
+	\begin{enumerate}
+	  \item $E = E_A \cup E_B$ ($\forall e \in E_A, \forall e' \in E_B: w(e) \leq
+	  w(e')$)
+	  \item If $G_{E_A}$ is connected, $\textrm{BST}(G_{E_A})$ recursively
+	  \item If $G_{E_A}$ is not connected, $\textrm{BST}\left((G_{E_A})_{\eta} \cup
+	  G_{E_B}\right)$ recursively
+	\end{enumerate}
+	Check: \url{https://en.wikipedia.org/wiki/Minimum_bottleneck_spanning_tree}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Is $e$ in Some MST? \problemno{6.1.11}}
+    $O(m+n)$ to decide that is $e$ in some MST?
+  \end{block}
+
+  \begin{block}{Algorithm.}
+    \begin{itemize}
+      \item removing all edges of weight $\geq w(e)$
+      \item checking connectivity
+    \end{itemize}
+  \end{block}
+
+  \begin{proof}
+    \textbf{Theorem}: Edge $e = (u,v)$ does not belong to any MST $\iff$ $u$ and
+    $v$ can be joined by a path consisting of edges of weight $<w(e)$.
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{MST in Subgraph \problemno{6.2.3}}
+    \begin{itemize}
+      \item $T$ is an MST of $G$; $H \subseteq G$ connected
+      \item To prove: $T \cap H$ is part of some MST of $H$
+    \end{itemize}
+  \end{block}
+
+  \fignocaption{width = 0.50\textwidth}{fig/mst_subgraph.pdf}
+
+  \begin{proof}
+	Check: \url{http://cs.stackexchange.com/a/43142/4911}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Second MST \problemno{6.1.3}}
+    Find a second MST.
+  \end{block}
+
+  \begin{block}{Algorithm.}
+    The second MST differs from MST by \emph{a single} edge exchange.
+  \end{block}
+
+  \begin{proof}
+    Complicated.
+  \end{proof}
+\end{frame}
+% %%%%%%%%%%%%%%%%%%%
+\section*{Summary}
+\begin{frame}{}
+  \begin{figure}[htp]
+    \begin{center}
+      \includegraphics[width=0.618\textwidth]{fig/thankyou.jpg}
+    \end{center}
+  \end{figure}
+\end{frame}
+%%%%%%%%%%
+\end{document}
+

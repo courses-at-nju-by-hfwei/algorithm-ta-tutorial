@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.14pt}
+\beamer@sectionintoc {1}{Divide and Conquer}{3}{0}{1}
+\beamer@sectionintoc {2}{Amortized Analysis}{22}{0}{2}
+\beamer@sectionintoc {3}{Adversary Argument}{30}{0}{3}

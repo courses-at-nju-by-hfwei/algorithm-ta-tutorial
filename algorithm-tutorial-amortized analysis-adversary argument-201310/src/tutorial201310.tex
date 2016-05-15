@@ -1,0 +1,434 @@
+%% LaTeX Beamer presentation template (requires beamer package)
+%% see http://bitbucket.org/rivanvx/beamer/wiki/Home
+%% idea contributed by H. Turgut Uyar
+%% template based on a template by Till Tantau
+%% this template is still evolving - it might differ in future releases!
+
+\documentclass{beamer}
+\mode<presentation>
+{
+	\usetheme{Singapore}
+	\setbeamertemplate{footline}[frame number]
+	\usefonttheme{serif}
+	
+	\setbeamertemplate{navigation symbols}{}
+    \setbeamertemplate{caption}[numbered]
+% 	\setbeamercovered{transparent}
+}
+
+\usepackage{graphics}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\title{Tutorial}
+
+%\subtitle{}
+
+%\author{Hengfeng Wei}
+
+% \institute[Universities of]
+% {
+% 	Institute of Computer Software, NJU
+% }
+
+\date{\today}
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSubsection[]
+{
+	\begin{frame}<beamer>
+		\frametitle{Tutorial}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+
+\AtBeginSection[]
+{
+	\begin{frame}<beamer>
+		\frametitle{Tutorial}
+		\tableofcontents[currentsection]
+	\end{frame}
+}
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Tutorial}
+	\tableofcontents
+% You might wish to add the option [pausesections]
+\end{frame}
+
+%%%%%%%%%%%%%%%
+\section{Amortized Analysis}
+
+\begin{frame}
+  \frametitle{Basic}
+  \begin{quote}
+    Amortized analysis is a strategy for analyzing \\ 
+    \textcolor{blue}{a sequence of operations} to show that \\
+    \textcolor{blue}{the average cost per operation} is small, \\ 
+    even though a \textcolor{blue}{single operation within the sequence might be
+    expensive}.
+  \end{quote}
+  
+  \vspace{0.30cm}
+  Key points:
+  \begin{itemize}
+    \setlength{\itemsep}{3pt}
+    \item $\neq$ average-case analysis; \textcolor{red}{no probability here}\\
+    (\textsc{Quick-Sort}, \textsc{HashTable})
+    \item worst-case analysis; upper-bound
+    \item on operation sequence; not on separate operations
+    \item cheap ops (often) vs. expensive ops (occasionally)
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Basic}
+  
+  Methods:
+  \begin{itemize}
+    \setlength{\itemsep}{3pt}
+    \item summation method
+    \begin{itemize}
+      \item the op sequence is known and easy to analyze
+      \item sum and then average
+    \end{itemize}
+    \item accounting method
+    \begin{itemize}
+      \item impose an extra charge on inexpensive ops and use it to pay
+      for expensive ops later on
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example for Summation Method}
+  
+  \begin{example}[Binary Counter]
+    \begin{itemize}
+      \item start from 0
+	  \item \textsc{Increment}
+	  \item measure: \emph{bit flip}
+      \item cost sequence: $1,2,1,3,1,2,1,4,1,2,1,3,1,2,1,5,\ldots$
+      \item think globally about each bit: 
+        \[
+          \sum_{i=0}^{\floor{\log n}} \floor{\frac{n}{2^i}} < n
+          \sum_{i=0}^{\infty} \floor{\frac{1}{2^i}} = 2n
+        \]
+      \item average cost per op: $2$ 
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Accounting Method}
+  
+  Accounting method: \\ 
+  \emph{amortized cost = actual cost + accounting cost}
+  \[
+    \hat{c_i} = c_i + a_i, a_i >=< 0. 
+  \]
+  \[ 
+    \forall n, \sum_{i=1}^{n} \hat{c_i} = \sum_{i=1}^{n} c_i + \sum_{i=1}^{n}
+    a_i
+  \]
+  \begin{itemize}
+    \item upper bound: the \emph{total amortized cost} of a sequence of ops must
+    be an upper bound on the \emph{total actual cost} of the sequence
+        \[ \forall n, \sum_{i=1}^{n} \hat{c_i} \geq \sum_{i=1}^{n} c_i
+          \Rightarrow \textcolor{red}{\forall n, \sum_{i=1}^{n} a_i \geq 0} 
+        \]
+	\item put the accounting cost on specific objects 
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Example for Accounting Method}
+  
+  \begin{example}[Binary Counter]
+    To show that $\hat{c_i} = 2$:
+    \begin{itemize}
+      \item low-level bit: $0 \to 1 (c=2 = 1:set+1:accouting)$
+      \item put the accounting (1) on the bit 1; number of 1s = sum of
+      accounting $\geq 0$
+      \item $1 \to 0 (c=0)$
+      \item \textsc{Increment} $\hat{c_i} = 2: (0 \to 1) + (1 \to 0)$; \emph{at
+      most $0 \to 1$}
+    \end{itemize}
+  \end{example}
+  
+  \begin{block}{Remarks}
+    \begin{itemize}
+      \item \emph{you cannot say:} cost per operation = 2
+      \item \emph{you should say:} average cost per operation over any operation
+      sequence $\leq$ 2
+      \item constant vs. variable
+      \item \textsc{Decrement}? how to support \textsc{Decrement} in $O(1)$?
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Table Expansion}
+  
+  \begin{example}[Table Expansion]
+    \begin{itemize}
+      \item ``double when it is full''
+      \item \textsc{Table-Insert}
+      \item measure: \emph{elementary insert}
+    \end{itemize}
+    \begin{itemize}
+      \item Summation Method: \\
+        \emph{a sequence of $n$ \textsc{Table-Insert}}
+        \begin{itemize}
+          \item \begin{displaymath}
+					c_i = \left\{ \begin{array}{ll}
+					i & \textrm{if $i-1$ is an exact power of 2}\\
+					l & \textrm{o.w.}
+					\end{array} \right.
+				\end{displaymath}
+		  \item \[
+				  \sum_{i=1}^{n} c_i \leq n + \sum_{j=0}^{\floor{\lg n}} 2^j < n + 2n = 3n.
+		  		\]
+        \end{itemize}
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Table Expansion}
+  
+  \begin{example}[Table Expansion]
+    \begin{itemize}
+      \item ``double when it is full''
+      \item \textsc{Table-Insert}
+      \item measure: \emph{elementary insert}
+    \end{itemize}
+    \begin{itemize}
+      \item Accounting Method: \\
+        \emph{why $\hat{c_i} = 3$? why not 2?}
+        \begin{itemize}
+          \setlength{\itemsep}{3pt}
+          \item check $\hat{c_i} = 2 = 1 (insert) + 1 (move)$
+		  \item problem: $2 \Rightarrow 4 (\textrm{after expansion}, \sum a_i = 0)
+		  \Rightarrow 8$
+		  \item so, $\hat{c_i} = 3 = 1 (insert) + 1 (\textrm{move itself}) + 1
+		  (\textrm{give a hand})$
+		  \item Meta-method: \textcolor{red}{trial and error} 
+        \end{itemize}
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Insertion Cost (4.2.7)}
+  
+  \begin{example}[Insertion Cost (4.2.7)]
+    \begin{itemize}
+      \item \textsc{Insert}
+      \item measure: create (1; ignore here) + merge ($2m$)
+    \end{itemize}
+    Summation Method: \[ \sum_{i=1}^{\floor{\lg n}} \frac{n}{2^i} 2^i = n \lg
+    n \textrm{ (\textcolor{red}{  Errata:} not $i=0$ in class)}
+    \]
+    
+    Accounting Method: 
+      \begin{itemize}
+        \item $\hat{c_i} = \lg n$
+        \item consider each inserted element
+        \item to check $\sum a_i = \sum_{i} (\lg n - D_{a_i}) \geq 0$
+      \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Union Find}
+  
+  \begin{example}[Union Find]
+    \begin{itemize}
+      \item \textsc{Make-Set}
+      \item \textsc{wUnion}
+      \item \textsc{cFind}: beautiful code ($P_{289}$, $P_{508}$)
+      \item $\hat{c}$ \emph{are different}
+      \item worst-case
+    \end{itemize} 
+  \end{example}
+\end{frame}
+%%%%%%%%%%%%%%%
+\section{Adversary Argument}
+
+\begin{frame}
+  \frametitle{Basic}
+  
+  \begin{itemize}
+    \item lower bound
+      \[ T(A) = \max_{I} T(A,I) \]
+      \[ T(P) = \min_{A} \max_{I} T(A,I) \]
+    \item two directions: \uppercase{Sorting}
+		\[ n! \Rightarrow n^2 (cards) \Rightarrow n \lg n (\textrm{John von
+		Neumann}@1948) \Rightarrow ??? \] 
+		\[ n \Rightarrow n \lg n \]
+    \item adversary argument
+      \begin{itemize}
+        \setlength{\itemsep}{3pt}
+        \item alg vs. adversary
+        \item \emph{alg says:} I have a dream
+        \item \emph{adversary says:} pay something \textcolor{red}{necessary}  
+        \item adversary strategy: also an alg; \textcolor{red}{How to construct
+        it?}
+        \item finding min and max; finding the second largest; \\ 
+        finding median; horse racing; matrix search
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Finding the Median}
+  
+  \begin{example}[Finding the Median]
+    \begin{itemize}
+      \item decision tree
+		\begin{itemize}
+		  \item tree vs. alg
+		  \item path vs. execution on input
+		  \item internal node vs. comparison
+		  \item leaf vs. output
+		\end{itemize}
+      \item $\forall$ leaf, $x^{\ast}$: every other keys are comparable to
+      $x^{\ast}$. \textcolor{red}{why?}
+      \item critical comparison (first): $\forall y, \exists y \textrm{ vs. } z:
+      y > z \geq x^{\ast} \textrm{ or } y < z \leq x^{\ast}$
+		\begin{itemize}
+		  \item path, internal node
+		  \item \emph{alg:} how do I know?
+		  \item \emph{adversary:} no, you don't know. It is my \emph{private
+		  classification}.
+		  \item \emph{alg:} so you can cheat!
+		  \item \emph{adversary:} no, look at this path; critical, critical,
+		  non-critical $\ldots$ (example)
+		\end{itemize}
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Finding the Median}
+  
+  \begin{example}[Finding the Median]
+    Adversary: \emph{to enfore critical comparisons + non-critical operations as
+    many as possible}
+    \begin{itemize}
+      \item critical: $n-1$
+      \item non-critical:
+        \begin{itemize}
+          \item $L;N;S$
+          \item \textsc{Compare}$(x,y)$ until $|L| = \frac{n-1}{2}$ or $|R| =
+          \frac{n-1}{2}$ 
+          $$N,N;N,S; S,N;N,L; L,N;$$
+          $$L,S; S,L;$$ 
+          $$L,L; S,S \textrm{(\emph{maybe critical}; however no new } L, S)$$
+        \end{itemize}
+      \item \emph{alg:} do $|L| = \frac{n-1}{2}$ at least; via \textsc{Compare}
+      \item \emph{adversary:} $1 L$ per compare at most; all non-critical
+      \item \emph{alg:} at least $\frac{n-1}{2}$ non-critical comparisons
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Horse Racing}
+  
+  \begin{example}[Horse Racing]
+    \begin{itemize}
+      \item 25;5;3
+      \item 7 rounds
+      \item adversary argument
+        \begin{itemize}
+          \item $< 5$: \textcolor{red}{why?}
+          \item $= 5$: which is the fastest?
+          \item $= 6$: to know the fastest, you must run the five first ranked
+          \textcolor{red}{why?}
+          \item $= 6$: which is the second? ($a_2, b_1$)
+        \end{itemize}
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Matrix Search}
+  
+  \begin{example}[Matrix Search ($P_{246}$, 5.24)]
+    \begin{itemize}
+      \item $M[n][n]$; row; column
+      \item $n^2 \Rightarrow T(n) = 3T(\frac{n}{2}) + O(1) = n^{\lg 3}
+      \Rightarrow 2n-1$
+      \item $2n-1:$ check the below-left corner element
+      \item worst case: check the two diagonals $i+j=n-1,i+j=n$
+      \item adversary \textsc{Compare$(x, M[i,j])$}:
+      \[
+        i + j \leq n-1 : x > M[i,j]; i + j > n-1 : x < M[i,j]
+      \] 
+      \item \emph{alg:} at least check every element in two diagonals 
+      \item \emph{adversary:} eliminates 1 at most per comparison
+      \item \emph{alg:} at least $2n-1$ comparisons 
+    \end{itemize}
+  \end{example}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%
+\section{Other Problems}
+
+\begin{frame}
+  \frametitle{Other Problems}
+  
+  \begin{itemize}
+    \setlength{\itemsep}{5pt}
+    \item 4.2.3: sorted, distinct; $O(\lg n)$; $a_i = i$; binary search; $T(n)
+    = T(\frac{n}{2}) + O(1)$
+    \item 4.2.5: search for two numbers; $x = a+b$; 
+    
+    \textcolor{red}{extension: sorted}; 
+    
+    Ex: 1,2,3,5,8,9;2,3,4,6,10,12 \textcolor{red}{[proof or counterexample]}
+    \item 4.2.6: closed address hashing
+    	\[
+    	  Q_k = (\frac{1}{n})^k (1-\frac{1}{n})^{n-k} \binom{n}{k}
+    	\]
+    \item 4.1.4,4.1.5,4.1.6: binomial tree
+    \item 2.1.2: $H \leq N -1$
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%
+% \section*{Summary}
+% \begin{frame}
+%   \frametitle{}
+%   
+% %   \begin{figure}[htp]
+% % 	\centering
+% % 	  \includegraphics[scale = 0.40]{figure/thankyou.png}
+% %   \end{figure}
+% \end{frame}
+%%%%%%%%%%
+\end{document}

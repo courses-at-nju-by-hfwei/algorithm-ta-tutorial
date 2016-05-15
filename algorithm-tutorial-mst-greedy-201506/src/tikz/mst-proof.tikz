@@ -1,0 +1,16 @@
+\usetikzlibrary{shapes, arrows, positioning, shapes, topaths}
+
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, font = \Large]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, font = \Large]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+\begin{tikzpicture}[node distance = 3.0cm]
+  \node (start) [startstop] {$X = \emptyset$};
+  \node (loop) [process, below of = start] {$X = X \cup \{e\}$};
+  \node (end) [startstop, below of = loop] {$|X| = n-1$};
+  
+  \draw[arrow] (start) to (loop);
+ \draw[arrow] (loop) to [out = -30, in = 30, looseness = 6] node[below, near start, font = \Large] {Cut Property} (loop);
+  %\path (loop) edge [loop right] node {0.6} (loop);
+  \draw[arrow] (loop) to (end);  
+\end{tikzpicture}

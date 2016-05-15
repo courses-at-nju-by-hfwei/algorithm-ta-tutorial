@@ -1,0 +1,21 @@
+========== TIKZEDT UNCAUGHT EXCEPTION ======
+6/13/2015 10:40:17 AM
+Object reference not set to an instance of an object.
+
+Stack Trace:
+   at TikzEdt.TESettingsProvider.SetValue(SettingsPropertyValue propVal)
+   at TikzEdt.TESettingsProvider.SetPropertyValues(SettingsContext context, SettingsPropertyValueCollection propvals)
+   at System.Configuration.SettingsBase.SaveCore()
+   at System.Configuration.SettingsBase.Save()
+   at System.Configuration.ApplicationSettingsBase.Save()
+   at TikzEdt.MainWindow.Window_Closing(Object sender, CancelEventArgs e)
+   at System.ComponentModel.CancelEventHandler.Invoke(Object sender, CancelEventArgs e)
+   at System.Windows.Window.OnClosing(CancelEventArgs e)
+   at System.Windows.Window.WmClose()
+   at System.Windows.Window.WindowFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at System.Windows.Interop.HwndSource.PublicHooksFilterMessage(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndWrapper.WndProc(IntPtr hwnd, Int32 msg, IntPtr wParam, IntPtr lParam, Boolean& handled)
+   at MS.Win32.HwndSubclass.DispatcherCallbackOperation(Object o)
+   at System.Windows.Threading.ExceptionWrapper.InternalRealCall(Delegate callback, Object args, Int32 numArgs)
+   at MS.Internal.Threading.ExceptionFilterHelper.TryCatchWhen(Object source, Delegate method, Object args, Int32 numArgs, Delegate catchHandler)
+===== END: TIKZEDT UNCAUGHT EXCEPTION ======

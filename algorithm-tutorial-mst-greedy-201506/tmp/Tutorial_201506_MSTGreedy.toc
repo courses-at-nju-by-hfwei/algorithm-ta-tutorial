@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.33pt}
+\beamer@sectionintoc {1}{Minimum Spanning Tree}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{MST Property, Cut Property, and Cycle Property}{4}{0}{1}
+\beamer@subsectionintoc {1}{2}{Updating MST}{15}{0}{1}
+\beamer@subsectionintoc {1}{3}{Variants of MST}{19}{0}{1}
+\beamer@sectionintoc {2}{Greedy Algorithms on Intervals}{25}{0}{2}
+\beamer@sectionintoc {3}{Optional Greedy Algorithms}{35}{0}{3}

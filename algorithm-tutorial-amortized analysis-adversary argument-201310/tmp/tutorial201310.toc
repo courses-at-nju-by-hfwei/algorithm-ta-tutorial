@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.14pt}
+\beamer@sectionintoc {1}{Amortized Analysis}{3}{0}{1}
+\beamer@sectionintoc {2}{Adversary Argument}{13}{0}{2}
+\beamer@sectionintoc {3}{Other Problems}{19}{0}{3}

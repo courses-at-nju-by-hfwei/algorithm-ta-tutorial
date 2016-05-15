@@ -1,0 +1,4 @@
+\beamer@endinputifotherversion {3.14pt}
+\beamer@sectionintoc {1}{BFS: Algorithm}{3}{0}{1}
+\beamer@sectionintoc {2}{BFS: Properties}{14}{0}{2}
+\beamer@sectionintoc {3}{BFS: Applications}{19}{0}{3}

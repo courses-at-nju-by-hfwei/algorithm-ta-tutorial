@@ -1,0 +1,81 @@
+%%%%%%%%%%%%%%%%%%%%%%% Minimum Spanning Tree %%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Minimum Spanning Tree}
+
+\begin{frame}
+  \frametitle{Minimum Spanning Tree}
+
+    \begin{itemize}
+
+    \item (\textcolor{purple}{Evaluate Prim's MST algorithm implemented with min-heap} ([\textcolor{blue}{$P_{417}$ 8.9}]):) \\
+        \begin{enumerate}
+          \item Find the asymptotic order of the number of comparisons of edge weights in the worst case.
+          \item Find the asymptotic order of the number of comparisons of edge weights on a \textcolor{blue}{bounded-degree} family.
+          \item Find the asymptotic order of the number of comparisons of edge weights on a \textcolor{blue}{planar graph}.
+        \end{enumerate}
+
+    \end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Minimum Spanning Tree}
+
+    \[
+      T(n,m) = O \big (nT(getMin) + nT(deleteMin) + mT(decreaseKey) \big ). (\lbrack \textcolor{blue}{P_{395}} \rbrack)
+    \]
+
+    \pause
+
+    \begin{itemize}
+      \item $getMin: O(1)$.  \\  \emph{no comparison of edge weights}.
+      \item $deleteMin: O(\log n)$.  \\  \textcolor{red}{NOT}: $O(\log m)$.
+      \item $decreaseKey: O(\log n)$.  \\ \textcolor{red}{NOT}: $O(n + \log n)$ where $O(n)$ for search ([\textcolor{blue}{$P_{296}$}]).
+      \item ``Else if newWgt less than fringeWgt for w'' ([\textcolor{blue}{$P_{395}$}]) : $O(m).$
+      \item \textcolor{blue}{In total,}
+      \[
+      T(n,m) = O(n \log n + m \log n + 2m) = O((n+m) \log n).
+      \]
+    \end{itemize}
+
+\end{frame}
+
+
+
+\begin{frame}
+  \frametitle{Minimum Spanning Tree}
+
+  \begin{itemize}
+      \item
+        $m \le \frac{nk} {2}, \Rightarrow T(n,m) = O((n+m) \log n) = O((n+ \frac{nk}{2}) \log n) = O(n \log n).$
+
+        \pause
+
+      \item
+        First, we should know the relation between $m$ and $n$.
+        \begin{equation}
+          n - m + f = 2. \label{eq: EulerExtension}
+        \end{equation}
+
+        If $deg(f_i) \ge l$,
+        \begin{equation}
+          2m = \sum_{i=1}^f deg(R_i) \ge lf. \label{eq: Handshaking}
+        \end{equation}
+        \begin{equation}
+          m \le \frac{l}{l-2}(n-2)
+        \end{equation}
+
+        \pause
+
+        If $G$ is tree, $m=n-1$; Else, $l \ge 3$.
+        \begin{equation}
+          \textcolor{blue}{m \le \frac{l}{l-2}(n-2) \le 3(n-2) = 3n - 6}
+        \end{equation}
+        \[
+          T(n,m) = O((n+m) \log n) = O((n + 3n) \log n) = O(n \log n).
+        \]
+  \end{itemize}
+
+\end{frame} 

@@ -1,0 +1,22 @@
+\begin{tikzpicture}[]
+  \node [draw, circle] (r) at (0,0) {$r$};
+  \node [draw, circle, blue, very thick] (s) at (2,0) {$s$};
+  \node [draw, circle] (t) at (4,0) {$t$};
+  \node [draw, circle] (u) at (6,0) {$u$};
+
+  \node [draw, circle] (v) at (0,-2) {$v$};
+  \node [draw, circle] (w) at (2,-2) {$w$};
+  \node [draw, circle] (x) at (4,-2) {$x$};
+  \node [draw, circle] (y) at (6,-2) {$y$};
+
+  \draw (r) to (v);
+  \draw (r) to (s);
+  \draw (s) to (w);
+  \draw (t) to (u);
+  \draw (t) to (w);
+  \draw (t) to (x);
+  \draw (u) to (x);
+  \draw (u) to (y);
+  \draw (x) to (y);
+  \draw (y) to (u);
+\end{tikzpicture}

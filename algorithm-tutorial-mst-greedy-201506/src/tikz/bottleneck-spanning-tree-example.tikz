@@ -1,0 +1,15 @@
+\usetikzlibrary{backgrounds, fit, positioning}
+
+\tikzstyle{vertex}=[circle,fill=black!25,minimum size=20pt,inner sep=0pt]
+\tikzstyle{edge} = [draw,thick,-]
+
+\begin{tikzpicture}[scale = 1.5, auto, swap]
+    % vertices
+    \foreach \pos/\name in {{(0,0)/a}, {(0,-2)/b}, {(2,-2)/c}, {(2,0)/d}}
+        \node[vertex] (\name) at \pos {$\name$};
+        
+    % Connect vertices with edges and draw weights
+    \foreach \source/ \dest/\weight in {a/b/2, b/c/2, c/d/2}
+        \path[edge, blue] (\source) -- node[font = \Large] {$\weight$} (\dest);
+   \draw (b) to node[thick] {1} (d);
+\end{tikzpicture}
