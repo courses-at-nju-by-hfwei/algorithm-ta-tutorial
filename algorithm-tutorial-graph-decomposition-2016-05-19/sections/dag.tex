@@ -22,6 +22,22 @@
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%
+\begin{frame}{Digraph as DAG}
+  \begin{exampleblock}{Digraph as DAG \pno{3.4.6}}
+    \begin{theorem}
+      Every digraph is a dag of its SCCs.
+    \end{theorem}
+  \end{exampleblock}
+
+  \begin{alertblock}{Remark.}
+    \begin{itemize}
+      \item SCC algorithm
+      \item SCC: reachability/connectivity equivalence class
+      \item two tiered structure of digraphs
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
 \begin{frame}{Kahn's toposort algorithm}
   \begin{exampleblock}{Kahn's toposort algorithm (1962) \pno{3.4.19}}
     \begin{itemize}
@@ -45,6 +61,106 @@
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%
+\begin{frame}{Hamiltonian path in DAG}
+  \begin{exampleblock}{Hamilton path in DAG \pno{3.4.16}}
+    \begin{itemize}
+      \item DAG $G$
+      \item path visiting each vertex once
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item general digraph: NP-hard
+      \item dag: $\exists$ HP $\iff$ $\exists!$ topo. ordering
+	\begin{itemize}
+	  \item $\Leftarrow$: By contridiction. $\exists u \sim v: u \nrightarrow v$; swap
+	\end{itemize}
+    \end{itemize}
+
+    Algorithm:
+    \begin{itemize}
+      \item toposort, check edges
+      \item the Kahn toposort algorithm
+    \end{itemize}
+  \end{block}
+\end{frame}
 %%%%%%%%%%%%%%%
+\begin{frame}{Semi-connected DAG}
+  \begin{definition}{Semi-connected digraph}
+    $\forall u,v: u \leadsto v \lor v \leadsto u$
+  \end{definition}
+
+  \begin{exampleblock}{Semi-connected DAG \pno{3.4.21 (c) + (d)}}
+    To test whether a DAG is semi-connected.
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{center}
+      dag: $\exists$ HP $\iff$ $\exists!$ topo. ordering $\iff$ semi-connected
+    \end{center}
+
+    \begin{proof}
+      \begin{itemize}
+	\item $\Leftarrow$: by contradiction; total order ($\forall u,v: u \prec v \lor v \prec u$)
+	\item $\Rightarrow$: $\exists HP$
+      \end{itemize}
+    \end{proof}
+  \end{block}
+\end{frame}
 %%%%%%%%%%%%%%%
+\begin{frame}{Minimum cost reachable}
+  \begin{exampleblock}{Minimun cost reachable \pno{3.4.22}}
+    Compute $\text{cost}[u] = \min \set{\text{cost}[v] \mid u \leadsto v}$.
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item dag: reverse topo. ordering
+	\begin{itemize}
+	  \item backtracking: $\text{cost}[u] = \min_{u \to v} \set{\text{cost}[v]}$
+	\end{itemize}
+      \item digraph: dag of scc
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Line up}
+  \begin{exampleblock}{Line up \pno{3.4.29}}
+    \begin{itemize}
+      \item $i$ hates $j$: $i \prec j$
+      \item $i$ hates $j$: $\# i < \# j$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    $i$ hates $j$: $i \to j$;
+    \begin{itemize}
+      \item DAG?
+      \item longest path; critical path
+      \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{One-to-all reachability}
+  \begin{exampleblock}{One-to-all reachability \pno{3.4.28}}
+    \begin{itemize}
+      \item given $v: v \leadsto^{?} \forall u$
+      \item $\exists? v: v \leadsto \forall u$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item DFS/BFS
+      \item SCC; $\exists!$ source vertex $v$ $\iff$ $v \leadsto \forall u$
+	\begin{proof}
+	  \begin{itemize}
+	    \item $\Rightarrow$: By contradiction. $\exists u: v \nrightarrow u \land \text{in}[u] > 0 \Rightarrow \exists u' \to u \land v \nrightarrow u'$. Cycle. 
+	    \item $\Leftarrow$: (1) source; (2) $\exists !$
+	  \end{itemize}
+	\end{proof}
+    \end{itemize}
+  \end{block}
+\end{frame}
 %%%%%%%%%%%%%%%
