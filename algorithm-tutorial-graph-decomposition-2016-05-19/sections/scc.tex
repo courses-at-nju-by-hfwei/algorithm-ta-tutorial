@@ -1,0 +1,96 @@
+\section{SCC}
+
+%%%%%%%%%%%%%%%
+\begin{frame}{SCC}
+  \begin{exampleblock}{Kosaraju SCC algorithm, 1978 \pno{3.4.7}}
+    \begin{itemize}
+      \item 1st DFS $\Rightarrow^{?}$ BFS
+      \item 2nd DFS $\Rightarrow^{?}$ BFS
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    digraph = dag of SCCs
+    \begin{itemize}
+      \item (2nd round) Repeat: traversal from $s \in \text{\textcolor{red}{sink} scc}$; delete
+      \item (1nd round) dag: toposort $\Rightarrow$ decreasing finish time $\Rightarrow$ $s \in \text{\textcolor{blue}{source} scc}$
+    \end{itemize}
+  \end{block}
+
+  \begin{alertblock}{Remark.}
+    \begin{itemize}
+      \item DFS on $G^{T}$; DFS/BFS on $G$
+      \item DFS on $G$; DFS/BFS on $G^{T}$
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{One-way streets}
+  \begin{exampleblock}{One-way streets \pno{3.4.23}}
+    \begin{itemize}
+      \item $\forall u,v: u \leftrightsquigarrow v$
+      \item $s: s \leadsto v \leadsto s$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item $G$ is an SCC
+      \item $\set{v \mid s \leadsto v}$ is an SCC
+	\begin{itemize}
+	  \item compute $\set{v \mid s \leadsto v}$
+	  \item compute SCCs
+	  \item compare
+	\end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Infinite path}
+  \begin{exampleblock}{Infinite path \pno{3.4.25}}
+    \begin{itemize}
+      \item prove: $\text{Inf}(p) \subseteq \exists \text{SCC}$
+      \item an infinite path?
+      \item $\ldots \land$ visiting $\exists g \in V_{G}$ infinitely often
+      \item $\ldots \land$ not visiting $\exists b \in V_{B}$ infinitely often
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item $\text{cycle} \subseteq \exists \text{scc}$
+      \item $\exists \text{scc}: s \leadsto \text{scc}$
+      \item $\exists \text{scc}: s \leadsto \text{scc} \land \text{scc} \cap V_{G} \neq \emptyset$
+      \item delete $V_{B}$; $\exists \text{scc}: \text{scc} \cap V_{G} \neq \emptyset$; in $G$: $s \leadsto \text{scc}$
+	\begin{itemize}
+	  \item wrong: $\exists \text{scc}: s \leadsto \text{scc} \land \text{scc} \cap V_{G} \neq \emptyset \land \text{scc} \cap V_{B} = \emptyset$
+	  \item wrong: delete $V_{B}$; $\exists \text{scc}: s \leadsto \text{scc} \land \text{scc} \cap V_{G} \neq \emptyset$
+	\end{itemize}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Odd cycle in digraph}
+  \begin{exampleblock}{Odd cycle in digraph \pno{3.4.15}}
+    Find an odd cycle in a digraph $G$.
+  \end{exampleblock}
+
+  \begin{lemma}
+    A digraph $G$ has an odd directed cycle $\iff$ $\exists \text{scc}: $ scc is non-bipartite (when treated undirected).
+  \end{lemma}
+
+  \begin{proof}
+    \begin{itemize}
+      \item $\Leftarrow$: undirected $C$; oriented
+	\begin{itemize}
+	  \item odd directed cycle
+	  \item choose a direction $\forall u \to v$: $\text{Len}(v \leadsto u)$ 
+	\end{itemize}
+    \end{itemize}
+  \end{proof}
+
+  \begin{alertblock}{Remark.}
+    DFS + Coloring on $G$
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
