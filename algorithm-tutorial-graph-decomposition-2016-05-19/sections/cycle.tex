@@ -1,0 +1,67 @@
+\section{Cycle}
+
+%%%%%%%%%%%%%%%
+\begin{frame}{Cycle detection}
+  \begin{table}[ht]
+    \centering
+    \caption{Cycle detection \pno{3.4.21}}
+    \begin{tabular}{c||c|c}
+     \hline
+     		& Digraph 			& Undirected graph  \\ \hline \hline
+     DFS 	& back edge $\iff$ cycle 	& back edge $\iff$ cycle \\ \hline
+     BFS	& \begin{tabular}[c]{@{}l@{}}back edge $\Rightarrow$ cycle\\ cycle $\nRightarrow$ back edge \end{tabular} & cross edge $\iff$ cycle  \\ \hline
+    \end{tabular}
+  \end{table}
+
+  \begin{alertblock}{Remark.}
+    \begin{itemize}
+      \item cycle in undirected graphs
+      \item cycle in digraphs
+	\begin{itemize}
+	  \item DAG
+	  \item SCC
+	\end{itemize}
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Orientation of undirected graph}
+  \begin{exampleblock}{Orientation of undirected graph \pno{3.4.13}}
+    Undirected (connected) graph $G$, edge oriented s.t. $\forall v, \text{in}[v] \ge 1$.
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    orientation $\iff$ $\exists$ cycle; DFS
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Bipartite graph}
+  \begin{exampleblock}{Bipartite graph \pno{3.4.26; 3.4.32}}
+    To test bipartiteness of an undirected graph.
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{columns}
+      \column{0.40\textwidth}
+        BFS + Coloring:
+	\begin{itemize}
+	  \item pick any $s$, c[s] = 0
+	  \item $u \gets \text{Dequeue}(Q)$
+	  \item $\forall (u,v)$: 
+	    \begin{itemize}
+	      \item tree edge
+	      \item cross edge: \textcolor{red}{check}
+	    \end{itemize}
+	\end{itemize}
+      \column{0.60\textwidth}
+	\begin{proof}
+	  Check cross edge $(u,v)$:
+	  \begin{itemize}
+	    \item ($\exists$) $d[v] = d[u]$ $\Rightarrow$ the same layer $\Rightarrow$ odd cycle (\pno{3.4.17}; \textcolor{red}{EX}) $\Rightarrow$ non-bipartite
+	    \item ($\forall$) $d[v] = d[u] + 1$ $\Rightarrow$ different layers $\Rightarrow$ different colors
+	  \end{itemize}
+	\end{proof}
+    \end{columns}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%

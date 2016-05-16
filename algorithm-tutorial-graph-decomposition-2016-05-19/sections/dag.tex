@@ -1,0 +1,50 @@
+\section{DAG}
+
+%%%%%%%%%%%%%%%
+\begin{frame}{DAG}
+  \begin{center}
+    no back edge $\iff$ DAG $\iff$ $\exists$ topo. ordering
+  \end{center}
+
+  \begin{block}{Topo. sorting}
+    DFS on digraph, $u \to v$:
+    \begin{itemize}
+      \item back edge: $f(u) < f(v)$
+      \item others: $f(u) > f(v)$
+    \end{itemize}
+
+    \[ u \to v \Rightarrow u \prec v \] 
+    \[ u \to v \Rightarrow f(u) > f(v) \]
+
+    \begin{center}
+      Topo. sorting: sort vertices in \textcolor{blue}{\emph{decreasing}} order of their \textcolor{blue}{\emph{finish}} times.
+    \end{center}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Kahn's toposort algorithm}
+  \begin{exampleblock}{Kahn's toposort algorithm (1962) \pno{3.4.19}}
+    \begin{itemize}
+      \item queue for source vertices ($\text{in}[v] = 0$)
+      \item repeat: dequeue $v$, delete it, output it
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{lemma}
+      Every DAG has at least one source and at least one sink vertex.
+    \end{lemma}
+  \end{block}
+
+  \begin{alertblock}{Remark}
+    DFS on DAG:
+    \begin{itemize}
+      \item $\argmax_{v} f(v)$ $\Rightarrow$ source (used in SCC algorithm)
+      \item $\argmin_{v} f(v)$ $\Rightarrow$ sink
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%

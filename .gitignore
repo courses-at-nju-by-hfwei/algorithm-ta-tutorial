@@ -8,6 +8,7 @@
 *.toc
 *.fmt
 
+*.swp
 ## Intermediate documents:
 *.dvi
 *-converted-to.*
