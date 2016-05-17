@@ -1,0 +1,70 @@
+\section{Biconnectivity}
+
+%%%%%%%%%%%%%%%
+\begin{frame}{Biconnectivity algorithm}
+  \begin{center}
+    $G$ is biconnected $\iff$ $G$ has no articulation vertex.
+
+    $v$ is an articulation vertex $\iff$ $\exists x,y \in V: \forall p \equiv x \sim y, x \sim v \sim y$.
+
+    Biconnectivity algorithm by Tarjan\&Hopcroft, 1971
+  \end{center}
+
+  \begin{exampleblock}{Root of DFS tree as an articulation point \pno{3.4.8}}
+    DFS on undirected graph $G$ $\Rightarrow$ DFS tree $T$:
+    \begin{itemize}
+      \item leaf node
+      \item root node $r$: $\text{out}[r] \ge 2$
+	\begin{proof}
+	  \begin{itemize}
+	    \item $\Leftarrow$: ($G = $ tree + back); delete $r$; disconnect subtrees
+	    \item $\Rightarrow$: By contradiction. $\text{out}[r] = 1 \Rightarrow r$ is not an articulation vertex ($\forall x,y$).
+	  \end{itemize}
+	\end{proof}
+      \item internal node
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Biconnectivity algorithm}
+  \begin{exampleblock}{Articulation checking, 1971 \pno{3.4.10}}
+    DFS on undirected graph $G$ $\Rightarrow$ back edges:
+    \begin{center}
+      $v$ is not an articulation vertex $\iff \textcolor{red}{\forall} \text{subtree } T_{v} \text{ of } v, \text{back}[T_{v}] = v.\text{ancestor}$
+
+      $v$ is an articulation vertex $\iff \textcolor{red}{\exists} T_{v} \text{ of } v, \text{back}[T_{v}] = v \lor v.\text{descendant}$
+    \end{center}
+
+    $\exists$ $\Rightarrow$ checking articulation ($\text{wBack} \ge \text{d}[v]$) when backtracking from $w$ to $v$
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Biconnectivity algorithm}
+  \begin{exampleblock}{Initialization of $\text{back}[v]$, 1971 \pno{3.4.9}}
+    \begin{center}
+      $\text{back}[v] = \infty, 2n+1$ vs. $\text{back}[v] = d[v]$
+    \end{center}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    $\text{back}[v]$: the earliest reachable ancestor of $v$ by tree + back edges
+    \begin{itemize}
+      \item tree edge ($\to v$; discovered): $\text{back}[v] = d[v]$
+      \item back edge ($v \to w$): $\text{back}[v] = \min \set{\text{back}[v], d[w]}$
+      \item backtracking from $w$: $\text{back}[v] = \min \set{\text{back}[v], \text{back}[w] = \text{wBack}}$
+    \end{itemize}
+
+    $\text{back}[v] = \infty$:
+    \begin{itemize}
+      \item if updated
+      \item if never updated: $\text{wBack} = \infty > d[v]$ vs. $\text{wBack} = d[w] > d[v]$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Bridge}
+  \begin{exampleblock}{Bridge \pno{3.4.24}}
+    
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%
