@@ -25,6 +25,27 @@
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%
+\begin{frame}{Edge deletion}
+  \begin{exampleblock}{Edge deletion \pno{3.4.12}}
+    \begin{itemize}
+      \item Input: connected, undirected graph $G$
+      \item Problem: $\exists? e \in E: G \setminus e$ is connected?
+      \item $O(|V|)$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    cycle $\iff \exists e$:
+    \begin{proof}
+      \begin{itemize}
+	\item $\Leftarrow$: by contradiction. connected + acyclic $\Rightarrow$ tree
+      \end{itemize}
+    \end{proof}
+
+    tree: $|E| = |V| - 1$ $\Rightarrow$ check $|E| \ge |V|$
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%
 \begin{frame}{Orientation of undirected graph}
   \begin{exampleblock}{Orientation of undirected graph \pno{3.4.13}}
     Undirected (connected) graph $G$, edge oriented s.t. $\forall v, \text{in}[v] \ge 1$.

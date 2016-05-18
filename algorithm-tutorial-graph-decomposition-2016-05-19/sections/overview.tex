@@ -1,13 +1,38 @@
 \section{Overview}
 
+%%%%%%%%%%%%%%%
 \begin{frame}{Contents of Tutorials}
+  Overview:
   \begin{enumerate}
-    \item Graph \sout{Traversal} Decomposition
-    \item MST (Greedy Algorithm) \& Path
+    \item Graph Decomposition {\scriptsize (vs. Graph Traversal)}
+    \item MST \& Path $\Rightarrow$ Greedy Algorithm
     \item DP: Dynamic Programming
   \end{enumerate}
 \end{frame}
-
+%%%%%%%%%%%%%%%
 \begin{frame}{Graph Decomposition}
   Graph decomposition vs. Graph traversal
+  \begin{itemize}
+    \item objects: integer vs. graph
+    \item graph traversal as basis
+    \item structure matters
+      \begin{itemize}
+	\item states of vertices
+	  \begin{itemize}
+	    \item undiscovered $\to$ discovered $\to$ finished
+	    \item white $\to$ gray $\to$ black
+	  \end{itemize}
+	\item types of edges
+	  \begin{itemize}
+	    \item tree edge, back edge, forward edge, cross edge
+	  \end{itemize}
+	\item DFS: lifetime of vertices
+	  \begin{itemize}
+	    \item $v: \text{d}[v], \text{f}[v]$
+	    \item $\text{f}[v]$: DAG, SCC
+	    \item $\text{d}[v]$: biconnectivity
+	  \end{itemize}
+      \end{itemize}
+  \end{itemize}
 \end{frame}
+%%%%%%%%%%%%%%%

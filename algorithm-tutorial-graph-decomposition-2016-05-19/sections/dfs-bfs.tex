@@ -93,7 +93,68 @@
   \begin{alertblock}{Remark.}
     \begin{itemize}
       \item BFS tree defines a \emph{shortest-path} from its root to every other node.
-      \item Layers in BFS on \emph{undirected} graph $\Rightarrow$ bipartite testing \pno{3.4.26}
+      \item Layers in BFS on \emph{undirected} graph; c.f. bipartite testing \pno{3.4.26}
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Lifetime of vertices in DFS}
+  \begin{exampleblock}{Lifetime of vertices in DFS \pno{3.4.5}} 
+    $\forall u,v$:
+    \begin{itemize}
+      \item $u$ is an ancestor of $v$: $[\text{d}[v], \text{f}[v]] \subset [\text{d}[u], \text{f}[u]]; [_{u}\; [_{v}\; ]_{v}\; ]_{u}$
+      \item $u,v$ has no ancestor/descendant relation: $[\text{d}[v], \text{f}[v]] || [\text{d}[u], \text{f}[u]]$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    Assume $u, v \in $ DFS tree.
+
+    \begin{itemize}
+      \item $c$: least common ancestor of $u,v$ \pno{3.4.17}
+      \item $c \to u' \leadsto u; c \to v' \leadsto v$
+      \item $u', v'$ disjoint; $u \subset u' \land v \subset v'$
+    \end{itemize}
+  \end{block}
+
+  \begin{alertblock}{Remark.}
+    $\forall u,v: [_{u} \; ]_{u}, [_{v} \; ]_{v}$ are either \emph{disjoint} or one is \emph{contained} within the other.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Preprocessing for ancestor/descendant relation}
+  \begin{exampleblock}{Preprocessing for ancestor/descendant relation \pno{3.4.14}}
+    \begin{itemize}
+      \item binary tree $\Rightarrow$ tree $T$
+      \item $r \in T$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    $v: \text{d}[v], \text{f}[v]$
+  \end{block}
+
+  \begin{alertblock}{Remark.}
+    $\forall v$: how many descendants?
+
+    $(\text{f}[v] - \text{d}[v]) / 2$
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Edge types and lifetime of vertices in DFS}
+  \begin{exampleblock}{Edge types and lifetime of vertices in DFS \pno{3.4.3}}
+    $\forall u \to v$:
+    \begin{itemize}
+      \item tree/forward edge: $[_{u}\; [_{v}\; ]_{v}\; ]_{u}$
+      \item back edge: $[_{v}\; [_{u}\; ]_{u}\; ]_{v}$
+      \item cross edge: $[_{v}\; ]_{v}\; [_{u}\; ]_{u}$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{alertblock}{Remark.}
+    \begin{itemize}
+      \item $\text{f}[v] < \text{d}[u]$: cross edge
+      \item $\text{f}[u] < \text{f}[v]$: back edge
     \end{itemize}
   \end{alertblock}
 \end{frame}

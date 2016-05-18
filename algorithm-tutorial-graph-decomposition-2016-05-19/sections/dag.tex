@@ -6,15 +6,15 @@
     no back edge $\iff$ DAG $\iff$ $\exists$ topo. ordering
   \end{center}
 
-  \begin{block}{Topo. sorting}
+  \begin{block}{Topo. sorting algorithm by Tarjan(probably), 1976}
     DFS on digraph, $u \to v$:
     \begin{itemize}
-      \item back edge: $f(u) < f(v)$
-      \item others: $f(u) > f(v)$
+      \item \textcolor{red}{no} back edge: $\text{f}[u] < \text{f}[v]$
+      \item others: $\text{f}[u] > \text{f}[v]$
     \end{itemize}
 
+    \[ u \to v \Rightarrow \text{f}[u] > \text{f}[v] \]
     \[ u \to v \Rightarrow u \prec v \] 
-    \[ u \to v \Rightarrow f(u) > f(v) \]
 
     \begin{center}
       Topo. sorting: sort vertices in \textcolor{blue}{\emph{decreasing}} order of their \textcolor{blue}{\emph{finish}} times.
