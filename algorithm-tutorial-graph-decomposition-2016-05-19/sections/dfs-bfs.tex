@@ -3,47 +3,49 @@
 %%%%%%%%%%%%%%%
 \begin{frame}{Classifying edges}
   \begin{definition}[Classifying edges]
-    Given a dfs/bfs traversal:
+    Given a DFS/BFS traversal $\Rightarrow$ DFS/BFS tree:
     \begin{itemize}
-      \item Tree edge
-      \item Back edge
-      \item Forward edge
-      \item Cross edge
+      \item Tree edge: $\to$ child
+      \item Back edge: $\to$ ancestor
+      \item Forward edge: $\to$ \emph{nonchild} descendant
+      \item Cross edge: $\to$ neither ancestor nor descendant
     \end{itemize}
   \end{definition}
 
   \begin{alertblock}{Remarks:}
     \begin{itemize}
-      \item Applicable to both DFS and BFS
-      \item With respect to DFS/BFS trees
+      \item applicable to both DFS and BFS
+      \item w.r.t. DFS/BFS trees
     \end{itemize}
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%
-\begin{frame}{Classifying edges \pno{3.4.1}}
-  \begin{figure}
-    \begin{subfigure}{0.50\linewidth}
-      \centering
-      \includegraphics[width=0.50\textwidth]{figures/dfs-digraph.png}
-      \caption{DFS on directed graph.}
-    \end{subfigure}%
-    \begin{subfigure}{0.50\linewidth}
-      \centering
-      \includegraphics[width=0.50\textwidth]{figures/dfs-undirected.png}
-      \caption{DFS on undirected graph.}
-    \end{subfigure}
+\begin{frame}{Classifying edges}
+  \begin{exampleblock}{Classifying edges \pno{3.4.1}}
+    \begin{figure}
+      \begin{subfigure}{0.50\linewidth}
+	\centering
+	\includegraphics[width=0.50\textwidth]{figures/dfs-digraph.png}
+	\caption{DFS on directed graph.}
+      \end{subfigure}%
+      \begin{subfigure}{0.50\linewidth}
+	\centering
+	\includegraphics[width=0.50\textwidth]{figures/dfs-undirected.png}
+	\caption{DFS on undirected graph.}
+      \end{subfigure}
 
-    \begin{subfigure}{0.50\linewidth}
-      \centering
-      \includegraphics[width=0.50\textwidth]{figures/bfs-digraph.png}
-      \caption{BFS on directed graph.}
-    \end{subfigure}%
-    \begin{subfigure}{0.50\linewidth}
-      \centering
-      \includegraphics[width=0.60\textwidth]{figures/bfs-undirected.png}
-      \caption{BFS on undirected graph.}
-    \end{subfigure}
-  \end{figure}
+      \begin{subfigure}{0.50\linewidth}
+	\centering
+	\includegraphics[width=0.50\textwidth]{figures/bfs-digraph.png}
+	\caption{BFS on directed graph.}
+      \end{subfigure}%
+      \begin{subfigure}{0.50\linewidth}
+	\centering
+	\includegraphics[width=0.60\textwidth]{figures/bfs-undirected.png}
+	\caption{BFS on undirected graph.}
+      \end{subfigure}
+    \end{figure}
+  \end{exampleblock}
 \end{frame}
 %%%%%%%%%%%%%%%
 \begin{frame}{Classifying edges}
@@ -118,7 +120,7 @@
   \end{block}
 
   \begin{alertblock}{Remark.}
-    $\forall u,v: [_{u} \; ]_{u}, [_{v} \; ]_{v}$ are either \emph{disjoint} or one is \emph{contained} within the other.
+    $\forall u,v: [_{u} \; ]_{u}, [_{v} \; ]_{v}$ \emph{disjoint} $\lor$ \emph{contained} $\Leftarrow$ a ``stack'' view.
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%
@@ -137,7 +139,7 @@
   \begin{alertblock}{Remark.}
     $\forall v$: how many descendants?
 
-    $(\text{f}[v] - \text{d}[v]) / 2$
+    $(\text{f}[v] - \text{d}[v] - 1) / 2$
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%

@@ -8,19 +8,38 @@
     \begin{tabular}{c||c|c}
      \hline
      		& Digraph 			& Undirected graph  \\ \hline \hline
-     DFS 	& back edge $\iff$ cycle 	& back edge $\iff$ cycle \\ \hline
-     BFS	& \begin{tabular}[c]{@{}l@{}}back edge $\Rightarrow$ cycle\\ cycle $\nRightarrow$ back edge \end{tabular} & cross edge $\iff$ cycle  \\ \hline
+		DFS 	& back edge \textcolor{red}{$\iff$} cycle 	
+			& back edge $\iff$ cycle 
+			\\ \hline
+		BFS	& \begin{tabular}[c]{@{}l@{}}back edge $\Rightarrow$ cycle\\ cycle \textcolor{red}{$\nRightarrow$} back edge \end{tabular} 
+			& cross edge $\iff$ cycle  
+			\\ \hline
     \end{tabular}
   \end{table}
+\end{frame}
+%%%%%%%%%%%%%%%
+\begin{frame}{Cycle detection}
+  \begin{block}{Solution.}
+    \begin{columns}[t]
+      \column{0.50\textwidth}
+	DFS on digraph: $\text{cycle} \Rightarrow \text{back edge}$
+	\begin{figure}
+	  \centering
+	  \includegraphics[width=0.50\textwidth]{figures/dfs-digraph-cycle-detection-without-back.pdf}
+	\end{figure}
+      \column{0.50\textwidth}
+	BFS on digraph: $\text{cycle} \nRightarrow \text{back edge}$
+	\begin{figure}
+	  \centering
+	  \includegraphics[width=0.30\textwidth]{figures/bfs-digraph-cycle-without-back.png}
+	\end{figure}
+      \end{columns}
+  \end{block}
 
   \begin{alertblock}{Remark.}
     \begin{itemize}
-      \item cycle in undirected graphs
-      \item cycle in digraphs
-	\begin{itemize}
-	  \item DAG
-	  \item SCC
-	\end{itemize}
+      \item cycle in undirected graphs (shortly)
+      \item cycle in digraphs $\Rightarrow$ DAG, SCC
     \end{itemize}
   \end{alertblock}
 \end{frame}
