@@ -10,7 +10,7 @@
     Biconnectivity algorithm by Tarjan\&Hopcroft, 1971
   \end{center}
 
-  \begin{exampleblock}{Root of DFS tree as an articulation point \pno{3.4.8}}
+  \begin{exampleblock}{Root of DFS tree as an articulation vertex \pno{3.4.8}}
     DFS on undirected graph $G$ $\Rightarrow$ DFS tree $T$:
     \begin{itemize}
       \item leaf node
@@ -27,7 +27,7 @@
 \end{frame}
 %%%%%%%%%%%%%%%
 \begin{frame}{Biconnectivity algorithm}
-  \begin{exampleblock}{Articulation checking, 1971 \pno{3.4.10}}
+  \begin{exampleblock}{Articulation checking \pno{3.4.10}}
     DFS on undirected graph $G$ $\Rightarrow$ back edges:
     \begin{center}
       $v$ is not an articulation vertex $\iff \textcolor{red}{\forall} \text{subtree } T_{v} \text{ of } v, \text{back}[T_{v}] = v.\text{ancestor}$
@@ -40,7 +40,7 @@
 \end{frame}
 %%%%%%%%%%%%%%%
 \begin{frame}{Biconnectivity algorithm}
-  \begin{exampleblock}{Initialization of $\text{back}[v]$, 1971 \pno{3.4.9}}
+  \begin{exampleblock}{Initialization of $\text{back}[v]$ \pno{3.4.9}}
     \begin{center}
       $\text{back}[v] = \infty, 2n+1$ vs. $\text{back}[v] = d[v]$
     \end{center}
@@ -68,10 +68,10 @@
   \end{exampleblock}
 \end{frame}
 %%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%
 \begin{frame}[plain]
   \begin{figure}[t]
     \centering
     \includegraphics[width = 0.50\textwidth]{figures/thankyou.jpg}
   \end{figure}
 \end{frame}
+%%%%%%%%%%%%%%%
