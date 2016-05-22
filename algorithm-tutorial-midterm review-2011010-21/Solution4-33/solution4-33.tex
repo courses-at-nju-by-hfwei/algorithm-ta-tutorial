@@ -1,0 +1,73 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{fontspec,xunicode,xltxtra}
+\usepackage[slantfont]{xeCJK}
+\usepackage{sectsty}
+
+\XeTeXinputencoding "cp936"
+
+\setCJKfamilyfont{kai}{KaiTi}
+\setCJKfamilyfont{hei}{SimHei}
+\newcommand{\kai}{\CJKfamily{kai}}
+\newcommand{\hei}{\CJKfamily{hei}}
+
+\setCJKmainfont{SimSun}
+\allsectionsfont{\hei}
+
+\begin{document}
+
+\title{算法习题整理 (4.33 $P_{213}$)}
+
+\maketitle
+
+\section{算法习题整理 (4.33 $P_{213}$)}
+{\bf Problem:} Give lower bound based on decision tree for the number of comparisons needed to merge two sorted segments of length $k$ and $m$, where
+$k+m=n, k \leq m$.
+\begin{enumerate}
+  \item Derive an expression that may involves sums, but is exact. \\
+
+    {\bf Solution:} 习题 4.25 已给出merge sort所能形成的排列数,即 $n \choose m$. 所以decision tree的叶子数为 $n \choose m$, lower bound (denoted LB) of number of
+    comparisons (height of decision tree) is
+    \[
+      LB = \log{n \choose m} = \log{\frac{n!}{m! (n-m)!}} = \log{\frac{n!}{m! k!}} = \log{n!} - \log{m!} - \log{k!}.
+    \]
+    你可以进一步将 $\log{n!}$ 改写成 $\sum$ 的形式.
+  \item For $k=m=\frac{n}{2}$, find an approximation in closed form that is close to, but guaranteed to be less than, your expression from part (a).  \\
+
+    {\bf Solution:}  使用 Stirling 公式近似得,
+    \[
+      \log{n!} \sim n \log{n}, \log{(\frac{n}{2})! \sim \frac{n}{2} \log{\frac{n}{2}}}
+    \]
+    故 (when $n$ is sufficiently large),
+    \[
+      LB = n \log{n} - 2 \frac{n}{2}(\log{n} - 1) = n
+    \]
+    Notice that in Theorem 4.4 ($P_{173}$), the result is $(n-1)$.
+  \item Find an approximation in closed from for the case when $k<m$. To get good results, you might wish to consider several ranges for the relationship between $k$ and $n$.  \\
+
+    {\bf Solution:} 使用 Stirling 公式:
+    \[
+      n! \sim (\frac{n}{e}) ^ {n} \sqrt{2 \pi n}
+    \]
+    得,
+    \[
+      LB = n \log{n} - m \log{m} - k \log{k} + \frac{1}{2} \log{\frac{n}{2 \pi mk}}
+    \]
+    设
+    \[
+      k = n \alpha, m = n - k = n(1 - \alpha)
+    \]
+    则有
+    \[
+      LB = n \big( (\alpha-1) \log{(1-\alpha)} - \alpha \log{\alpha} \big) + \frac{1}{2} \log{\frac{1}{2 \pi n \alpha (1-\alpha)}}
+    \]
+    对 $\alpha$ 求导, 得
+    \[
+      (LB)' = n \big( \log{(1-\alpha)} - \log{\alpha} \big) + \frac{2 \alpha - 1}{2 \alpha (1-\alpha) \ln{2}}
+    \]
+\end{enumerate}
+
+
+\end{document}
