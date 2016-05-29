@@ -1,0 +1,120 @@
+\section{Shortest Paths}
+
+%%%%%%%%%%
+\subsection{Dijkstra's algorithm for SSSP}
+
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  \begin{itemize}
+    \item maintain $R \subseteq V$: $\forall u \in R: s \leadsto u$ is known
+    \item choose the next $v$ and $(u,v)$:
+      \[ \min_{u \in R} \text{dist}(s,u) + w(u,v) \]
+    \item key points for the correctness proof
+      \begin{enumerate}
+	\item $u_{1} \to v$
+	\item $u_{1} \to x \leadsto v$
+      \end{enumerate}
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra' algorithm}
+  \begin{exampleblock}{Negative edges \pno{3.7.9}}
+    Dijkstra's algorithm on graphs with negative edges
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra' algorithm}
+  \begin{exampleblock}{Negative edges leaving $s$ \pno{3.7.17}}
+    \begin{itemize}
+      \item digraph $G = (V, E, w)$
+      \item all negative edges are from $s$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    Dijkstra's algorithm works.
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  \begin{exampleblock}{Uniqueness of shortest path \pno{3.7.7}}
+    
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  \begin{exampleblock}{Uniqueness of shortest path \pno{3.7.16}}
+    \begin{itemize}
+      \item digraph $G = (V, E, w)$
+      \item $w(e) \ge 0$
+      \item $S \cap T = \emptyset$
+      \item to compute $\forall s \in S, \forall t \in T, s \leadsto t$ shortest paths
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item adding $s_{0}$
+      \item $s_{0} \to s \in S$
+      \item $w(s_{0} \to s) = 0$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\subsection{Cycles}
+
+%%%%%%%%%%
+\begin{frame}{Cycles}
+  \begin{exampleblock}{4-Cycle in undirected graph \pno{3.7.1}}
+    
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Cycles}
+  \begin{exampleblock}{Shortest cycle in digraph \pno{3.7.4}}
+    
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    Floyd-Warshall: $W^{(0)}[i][i] = \infty$
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Cycles}
+  \begin{exampleblock}{Shortest cycle in undirected graph \pno{3.7.14}}
+    
+  \end{exampleblock}
+  \begin{block}{Solution.}
+    
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Cycles}
+  \begin{exampleblock}{Shortest cycle containing a specific edge \pno{3.7.5}}
+    \begin{itemize}
+      \item undirected edge $G = (V, E)$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    $P_{u,v} + (u,v)$ 
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Cycles}
+  \begin{exampleblock}{Hamiltonian path in tournament graph \pno{3.7.18}}
+    \begin{itemize}
+      \item digraph $G = (V, E)$
+      \item $\forall u,v: (u \to v \lor v \to u) \land \lnot (u \to v \land v \to u)$
+      \item hamiltonial path
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item existence
+      \item algorithm $O(n^{2})$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
