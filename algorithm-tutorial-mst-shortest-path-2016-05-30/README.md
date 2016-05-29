@@ -10,7 +10,7 @@
       - 3.6.15: (2) & (5) & (1)
     - Uniqueness of MST
       - 3.6.21: unique MST
-      - 3.6.19: weaker condition
+      - 3.6.19: (a) converse & (b) weaker condition
   - Updating MST
     - 3.6.1: decreasing/increasing weight of an edge
     - 3.6.2: adding a new vertex
