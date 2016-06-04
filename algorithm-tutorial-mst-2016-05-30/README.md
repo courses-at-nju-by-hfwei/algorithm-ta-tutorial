@@ -35,3 +35,12 @@
     - 3.7.18: hamiltonian path in tournament graph
   - Variants of Shortest Paths
     - *Next Lecture*
+
+---
+
+Notes After Class:
+
+1. Finished 3.6.10
+2. "Shortest Paths" section for the next lecture
+3. Do not use Cut/Cycle property as black boxes in exams.
+4. Anti-Kruskal algorithm
