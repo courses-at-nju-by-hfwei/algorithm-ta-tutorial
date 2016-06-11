@@ -1,12 +1,10 @@
-\section{Shortest Paths}
-
 %%%%%%%%%%
-\subsection{Dijkstra's algorithm for SSSP}
+\section{Dijkstra's algorithm for SSSP}
 
 %%%%%%%%%%
 \begin{frame}{Dijkstra's algorithm}
-  \begin{itemize}
-    \item maintain $R \subseteq V$: $\forall u \in R: s \leadsto u$ is known
+  Invariant: maintain $R \subseteq V$: $\forall u \in R: s \leadsto u$ is known
+  \begin{enumerate}
     \item choose the next $v$ and $(u,v)$:
       \[ \min_{u \in R} \text{dist}(s,u) + w(u,v) \]
     \item key points for the correctness proof
@@ -14,7 +12,7 @@
 	\item $u_{1} \to v$
 	\item $u_{1} \to x \leadsto v$
       \end{enumerate}
-  \end{itemize}
+  \end{enumerate}
 \end{frame}
 %%%%%%%%%%
 \begin{frame}{Dijkstra' algorithm}
@@ -61,7 +59,7 @@
   \end{block}
 \end{frame}
 %%%%%%%%%%
-\subsection{Cycles}
+\section{Cycles}
 
 %%%%%%%%%%
 \begin{frame}{Cycles}
