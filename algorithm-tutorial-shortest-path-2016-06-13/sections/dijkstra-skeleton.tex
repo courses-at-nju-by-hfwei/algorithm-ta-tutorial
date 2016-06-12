@@ -1,0 +1,85 @@
+\section{Dijkstra's Algorithm as Skeleton}
+
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  Invariant: maintain $R \subseteq V$: $\forall u \in R: s \leadsto u$ is known
+  \begin{exampleblock}{3. How to update $\text{dist}[w]$ for $(v,w) \in E \land w \notin R$?}
+    new estimator for $\text{dist}[w]$
+    % \begin{lstlisting}
+    %   foreach (e = (v,w) in E) and (w not in R)
+    %   if dist[w] > dist[v] + w(v,w)
+    %     dist[w] = dist[v] + w(v,w)
+    % \end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm as skeleton}
+  Initialization:
+
+  \begin{alertblock}{How to use this skeleton?}
+    \begin{enumerate}
+      \item What is $R$ to maintain?
+      \item How to update estimators?
+	\begin{itemize}
+	  \item invalidated; following the new one
+	  \item amending the old one
+	\end{itemize}
+    \end{enumerate}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm as skeleton}
+  \begin{exampleblock}{Uniqueness of shortest path \pno{3.7.7}}
+    \begin{itemize}
+      \item $G = (V, E, w), s \in V, w(e) > 0$
+      \item \textcolor{gray}{Is shortest path $s \leadsto t$ unique?}
+      \item $\forall t$: compute the number of shortest paths from $s$ to $t$.
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item maintain $R$ (priority queue $\mathcal{Q}$)
+      \item choose $v$
+      \item update $w$:
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm as skeleton}
+  \begin{exampleblock}{Shortest path with fewest edges \pno{3.7.19}}
+    \begin{itemize}
+      \item $G = (V, E, w), w(e) > 0, s \in V$
+      \item $\text{best}[u]$: minimum number of edges in a shortest path from $s$ to $u$
+      \item (an example here)
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    an example for ``amending''
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}[fragile]{Dijkstra's algorithm as skeleton}
+  \begin{exampleblock}{Bottleneck shortest path \pno{3.7.20}}
+    \begin{itemize}
+      \item min-max path: bottleneck length and bottleneck distance
+      \item single source, all-pairs
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{verbatim}
+    Q = MakePQ(V) with b-dist[v] as keys (using min-heap)
+    v = deleteMin(Q)
+
+    if b-dist[w] > max(b-dist[v], w(v,w))
+       b-dist[w] = max(b-dist[v], w(v,w))
+    \end{verbatim}
+  \end{block}
+
+  \begin{alertblock}{For max-min path \pno{3.7.21}}
+
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%

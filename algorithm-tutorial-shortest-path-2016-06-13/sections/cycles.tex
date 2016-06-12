@@ -1,0 +1,77 @@
+\section{Cycles}
+
+%%%%%%%%%%
+\begin{frame}{Cycles}
+  \begin{exampleblock}{4-Cycle in undirected graph \pno{3.7.1}}
+    \begin{itemize}
+      \item undirected graph $G = (V, E)$
+      \item simple cycle of length 4
+      \item $O(n^{3})$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Cycles}
+  \begin{exampleblock}{Shortest cycle in digraph \pno{3.7.4}}
+    
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    Floyd-Warshall: $\min_{i}D[i][i]$
+
+    Initialization: $D^{(0)}[i][i] = \infty$
+  \end{block}
+  
+  \begin{alertblock}{Remark.}
+    Does not apply to undirected graph.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Cycles}
+  \begin{exampleblock}{Shortest cycle in undirected graph \pno{3.7.14}}
+    \begin{itemize}
+      \item $G = (V, E), w(e) = 1$
+      \item DFS: back edge $\iff$ cycle
+      \item $u \to v$: $\text{level}[u] - \text{level}[v] + 1$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    A counterexample here. 
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Cycles}
+  \begin{exampleblock}{Shortest cycle containing a specific edge \pno{3.7.5}}
+    \begin{itemize}
+      \item undirected graph $G = (V, E, w), w(e) > 0, e \in E$
+      \item shortest cycle containing $e$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    $P_{u \leadsto v} + (u,v)$ 
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Cycles}
+  \begin{exampleblock}{Hamiltonian path in tournament graph \pno{3.7.18}}
+    \begin{itemize}
+      \item digraph $G = (V, E)$
+      \item $\forall u,v: (u \to v \lor v \to u) \land \lnot (u \to v \land v \to u)$
+      \item hamiltonial path
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item existence: induction on $n$
+      \item algorithm $1 + 2 + \cdots + (n-1) = O(n^{2})$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%

@@ -1,0 +1,73 @@
+\section{Dijkstra's algorithm for SSSP}
+
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  Invariant: maintain $R \subseteq V$: $\forall u \in R: s \leadsto u$ is known
+  \begin{enumerate}
+    \item How to choose the next $v$ and $(u,v)$?
+      \[ \min_{u \in R} \text{dist}[u] + w(u,v) \]
+    \item Update $R = R + \set{v}$ and set $\text{dist}[v] = \text{dist}[u] + w(u,v)$.
+    \item How to update $\text{dist}[w]$ for $(v,w) \in E \land w \notin R$?
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  Invariant: maintain $R \subseteq V$: $\forall u \in R: s \leadsto u$ is known
+  \begin{exampleblock}{1. How to choose the next $v$ and $(u,v)$?}
+      
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  \begin{exampleblock}{Negative edges \pno{3.7.9}}
+    Dijkstra's algorithm on graphs with negative edges
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  \begin{exampleblock}{Negative edges leaving $s$ \pno{3.7.17}}
+    \begin{itemize}
+      \item digraph $G = (V, E, w)$
+      \item all negative edges are from $s$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    Dijkstra's algorithm works.
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  \begin{exampleblock}{$w'(e) = w(e) + 1$ \pno{3.7.18}}
+    \begin{itemize}
+      \item digraph $G = (V, E, w), w(e) > 0, s \in V$
+      \item $T$: MST of $G$; $T_{s}$: shortest path tree from $s$
+      \item $w'(e) = w(e) + 1$
+      \item Does $T$ or $T_{s}$ change?
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    $T$ does not change; $T_{s}$ may change.
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  \begin{exampleblock}{Shortest paths from $S \subset V$ to $T \subset V$}
+    \begin{itemize}
+      \item digraph $G = (V, E, w), w(e) \ge 0$
+      \item $S \subset V$ to $T \subset V, S \cap T = \emptyset$
+      \item to compute $\forall s \in S, \forall t \in T, s \leadsto t$ shortest paths
+      \item $O(m \log n)$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item adding $s_{0}$
+      \item $s_{0} \to s \in S$
+      \item $w(s_{0} \to s) = 0$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
