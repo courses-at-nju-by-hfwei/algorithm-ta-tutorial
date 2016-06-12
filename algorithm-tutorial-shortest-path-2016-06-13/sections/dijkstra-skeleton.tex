@@ -1,24 +1,40 @@
 \section{Dijkstra's Algorithm as Skeleton}
 
 %%%%%%%%%%
-\begin{frame}{Dijkstra's algorithm}
+\begin{frame}[fragile]{Dijkstra's algorithm}
   Invariant: maintain $R \subseteq V$: $\forall u \in R: s \leadsto u$ is known
   \begin{exampleblock}{3. How to update $\text{dist}[w]$ for $(v,w) \in E \land w \notin R$?}
     new estimator for $\text{dist}[w]$
-    % \begin{lstlisting}
-    %   foreach (e = (v,w) in E) and (w not in R)
-    %   if dist[w] > dist[v] + w(v,w)
-    %     dist[w] = dist[v] + w(v,w)
-    % \end{lstlisting}
+    \begin{verbatim}
+      forall (e = (v,w) in E) and (w not in R)
+      if dist[w] > dist[v] + w(v,w)
+        dist[w] = dist[v] + w(v,w)
+    \end{verbatim}
   \end{exampleblock}
 \end{frame}
 %%%%%%%%%%
-\begin{frame}{Dijkstra's algorithm as skeleton}
-  Initialization:
+\begin{frame}[fragile]{Dijkstra's algorithm as skeleton}
+  \begin{verbatim}
+    Initialization: 
+      dist[s] = 0;
+      dist[v] = infty for others
+
+    Q = MakePriorityQueue(V) with dist[v] as keys 
+                       (using min-heap)
+
+    while (Q is not empty)
+      v = deleteMin(Q)
+      foreach edge (v,w) in E // w in Q
+        if dist[w] > dist[v] + w(v,w)
+          dist[w] = dist[v] + w(v,w)
+          decreaseKey(Q, w)
+        else if dist[w] = dist[v] + w(v,w)
+        //  do nothing
+  \end{verbatim}
 
   \begin{alertblock}{How to use this skeleton?}
     \begin{enumerate}
-      \item What is $R$ to maintain?
+      \item What does $R/Q$ maintain?
       \item How to update estimators?
 	\begin{itemize}
 	  \item invalidated; following the new one
@@ -28,7 +44,7 @@
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%
-\begin{frame}{Dijkstra's algorithm as skeleton}
+\begin{frame}[fragile]{Dijkstra's algorithm as skeleton}
   \begin{exampleblock}{Uniqueness of shortest path \pno{3.7.7}}
     \begin{itemize}
       \item $G = (V, E, w), s \in V, w(e) > 0$
@@ -36,17 +52,28 @@
       \item $\forall t$: compute the number of shortest paths from $s$ to $t$.
     \end{itemize}
   \end{exampleblock}
-
+\end{frame}
+%%%%%%%%%%
+\begin{frame}[fragile]{Dijkstra's algorithm as skeleton}
   \begin{block}{Solution.}
-    \begin{itemize}
-      \item maintain $R$ (priority queue $\mathcal{Q}$)
-      \item choose $v$
-      \item update $w$:
-    \end{itemize}
+    \begin{verbatim}
+      Initialization: 
+        num[s] = 1; num[v] = 0 for others
+        usp[s] = true; usp[v] = false for others
+
+      // update num[w] and usp[w]:
+      if dist[w] > dist[v] + w(v,w)
+        dist[w] = dist[v] + w(v,w)
+        num[w] = num[v]
+        usp[w] = usp[v]
+      else if dist[w] = dist[v] + w(v,w)
+        num[w] = num[w] + num[v]
+        usp[w] = false
+    \end{verbatim}
   \end{block}
 \end{frame}
 %%%%%%%%%%
-\begin{frame}{Dijkstra's algorithm as skeleton}
+\begin{frame}[fragile]{Dijkstra's algorithm as skeleton}
   \begin{exampleblock}{Shortest path with fewest edges \pno{3.7.19}}
     \begin{itemize}
       \item $G = (V, E, w), w(e) > 0, s \in V$
@@ -56,6 +83,17 @@
   \end{exampleblock}
 
   \begin{block}{Solution.}
+    \begin{verbatim}
+      Initialization:
+        best[s] = 0; best[v] = infty for others
+      // update best[w]
+      if dist[w] > dist[v] + w(v,w)
+        dist[w] = dist[v] + w(v,w)
+        best[w] = best[v] + 1
+      else if dist[w] = dist[v] + w(v,w)
+        if best[w] > best[v] + 1
+          best[w] = best[v] + 1
+    \end{verbatim}
     an example for ``amending''
   \end{block}
 \end{frame}
@@ -78,7 +116,7 @@
     \end{verbatim}
   \end{block}
 
-  \begin{alertblock}{For max-min path \pno{3.7.21}}
+  \begin{alertblock}{For max-min path \pno{3.7.21 (3.7.23, 3.7.24)}}
 
   \end{alertblock}
 \end{frame}

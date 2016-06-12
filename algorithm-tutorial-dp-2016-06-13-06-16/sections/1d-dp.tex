@@ -1,0 +1,110 @@
+\section{1-D DP}
+
+%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{exampleblock}{Maximal sum subarray \pno{2.2.3, 2.2.13, Google Interview Problem}}
+    \begin{itemize}
+      \item array $A[1 \cdots n], a_{i} >=< 0$
+      \item to find (the sum of) an MSS in $A$ (case: $\text{sum} = 0$)
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{alertblock}{Remark.}
+    \begin{itemize}
+      \item try $\text{MSUM}[i]$: the sum of the MSS in $A[1 \cdots i]$
+      \item goal: is $a_{i} \in \text{MSUM}[i]$?
+      \item $\text{MSUM}[i] = \max \set{\text{MSUM}[i-1], \textcolor{red}{?}}$
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $\text{MSUM}[i]$: the sum of the MSS \emph{ending with} $a_{i}$
+      \item goal: $\max_{1 \le i \le n} \text{MSUM}[i]$
+      \item question: what is the relation between $\text{MSUM}[i-1]$ and $\text{MSUM}[i]$?
+      \item recurrence: 
+	\begin{displaymath}
+	  \text{MSUM}[i] = \left\{ \begin{array}{ll}
+	    \textcolor{red}{\text{MSUM}[i-1] \text{\footnotesize (why?)}} + a_{i} & \textrm{if $a_{i} > 0$}\\
+	    \max \set{\text{MSUM}[i-1] + a_{i}, 0} & \textrm{if $a_{i} < 0$}
+	  \end{array} \right.
+	\end{displaymath}
+
+	\[ \text{MSUM}[i] = \max \set{\text{MSUM}[i-1] + a_{i}, 0} \]
+      \item initialization: $\text{MSUM}[0] = 0$
+      \item code
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{exampleblock}{Weighted interval/class scheduling \pno{2.2.20}}
+    \begin{itemize}
+      \item $\mathcal{C} = \set{c_{1}, c_{2}, \cdots, c_{n}}$
+      \item $c_{i}$: grade $g_{i}$
+      \item $c_{i}$: $s_{i}, f_{i}$; conflict
+      \item choosing pairwise non-conflicting classes to maximize your grades
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $G[i]$: the maximal grades obtained from $\set{c_{1}, c_{2}, \cdots, c_{i}}$
+      \item goal: $G[n]$
+      \item question: choose $c_{i}$ or not in $G[i]$? {\footnotesize \textcolor{red}{(binary chioce)}}
+      \item recurrence: $G[i] = \max \set{G_{i-1}, G[j] + g_{i}}$ 
+	
+	$c_{j}$: the last class which does not conflict with $c_{i}$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{exampleblock}{Reconstructing document \pno{2.2.14}}
+    \begin{itemize}
+      \item string $S[1 \cdots n]$
+      \item dict for \emph{lookup}: $\text{dict}(w)$
+	% \begin{displaymath}
+	%   \text{dict}(w) = \left\{ \begin{array}{ll}
+	%     \text{true} & \textrm{if } w \textrm{ is a valid word}\\
+	%     \text{false} & \textrm{o.w.}
+	%   \end{array} \right.
+	% \end{displaymath}
+      \item is $S[1 \cdots n]$ valid (reconstructed as a sequence of valid words)
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $V[i]$: is $S[1 \cdots i]$ valid?
+      \item goal: $V[n]$
+      \item question: where does the last word start if $S$ is valid? {\footnotesize \textcolor{red}{(multi-way choices)}}
+      \item recurrence: $V[i] = \bigvee_{j = 1 \ldots i} (\text{dict}(S[j \cdots i]) \land V[j])$
+      \item initialization: $V[0] = \text{true}$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{exampleblock}{A trip through hotels \pno{2.2.21}}
+    \begin{itemize}
+      \item hotel sequence (distance): $a_{0} = 0, a_{1}, \cdots, a_{n}$
+      \item stop at only hotels
+      \item cost: $(200 - x)^{2}$ 
+      \item to minimize overall cost
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item $C[i]$: minimum cost when the destination is $a_{i}$
+      \item goal: $C[n]$
+      \item question: what is the last but one hotel $a_{j}$ to stop in the optimal solution?
+      \item recurrence: $C[i] = \min_{0 \le j < i} \set{C[j] + (200 - (a_{i} - a_{j}))^{2}}$
+      \item initialization: $C[0] = 0$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%

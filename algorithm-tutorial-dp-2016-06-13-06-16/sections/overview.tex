@@ -1,0 +1,71 @@
+\section{Overview}
+
+%%%%%%%%%%
+\begin{frame}{Dynamic Programming}
+  Q: What is DP?
+  \begin{itemize}
+    \item A: Smart scheduling of subproblems.
+  \end{itemize}
+
+  \vspace{0.20cm}
+  Q: What does DP look like?
+  \begin{enumerate}
+    \item Define subproblems (\textcolor{red}{types})
+    \item Set the goal: what is the solution to the original problem
+    \item Define recurrence: (\textcolor{red}{ask the right questions} $\Rightarrow$ reduce to subproblems)
+      \begin{itemize}
+	\item larger problem $\Leftarrow$ a \textcolor{blue}{number} of ``smaller'' subproblems
+      \end{itemize}
+    \item Write pseudo-code (\textcolor{red}{fill the array/table/matrix} in order) 
+    \item Analyze time complexity
+    \item Extract optimal solutions
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Common subproblems}
+  \begin{enumerate}
+    \item 1-D subproblems 
+      \begin{itemize}
+	\item input: $x_{1}, x_{2}, \cdots, x_{n}$ (array, sequence, string)
+	\item subproblems: $x_{1}, x_{2}, \cdots, x_{i}$ (prefix\textcolor{gray}{/postfix})
+	\item $\# = O(n)$
+	\item examples: max-subarray sum, highway restaurants, breaking into lines
+      \end{itemize}
+    \item 2-D subproblems
+      \begin{enumerate}
+	\item input: $x_{1}, x_{2}, \cdots, x_{m}; y_{1}, y_{2}, \cdots, y_{n}$
+	\begin{itemize}
+	  \item subproblems: $x_{1}, x_{2}, \cdots, x_{i}; y_{1}, y_{2}, \cdots, y_{j}$
+	  \item $\# = O(mn)$
+	  \item examples: edit distance
+	\end{itemize}
+	\item input: $x_{1}, x_{2}, \cdots, x_{n}$
+	\begin{itemize}
+	  \item subproblems: $x_{i}, \cdots, x_{j}$
+	  \item $\# = (n^{2})$
+	  \item examples: multiplying a sequence of matrices, optimal binary search tree
+	\end{itemize}
+      \end{enumerate}
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Common subproblems}
+  \begin{enumerate}
+    \setcounter{enumi}{2}
+    \item 3-D subproblems:
+      \begin{itemize}
+	\item example: Floyd-Warshall algorithm, Bellman-Ford algorithm
+      \end{itemize}
+    \item tree structure subproblems:
+      \begin{itemize}
+	\item input: rooted tree
+	\item subproblems: rooted subtree
+	\item vertex cover in tree
+      \end{itemize}
+    \item knapsack problem
+      \begin{itemize}
+	\item example: changing coins
+      \end{itemize}
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%

@@ -5,7 +5,6 @@
   Invariant: maintain $R \subseteq V$: $\forall u \in R: s \leadsto u$ is known
   \begin{enumerate}
     \item How to choose the next $v$ and $(u,v)$?
-      \[ \min_{u \in R} \text{dist}[u] + w(u,v) \]
     \item Update $R = R + \set{v}$ and set $\text{dist}[v] = \text{dist}[u] + w(u,v)$.
     \item How to update $\text{dist}[w]$ for $(v,w) \in E \land w \notin R$?
   \end{enumerate}
@@ -14,8 +13,19 @@
 \begin{frame}{Dijkstra's algorithm}
   Invariant: maintain $R \subseteq V$: $\forall u \in R: s \leadsto u$ is known
   \begin{exampleblock}{1. How to choose the next $v$ and $(u,v)$?}
-      
+    \[ \min_{u \in R} \text{dist}[u] + w(u,v) \]
   \end{exampleblock}
+  
+  To prove $w(s \leadsto u \to v)$ is the shortest distance from $s$ to $v$.
+  \begin{proof}
+    \begin{itemize}
+      \item $\forall s \leadsto v: w(s \leadsto v) \ge w(s \leadsto u \to v)$
+      \item $s \in R, v \notin R \Rightarrow \exists u' \in R, v' \notin R$:
+	$s \leadsto v = s \leadsto u' \to v' \leadsto v$
+      \item given $w(s \leadsto u' \to v) \ge w(s \leadsto u \to v)$
+      \item required $w(v' \leadsto v) \ge 0 (v' \notin R)$
+    \end{itemize}
+  \end{proof}
 \end{frame}
 %%%%%%%%%%
 \begin{frame}{Dijkstra's algorithm}
@@ -33,12 +43,15 @@
   \end{exampleblock}
 
   \begin{block}{Solution.}
-    Dijkstra's algorithm works.
+     required $w(v' \leadsto v) \ge 0$ 
+     \begin{proof}
+       \[ v' \notin R, s \in R \Rightarrow v' \neq s \Rightarrow w(v' \leadsto v) \ge 0 \]
+     \end{proof}
   \end{block}
 \end{frame}
 %%%%%%%%%%
 \begin{frame}{Dijkstra's algorithm}
-  \begin{exampleblock}{$w'(e) = w(e) + 1$ \pno{3.7.18}}
+  \begin{exampleblock}{$w'(e) = w(e) + 1$ \pno{3.7.8}}
     \begin{itemize}
       \item digraph $G = (V, E, w), w(e) > 0, s \in V$
       \item $T$: MST of $G$; $T_{s}$: shortest path tree from $s$
