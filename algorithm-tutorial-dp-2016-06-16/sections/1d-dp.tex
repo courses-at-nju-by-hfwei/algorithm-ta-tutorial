@@ -9,14 +9,13 @@
       \item choosing non-conflicting classes to maximize your grades
     \end{itemize}
 
-    \fignocaption{width = 0.50\textwidth}{fig/weighted-interval.png}
+    \fignocaption{width = 0.40\textwidth}{fig/weighted-interval.png}
   \end{exampleblock}
 \end{frame}
 %%%%%%%%%%
 \begin{frame}{1-D DP}
   \begin{block}{Solution.}
     \begin{itemize}
-      \item \textcolor{red}{sort} $\mathcal{C}$ by finishing time
       \item subproblem $G[i]$: the maximal grades obtained from $\set{c_{1}, c_{2}, \cdots, c_{i}}$
       \item goal: $G[n]$
     \end{itemize}
@@ -26,24 +25,23 @@
 \begin{frame}{1-D DP}
   \begin{block}{Solution.}
     \begin{itemize}
-      \item question: choose $c_{i}$ or not in $G[i]$? {\footnotesize \textcolor{red}{(binary chioce)}}
+      \item question: choose $c_{i}$ or not in $G[i]$? % {\footnotesize \textcolor{red}{(binary chioce)}}
       \item recurrence: 
 	\[
 	  G[i] = \max \set{G[i-1], G[j] + g_{i}}
 	\]
 	
 	$c_{j}$: the last class which does not conflict with $c_{i}$
-      
-	\uncover<2->{
-	  \begin{center}
-	    \textcolor{red}{sort $\mathcal{C}$ by finishing time.}
-	  \end{center}
-        }
-      \item<3-> initialization:
+      \item initialization:
 	\[
 	  G[0] = 0
 	\]
     \end{itemize}
+    \uncover<2->{
+      \begin{center}
+	\textcolor{red}{sort $\mathcal{C}$ by finishing time.}
+      \end{center}
+    }
   \end{block}
 \end{frame}
 %%%%%%%%%%
@@ -79,7 +77,7 @@
   \begin{exampleblock}{Maximal sum subarray \pno{2.2.3, 2.2.13, \textcolor{red}{Google Interview Problem}}}
     \begin{itemize}
       \item array $A[1 \cdots n], a_{i} >=< 0$
-      \item to find (the sum of) an MSS in $A$
+      \item to find (the sum of) an MS in $A$
 	\begin{itemize}
 	  \item special case: $\text{mss} = 0$ if all negative
 	\end{itemize}
@@ -107,12 +105,12 @@
 \begin{frame}{1-D DP}
   \begin{block}{Solution.}
     \begin{itemize}
-      \item subproblem $\text{MSS}[i]$: the sum of the MSS \textcolor{red}{\it ending with} $a_{i}$ or 0
+      \item subproblem $\text{MSS}[i]$: the sum of the MS \textcolor{red}{\it ending with} $a_{i}$ or 0
       \item goal: $\text{mss} = \max_{1 \le i \le n} \text{MSS}[i]$
       \item<2-> question: where does the $\text{MS}[i]$ start?
       \item<2-> recurrence: 
 	\[ 
-	  \text{MSS}[i] = \max \set{\text{MSS}[i-1] + a_{i}, 0} 
+	  \text{MSS}[i] = \max \set{\text{MSS}[i-1] + a_{i}, 0} \text{ \textcolor{red}{(prove it!)}}
 	\]
       \item<3-> initialization: $\text{MSS}[0] = 0$
     \end{itemize}
@@ -149,7 +147,7 @@
 \end{frame}
 %%%%%%%%%%
 \begin{frame}{1-D DP}
-  \begin{exampleblock}{Reconstructing document \pno{2.2.14}}
+  \begin{exampleblock}{Reconstructing string \pno{2.2.14}}
     \begin{itemize}
       \item string $S[1 \cdots n]$
       \item dict for \emph{lookup}:
@@ -174,7 +172,7 @@
 \begin{frame}{1-D DP}
   \begin{block}{Solution.}
     \begin{itemize}
-      \item question: where does the last word start? {\footnotesize \textcolor{red}{(multi-way choices)}}
+      \item question: where does the last word start? % {\footnotesize \textcolor{red}{(multi-way choices)}}
       \item recurrence: 
 	\[ 
 	  V[i] = \bigvee_{j = 1 \ldots i} (V[j-1] \land \text{dict}(S[j \cdots i]))

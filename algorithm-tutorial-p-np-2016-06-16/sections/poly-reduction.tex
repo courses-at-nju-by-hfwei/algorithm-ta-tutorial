@@ -14,17 +14,33 @@
 %%%%%%%%%%
 \begin{frame}{Polynomial reduction}
   \begin{definition}[Polynomial reduction.]
-    $T(x)$ in polynomial time.
+    $f(I)$ in polynomial time.
   \end{definition}
   
-  \begin{alertblock}{Remarks.}
-    \begin{theorem}
-      Transitivity: $A \le_{P} B, B \le_{P} C \Rightarrow A \le_{p} C.$
-    \end{theorem}
-    
-    \begin{theorem}
-      $A \le_{P} B, B \in P \Rightarrow A \in P.$  
-    \end{theorem}
-  \end{alertblock}
+  \begin{theorem}
+    Transitivity: $A \le_{P} B, B \le_{P} C \Rightarrow A \le_{P} C.$
+  \end{theorem}
+
+  \begin{proof}
+    \begin{itemize}
+      \item $A \le_{P} B \Rightarrow \exists \text{poly. } f: a \in A \iff f(a) \in B$
+      \item $B \le_{P} C \Rightarrow \exists \text{poly. } g: b \in B \iff g(b) \in C$
+      \item $a \in A \iff \text{poly. } g(f(a)) \in C \Rightarrow A \le_{P} C$
+    \end{itemize}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Polynomial reduction}
+  \begin{theorem}
+    $A \le_{P} B, B \in P \Rightarrow A \in P.$  
+  \end{theorem}
+
+  \begin{proof}
+    \begin{itemize}
+      \item $A \le_{P} B \Rightarrow \exists \text{poly. } f: a \in A \iff f(a) \in B$
+      \item $B \in \text{P} \Rightarrow \exists \text{poly. } g: g \text{ solves } B$
+      \item $\text{poly. } g(f(\cdot)) \text{ solves } A$
+    \end{itemize}
+  \end{proof}
 \end{frame}
 %%%%%%%%%%

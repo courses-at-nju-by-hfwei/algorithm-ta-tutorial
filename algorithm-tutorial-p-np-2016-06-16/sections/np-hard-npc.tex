@@ -30,16 +30,41 @@
 %%%%%%%%%%
 \begin{frame}{NP-complete}
   \begin{theorem}
-    If $B$ is NP-complete and $B \in P$, then $P = NP$.
+    If $B$ is NP-complete and $B \in \text{P}$, then $\text{P} = \text{NP}$.
   \end{theorem}
 
+  \begin{proof}
+    \begin{enumerate}
+      \item $\text{P} \subseteq \text{NP}$
+	\begin{itemize}
+	  \item already proved
+	\end{itemize}
+      \item $\text{NP} \subseteq \text{P}$:
+        \begin{itemize}
+	  \item $\forall A \in \text{NP}, A \le_{P} B \land B \in \text{P} \Rightarrow A \in \text{P}$
+	\end{itemize}
+    \end{enumerate}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{NP-complete}
   \begin{theorem}
-    If $B$ is NP-complete and $B \le_{P} C \in NP$, then $C$ is NP-complete.
+    If $B$ is NP-complete and $B \le_{P} C \in \text{NP}$, then $C$ is NP-complete.
   \end{theorem}
+  
+  \begin{proof}
+    \begin{enumerate}
+      \item $C \in \text{NP}$
+      \item $C$ is NP-hard:
+	\begin{itemize}
+	  \item $\forall A \in \text{NP}, A \le_{P} B \le_{P} C \Rightarrow A \le_{P} C$.
+	\end{itemize}
+    \end{enumerate}
+  \end{proof}
 \end{frame}
 %%%%%%%%%%
 \begin{frame}{Proof of being in NP-complete}
-  \begin{exampleblock}{To prove $C$ is NP-Complete.}
+  \begin{exampleblock}{To prove $C$ is NP-complete.}
     \begin{enumerate}
       \item $C \in \text{NP}$:
 	\begin{itemize}
