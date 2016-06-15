@@ -129,7 +129,7 @@
   \end{block}
 \end{frame}
 %%%%%%%%%%
-\begin{frame}<handout:0>{2-D DP (part 1)}
+\begin{frame}<beamer:0>{2-D DP (part 1)}
   \begin{exampleblock}{Shortest common supersequence \pno{2.2.10}}
     \begin{itemize}
       \item $X = \set{x_{1} \cdots x_{m}}; Y = \set{y_{1} \cdots y_{n}}$
@@ -186,7 +186,7 @@
   \end{theorem}
 \end{frame}
 %%%%%%%%%%
-\begin{frame}<handout:0>{2-D DP (part 1)}
+\begin{frame}<beamer:0>{2-D DP (part 1)}
   \begin{exampleblock}{Shuffle of strings \pno{2.2.12}}
     \begin{itemize}
       \item $X[1 \cdots m]; Y[1 \cdots n], Z[1 \cdots m+n]$
@@ -203,7 +203,7 @@
   \end{block}
 \end{frame}
 %%%%%%%%%%
-\begin{frame}<handout:0>{2-D DP (part 1)}
+\begin{frame}<beamer:0>{2-D DP (part 1)}
   \begin{block}{Solution.}
     \begin{itemize}
       \item recurrence:
@@ -246,29 +246,28 @@
     \end{center}
   \end{exampleblock}
 
-  \begin{block}{Trial.}
+  \begin{alertblock}{Trial and error.}
     \begin{itemize}
       \item try subproblem $L[i]$: the length of a LCS in $T[1 \cdots i]$
       \item try subproblem $L[i,j]$: the length of a LCS in $T[i \cdots j]$
     \end{itemize}
-  \end{block}
+  \end{alertblock}
 \end{frame}
 %%%%%%%%%%
 \begin{frame}{2-D DP (part 2)}
   \begin{block}{Solution.}
     \begin{itemize}
       \item $L[i,j]$: the length of a LCS \textcolor{blue}{starting with $T_{i}$ and ending with $T_{j}$}
-      \item goal: $\max_{1 \le i \le j \le n} L[i,j]$
-      \item $O(n^{3} \Rightarrow n^{2})$
-      \item question: Is $T_{i} = T_{j}$?
-      \item recurrence: 
+      \item goal: $\max_{1 \le i \le j \le n} L[i,j]$ (simply $O(n^3)$)
+      \item<2-> question: Is $T_{i} = T_{j}$?
+      \item<2-> recurrence: 
 	\begin{displaymath}
 	  L[i,j] = \left\{ \begin{array}{ll}
 	    0 & \textrm{if $T_{i} \neq T_{j}$}  \\
 	    L[i+1,j-1] + 1 & \textrm{if $T_{i} = T_{j}$}
 	  \end{array} \right.
 	\end{displaymath}
-      \item initialization: 
+      \item<3-> initialization: 
 	\begin{align*}
 	  L[i,i] &= 0, 0 \le i \le n  \\
 	  L[i,i+1] &= \left\{ \begin{array}{ll}
@@ -311,7 +310,7 @@
   \end{block}
 \end{frame}
 %%%%%%%%%%
-\begin{frame}<handout:0>{2-D DP (part 2)}
+\begin{frame}<beamer:0>{2-D DP (part 2)}
   \begin{exampleblock}{Longest subsequence palindrome \pno{2.2.15 (a)}}
     \begin{itemize}
       \item string $S[1 \cdots n]$
@@ -319,6 +318,7 @@
     \end{itemize}
   \end{exampleblock}
 
+  \pause
   \begin{block}{Solution.}
     \begin{itemize}
       \item subproblem $L[i,j]$: the length of the LSP in $S[i \cdots j]$
@@ -329,7 +329,7 @@
   \end{block}
 \end{frame}
 %%%%%%%%%%
-\begin{frame}<handout:0>{2-D DP (part 2)}
+\begin{frame}<beamer:0>{2-D DP (part 2)}
   \begin{exampleblock}{Longest subsequence palindrome \pno{2.2.15 (b)}}
     \begin{itemize}
       \item string $S[1 \cdots n]$

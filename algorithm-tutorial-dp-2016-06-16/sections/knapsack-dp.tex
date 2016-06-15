@@ -2,7 +2,7 @@
 
 %%%%%%%%%%
 \begin{frame}{The knapsack problem}
-  \begin{exampleblock}{The changing-making problem \pno{2.2.17 (b), 2.2.4 (subset sum)}}
+  \begin{exampleblock}{The change-making problem \pno{2.2.17 (b), 2.2.4 (subset sum)}}
     \begin{itemize}
       \item coins values: $x_{1} \dots x_{n}$
       \item amount: $v$
@@ -11,6 +11,7 @@
     \end{itemize}
   \end{exampleblock}
 
+  \pause
   \begin{alertblock}{Trial and error.}
     \begin{itemize}
       \item subproblem $C[i]$: is it possible to make change for $v$ using only $x_{1} \cdots x_{n}$
@@ -34,7 +35,7 @@
 	\[
 	  C[i,w] = C[i-1] \lor (C[i-1, v-w] \textcolor{blue}{\land v \ge w})
 	\]
-      \item initialization:
+      \item<2-> initialization:
 	\begin{align*}
 	  C[i,0] &= \text{true}  \\
 	  C[0,w] &= \text{false}, \text{if } w > 0 \\
@@ -45,7 +46,7 @@
 \end{frame}
 %%%%%%%%%%
 \begin{frame}{The knapsack problem}
-  \begin{exampleblock}{The changing-making problem \pno{2.2.17 (a)}}
+  \begin{exampleblock}{The change-making problem \pno{2.2.17 (a)}}
     \begin{itemize}
       \item coins values: $x_{1} \dots x_{n}$
       \item amount: $v$
@@ -61,14 +62,14 @@
       \item question: using $x_{i}$ or not?
       \item recurrence:
 	\[
-	  C[i,w] = C[i-1] \lor (C[\textcolor{red}{i}, w-x_{i}] \textcolor{blue}{\land w \ge x_{i}})
+	  C[i,w] = C[i-1] \lor (C[\textcolor{red}{i}, w-x_{i}] \land w \ge x_{i})
 	\]
     \end{itemize}
   \end{block}
 \end{frame}
 %%%%%%%%%%
 \begin{frame}{The knapsack problem}
-  \begin{exampleblock}{The changing-making problem \pno{2.2.17 (c)}}
+  \begin{exampleblock}{The change-making problem \pno{2.2.17 (c)}}
     \begin{itemize}
       \item coins values: $x_{1} \dots x_{n}$
       \item amount: $v$
@@ -93,7 +94,7 @@
 	\[
 	  C[i,w,l] = C[i-1,w,l] \lor \left( C[i,w-x_{i},l-1] \land w \ge x_{i} \right)
 	\]
-      \item initialization:
+      \item<2-> initialization:
 	\begin{align*}
 	  C[0,0,l] &= \text{true} \\
 	  C[0,w,l] &= \text{false}, \text{if } w > 0 \\

@@ -7,6 +7,8 @@
       \item tree $T$
       \item compute (the size of) a minimum vertex cover of $T$
     \end{itemize}
+
+    \fignocaption{width = 0.30\textwidth}{fig/vertex-cover.png}
   \end{exampleblock}
 
   \begin{block}{Solution.}
@@ -14,25 +16,27 @@
       \item rooted $T$ at $r$
       \item subproblem $I(u)$: the size of a MVC of $T_{u}$ subtree
       \item goal: $I(r)$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{DP on graphs}
+  \begin{block}{Solution.}
+    \begin{itemize}
       \item question: Is $u$ in $\text{MVC}[u]$?
       \item recurrence:
 	\[
 	  I(u) = \max \set{|\text{children of } u| + \sum_{v: \text{grandchildren of } u} I(v), 1 + \sum_{v: \text{children of } u} I(v)}
 	\]
-    \end{itemize}
-  \end{block}
-\end{frame}
-%%%%%%%%%%
-\begin{frame}[fragile]{DP on graphs}
-  \begin{block}{Solution.}
-    \begin{itemize}
       \item initialization: 
 	\[
 	  I(u) = 0, \text{if } u \text{ is a leave}
 	\]
     \end{itemize}
   \end{block}
-
+\end{frame}
+%%%%%%%%%%
+\begin{frame}[fragile]{DP on graphs}
   \begin{block}{Code.}
     \begin{verbatim}
       DFS on T from root r:
@@ -50,12 +54,21 @@
       \item $s \in V$
       \item compute shortest paths from $s$ to all $t$
     \end{itemize}
+
+    \fignocaption{width = 0.30\textwidth}{fig/vertex-cover.png}
   \end{exampleblock}
 
   \begin{block}{Solution.}
     \begin{itemize}
       \item subproblem $\text{dist}[v]$: shortest distance from $s$ to $v$ 
       \item goal: all $\text{dist}[v]$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{DP on graphs}
+  \begin{block}{Solution.}
+    \begin{itemize}
       \item question: What is the relation between $\text{dist}[v]$ and $\text{dist}[u]$ of its predecessors $u$?
       \item recurrence:
 	\[
