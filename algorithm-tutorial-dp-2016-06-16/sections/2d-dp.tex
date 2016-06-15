@@ -1,0 +1,385 @@
+\section{2-D DP}
+
+\subsection{2-D DP (part 1)}
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 1)}
+  \begin{exampleblock}{LCS: longest common subsequence \pno{2.2.7}}
+    \begin{itemize}
+      \item $X = X_{1} \cdots X_{m}; Y = Y_{1} \cdots Y_{n}$
+      \item find (the length of) a LCS of $X$ and $Y$
+    \end{itemize}
+    \begin{align*}
+      X &= \langle A,\textcolor{blue}{B},\textcolor{blue}{C},\textcolor{blue}{B},D,\textcolor{blue}{A},B \rangle  \\
+      Y &= \langle \textcolor{blue}{B},D,\textcolor{blue}{C},A,\textcolor{blue}{B},\textcolor{blue}{A} \rangle \\
+      Z &= \langle B,C,B,A \rangle
+    \end{align*}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem: $L[i,j]$: the length of a LCS of $X[1 \cdots i]$ and $Y[1 \cdots j]$
+      \item goal: $L[m,n]$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 1)}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item question: Is $X_{i} = Y_{j}$?
+      \item recurrence:
+	\begin{displaymath}
+	  L[i,j] = \left\{ \begin{array}{ll}
+	    L[i-1, j-1] + 1 & \textrm{if $X_{i} = Y_{j}$}\\
+	    \max \set{L[i-1,j], L[i,j-1]} & \textrm{if $X_{i} \neq Y_{j}$}
+	  \end{array} \right.
+	\end{displaymath}
+      \item initialization:
+	\begin{align*}
+	  L[i,0] &= 0, 0 \le i \le m \\
+	  L[0,j] &= 0, 0 \le j \le n
+	\end{align*}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 1)}
+  \begin{alertblock}{Counterexample?}
+    \[
+      L[i,j] = L[i-1,j-1] + 1 \text{ if } X_{i} = Y_{j}
+    \]
+
+    \begin{columns}
+      \column{0.50\textwidth}
+	\begin{align*}
+	  X &= \textcolor{blue}{a},\textcolor{blue}{b},c,c,\textcolor{red}{c} \\
+	  Y &= \textcolor{blue}{a},\textcolor{blue}{b},\textcolor{red}{c}  \\
+	  Z &= \textcolor{blue}{a},\textcolor{blue}{b},\textcolor{red}{c}
+	\end{align*}
+      \column{0.50\textwidth}
+	\begin{align*}
+	  X &= \textcolor{blue}{a},\textcolor{blue}{b},\textcolor{blue}{c},c,c \\
+	  Y &= \textcolor{blue}{a},\textcolor{blue}{b},\textcolor{blue}{c}  \\
+	  Z &= \textcolor{blue}{a},\textcolor{blue}{b},\textcolor{blue}{c}
+	\end{align*}
+    \end{columns}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 1)}
+  \begin{block}{Correctness proof (I).}
+    \begin{theorem}{}
+      $L[i,j] = L[i-1,j-1] + 1$ if $X_{i} = Y_{j}$.
+    \end{theorem}
+
+    \begin{theorem}{}
+      $\exists$ a LCS $Z[1 \cdots k]$ of $X[1 \cdots i]$ and $Y[1 \cdots j]: \textcolor{blue}{Z_{k} \equiv X_{i} \land Z_{k} \equiv Y_{j}}$.
+    \end{theorem}
+    \begin{proof}
+      \begin{itemize}
+	\item $Z_{k} = X_{i} = Y_{j}$ (by contradiction)
+	\item But, $Z_{k} = X_{i} \nRightarrow Z_{k} \equiv X_{i}; Z_{k} = Y_{i} \nRightarrow Z_{k} \equiv Y_{i}$ 
+	\item $Z_{k} = X_{i} = Y_{j} \Rightarrow \text{ either } Z_{k} \equiv X_{i} \text{ or } Z_{k} \equiv Y_{j}$ (by contradiction)
+	  \begin{enumerate}
+	    \item $Z_{k} \equiv X_{i} \land Z_{k} \equiv Y_{j}$
+	    \item $Z_{k} \not\equiv X_{i} \land Z_{k} \equiv Y_{j}$
+	    \item $Z_{k} \equiv X_{i} \land Z_{k} \not\equiv Y_{j}$
+	  \end{enumerate}
+      \end{itemize}
+    \end{proof}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 1)}
+  \begin{block}{Correctness proof (II).}
+    \begin{theorem}{}
+      $L[i,j] = \max \set{L[i-1,j], L[i,j-1]} \text{ if } X_{i} \neq Y_{j}$
+    \end{theorem}
+
+    \begin{theorem}{}
+      If $X_{i} \neq Y_{j}$, then either $X_{i} \notin \text{LCS}[i,j]$ or $Y_{j} \notin \text{LCS}[i,j]$.
+    \end{theorem}
+    \begin{proof}
+      By contradiction.
+    \end{proof}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 1)}
+  \begin{exampleblock}{LCS with repetition of $X_{i}$ \pno{2.2.8}}
+    \begin{enumerate}
+      \item repetition of $X_{i}$
+      \item $k$-bounded repetition of $X_{i}$
+    \end{enumerate}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{enumerate}
+      \item repetition of $x_{i}$:
+	\begin{displaymath}
+	  L[i,j] = \left\{ \begin{array}{ll}
+	    L[\textcolor{red}{i}, j-1] + 1 & \textrm{if $X_{i} = Y_{j}$}\\
+	    \max \set{L[i-1,j], L[i,j-1]} & \textrm{if $X_{i} \neq Y_{j}$}
+	  \end{array} \right.
+	\end{displaymath}
+      \item $k$-bounded repetition of $X_{i}$:
+
+	$X^{(k)} = X_{1}^{(k)} \cdots X_{m}^{(k)}$
+    \end{enumerate}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}<handout:0>{2-D DP (part 1)}
+  \begin{exampleblock}{Shortest common supersequence \pno{2.2.10}}
+    \begin{itemize}
+      \item $X = \set{x_{1} \cdots x_{m}}; Y = \set{y_{1} \cdots y_{n}}$
+      \item to find (the length of) a SCS of $X$ and $Y$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $L[i,j]$: the length of an SCS of $X[1 \cdots i]$ and $Y[1 \cdots j]$
+      \item goal: $L[m,n]$
+      \item question: is $X_{i} = Y_{j}$
+      \item recurrence:
+	\begin{displaymath}
+	  L[i,j] = \left\{ \begin{array}{ll}
+	    L[i-1, j-1] + 1 & \textrm{if $X_{i} = Y_{j}$}\\
+	    \max \set{L[i-1,j] + 1, L[i,j-1] + 1} & \textrm{if $X_{i} \neq Y_{j}$}
+	  \end{array} \right.
+	\end{displaymath}
+    \end{itemize}
+  \end{block}
+
+  \begin{alertblock}{Remark.}
+    $\max(m,n) \le L(m,n) \le m+n$
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 1)}
+  \begin{exampleblock}{Edit distance revisited}
+    \begin{displaymath}
+      \text{ED}[i,j] = \min \left\{ \begin{array}{ll}
+	\text{ED}[i-1,j] + 1 &  \\
+	\text{ED}[i,j-1] + 1 & \\
+	\text{ED}[i-1,j-1] + \text{I}\set{X_{i} = Y_{j}} &
+      \end{array} \right.
+    \end{displaymath}
+  \end{exampleblock}
+    
+  \begin{exampleblock}{}
+    \begin{displaymath}
+      \text{ED}[i,j] = \left\{ \begin{array}{ll}
+        \text{ED}[i-1,j-1] & \text{if } X_{i} = Y_{j}  \\
+        \min \left\{ \begin{array}{ll}
+          \text{ED}[i-1,j] + 1 &  \\
+          \text{ED}[i,j-1] + 1 &  \\
+          \text{ED}[i-1,j-1] + 1 \\
+	\end{array} \right. & \text{if } X_{i} \neq Y_{j}
+      \end{array} \right.
+    \end{displaymath}
+  \end{exampleblock}
+
+  \begin{theorem}
+    If $X_{i} = Y_{j}$, then $\text{ED}[i-1,j-1] \le \min\set{\text{ED}[i-1,j] + 1, \text{ED}[i,j-1] + 1}$.
+  \end{theorem}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}<handout:0>{2-D DP (part 1)}
+  \begin{exampleblock}{Shuffle of strings \pno{2.2.12}}
+    \begin{itemize}
+      \item $X[1 \cdots m]; Y[1 \cdots n], Z[1 \cdots m+n]$
+      \item is $Z$ a shuffle of $X$ and $Y$?
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item $S[i,j]$: Is $Z[1 \cdots i+j]$ a shuffle of $X[1 \cdots i]$ and $Y[1 \cdots j]$?
+      \item goal: $S[m,n]$
+      \item question: what is the relation among $X_{i}, Y_{j}, \text{ and } Z_{i+j}$?
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}<handout:0>{2-D DP (part 1)}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item recurrence:
+	\begin{displaymath}
+	  S[i,j] = \left\{ \begin{array}{ll}
+	    \text{false} & \textrm{if $Z_{i+j} \neq X_{i} \land Z_{i+j} \neq Y_{j}$}\\
+	    S[i-1,j] & \textrm{if $Z_{i+j} = X_{i} \land Z_{i+j} \neq Y_{j}$}\\
+	    S[i,j-1] & \textrm{if $Z_{i+j} \neq X_{i} \land Z_{i+j} = Y_{j}$}\\
+	    S[i-1,j] \lor S[i,j-1] & \textrm{if $Z_{i+j} = X_{i} = Y_{j}$}
+	  \end{array} \right.
+	\end{displaymath}
+      \item initialization: 
+	\begin{align*}
+	  S[0,0] &= \text{true} \\
+	  S[0,j] &= \left\{ \begin{array}{ll}
+	    \text{true} & \text{if } Y = Z  \\
+	    \text{false} & \text{if } Y \neq Z
+	  \end{array} \right. \\
+	  S[i,0] &= \left\{ \begin{array}{ll}
+	    \text{true} & \text{if } X = Z  \\
+	    \text{false} & \text{if } X \neq Z
+	  \end{array} \right.
+	\end{align*}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\subsection{2-D DP (part 2)}
+
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 2)}
+  \begin{exampleblock}{Longest contiguous substring both forward and backward \pno{2.2.9}}
+    \begin{itemize}
+      \item string $T[1 \cdots n]$
+      \item to find LCS both forward and backward
+    \end{itemize}
+
+    \begin{center}
+      d\textcolor{blue}{ynam}icprogramming\textcolor{blue}{many}times
+    \end{center}
+  \end{exampleblock}
+
+  \begin{block}{Trial.}
+    \begin{itemize}
+      \item try subproblem $L[i]$: the length of a LCS in $T[1 \cdots i]$
+      \item try subproblem $L[i,j]$: the length of a LCS in $T[i \cdots j]$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 2)}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item $L[i,j]$: the length of a LCS \textcolor{blue}{starting with $T_{i}$ and ending with $T_{j}$}
+      \item goal: $\max_{1 \le i \le j \le n} L[i,j]$
+      \item $O(n^{3} \Rightarrow n^{2})$
+      \item question: Is $T_{i} = T_{j}$?
+      \item recurrence: 
+	\begin{displaymath}
+	  L[i,j] = \left\{ \begin{array}{ll}
+	    0 & \textrm{if $T_{i} \neq T_{j}$}  \\
+	    L[i+1,j-1] + 1 & \textrm{if $T_{i} = T_{j}$}
+	  \end{array} \right.
+	\end{displaymath}
+      \item initialization: 
+	\begin{align*}
+	  L[i,i] &= 0, 0 \le i \le n  \\
+	  L[i,i+1] &= \left\{ \begin{array}{ll}
+	    1 & \text{if } T_{i} = T_{i+1}  \\
+	    0 & \text{if } T_{i} \neq T_{i+1}
+	    \end{array} \right.
+	\end{align*}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}[fragile]{2-D DP (part 2)}
+  \begin{block}{Code: three ways of filling the table.}
+    \begin{center}
+        \begin{verbatim}
+          for d = 2 to n-1
+            for i = 1 to n-d
+              j = i + d
+              ...
+          return max_{1 <= i <= j <= n} L[i,j]
+       \end{verbatim}
+    \end{center}
+
+    \begin{columns}[t]
+      \column{0.50\textwidth}
+        \begin{verbatim}
+          for i = n-2 to 1
+            for j = i+2 to n
+              ...
+          return ...
+        \end{verbatim}
+      \column{0.50\textwidth}
+        \begin{verbatim}
+          for j = 3 to n
+            for i = j-2 to 1
+              ...
+          return ...
+       \end{verbatim}
+    \end{columns}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}<handout:0>{2-D DP (part 2)}
+  \begin{exampleblock}{Longest subsequence palindrome \pno{2.2.15 (a)}}
+    \begin{itemize}
+      \item string $S[1 \cdots n]$
+      \item to find (the length of) a longest subsequence palindrome
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $L[i,j]$: the length of the LSP in $S[i \cdots j]$
+      \item goal: $L[1,n]$
+      \item question: is $S[i] = S[j]$?
+      \item recurrence
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}<handout:0>{2-D DP (part 2)}
+  \begin{exampleblock}{Longest subsequence palindrome \pno{2.2.15 (b)}}
+    \begin{itemize}
+      \item string $S[1 \cdots n]$
+      \item decompose into a sequence of palindromes
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item $\text{Num}[i,j]$: the minimum number of palindromes obtained from $S[i \cdots j]$
+      \item subproblem $\text{MinPals}[i]$: the minimum number of palindromes obtained from $S[1 \cdots i]$
+      \item goal: $\text{MinPals}[n]$
+      \item question: what is the start index of the last palindrome?
+      \item recurrence:
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 2)}
+  \begin{exampleblock}{String split problem \pno{2.2.16}}
+    \begin{itemize}
+      \item split a string $S$ into many pieces
+      \item cost $|S| = n \Rightarrow n$
+      \item given locations of $m$ cuts: $\textcolor{gray}{C_{0}}, C_{1}, \cdots, C_{m}, \textcolor{gray}{C_{m+1}}$
+      \item to find the minimum cost of splitting the string into $m+1$ pieces
+	$S_{0} \cdots S_{m}$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem: $\text{MinCost}[i,j]$: the minimum cost of breaking the string $S_{i} \cdots S_{j-1}$ using cuts $C_{i+1} \cdots C_{j-1}$
+      \item goal: $\text{MinCost}[0,m+1]$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{2-D DP (part 2)}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item question: what is the first cut in $C_{i+1} \cdots C_{j-1}$?
+      \item recurrence:
+	\[
+	  \text{MinCost}[i,j] = \min_{i < k < j} \left( \text{MinCost}[i,k] + \text{MinCost}[k,j] + l(S_{i} \cdots S_{j-1}) \right)
+	\]
+      \item initialization:
+	\[
+	  \text{MinCost}[i, i+1] = 0
+	\]
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%

@@ -1,0 +1,17 @@
+\section{3-D DP}
+
+%%%%%%%%%%
+\begin{frame}{3-D DP}
+  \begin{exampleblock}{Floyd-Warshall algorithm}
+    \begin{itemize}
+      \item subproblem $\text{dist}[i,j,k]$: the length of the shortest path from $i$ to $j$ via only nodes $v_{1} \cdots v_{k}$
+      \item goal: $\text{dist}[i,j,n], \forall i,j$
+      \item question: Is $v_{k}$ in $\text{ShortestPath}[i,j,k]$?
+      \item recurrence:
+	\fignocaption{width = 0.40\textwidth}{fig/floyd-warshall.png}
+	\[
+	  \text{dist}[i,j,k] = \min \set{\text{dist}[i,j,k-1], \text{dist}[i,k,k-1] + \text{dist}[k,j,k-1]}
+	\]
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}

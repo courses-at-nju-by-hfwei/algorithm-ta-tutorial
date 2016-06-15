@@ -1,0 +1,166 @@
+\section{1-D DP}
+
+%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{exampleblock}{Maximal sum subarray \pno{2.2.3, 2.2.13, \textcolor{red}{Google Interview Problem}}}
+    \begin{itemize}
+      \item array $A[1 \cdots n], a_{i} >=< 0$
+      \item to find (the sum of) an MSS in $A$
+	\begin{itemize}
+	  \item special case: $\text{mss} = 0$ if all negative
+	\end{itemize}
+    \end{itemize}
+	
+    \[
+      A[-2,1 ,-3,4,-1,2,1,-5,4] \Rightarrow [4,-1,2,1]
+    \]
+  \end{exampleblock}
+
+  \begin{alertblock}{Trial and error.}
+    \begin{itemize}
+      \item try subproblem $\text{MSS}[i]$: the sum of the MS (\text{MS}[i]) in $A[1 \cdots i]$
+      \item goal: $\text{mss} = \text{MSS}[n]$
+      \item question: Is $a_{i} \in \text{MS}[i]$?
+      \item recurrence: 
+	\[ 
+	  \text{MSS}[i] = \max \set{\text{MSS}[i-1], \textcolor{red}{???}}
+	\]
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $\text{MSS}[i]$: the sum of the MSS \textcolor{red}{\it ending with} $a_{i}$ or 0
+      \item goal: $\text{mss} = \max_{1 \le i \le n} \text{MSS}[i]$
+      \item question: where does the $\text{MS}[i]$ start?
+      \item recurrence: 
+	\[ 
+	  \text{MSS}[i] = \max \set{\text{MSS}[i-1] + a_{i}, 0} 
+	\]
+      \item initialization: $\text{MSS}[0] = 0$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}[fragile]{1-D DP}
+  \begin{block}{Code.}
+    \begin{verbatim}
+      MSS[0] = 0
+      For i = 1 to n
+        MSS[i] = max{MSS[i-1] + A[i], 0}
+      return max_{i = 1 to n} MSS[i]
+    \end{verbatim}
+  \end{block}
+
+  \begin{block}{Simpler code.}
+    \begin{verbatim}
+      mss = 0
+      MSS = 0
+      For i = 1 to n
+        MSS = max{MSS + A[i], 0}
+        mss = max{mss, MSS}
+      return mss
+    \end{verbatim}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{exampleblock}{Weighted interval/class scheduling \pno{2.2.20}}
+    \begin{itemize}
+      \item $\mathcal{C} = \set{c_{1}, c_{2}, \cdots, c_{n}}$
+      \item $c_{i}$: grade $g_{i}$
+      \item $c_{i}$: $s_{i}, f_{i}$; conflict
+      \item choosing pairwise non-conflicting classes to maximize your grades
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $G[i]$: the maximal grades obtained from $\set{c_{1}, c_{2}, \cdots, c_{i}}$
+      \item goal: $G[n]$
+      \item question: choose $c_{i}$ or not in $G[i]$? {\footnotesize \textcolor{red}{(binary chioce)}}
+      \item recurrence: $G[i] = \max \set{G_{i-1}, G[j] + g_{i}}$ 
+	
+	$c_{j}$: the last class which does not conflict with $c_{i}$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{exampleblock}{Reconstructing document \pno{2.2.14}}
+    \begin{itemize}
+      \item string $S[1 \cdots n]$
+      \item dict for \emph{lookup}:
+	\begin{displaymath}
+	  \text{dict}(w) = \left\{ \begin{array}{ll}
+	    \text{true} & \textrm{if } w \textrm{ is a valid word}\\
+	    \text{false} & \textrm{o.w.}
+	  \end{array} \right.
+	\end{displaymath}
+      \item Is $S[1 \cdots n]$ valid (reconstructed as a sequence of valid words)?
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $V[i]$: is $S[1 \cdots i]$ valid?
+      \item goal: $V[n]$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item question: where does the last word start? {\footnotesize \textcolor{red}{(multi-way choices)}}
+      \item recurrence: 
+	\[ 
+	  V[i] = \bigvee_{j = 1 \ldots i} (V[j-1] \land \text{dict}(S[j \cdots i]))
+	\]
+      \item initialization: $V[0] = \text{true}$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}[fragile]{1-D DP}
+    \begin{displaymath}
+      V[i] = \left\{ \begin{array}{ll}
+	0 & i = 0 \\
+	\bigvee_{j = 1 \ldots i} (V[j-1] \land \text{dict}(S[j \cdots i])) & 1 \le i \le n
+      \end{array} \right.
+    \end{displaymath}
+
+  \begin{block}{Code.}
+    \begin{verbatim}
+    V[0] = true
+    For i = 1 to n
+      For j = 1 to i
+        V[i] = V[j-1] and Dict(S[j...i])
+    return V[n]
+    \end{verbatim}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}<handout:0>{1-D DP}
+  \begin{exampleblock}{A trip through hotels \pno{2.2.21}}
+    \begin{itemize}
+      \item hotel sequence (distance): $a_{0} = 0, a_{1}, \cdots, a_{n}$
+      \item stop at only hotels
+      \item cost: $(200 - x)^{2}$ 
+      \item to minimize overall cost
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item $C[i]$: minimum cost when the destination is $a_{i}$
+      \item goal: $C[n]$
+      \item question: what is the last but one hotel $a_{j}$ to stop in the optimal solution?
+      \item recurrence: $C[i] = \min_{0 \le j < i} \set{C[j] + (200 - (a_{i} - a_{j}))^{2}}$
+      \item initialization: $C[0] = 0$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%

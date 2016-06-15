@@ -1,0 +1,106 @@
+\section{The Knapsack Problem}
+
+%%%%%%%%%%
+\begin{frame}{The knapsack problem}
+  \begin{exampleblock}{The changing-making problem \pno{2.2.17 (b), 2.2.4 (subset sum)}}
+    \begin{itemize}
+      \item coins values: $x_{1} \dots x_{n}$
+      \item amount: $v$
+      \item possible to make change for $v$?
+      \item without repetition
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{alertblock}{Trial and error.}
+    \begin{itemize}
+      \item subproblem $C[i]$: is it possible to make change for $v$ using only $x_{1} \cdots x_{n}$
+      \item goal: $C[n]$
+      \item question: using $x_{i}$ or not?
+      \item recurrence:
+	\[
+	  C[i] = C[i-1] \lor \textcolor{red}{???}
+	\]
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{The knapsack problem}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $C[i, w]$: is it possible to make change for $w$ using only $x_{1} \dots x_{n}$
+      \item goal: $C[n,v]$
+      \item question: using $x_{i}$ or not?
+      \item recurrence:
+	\[
+	  C[i,w] = C[i-1] \lor (C[i-1, v-w] \textcolor{blue}{\land v \ge w})
+	\]
+      \item initialization:
+	\begin{align*}
+	  C[i,0] &= \text{true}  \\
+	  C[0,w] &= \text{false}, \text{if } w > 0 \\
+	  C[0,0] &= \text{true}
+	\end{align*}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{The knapsack problem}
+  \begin{exampleblock}{The changing-making problem \pno{2.2.17 (a)}}
+    \begin{itemize}
+      \item coins values: $x_{1} \dots x_{n}$
+      \item amount: $v$
+      \item possible to make change for $v$?
+      \item unbounded repetition
+    \end{itemize}
+  \end{exampleblock}
+  
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $C[i, w]$: is it possible to make change for $w$ using only $x_{1} \dots x_{n}$
+      \item goal: $C[n,v]$
+      \item question: using $x_{i}$ or not?
+      \item recurrence:
+	\[
+	  C[i,w] = C[i-1] \lor (C[\textcolor{red}{i}, w-x_{i}] \textcolor{blue}{\land w \ge x_{i}})
+	\]
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{The knapsack problem}
+  \begin{exampleblock}{The changing-making problem \pno{2.2.17 (c)}}
+    \begin{itemize}
+      \item coins values: $x_{1} \dots x_{n}$
+      \item amount: $v$
+      \item possible to make change for $v$?
+      \item $\le k$-coins 
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $C[i,w,l]$: is it possible to make change for $w$ with $\le l$ coins of $x_{1} \dots x_{i}$
+      \item goal: $C[n,v,k]$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{The knapsack problem}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item question: using $x_{i}$ or not?
+      \item recurrence: 
+	\[
+	  C[i,w,l] = C[i-1,w,l] \lor \left( C[i,w-x_{i},l-1] \land w \ge x_{i} \right)
+	\]
+      \item initialization:
+	\begin{align*}
+	  C[0,0,l] &= \text{true} \\
+	  C[0,w,l] &= \text{false}, \text{if } w > 0 \\
+	  C[i,0,l] &= \text{true} \\
+	  C[i,w,0] &= \text{false}, \text{if } w > 0
+	\end{align*}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%

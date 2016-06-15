@@ -1,0 +1,86 @@
+\section{DP on Graphs}
+
+%%%%%%%%%%
+\begin{frame}{DP on graphs}
+  \begin{exampleblock}{Minimum vertex cover \pno{2.2.18}}
+    \begin{itemize}
+      \item tree $T$
+      \item compute (the size of) a minimum vertex cover of $T$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item rooted $T$ at $r$
+      \item subproblem $I(u)$: the size of a MVC of $T_{u}$ subtree
+      \item goal: $I(r)$
+      \item question: Is $u$ in $\text{MVC}[u]$?
+      \item recurrence:
+	\[
+	  I(u) = \max \set{|\text{children of } u| + \sum_{v: \text{grandchildren of } u} I(v), 1 + \sum_{v: \text{children of } u} I(v)}
+	\]
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}[fragile]{DP on graphs}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item initialization: 
+	\[
+	  I(u) = 0, \text{if } u \text{ is a leave}
+	\]
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Code.}
+    \begin{verbatim}
+      DFS on T from root r:
+        when u is ``finished'': 
+          I(u) = 0, if u is a leave
+          I(u) = ..., otherwise
+    \end{verbatim}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{DP on graphs}
+  \begin{exampleblock}{Shortest paths in dags}
+    \begin{itemize}
+      \item dag $G = (V, E, w)$
+      \item $s \in V$
+      \item compute shortest paths from $s$ to all $t$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $\text{dist}[v]$: shortest distance from $s$ to $v$ 
+      \item goal: all $\text{dist}[v]$
+      \item question: What is the relation between $\text{dist}[v]$ and $\text{dist}[u]$ of its predecessors $u$?
+      \item recurrence:
+	\[
+	  \text{dist}[v] = \min_{u \to v} \left(\text{dist}[u] + w(u \to v)\right) 
+	\]
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}[fragile]{DP on graphs}
+  \begin{block}{Code.}
+    \begin{verbatim}
+    dist[s] = 0
+    dist[v] = infty for others
+
+    for v != s in linearized order
+      dist[v] = min_{u -> v} dist[u] + w(u \to v)
+    \end{verbatim}
+  \end{block}
+
+  \begin{alertblock}{Remarks.}
+    \begin{enumerate}
+      \item longest path
+      \item negative edges
+    \end{enumerate}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%

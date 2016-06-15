@@ -1,4 +1,4 @@
-\documentclass{beamer}
+\documentclass[handout]{beamer}
 \usepackage{lmodern}
 
 \usetheme{CambridgeUS} % try Madrid, Pittsburgh
@@ -13,6 +13,7 @@
 \DeclareMathOperator*{\argmax}{arg\,max}
 
 \usepackage{pifont}
+\usepackage{hyperref}
 
 \usepackage[normalem]{ulem}
 \newcommand{\middlewave}[1]{\raisebox{0.5em}{\uwave{\hspace{#1}}}}
@@ -52,7 +53,7 @@
 
 \author[Hengfeng Wei]{Hengfeng Wei}
 \institute{hengxin0912@gmail.com}
-\date{June 13, 2016}
+\date{June 16, 2016}
 
 \AtBeginSection[]{
   \begin{frame}[noframenumbering, plain]
@@ -69,7 +70,7 @@
 \input{sections/1d-dp}
 \input{sections/2d-dp}
 \input{sections/3d-dp}
-\input{sections/tree-dp}
+\input{sections/graph-dp}
 \input{sections/knapsack-dp}
 
 \input{sections/summary}
