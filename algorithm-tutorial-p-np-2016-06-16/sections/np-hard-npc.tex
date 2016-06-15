@@ -1,0 +1,73 @@
+\section{NP-Complete}
+
+%%%%%%%%%%
+\begin{frame}{NP-hard}
+  \begin{definition}[NP-hard]
+    $B$ is NP-hard if
+    \[
+      \forall A \in \text{NP}: A \le_{P} B.
+    \]
+  \end{definition}
+
+  \begin{alertblock}{Remark.}
+    NP-hard problems are at least as hard as any problem in NP.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{NP-complete}
+  \begin{definition}[NP-complete]
+    $B$ is NP-complete if:
+    \begin{enumerate}
+      \item $B \in \text{NP}$
+      \item $B$ is NP-hard.
+    \end{enumerate}
+  \end{definition}
+
+  \begin{alertblock}{Remark.}
+    NP-complete problems are the hardest problems in NP.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{NP-complete}
+  \begin{theorem}
+    If $B$ is NP-complete and $B \in P$, then $P = NP$.
+  \end{theorem}
+
+  \begin{theorem}
+    If $B$ is NP-complete and $B \le_{P} C \in NP$, then $C$ is NP-complete.
+  \end{theorem}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Proof of being in NP-complete}
+  \begin{exampleblock}{To prove $C$ is NP-Complete.}
+    \begin{enumerate}
+      \item $C \in \text{NP}$:
+	\begin{itemize}
+	  \item non-deterministic polynomial algorithm
+	\end{itemize}
+      \item $C$ is NP-hard:
+	\begin{itemize}
+	  \item choose a known NP-complete problem $B$
+	  \item prove $B \le_{P} C$
+	\end{itemize}
+    \end{enumerate}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{NP-complete problem}
+  \begin{exampleblock}{The first known NP-complete problem.}
+    SAT (circuit satisfiablity) is NP-complete.
+  \end{exampleblock}
+
+  \fignocaption{width = 0.40\textwidth, angle = -90}{fig/karp21.png}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}
+  \fignocaption{width = 1.0\textwidth}{fig/npc-graph.png}
+
+  \begin{center}
+    \url{http://adriann.github.io/npc/npc.html}
+  \end{center}
+\end{frame}
+%%%%%%%%%%
+

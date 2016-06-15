@@ -1,0 +1,181 @@
+\section{P and NP}
+
+%%%%%%%%%%
+\begin{frame}{Computability theory first}
+  \begin{theorem}{}
+    Halting problem is undecidable.
+  \end{theorem}
+
+  \begin{proof}
+    \fignocaption{width = 0.15\textwidth}{fig/turing.jpg}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Complexity theory to follow}
+  \begin{columns}[t]
+    \column{0.50\textwidth}
+      Is a given Sodoku configuration solvable?
+
+      \fignocaption{width = 0.40\textwidth}{fig/sudoku.png}
+    \column{0.50\textwidth}
+      Is $3 \times 3 \times 3$ Rubik's Cube solvable in 20 moves?
+
+      \fignocaption{width = 0.45\textwidth}{fig/rubik.jpg}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Decision problems}
+  \begin{definition}[Decision problems.]
+    Decision problems are problems whose solution is ``Yes/No''.
+  \end{definition}
+
+  \begin{alertblock}{Remarks.}
+    \begin{itemize}
+      \item decision problem vs. optimization problem
+      \item decision problem is ``hard'' $\Rightarrow$ its optimization problem is ``hard''
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Decision problems vs. optimization problem}
+  \begin{exampleblock}{INDEPENDENT SET}
+    \begin{block}{Optimization problem.}
+      \begin{description}
+	\item[Instance:] Undirected graph $G = (V, E)$.
+	\item[Question:] Find the maximal independent set in $G$.
+      \end{description}
+    \end{block}
+
+    \vspace{-0.30cm}
+    \fignocaption{width = 0.20\textwidth}{fig/independent-set.png}
+    \vspace{-0.50cm}
+
+    \begin{block}{Decision problem.}
+      \begin{description}
+	\item[Instance:] Undirected graph $G = (V, E)$ and an integer $k$.
+	\item[Question:] Does $G$ has an independent set of size (at least) $k$?
+      \end{description}
+    \end{block}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{The class P}
+  \begin{definition}[The class P]
+    P is the class of decision problems that are solvable in Polynomial time.
+  \end{definition}
+
+  \begin{exampleblock}{Examples for the class P}
+    \begin{columns}[t]
+      \column{0.30\textwidth}
+	\begin{center}
+	  Euler path.
+	\end{center}
+	\fignocaption{width = 0.75\textwidth}{fig/euler-bridge-graph.png}
+      \column{0.30\textwidth}
+	\begin{center}
+	  Maze problem.
+	\end{center}
+	\fignocaption{width = 0.80\textwidth}{fig/maze.jpg}
+      \column{0.30\textwidth}
+	\begin{center}
+	  Primality testing.
+	\end{center}
+	\fignocaption{width = 0.90\textwidth}{fig/primes.png}
+    \end{columns}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{The class NP}
+  \begin{definition}[The class NP]
+    NP is the class of decision problems that are solvable in Polynomial time by \textcolor{blue}{Non-deterministic} algorithm.
+    \[
+      \text{NP} \neq \textrm{\textcolor{red}{N}on-\textcolor{red}{P}olynomial}
+    \]
+    \[
+      \text{NP} \neq \textrm{\textcolor{red}{N}o \textcolor{red}{P}roblem}
+    \]
+  \end{definition}
+
+  \pause
+  \begin{definition}[Non-deterministic polynomial algorithm.]
+    Given an instance $\mathcal{I}$ of a decision problem:
+    \begin{description}
+      \item[Guessing:] generate a certificate $c$ for $\mathcal{I}$
+      \item[Verifying:] $V(\mathcal{I},c)$
+    \end{description}
+
+    \[
+     O(\text{Guessing}) + O(\text{Verifying}) = O(n^{c})
+    \]
+  \end{definition}
+
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{Proof of being in NP}
+  \begin{theorem}{}
+    INDEPENDENT SET $\in$ NP.
+  \end{theorem}
+
+  \begin{proof}
+    Given $G = (V,E)$ and $k$:
+    \begin{description}
+      \item[Guessing:] Nondeterministically select a subset $c$ of $k$ vertices of $G$. 
+      \item[Verifying:] Test whether $G$ contains no edges for all vertices pairs in $c$.
+      \item[Output:] If the test passes, ouput ``yes''; otherwise, output ``no''.
+    \end{description}
+    The complexity is $O(n^{2})$.
+  \end{proof}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{The class NP}
+  \begin{exampleblock}{Examples for the class NP}
+    \begin{columns}[t]
+      \column{0.30\textwidth}
+	\begin{center}
+	  Hamiltonian path.
+	\end{center}
+	\fignocaption{width = 0.75\textwidth}{fig/hamiltonian.png}
+      \column{0.30\textwidth}
+	\begin{center}
+	  Clique problem.
+	\end{center}
+	\fignocaption{width = 0.80\textwidth}{fig/clique.jpg}
+      \column{0.30\textwidth}
+	\begin{center}
+	  Knapsack problem.
+	\end{center}
+	\fignocaption{width = 0.70\textwidth}{fig/knapsack.png}
+    \end{columns}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{P vs. NP}
+  \begin{block}{P vs. NP}
+    \[
+      \text{P: polynomially solvable}
+    \]
+
+    \[
+      \text{NP: polynomially verifiable}
+    \]
+  \end{block}
+
+  \fignocaption{width = 0.50\textwidth}{fig/p-vs-np-dollars.jpg}
+\end{frame}
+%%%%%%%%%%
+\begin{frame}{P vs. NP}
+  \begin{theorem}{}
+    \[
+      \text{P} \subseteq \text{NP}.
+    \]
+  \end{theorem}
+
+  \begin{proof}
+    To design a non-deterministic polynomial algorithm given a deterministic polynomial algorithm (PA).
+    \begin{description}
+      \item[Guessing:] generate a certificate $c$ for instance $\mathcal{I}$.
+      \item[Verifying:] ignore $c$; output $\text{PA}(\mathcal{I})$.
+    \end{description}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%
