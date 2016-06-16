@@ -33,7 +33,7 @@
       \item question: using $x_{i}$ or not?
       \item recurrence:
 	\[
-	  C[i,w] = C[i-1] \lor (C[i-1, v-w] \textcolor{blue}{\land v \ge w})
+	  C[i,w] = C[i-1, w] \lor (C[i-1, w-x_{i}] \textcolor{blue}{\land w \ge x_{i}})
 	\]
       \item<2-> initialization:
 	\begin{align*}
@@ -62,7 +62,7 @@
       \item question: using $x_{i}$ or not?
       \item recurrence:
 	\[
-	  C[i,w] = C[i-1] \lor (C[\textcolor{red}{i}, w-x_{i}] \land w \ge x_{i})
+	  C[i,w] = C[i-1, w] \lor (C[\textcolor{red}{i}, w-x_{i}] \land w \ge x_{i})
 	\]
     \end{itemize}
   \end{block}
