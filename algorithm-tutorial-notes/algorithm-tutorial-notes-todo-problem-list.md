@@ -7,6 +7,7 @@
 - [ ] increase/decrease edge weights
 
 ## Shortest Paths
+- [ ] double the weights of all edges vs. +1
 - [ ] critical edges for shortest path
 
 ## Dynamic Programming (DP)
