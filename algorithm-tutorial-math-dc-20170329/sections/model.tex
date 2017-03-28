@@ -1,0 +1,54 @@
+\section{Model}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Algorithm analysis}
+  \begin{itemize}
+	\item Given a problem $P$
+	\item design an alg. $A$
+	\item input space $\mathcal{X}_{n}$: inputs of size $n$
+  \end{itemize}
+
+  \pause
+  \[
+	W(n) = T_{\text{worst-case}}(n) = \max_{X \in \mathcal{X}_{n}} T(X)
+  \]
+
+  \pause
+  \[
+	B(n) = T_{\text{best-case}}(n) = \min_{X \in \mathcal{X}_{n}} T(X)
+  \]
+
+  \pause
+  \[
+	A(n) = T_{\text{average-case}}(n) = \sum_{X \in \mathcal{X}_{n}} T(X) \cdot Pr(X) \pause = E_{X \in \mathcal{X}_{n}} [T(X)]
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{(Problem 1.1.8)}
+  \begin{align*}
+	A &= \sum_{X \in \mathcal{X}} T(X) \cdot Pr(X) \\
+	  &= T(1) Pr(1) + T(2) Pr(2) + \cdots + T(n) Pr(n) \\
+	  &= \cdots  \\
+	  &= \frac{n}{8} + \frac{55}{2}
+  \end{align*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Average-case analysis of Quicksort}
+  \[
+	A(n) = n-1 + \frac{1}{n} \sum_{i=0}^{i=n-1} (A(i) + A(n-i-1))
+  \]
+
+  \[
+	A(n) = E_{X \in \mathcal{X}_{n}} [T(X)] = \sum_{X \in \mathcal{X}_{n}} T(X) \cdot Pr(X)
+  \]
+
+  \pause
+
+  \begin{align*}
+	A(n) &= E[T(X)] \\
+		&= E[E[T(X)|I]] \\
+		&= \sum_{i=0}^{i=n-1} Pr(I = i)E[T(X) \mid I = i] \\
+		&= \sum_{i=0}^{i=n-1} \frac{1}{n} [n-1 + A(i) + A(n-i-1)]
+  \end{align*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%

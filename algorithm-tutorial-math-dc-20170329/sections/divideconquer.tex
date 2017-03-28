@@ -1,0 +1,313 @@
+\section{Divide and Conquer}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Integer multiplication (Problem 2.15)}
+  \begin{exampleblock}{Integer Multiplication}
+    Multiplying two $n$-bit integers in $o(n^2)$ time. {\small (Assuming $n = 2^k$.)}
+  \end{exampleblock}
+
+  \vspace{0.50cm}
+
+  \centerline{Column multiplication in $\Theta(n^2)$}
+
+  \begin{block}{Elementray operations:}
+	\begin{itemize}
+	  \item $n$-bit + $n$-bit: $O(n)$
+	  \item $1$-bit $\times$ $1$-bit: $O(1)$
+	  \item $n$-bit shifted by $1$-bit: $O(1)$
+	\end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Integer multiplication (Problem 2.15)}
+  \begin{block}{Simple divide and conquer:}
+	\begin{align*}
+	  x & = x_L : x_R = 2^{n/2} x_L + x_R  \\
+	  y & = y_L : y_R = 2^{n/2} y_L + y_R
+	\end{align*}
+
+	\begin{align*}
+	  xy & = (2^{n/2} x_L + x_R) (2^{n/2} y_L + y_R) \\
+		 & = 2^{n} x_L y_L + 2^{n/2} (x_L y_R + x_R y_L) + x_R y_R
+	\end{align*}
+
+	\[
+	  T(n) = 4T(n/2) + \Theta(n) = \Theta(n^2)
+	\]
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Integer multiplication (Problem 2.15)}
+  \begin{block}{A little history:}
+  \begin{itemize}
+    \item Kolmogorov (1952) conjecture: $\Omega(n^2)$
+    \item Kolmogorov (1960) seminar
+    \item Karatsuba (\emph{within a week}): $\Theta(n^{1.59})$
+    \item ``The Complexity of Computations'' by Karatsuba, 1995
+  \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Integer multiplication (Problem 2.15)}
+  \begin{block}{Karatsuba algorithm:}
+    \[
+      T(n) = 3T(n/2) + \Theta(n) = \Theta(n^{\log_{2}{3}}) = \Theta(n^{1.59})
+    \]
+
+	\pause
+
+	\[
+      xy = 2^{n} x_L y_L + 2^{n/2} (x_L y_R + x_R y_L) + x_R y_R
+	\]
+	
+    \[
+      \underbrace{(x_L + x_R) (y_L + y_R)}_{P_0} = \underbrace{x_L y_L}_{P_1} +
+      (x_L y_R + x_R y_L) + \underbrace{x_R y_R}_{P_2}
+    \]
+
+    \[
+      xy = 2^{n} P_1 + 2^{n/2} (P_0 - P_1 - P_2) + P_2
+    \]
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matrix multiplication (Problem 2.16)}
+  \begin{exampleblock}{Matrix multiplication}
+    Multiplying two $n \times n$ matrices in $o(n^3)$ time. {\small (Assuming $n = 2^k$.)}
+    \[ Z = X \times Y \]
+  \end{exampleblock}
+
+  \vspace{0.50cm}
+  \begin{columns}
+    \column{0.40\textwidth}
+	  \[ Z_{ij} \]
+
+	  \[ T(n) = \Theta(n^2 \cdot n) = \Theta(n^3) \]
+    \column{0.60\textwidth}
+	  \begin{block}{Elementrary operations:}
+	    \begin{itemize}
+	      \item integer addition: $O(1)$
+	      \item integer multiplication: $O(1)$
+	    \end{itemize}
+	  \end{block}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matrix multiplication (Problem 2.16)}
+  \begin{displaymath}
+	X = \begin{bmatrix} A & B \\ C & D \end{bmatrix}, \quad
+	Y = \begin{bmatrix} E & F \\ G & H \end{bmatrix} \qquad (A \ldots H \in
+	\mathbb{R}^{n/2} \times \mathbb{R}^{n/2})
+  \end{displaymath}
+
+  \[
+    XY = \begin{bmatrix} AE + BG & AF + BH \\ CE + DG & CF + DH \end{bmatrix}
+  \]
+
+  \[
+    T(n) = 8T(n/2) + \Theta(n^2) = \Theta(n^3)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Matrix multiplication (Problem 2.16)}
+  \begin{block}{Strassen algorithm:}
+    \[
+      T(n) = 7T(n/2) + \Theta(n^2) = \Theta(n^{\lg {7}}) = \Theta(n^{2.808})
+    \]
+  \end{block}
+
+  \[
+	XY = \begin{bmatrix} P_5 + P_4 - P_2 + P_6 & P_1 + P_2 \\ P_3 + P_4 & P_1 + P_5 - P_3 - P_7 \end{bmatrix}
+  \]
+
+  \begin{columns}
+	\column{0.40\textwidth}
+	{\footnotesize
+	  \begin{align*}
+		P_1 &= A(F - H) \\
+		P_2 &= (A + B)H \\
+		P_3 &= (C + D)E \\
+		P_4 &= D(G - E) \\
+		P_5 &= (A + D)(E + H) \\
+		P_6 &= (B - D)(G + H) \\
+		P_7 &= (A - C)(E + F)
+	  \end{align*}
+	}
+	\column{0.60\textwidth}
+	  \pause
+	  \begin{itemize}
+		\item Strassen (1969): $\Theta(n^{2.808})$ \\
+		  ``Gaussian Elimination is Not Optimal''
+		  \pause
+		\item (2014): $\Theta(n^{2.373})$
+		  \pause
+		\item Known lower bound: $\Omega(n^{2})$
+	  \end{itemize}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{exampleblock}{Maximal sum subarray (Problem 1.3.5)}
+    \begin{itemize}
+      \item array $A[1 \cdots n], a_{i} >=< 0$
+      \item to find (the sum of) an MS in $A$
+    \end{itemize}
+	
+    \[
+      A[-2,1 ,-3,4,-1,2,1,-5,4] \Rightarrow [4,-1,2,1]
+    \]
+  \end{exampleblock}
+
+  \pause
+  \begin{alertblock}{Trial and error.}
+    \begin{itemize}
+      \item try subproblem $\text{MSS}[i]$: the sum of the MS (\text{MS}[i]) in $A[1 \cdots i]$
+      \item goal: $\text{mss} = \text{MSS}[n]$
+      \item question: Is $a_{i} \in \text{MS}[i]$?
+      \item recurrence: 
+	\[ 
+	  \text{MSS}[i] = \max \set{\text{MSS}[i-1], \textcolor{red}{???}}
+	\]
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{1-D DP}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $\text{MSS}[i]$: the sum of the MS \textcolor{red}{\it ending with} $a_{i}$ or 0
+      \item goal: $\text{mss} = \max_{1 \le i \le n} \text{MSS}[i]$
+      \item<2-> question: where does the $\text{MS}[i]$ start?
+      \item<2-> recurrence: 
+		\[ 
+		  \text{MSS}[i] = \max \set{\text{MSS}[i-1] + a_{i}, 0} \text{ \textcolor{red}{(prove it!)}}
+		\]
+      \item<3-> initialization: $\text{MSS}[0] = 0$
+    \end{itemize}
+
+    % \begin{displaymath}
+    %   \text{MSS}[i] = \left\{ \begin{array}{ll}
+    %     0 & i = 0 \\
+    %     \max \set{\text{MSS}[i-1] + a_{i}, 0} & i > 0
+    %   \end{array} \right.
+    % \end{displaymath}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{1-D DP}
+  \begin{block}{Code.}
+    \begin{verbatim}
+      MSS[0] = 0
+      For i = 1 to n
+        MSS[i] = max{MSS[i-1] + A[i], 0}
+      return max_{i = 1 to n} MSS[i]
+    \end{verbatim}
+  \end{block}
+
+  \pause
+
+  \begin{block}{Simpler code.}
+    \begin{verbatim}
+      mss = 0
+      MSS = 0
+      For i = 1 to n
+        MSS = max{MSS + A[i], 0}
+        mss = max{mss, MSS}
+      return mss
+    \end{verbatim}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Pancake sorting (Problem 1.3.1)}
+  \centerline{How to bring the biggest pancake to the bottom?}
+
+  \pause
+  \[
+	T(n) = 2n-3
+  \]
+
+  \pause
+
+  \begin{alertblock}{Reference}
+	\begin{itemize}
+	  \item ``Sorting by Perfix Reversals'' by Bill Gates \& Papadimitriou
+		\pause
+	  \item $T(n) \le \frac{5n+5}{3}$ (1979)
+	  \item $T(n) \le \frac{18n}{11}$ (2009)
+	\end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{(Problem 1.3.8)}
+  \centerline{How many Big V's are there at most?}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{``Does A follow B?''}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{Don't forget to check it!}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Repeated elements (Problem 2.12)}
+  \begin{itemize}
+	\item $R[1 \dots n]$
+	\item $\text{check}(R[i], R[j])$
+	\item $\# > \frac{n}{13}$
+	\item $n \log n$
+  \end{itemize}
+
+  \pause
+  \vspace{0.30cm}
+
+  \centerline{We will talk about an $O(n \log k)$ algorithm \textcolor{red}{and the lower bound}.}
+
+  \begin{alertblock}{Reference}
+	``Finding Repeated Elements'' by Misra \& Gries, 1982
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bolts and nuts (Problem 2.10)}
+  \[
+	A(n) = O(n \log n)
+  \]
+
+  \pause
+  \vspace{0.30cm}
+
+  \begin{alertblock}{Reference}
+	$\Theta(n \log n)$ in the worst case:
+	\begin{itemize}
+	  \item ``Matching Nuts and Bolts'' by Alon \emph{et al.}, $\Theta(n \log^4 n)$
+	  \item ``Matching Nuts and Bolts Optimality'' by Bradford, 1995
+	\end{itemize}
+  \end{alertblock}
+
+  \pause
+  \centerline{$\Omega(n \log n)$ by decision-tree argument.}
+
+  \pause
+  \[
+	3^{H} \ge L \textcolor{red}{\ge n!} \Rightarrow H \ge \log (n!) \Rightarrow H = \Omega(n \log n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$K$-sorted (Problem 2.9)}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Counting inversions (Problem 2.11)}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Maxima-finding (Problem 2.14)}
+  \centerline{Wrong recursions!}
+  \pause
+  \vspace{0.30cm}
+
+  \centerline{3D?}
+  \pause
+  \vspace{0.30cm}
+
+  \centerline{Lower bound $\Omega(n \log n)$!}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
