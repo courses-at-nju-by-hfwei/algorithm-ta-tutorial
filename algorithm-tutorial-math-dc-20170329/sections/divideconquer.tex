@@ -219,6 +219,9 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Pancake sorting (Problem 1.3.1)}
+  \fignocaption{width = 0.25\textwidth}{figs/pancake-sorting.png}
+
+  \pause
   \centerline{How to bring the biggest pancake to the bottom?}
 
   \pause
@@ -227,18 +230,16 @@
   \]
 
   \pause
-
   \begin{alertblock}{Reference}
 	\begin{itemize}
-	  \item ``Sorting by Perfix Reversals'' by Bill Gates \& Papadimitriou
+	  \item $T(n) \le \frac{5n+5}{3}$, 1979: ``Sorting by Perfix Reversals'' \pause by Bill Gates \emph{et al.}
 		\pause
-	  \item $T(n) \le \frac{5n+5}{3}$ (1979)
-	  \item $T(n) \le \frac{18n}{11}$ (2009)
+	  \item $T(n) \le \frac{18n}{11}$, 2009
 	\end{itemize}
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{(Problem 1.3.8)}
+\begin{frame}{\# Big V's (Problem 1.3.8)}
   \centerline{How many Big V's are there at most?}
 
   \pause
@@ -269,13 +270,17 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Bolts and nuts (Problem 2.10)}
+  \fignocaption{width = 0.30\textwidth}{figs/bolts-nuts.jpg}
+
+  \pause
+  \centerline{Using quicksort}
+
+  \pause
   \[
 	A(n) = O(n \log n)
   \]
 
   \pause
-  \vspace{0.30cm}
-
   \begin{alertblock}{Reference}
 	$\Theta(n \log n)$ in the worst case:
 	\begin{itemize}
@@ -284,8 +289,17 @@
 	\end{itemize}
   \end{alertblock}
 
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bolts and nuts (Problem 2.10)}
+  \fignocaption{width = 0.30\textwidth}{figs/bolts-nuts.jpg}
+
+  \[
+	\Omega(n \log n)
+  \]
+
   \pause
-  \centerline{$\Omega(n \log n)$ by decision-tree argument.}
+  \centerline{Reducing it to the sorting problem.}
 
   \pause
   \[
@@ -294,20 +308,98 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{$K$-sorted (Problem 2.9)}
+  \[
+	1,\;2,\;4,\;3;\quad 7,\;6,\;8,\;5;\quad 10,\;11,\;9,\;12;\quad 15,\;13,\;16,\;14
+  \]
+
+  \pause
+  \vspace{0.20cm}
+
+  \begin{center}
+	$1\text{-sorted}$? \\ \pause
+	$2\text{-sorted}$? \\ \pause
+	$n\text{-sorted}$?
+  \end{center}
+
+  \pause
+  \[
+	1\text{-sorted} \to 2\text{-sorted} \to 4\text{-sorted} \to \cdots \to n\text{-sorted}
+  \]
+
+  \pause
+  \centerline{Quicksort stops after the $\log k$ recursions.}
+
+  \pause
+  \[
+	O(n \log k)
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Counting inversions (Problem 2.11)}
+\begin{frame}{$K$-sorted (Problem 2.9)}
+  \[
+    \Omega(n \log k)
+  \]
+
+  \pause
+  \[
+	L = \frac{n!}{\left( (\frac{n}{k})! \right)^{k}}
+  \]
+
+  \pause
+  \[
+	H \ge \log \left(\frac{n!}{\left( (\frac{n}{k})! \right)^{k}} \right)
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Maxima-finding (Problem 2.14)}
-  \centerline{Wrong recursions!}
-  \pause
-  \vspace{0.30cm}
+\begin{frame}{Dutch national flag problem (Problem 2.4)}
+  \begin{columns}
+	\column{0.50\textwidth}
+	  \fignocaption{width = 0.50\textwidth}{figs/dutch-flag.png}{\centerline{The Dutch national flag}}
+	\column{0.50\textwidth}
+	  \fignocaption{width = 0.35\textwidth}{figs/dijkstra.jpg}{\centerline{Edsger W. Dijkstra}}
+  \end{columns}
 
-  \centerline{3D?}
-  \pause
-  \vspace{0.30cm}
+  \vspace{0.50cm}
+  \centerline{Red balls \emph{before} White balls \emph{before} Blue balls}
 
-  \centerline{Lower bound $\Omega(n \log n)$!}
+  \pause
+  \[
+	\textsc{Color}(i) \quad \textsc{Swap}(i,j)
+  \]
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dutch national flag problem (Problem 2.4)}
+  Loop invariant:
+
+  \pause
+  \[
+    r = 0; \; w = 0; \; b = n\;
+  \]
+
+  \vspace{0.30cm}
+  \begin{description}
+	\item[Red:] \uncover<3->{$\textsc{Swap}(r,w); \; r = r + 1; \; w = w + 1;$}
+	\item[White:] \uncover<4->{$w = w + 1;$}
+	\item[Blue:] \uncover<5->{$\textsc{Swap}(b-1, w); \; b = b - 1;$}
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+  \fignocaption{width = 0.50\textwidth}{figs/thankyou.jpg}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Counting inversions (Problem 2.11)}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Maxima-finding (Problem 2.14)}
+%   \centerline{Wrong recursions!}
+%   \pause
+%   \vspace{0.30cm}
+% 
+%   \centerline{3D?}
+%   \pause
+%   \vspace{0.30cm}
+% 
+%   \centerline{Lower bound $\Omega(n \log n)$!}
+% \end{frame}
 %%%%%%%%%%%%%%%%%%%%

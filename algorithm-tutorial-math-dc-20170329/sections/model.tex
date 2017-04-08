@@ -29,7 +29,6 @@
 	A &= \sum_{X \in \mathcal{X}} T(X) \cdot Pr(X) \\
 	  &= T(1) Pr(1) + T(2) Pr(2) + \cdots + T(n) Pr(n) \\
 	  &= \cdots  \\
-	  &= \frac{n}{8} + \frac{55}{2}
   \end{align*}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -46,7 +45,7 @@
 
   \begin{align*}
 	A(n) &= E[T(X)] \\
-		&= E[E[T(X)|I]] \\
+	    &\textcolor{red}{= E[E[T(X)|I]]} \\
 		&= \sum_{i=0}^{i=n-1} Pr(I = i)E[T(X) \mid I = i] \\
 		&= \sum_{i=0}^{i=n-1} \frac{1}{n} [n-1 + A(i) + A(n-i-1)]
   \end{align*}
