@@ -1,1 +1,92 @@
 \section{Selection}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The $3$rd largest element (Problem 3.1)}
+  \[
+	V_k(n): \text{}
+  \]
+
+  \pause
+  \begin{align*}
+	V_1(n) &= n - 1 \\
+	V_2(n) &= (n - 1) + (\lceil \log n \rceil - 1) \\
+  \end{align*}
+
+  \pause
+  \[
+	V_3(n) = ?
+  \]
+
+  \pause
+  \[
+	V_3(n) \le (n - 1) + (\lceil \log n \rceil - 1) + \textcolor{red}{(n - 3)}
+  \]
+
+  \pause
+  \[
+	V_3(n) \le (n - 1) + (\lceil \log n \rceil - 1) + \textcolor{red}{(\lceil \rceil)} 
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The 3rd largest element (Problem 3.1)}
+  \begin{center}
+	``What is the exact value of $V_3(n)$?'' \\[0.30cm] \pause
+
+	``I don't know!''  
+  \end{center}
+
+  \pause
+  \begin{alertblock}{Reference}
+	``The Art of Computer Programming, Vol 3: Sorting and Searching'' by Donald E. Knuth.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The 3rd largest element (Problem 3.1)}
+  \begin{center}
+	``Does your algorithm need to find the $1$st and the $2$nd elements?'' \\[0.30cm] \pause
+
+	``YES!''
+  \end{center}
+
+  \pause
+  \begin{center}
+	``Do all algorithms have to find the $1$st and the $2$nd elements?'' \\[0.30cm] \pause
+
+	``NO!''
+  \end{center}
+
+  \pause
+  \begin{alertblock}{References}
+	``Selecting the Top Three Elements'' by Aigner, 1982.
+  \end{alertblock}
+
+  % \pause
+  % \begin{description}
+  %   \item[$V_t(n)$:] 
+  %   \item[$W_t(n)$:] 
+  %   \item[$U_t(n)$:] 
+  % \end{description}
+
+  % \pause
+  % \begin{align*}
+  %   U_1(n) &= V_1(n) = W_1(n) = n - 1 \\
+  %   W_2(n) &= V_2(n) = n + \lceil \log n \rceil - 2
+  % \end{align*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{The largest $k$ elements (Problem 3.5)}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Close to median (Problem 3.6)}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Medians of sorted arrays (Problem 3.7)}
+
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Weighted median (Problem 3.9)}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+
