@@ -251,24 +251,6 @@
   \centerline{Don't forget to check it!}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Repeated elements (Problem 2.12)}
-  \begin{itemize}
-	\item $R[1 \dots n]$
-	\item $\text{check}(R[i], R[j])$
-	\item $\# > \frac{n}{13}$
-	\item $n \log n$
-  \end{itemize}
-
-  \pause
-  \vspace{0.30cm}
-
-  \centerline{We will talk about an $O(n \log k)$ algorithm \textcolor{red}{and the lower bound}.}
-
-  \begin{alertblock}{Reference}
-	``Finding Repeated Elements'' by Misra \& Gries, 1982
-  \end{alertblock}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Bolts and nuts (Problem 2.10)}
   \fignocaption{width = 0.30\textwidth}{figs/bolts-nuts.jpg}
 
@@ -299,7 +281,7 @@
   \]
 
   \pause
-  \centerline{Reducing it to the sorting problem.}
+  \centerline{At least as hard as the sorting problem.}
 
   \pause
   \[
@@ -383,6 +365,76 @@
 	\item[Blue:] \uncover<5->{$\textsc{Swap}(b-1, w); \; b = b - 1;$}
   \end{description}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Repeated elements (Problem 2.12)}
+  \begin{itemize}
+	\item $R[1 \dots n]$
+	\item $\text{check}(R[i], R[j])$
+	\item $\# > \frac{n}{13}$
+  \end{itemize}
+
+  \pause
+  \vspace{0.30cm}
+
+  \[
+	\# > \frac{n}{k}
+  \]
+
+  \begin{center}
+    an $O(n \log k)$ algorithm \\
+    the lower bound $\Omega(n \log k)$
+  \end{center}
+
+  \begin{alertblock}{Reference}
+	``Finding Repeated Elements'' by Misra \& Gries, 1982
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{VLSI layout}
+%   \begin{exampleblock}{Problem (Area-Efficient VLSI Layout)}
+%     Embedding a complete binary tree with $n$ leaves into a grid with minimum
+%     area.
+%     \begin{itemize}
+%       \item VLSI: Very Large Scale Integration
+%       \item complete binary tree circuit of $\#layer = 3,5,7,\ldots$
+% %       \item $n$ leaves (\textcolor{red}{why only leaves?})
+%       \item vertex on grid; no crossing edges
+%       \item area = width $\times$ height
+%     \end{itemize}
+%   \end{exampleblock}
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{VLSI layout}
+%   Na\"{\i}ve embedding:
+%    \[ H(n) = H(\frac{n}{2}) + \Theta(1) = \Theta(\lg n) \]
+%    \[ W(n) = 2W(\frac{n}{2}) + \Theta(1) = \Theta(n) \]
+%    \[ A(n) = \Theta(n \lg n) \]
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{VLSI layout}
+%   Smart (H-Layout) embedding:
+%   \[ \Box \times \Box = n? \; 1 \times n;\; \frac{n}{\lg n} \times \lg n;\;
+%   \textcolor{blue}{\sqrt{n} \times \sqrt{n}}
+%   \]
+%   Goal: $H(n) = \Theta(\sqrt{n}); W(n) = \Theta(\sqrt{n}); A(n) = \Theta(n).$
+%   \pause
+%   \[
+% 	H(n) = \Box H(\frac{n}{\Box}) + O(\Box); H(n) = 2 H(\frac{n}{4}) +
+% 	O(n^{\frac{1}{2} - \epsilon})
+%   \]
+%   \pause
+%   \[ H(n) = 2H(\frac{n}{4}) + \Theta(1) \]
+%   \pause
+%   \centering \textcolor{blue}{Here it is: H-Layout}
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{VLSI layout}
+%   \begin{figure}[htp]
+% 	\begin{center}
+% 	  \includegraphics[width = 0.80\textwidth]{figs/vlsi}
+% 	\end{center}
+%   \end{figure}
+% \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}[noframenumbering]
   \fignocaption{width = 0.50\textwidth}{figs/thankyou.jpg}

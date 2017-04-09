@@ -60,9 +60,211 @@
   \end{align*}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Local }
+\begin{frame}{Local minimum (Problem 4.11)}
+  \begin{itemize}
+	\item Array $A[0 \ldots n]$
+	\item Boundary conditions:
+	  \begin{align*}
+		A[0] &\ge A[1] \\
+		A[n-2] &\le A[n-1]
+	  \end{align*}
+	\item Local minimum $A[i]$:
+	  \[
+		A[i-1] \ge A[i] \le A[i+1]
+	  \]
+	\item Goal: Find \emph{any} local minimum.
+  \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Local minimum (Problem 4.11)}
+  \begin{enumerate}
+	\item Checking each element:
+	  \[
+		T(n) = O(n)
+	  \]
+	\item $\min A$:
+	  \[
+		T(n) = O(n)
+	  \]
+	\pause
+	\item Required:
+	  \[
+		T(n) = O(n \log n)
+	  \]
+
+	  \pause
+	  \[
+		T(n) = T(\frac{n}{2}) + 1
+	  \]
+  \end{enumerate}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Local minimum (Problem 4.11)}
+  2D local minimum:
+  \begin{itemize}
+	\item Matrix $M: n \times n$
+	\item Boundary conditions:
+	  \[
+		\infty
+	  \]
+	\item Local minimum $A[i,j]$:
+	  \begin{align*}
+		A[i,j-1] &\ge A[i,j] \le A[i,j+1] \\
+		A[i-1,j] &\ge A[i,j] \le A[i+1,j]
+	  \end{align*}
+	\item Goal: Find \emph{any} local minimum.
+  \end{itemize}
+
+  \pause
+  \[
+	O(n^2) \pause \implies O(n \log n) \pause \implies O(n)
+  \]
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$a_i = i$ (Problem 4.2)}
+  \begin{itemize}
+	\item Sorted integer sequence $\set{a_1, a_2, \ldots, a_n}$:
+	  \[
+		\forall i \neq j: a_i \neq a_j
+	  \]
+	\item Goal: 
+	  \[
+		\exists? i: a_i = i
+	  \]
+  \end{itemize}
+
+  \pause
+  \[
+	T(n) = O(n)
+  \]
+
+  \pause
+  \[
+	T(n) = T(\frac{n}{2}) + 1 = O(\log n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Smallest missing positive integer (Problem 4.3)}
+  \begin{itemize}
+	\item Sorted array $A[1 \ldots n]$:
+	  \begin{gather*}
+		a_i \in \mathbb{Z}^{+} \\
+		\forall i \neq j: a_i \neq a_j
+	  \end{gather*}
+	\item Goal: Find the smallest missing positive integer.
+  \end{itemize}
+
+  \pause
+  \[
+	T(n) = O(n)
+  \]
+
+  \pause
+  \[
+	T(n) = T(\frac{n}{2}) + 1 = O(\log n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Computing $\lceil \sqrt{N} \rceil$ (Problem 4.12)}
+  \begin{itemize}
+	\item Given an $n$-bit natural number $N$ ($0 \le N < 2^{n} - 1$)
+	\item Goal: Compute $\lceil \sqrt{N} \rceil$ using $O(n)$ additions and shifts.
+  \end{itemize}
+     
+  \vspace{0.30cm}
+  \begin{columns}
+    \column{0.55\textwidth}
+	  \pause
+	  \begin{block}{Elementrary operations:}
+	    \begin{itemize}
+	      \item $n$-bit + $n$-bit: $O(1)$
+	      \item $n$-bit shifted by $1$-bit: $O(1)$
+	      \item $\Rightarrow x^2: O(n)$
+	    \end{itemize}
+	  \end{block}
+	\column{0.45\textwidth}
+	  \pause
+	  \begin{enumerate}[<+->]
+	    \item Na{\"i}ve search: $O(2^{n} \cdot n)$
+	    \item Binary search: $O(n \cdot n)$
+	    \item Binary search in range:
+		  \[
+			2^{\lfloor \frac{n-1}{2} \rfloor} \le \lceil \sqrt{N} \rceil \le 2^{\lceil \frac{n}{2} \rceil}
+		  \]
+		  \[
+			\lg{(2^{\lceil \frac{n}{2} \rceil} - 2^{\lfloor \frac{n-1}{2} \rfloor})} = O(n)
+		  \]
+		  \[ O(n \cdot n) \]
+	  \end{enumerate}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Computing $\lceil \sqrt{N} \rceil$ (Problem 4.12)}
+  \begin{block}{A Little History:}
+    \begin{description}
+	  \item[$2007$:] Mid-term problem \\
+		\centerline{$O(n)$ required; NO $O(n)$ solutions, however}
+	  \item[$\sim 2013$:] $O(n^2)$
+	  \pause
+	  \item[$2014$:] $O(n)$
+		\fignocaption{width = 0.80\textwidth}{figs/square-root-cs-se.png}
+    \end{description}
+  \end{block}
+
+  \pause
+  \[
+	x^2: O(n) \to O(1)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Computing $\lceil \sqrt{N} \rceil$ (Problem 4.12)}
+  Given
+  \[ M = \lfloor N/4 \rfloor, x = \lceil \sqrt{M} \rceil,
+    \textrm{ and } (x, x^2),
+  \]
+  what is
+  \[ y = \lceil \sqrt{N} \rceil \textrm{ and } (y, y^2)? \]
+
+  \pause
+  \begin{exampleblock}{An Example:}
+  \[
+	\begin{array}{lll}
+	  N = 280 & y = \lceil \sqrt{280} \rceil = 17 & y^2 = 289 \\ \pause
+	  M = \lfloor 280/4 \rfloor = 70 & x = \lceil \sqrt{70} \rceil = 9 & x^2 = 81 \\ \pause
+	  M = \lfloor 70/4 \rfloor = 17 & x = \lceil \sqrt{17} \rceil = 5 & x^2 = 25 \\
+	  M = \lfloor 17/4 \rfloor = 4 & x = \lceil \sqrt{4} \rceil = 2 & x^2 = 4 \\
+	  M = \lfloor 4/4 \rfloor = 1 & x = \lceil \sqrt{1} \rceil = 1 & x^2 = 1
+	\end{array}
+  \]
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Computing $\lceil \sqrt{N} \rceil$ (Problem 4.12)}
+  \begin{algorithm}[H]
+    \caption{Computing $\lceil \sqrt{N} \rceil$.}
+    \begin{algorithmic}[]
+      \Procedure{Sqrt-Root}{$N$}
+	    \If{$N < 3$}
+	      \State \Return $1 \Rightarrow (1,1); 2 \Rightarrow (2,4); 3 \Rightarrow (2,4)$
+	    \EndIf
+	    \State $M \gets \lfloor N/4 \rfloor$
+	    \State $(x, x^2) \gets \textsc{Sqrt-Root}{(M)}$
+		\State \Return the $(y, y^2)$ with $y^2 \sim N$:
+           \[
+			(y, y^2) = \left\{ \begin{array}{ll}
+			y = 2x & y^2 = 4x^2 \\
+			y = 2x + 1 & y^2 = 4x^2 + 4x + 1 \\
+			y = 2x - 1 & y^2 = 4x^2 - 4x + 1
+			\end{array} \right.
+	      \]
+	  \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Computing $\lceil \sqrt{N} \rceil$}
+  \[ \xout{T(n) = T(n/4) + O(1) = \Theta(\lg n)} \]
+
+  \[ T(n) = T(n - 2) + O(1) = \Theta(n) \]
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%
