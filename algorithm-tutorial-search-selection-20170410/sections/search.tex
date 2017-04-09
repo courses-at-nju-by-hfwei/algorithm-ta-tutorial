@@ -117,7 +117,7 @@
 
   \pause
   \[
-	O(n^2) \pause \implies O(n \log n) \pause \implies O(n)
+	O(n^2) \pause \implies O(n \log n) \pause \implies O(n) \implies \textcolor{red}{O(\log n)}
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -219,11 +219,18 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Computing $\lceil \sqrt{N} \rceil$ (Problem 4.12)}
   Given
-  \[ M = \lfloor N/4 \rfloor, x = \lceil \sqrt{M} \rceil,
-    \textrm{ and } (x, x^2),
+  \[
+	M = \lfloor N/4 \rfloor
   \]
+
+  \[ 
+	x = \lceil \sqrt{M} \rceil \textrm{ and } (x, x^2),
+  \]
+
   what is
-  \[ y = \lceil \sqrt{N} \rceil \textrm{ and } (y, y^2)? \]
+  \[ 
+    y = \lceil \sqrt{N} \rceil \textrm{ and } (y, y^2)? 
+  \]
 
   \pause
   \begin{exampleblock}{An Example:}
@@ -266,5 +273,29 @@
   \[ \xout{T(n) = T(n/4) + O(1) = \Theta(\lg n)} \]
 
   \[ T(n) = T(n - 2) + O(1) = \Theta(n) \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Space for hashing (Problem 4.4)}
+  \begin{description}
+	\item[Key:] $x$
+	\item[Node:] $y$
+	\item[Load factor:] $\alpha$
+  \end{description}
+
+  \pause
+  \begin{itemize}
+	\item Closed-address hashing
+	  \[
+		h_c + \alpha y h_c
+	  \]
+	\item Open-address hashing
+	  \[
+		\frac{\alpha h_c}{\frac{h_c + \alpha y h_c }{x}} = \frac{\alpha x}{1 + \alpha y}
+	  \]
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[noframenumbering]
+  \fignocaption{width = 0.50\textwidth}{figs/thankyou.jpg}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

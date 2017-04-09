@@ -3,7 +3,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The $3$rd largest element (Problem 3.1)}
   \[
-	V_k(n): \text{}
+	V_k(n): \text{$\min$ \#comparisons to find the $k$-th largest element of $n$ elements.}
   \]
 
   \pause
@@ -14,7 +14,7 @@
 
   \pause
   \[
-	V_3(n) = ?
+	V_3(n) = \;?
   \]
 
   \pause
@@ -24,33 +24,44 @@
 
   \pause
   \[
-	V_3(n) \le (n - 1) + (\lceil \log n \rceil - 1) + \textcolor{red}{(\lceil \rceil)} 
+	V_3(n) \le (n - 1) + (\lceil \log n \rceil - 1) + \textcolor{red}{(\lceil \log n \rceil - 1)} 
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{The 3rd largest element (Problem 3.1)}
-%   \begin{center}
-% 	``What is the exact value of $V_3(n)$?'' \\[0.30cm] \pause
-% 
-% 	``I don't know!''  
-%   \end{center}
-% 
-%   \pause
-%   \begin{alertblock}{Reference}
-% 	``The Art of Computer Programming, Vol 3: Sorting and Searching'' by Donald E. Knuth.
-%   \end{alertblock}
-% \end{frame}
+\begin{frame}{The $3$rd largest element (Problem 3.1)}
+  \centerline{``$Q_1$: What is the exact value of $V_3(n)$?''}
+
+  \begin{theorem}[$V_3(n)$]
+	$n \ge 6, n = 2^k + r (0 \le r < 2^k)$:
+	\begin{equation*}
+	  V_3(n) = \begin{cases}
+		(n - 3) + 2 k 	  & r = 0, 1 \\
+		(n - 3) + 2 k + 1 & 2 \le r \le 2^{k -2} + 1 \\
+		(n - 3) + 2 k + 2 & \text{o.w.} \\
+	  \end{cases}
+	\end{equation*}
+  \end{theorem}
+
+  \begin{alertblock}{References}
+	``Selecting the Top Three Elements'' by Aigner, 1982.
+  \end{alertblock}
+
+  \pause
+  \begin{alertblock}{Reference}
+	``The Art of Computer Programming, Vol 3: Sorting and Searching (Section 5.3.3)'' by Donald E. Knuth.
+  \end{alertblock}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{The 3rd largest element (Problem 3.1)}
+\begin{frame}{The $3$rd largest element (Problem 3.1)}
   \begin{center}
-	``Does your algorithm need to find the $1$st and the $2$nd elements?'' \\[0.30cm] \pause
+	``$Q_2$: Does your algorithm need to find the $1$st and the $2$nd elements?'' \\[0.30cm] \pause
 
 	``YES!''
   \end{center}
 
   \pause
   \begin{center}
-	``Do all algorithms have to find the $1$st and the $2$nd elements?'' \\[0.30cm] \pause
+	``$Q_3$: Do all algorithms have to find the $1$st and the $2$nd elements?'' \\[0.30cm] \pause
 
 	``NO!''
   \end{center}
@@ -74,11 +85,18 @@
   % \end{align*}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{(Problem 3.2, Problem 2.4)}
-  \begin{itemize}
-	\item Selecting the median of $5$ elements using $6$ comparisons.
-	\item Sorting $5$ elements using $7$ comparisons ($S(5) = 7$).
-  \end{itemize}
+\begin{frame}{Selection with minimum \#comparisons (Problem 3.2)}
+  Selecting the median of $5$ elements using $6$ comparisons.
+
+  \fignocaption{width = 0.60\textwidth}{figs/median5.jpg}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sorting with minimum \#comparisons (Problem 2.4)}
+  Sorting $5$ elements using $7$ comparisons.
+
+  \[
+    S(5) = 7
+  \]
 
   \pause
   \begin{alertblock}{Reference}
@@ -90,20 +108,25 @@
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Sorting with minimum \#comparisons (Problem 2.4)}
+  Sorting $5$ elements using $7$ comparisons.
+  \fignocaption{width = 0.60\textwidth}{figs/median5.jpg}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Medians of sorted arrays (Problem 3.7)}
 
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{The largest $k$ elements (Problem 3.5)}
-\end{frame}
+% \begin{frame}{The largest $k$ elements (Problem 3.5)}
+% \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Close to median (Problem 3.6)}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dynamic median (Problem 3.8)}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Weighted median (Problem 3.9)}
-\end{frame}
+% \begin{frame}{Close to median (Problem 3.6)}
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Dynamic median (Problem 3.8)}
+% \end{frame}
+% %%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Weighted median (Problem 3.9)}
+% \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
