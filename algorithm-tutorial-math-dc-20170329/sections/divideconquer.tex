@@ -334,7 +334,7 @@
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dutch national flag problem (Problem 2.4)}
+\begin{frame}{Dutch national flag problem (Problem 2.5)}
   \begin{columns}
 	\column{0.50\textwidth}
 	  \fignocaption{width = 0.50\textwidth}{figs/dutch-flag.png}{\centerline{The Dutch national flag}}
@@ -351,19 +351,27 @@
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Dutch national flag problem (Problem 2.4)}
+\begin{frame}{Dutch national flag problem (Problem 2.5)}
   Loop invariant:
+
+  \begin{equation*}
+	\begin{cases}
+	  \text{White} & r \le i < w \\
+	  \text{Red} & 0 \le i < r \\
+	  \text{Blue} & b \le i < n
+	\end{cases}
+  \end{equation*}
 
   \pause
   \[
-    r = 0; \; w = 0; \; b = n\;
+	\text{Init: } r = 0; \; w = 0; \; b = n - 1\;
   \]
 
   \vspace{0.30cm}
   \begin{description}
-	\item[Red:] \uncover<3->{$\textsc{Swap}(r,w); \; r = r + 1; \; w = w + 1;$}
-	\item[White:] \uncover<4->{$w = w + 1;$}
-	\item[Blue:] \uncover<5->{$\textsc{Swap}(b-1, w); \; b = b - 1;$}
+	\item[Red:] \uncover<3->{$\textsc{Swap}(r,w); \; r \gets r + 1; \; w \gets w + 1;$}
+	\item[White:] \uncover<4->{$w \gets w + 1;$}
+	\item[Blue:] \uncover<5->{$\textsc{Swap}(b-1, w); \; b \gets b - 1;$}
   \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
