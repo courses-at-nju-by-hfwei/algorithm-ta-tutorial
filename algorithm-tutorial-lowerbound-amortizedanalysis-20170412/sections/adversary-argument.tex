@@ -1,0 +1,140 @@
+\section{Adversary Argument}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Amortized analysis}
+  \begin{quote}
+	Amortized analysis is \\
+	\textcolor{purple}{an algorithm analysis technique} for \\ 
+    \textcolor{red}{analyzing a sequence of operations} \\
+	\textcolor{blue}{irrespective of the input} to show that \\
+    \textcolor{cyan}{the average cost per operation} is small, even though \\ 
+    \textcolor{teal}{a single operation within the sequence might be expensive}.
+  \end{quote}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Methods for amortized analysis: the summation method}
+  \begin{gather*}
+	o_1, o_2, \ldots, o_n \\[5pt]
+	c_1, c_2, \ldots, c_n
+  \end{gather*}
+
+  \pause
+  \[
+	(\sum_{i = 1}^{n} c_i) / n
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Summation method: array doubling revisited}
+  \centerline{On any sequence of $n$ \textsc{Insert} ops on an initially empty array.}
+
+  \pause
+  \[
+    \begin{array}{ccccccccccc}
+      o_i: 	& 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+      c_i:  & 1 & 2 & 3 & 1 & 5 & 1 & 1 & 1 & 8 & 1  \\
+    \end{array}
+  \]
+
+  \pause
+  \begin{displaymath}
+	c_i = \left\{ \begin{array}{ll}
+	  (i-1)+1 = i & \textrm{if $i - 1$ is an exact power of 2}\\
+	  1 & \textrm{o.w.}
+	\end{array} \right.
+  \end{displaymath}
+
+  \pause
+  \[
+	\sum_{i=1}^{n} c_i \le n + \sum_{j=0}^{\lceil \lg n \rceil - 1} 2^{j} = n +
+	(2^{\lceil \lg n \rceil} - 1) \le n + 2n = 3n
+  \]
+
+  \pause
+  \[
+	\forall i, \hat{c_i} = 3
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Methods for amortized analysis: the accounting method}
+  \begin{gather*}
+	o_1, o_2, \ldots, o_n \\[5pt]
+	c_1, c_2, \ldots, c_n \\[5pt]
+	a_1, a_2, \ldots, a_n
+  \end{gather*}
+
+  \pause
+  \[
+    \hat{c_i} = c_i + a_i, a_i >=< 0. 
+  \]
+
+  \pause
+  \[
+	\forall n, \sum_{i=1}^{n} c_i \le \sum_{i=1}^{n} \hat{c_i} \pause \implies \forall n, \sum_{i=1}^{n} a_i \geq 0
+  \]
+
+  \pause
+  \begin{alertblock}{Key way of thinking:}
+	Put the accounting cost on specific objects.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Accounting method: array doubling revisited}
+  \[
+    \hat{c_i} = 3 \text{\emph{ vs. }} \hat{c_i} = 2
+  \]
+
+  \pause
+  \[
+	\hat{c_i} = 3 = \underbrace{1}_{\textrm{insert}} +
+	\underbrace{1}_{\textrm{move itself}} + \underbrace{1}_{\textrm{help move another}}
+  \]
+
+  \pause
+  \begin{table}
+    \begin{tabular}{c|ccc}
+	  & $\hat{c_i}$ & $c_i$ (actual cost) & $a_i$ (accounting cost)
+	  \\ \hline
+	  \textsc{Insert} (normal) & $3$ & $1$ & $2$\\
+	  \textsc{Insert} (expansion) & $3$ & $1 + t$ & $-t + 2$
+    \end{tabular}
+  \end{table}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Array merging (Problem 4.13): the summation method}
+  \centerline{\textsc{Create} ($1$); \textsc{Merge} ($2m$)}
+
+  \begin{columns}
+	\column{0.40\textwidth}
+	  \pause
+	  \begin{align*}
+		i & \quad c_i \\
+		1 & \quad 1  \\
+		2 & \quad 1 + 2 \\
+		3 & \quad 1 \\
+		4 & \quad 1 + 2 + 4 \\
+		5 & \quad 1 \\
+		6 & \quad 1 + 2 \\
+		7 & \quad 1 \\
+		8 & \quad 1 + 2 + 4 \\
+		\vdots & \quad \cdots
+	  \end{align*}
+	\column{0.55\textwidth}
+	  \pause
+	  \[
+		\sum_{i}^{n} c_i = \sum_{i=1}^{\lfloor \log n \rfloor} \lfloor \frac{n}{2^i} \rfloor 2^i = n \log n
+	  \]
+
+	  \pause
+	  \[
+		\forall i, \hat{c_i} = \log n
+	  \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Array merging (Problem 4.13): the accounting method}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Array merging (Problem 4.13)}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
