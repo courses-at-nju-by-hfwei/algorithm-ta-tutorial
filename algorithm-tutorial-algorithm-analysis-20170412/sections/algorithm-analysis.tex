@@ -1,0 +1,50 @@
+\section{Algorithm Analysis}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Algorithm analysis}
+  \begin{itemize}
+	\item Given a problem $P$
+	\item Design algorithms $A, A', \ldots$
+	\item Input space $\mathcal{X}_{n}$: inputs of size $n$
+  \end{itemize}
+
+  \pause
+  \[
+	T_{A}(n) \triangleq \max_{X \in \mathcal{X}_{n}} T_A(X)
+  \]
+
+  \pause
+  \[
+	T_{P}(n) \triangleq \min_{A \text{ solves } P}T_{A}(n) \pause = \min_{A \text{ solves } P} \max_{X \in \mathcal{X}_{n}} T_A(X)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Algorithm analysis}
+  \begin{columns}
+	\column{0.40\textwidth}
+	  Sorting:
+	  \begin{align*}
+		\onslide<2->{& n! \\}
+		\onslide<3->{& \implies n^2 \\}
+		\onslide<4->{& \implies n \log n \\}
+		\onslide<6->{n \log n & \Longleftarrow \\}
+		\onslide<5->{& n \\}
+	  \end{align*}
+	\column{0.40\textwidth}
+	  Selection (median):
+	  \begin{align*}
+		\onslide<7->{& n^2 \\}
+		\onslide<8->{& \implies n \log n \\}
+		\onslide<9->{& \implies 16n \\}
+		\onslide<10->{& \implies 2.95n \\}
+		\onslide<13->{2n & \Longleftarrow \\}
+		\onslide<12->{\frac{3n}{2} - \frac{3}{2} \log n & \Longleftarrow \\}
+		\onslide<11->{& n \\}
+	  \end{align*}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%

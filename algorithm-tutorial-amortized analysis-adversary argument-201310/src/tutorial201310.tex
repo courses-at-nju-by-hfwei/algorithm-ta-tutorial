@@ -248,15 +248,17 @@
   \begin{example}[Insertion Cost (4.2.7)]
     \begin{itemize}
       \item \textsc{Insert}
-      \item measure: create (1; ignore here) + merge ($2m$)
+      \item measure: create + merge ($2m$)
     \end{itemize}
-    Summation Method: \[ \sum_{i=1}^{\floor{\lg n}} \frac{n}{2^i} 2^i = n \lg
-    n \textrm{ (\textcolor{red}{  Errata:} not $i=0$ in class)}
-    \]
+    Summation Method: 
+
+	  \[
+		\sum_{i=1}^{n} c_i = \sum_{j=0}^{\lfloor \log n \rfloor} \lfloor \frac{n}{2^j} \rfloor 2^j \le n (\lfloor \log n \rfloor + 1)
+	  \]
     
     Accounting Method: 
       \begin{itemize}
-        \item $\hat{c_i} = \lg n$
+        \item $\hat{c_i} = 1 + \lfloor \log n \rfloor$
         \item consider each inserted element
         \item to check $\sum a_i = \sum_{i} (\lg n - D_{a_i}) \geq 0$
       \end{itemize}

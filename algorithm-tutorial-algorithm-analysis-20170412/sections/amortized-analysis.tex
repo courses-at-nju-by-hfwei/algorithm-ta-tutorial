@@ -1,4 +1,4 @@
-\section{Adversary Argument}
+\section{Amortized Analysis}
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Amortized analysis}
@@ -121,20 +121,94 @@
 	\column{0.55\textwidth}
 	  \pause
 	  \[
-		\sum_{i}^{n} c_i = \sum_{i=1}^{\lfloor \log n \rfloor} \lfloor \frac{n}{2^i} \rfloor 2^i = n \log n
+		\sum_{i=1}^{n} c_i = \sum_{j=0}^{\lfloor \log n \rfloor} \lfloor \frac{n}{2^j} \rfloor 2^j \le n (\lfloor \log n \rfloor + 1)
 	  \]
 
 	  \pause
 	  \[
-		\forall i, \hat{c_i} = \log n
+		\forall i, \hat{c_i} = 1 + \lfloor \log n \rfloor
 	  \]
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Array merging (Problem 4.13): the accounting method}
+  \[
+	\hat{c_i} = 1 + \lfloor \log n \rfloor
+  \]
+
+  \pause
+  \vspace{0.60cm}
+  \centerline{What does it mean?}
+
+  \pause
+  \vspace{0.80cm}
+  \[
+	\forall n, \sum_{i=1}^{n} a_i \geq 0
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Array merging (Problem 4.13)}
+\begin{frame}{Two stacks, one queue (Problem 4.14)}
+  \begin{algorithm}[H]
+    \caption{Simulating a queue using two stacks $S_1, S_2$.}
+    \begin{algorithmic}[]
+      \Procedure{Enq}{$x$}
+		\State \textsl{Push}($S_1, x$)
+      \EndProcedure
+
+	  \Statex
+
+      \Procedure{Deq}{\null}
+        \If{$S_2 = \emptyset$}
+          \While{$S_1 \neq \emptyset$}
+            \State \textsl{Push}($S_2$, \textsl{Pop}($S_1$))
+          \EndWhile
+        \EndIf
+        \textsl{Pop}($S_2$)
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+
+  \pause
+  \centerline{Costs of ``Push'' and ``Pop''.}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%
+\begin{frame}{Two stacks, one queue: the summation method}
+  \[
+	(\sum_{i = 1}^{n} c_i) / n
+  \]
+
+  \pause
+  \centerline{The operation sequence is NOT known.}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Two stacks, one queue: the accounting method}
+  \begin{table}
+    \begin{tabular}{ccccc}
+	  item: & Push into $S_1$ & Pop from $S_1$ & Push into $S_2$ & Pop from $S_2$ \\
+	  & $1$ & $1$ & $1$ & $1$
+    \end{tabular}
+  \end{table}
+
+  % $\#S_1 = t:$
+  % \begin{table}
+  %   \begin{tabular}{c|ccc}
+  %     & $\hat{c_i}$ & $c_i$ (actual cost) & $a_i$ (accounting cost)
+  %     \\
+  %     \textsc{Enqueue} & 3 & 1 & 2 \\
+  %     \textsc{Dequeue} ($S_2 = \emptyset$) & 1 & 1 & 0 \\
+  %     \textsc{Dequeue} ($S_2 \neq \emptyset$) & 1 & 1+2t & -2t
+  %   \end{tabular}
+  % \end{table}
+
+  \pause
+  \begin{align*}
+	\hat{c}_{\textsc{Enq}} &= 3 \\
+	\hat{c}_{\textsc{Deq}} &= 1 \\
+  \end{align*}
+
+  \pause
+  \[ 
+    \sum_{i=1}^{n} a_i \ge 0 \pause \Longleftarrow \sum_{i=1}^{n} a_i = \#S_1 \times 2
+  \]
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%
