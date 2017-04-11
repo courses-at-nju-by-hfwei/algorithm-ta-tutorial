@@ -17,3 +17,21 @@
   \[ (< 5) \pause \implies (= 5) \pause \quad (\#1) \pause \implies (= 6) \pause \quad (\#2)\]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Finding patterns in bit strings}
+  \begin{example}[Finding patterns in bit strings]
+	\begin{itemize}
+	  \item Bit string $A[1 \ldots n]$
+	  \item Bit pattern $01$
+	  \item Question: checking every bit?
+	\end{itemize}
+  \end{example}
+
+  \pause
+  \vspace{0.60cm}
+  \centerline{$n$ is odd: checking $A[2, 4,\ldots, n-1]$}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{$n$ is even: adversary argument}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%

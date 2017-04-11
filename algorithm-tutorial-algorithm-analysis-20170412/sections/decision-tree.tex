@@ -1,1 +1,66 @@
 \section{Decision Trees}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$K$-sorted (Problem 2.9)}
+  \[
+	1,\;2,\;4,\;3;\quad 7,\;6,\;8,\;5;\quad 10,\;11,\;9,\;12;\quad 15,\;13,\;16,\;14
+  \]
+
+  \pause
+  \vspace{0.20cm}
+
+  \begin{center}
+	$1\text{-sorted}$? \\ \pause
+	$2\text{-sorted}$? \\ \pause
+	$n\text{-sorted}$?
+  \end{center}
+
+  \pause
+  \[
+	1\text{-sorted} \to 2\text{-sorted} \to 4\text{-sorted} \to \cdots \to n\text{-sorted}
+  \]
+
+  \pause
+  \centerline{Quicksort (with median) stops after the $\log k$ recursions.}
+
+  \pause
+  \[
+	O(n \log k)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$K$-sorted (Problem 2.9)}
+  \[
+    \Omega(n \log k)
+  \]
+
+  \pause
+  \[
+	L = \binom{n}{n/k, \ldots, n/k} \pause = \frac{n!}{\left( (\frac{n}{k})! \right)^{k}}
+  \]
+
+  \pause
+  \[
+	H \ge \log \left(\frac{n!}{\left( (\frac{n}{k})! \right)^{k}} \right)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$K$-sorted (Problem 2.9)}
+  \centerline{Sorting the $k$-sorted array.}
+
+  \pause
+  \[
+	O(n \log \frac{n}{k})
+  \]
+
+  \pause
+  \[
+	L = ((\frac{n}{k})!)^k
+  \]
+
+  \pause
+  \[
+	H \ge \log ((\frac{n}{k})!)^k = \Omega(n \log \frac{n}{k})
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
