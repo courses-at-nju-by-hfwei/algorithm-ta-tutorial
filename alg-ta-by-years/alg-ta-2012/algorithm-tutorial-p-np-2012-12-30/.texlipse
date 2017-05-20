@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Sat Dec 29 10:38:08 CST 2012
+markTmpDer=true
+builderNum=2
+outputDir=out
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=timecomplexity.tex
+outputFile=timecomplexity.pdf
+langSpell=en
+markDer=true
+srcDir=src
