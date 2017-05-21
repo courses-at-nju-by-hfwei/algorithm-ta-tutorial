@@ -1,1 +1,109 @@
 \section{DAG}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{DAG}
+  \begin{center}
+    no back edge $\iff$ DAG \pause $\iff$ $\exists$ topo. ordering
+  \end{center}
+
+  \begin{block}{Toposort algorithm by Tarjan (probably), 1976}
+    DFS on digraph, $u \to v$:
+    \begin{itemize}
+	  \item \sout{back edge:} $\text{f}[u] < \text{f}[v]$
+      \item others: $\text{f}[u] > \text{f}[v]$
+    \end{itemize}
+
+	\pause
+    \[ 
+	  u \to v \implies \text{f}[u] > \text{f}[v]
+	\]
+
+	\pause
+    \begin{center}
+	  Toposort: sort vertices in \textcolor{blue}{\emph{decreasing}} order of their \textcolor{blue}{\emph{finish}} times.
+    \end{center}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Kahn's toposort algorithm}
+  \begin{exampleblock}{Kahn's toposort algorithm (1962; Problem 5.11) }
+    \begin{itemize}
+      \item queue for source vertices ($\text{in}[v] = 0$)
+      \item repeat: dequeue $v$, delete it, output it
+    \end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \begin{lemma}
+	Every DAG has at least one source (and at least one sink vertex).
+  \end{lemma}
+
+  \pause
+  \begin{alertblock}{Question}
+	What if $G$ is not a DAG?
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Taking courses}
+  \begin{exampleblock}{Taking courses in few semesters (Problem 5.14)}
+	\begin{itemize}
+	  \item $n$ courses
+	  \item $c_1 \to c_2$
+	  \item goal: taking courses in few semesters
+	\end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \begin{center}
+	critical path \emph{OR} longest path
+  \end{center}
+
+  \pause
+  \begin{alertblock}{Remark}
+	For general digraph, LONGEST-PATH is NP-hard.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Line up}
+  \begin{exampleblock}{Line up (Problem 5.16)}
+    \begin{enumerate}
+      \item $i$ hates $j$: $i \prec j$
+      \item $i$ hates $j$: $\# i < \# j$
+    \end{enumerate}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Hamiltonian path in DAG}
+  \begin{exampleblock}{Hamiltonian path in DAG (Problem 5.10)}
+    \begin{itemize}
+      \item DAG $G$
+      \item HP: path visiting each vertex once
+    \end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \begin{alertblock}{Remark}
+    For general (di)graph, HP is NP-hard.
+  \end{alertblock}
+
+  \pause
+  \[
+	\text{DAG: } \exists \text{ HP} \iff \exists! \text{ topo. ordering}
+  \]
+
+  \begin{columns}
+	\column{0.50\textwidth}
+	  \pause
+	  \begin{proof}
+		$\Longleftarrow$: By contradiction. 
+	  \end{proof}
+	\column{0.50\textwidth}
+	  \pause
+	  Algorithms:
+	  \begin{enumerate}
+		\item toposort, check edges
+		\item the Kahn toposort algorithm
+	  \end{enumerate}
+	\end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
