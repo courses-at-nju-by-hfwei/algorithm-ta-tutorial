@@ -71,6 +71,9 @@
       \item $i$ hates $j$: $\# i < \# j$
     \end{enumerate}
   \end{exampleblock}
+
+  \vspace{0.50cm}
+  \centerline{\sout{BFS}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Hamiltonian path in DAG}
@@ -95,13 +98,14 @@
 	\column{0.50\textwidth}
 	  \pause
 	  \begin{proof}
-		$\Longleftarrow$: By contradiction. 
+		$\Longleftarrow$: By construction.
 	  \end{proof}
 	\column{0.50\textwidth}
 	  \pause
 	  Algorithms:
 	  \begin{enumerate}
 		\item toposort, check edges
+		  \pause
 		\item the Kahn toposort algorithm
 	  \end{enumerate}
 	\end{columns}
