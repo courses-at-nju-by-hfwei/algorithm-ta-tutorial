@@ -63,10 +63,10 @@
 	  \item $\Longleftarrow$: (1) source (2) $\exists !$
 		\pause
 	  \item $\implies$: By contradiction. 
-		\pause
-		\[
-		  \exists u: v \not\leadsto u \land \text{in}[u] > 0 \implies \exists u' \to u \land v \nrightarrow u' \implies \exists \text{ cycle}
-		\]
+		% \pause
+		% \[
+		%   \exists u: v \not\leadsto u \land \text{in}[u] > 0 \implies \exists u' \to u \land v \nrightarrow u' \implies \exists \text{ cycle}
+		% \]
 	\end{itemize}
   \end{proof}
 \end{frame}
@@ -162,22 +162,23 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{2SAT}
-  \begin{gather*}
-	(x_0\lor x_2)\land(x_0\lor\lnot x_3)\land(x_1\lor\lnot x_3)\land(x_1\lor\lnot x_4)\land\\
-	(x_2\lor\lnot x_4)\land (x_0\lor\lnot x_5)\land (x_1\lor\lnot x_5)\land (x_2\lor\lnot x_5)\land\\
-	(x_3\lor x_6)\land (x_4\lor x_6)\land (x_5\lor x_6)
-  \end{gather*}
+  % \begin{gather*}
+  %   (x_0\lor x_2)\land(x_0\lor\lnot x_3)\land(x_1\lor\lnot x_3)\land(x_1\lor\lnot x_4)\land\\
+  %   (x_2\lor\lnot x_4)\land (x_0\lor\lnot x_5)\land (x_1\lor\lnot x_5)\land (x_2\lor\lnot x_5)\land\\
+  %   (x_3\lor x_6)\land (x_4\lor x_6)\land (x_5\lor x_6)
+  % \end{gather*}
   \begin{columns}
 	\column{0.50\textwidth}
-	  \fignocaption{width = 0.80\textwidth}{figs/2sat-implication-graph-wiki.png}
+	  % \fignocaption{width = 0.80\textwidth}{figs/2sat-implication-graph-wiki.png}
+	  \fignocaption{width = 0.80\textwidth}{figs/2sat-implication-graph.pdf}
 	\column{0.50\textwidth}
 	  \pause
-	  \fignocaption{width = 0.90\textwidth}{figs/2sat-implication-graph.png}
+	  \fignocaption{width = 0.80\textwidth}{figs/2sat-implication-graph.png}
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Odd cycle in digraph}
-  \begin{exampleblock}{Odd cycle in digraph (Additional)}
+  \begin{exampleblock}{Odd cycle in digraph (Additional Problem)}
     Find an odd cycle in a digraph $G$.
   \end{exampleblock}
 

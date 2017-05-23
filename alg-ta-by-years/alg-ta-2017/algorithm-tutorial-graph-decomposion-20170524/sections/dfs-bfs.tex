@@ -11,7 +11,7 @@
 
   \vspace{0.50cm}
   \begin{quote}
-	``For fundamental achievements in the design and analysis of algorithms and data structures.'' \\
+	\textcolor{blue}{``For fundamental achievements in the design and analysis of algorithms and data structures.''} \\
 	\hfill --- Turing Award, 1986
   \end{quote}
 \end{frame}
@@ -34,7 +34,7 @@
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Graph decomposition}
+\begin{frame}{The POWER of DFS} 
   \begin{center}
 	Graph decomposition vs. Graph traversal \\[10pt]
 	Structures!
@@ -100,22 +100,30 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Types of edges}
-  \begin{exampleblock}{DFS tree and BFS tree coincide (Additional)}
-    $G = (V,E), v \in V$. \\
-	DFS tree $T$ = BFS tree $T'$.
-
+  \begin{exampleblock}{DFS tree and BFS tree coincide (Additional Problem)}
     \begin{itemize}
-      \item $G$ is an undirected graph $\implies G = T$
-      \item $G$ is a digraph $\xLongrightarrow{?} G = T$
+	  \item undirected connected graph $G = (V,E), v \in V$ 
+	  \item DFS tree $T$ from $v$ $\equiv$ BFS tree $T'$ from $v$
+      \item prove: $G = T$
     \end{itemize}
   \end{exampleblock}
 
   \pause
-  \begin{itemize}
-	\item $T$: tree + back \emph{vs.} $T'$: tree + cross
-	\pause
-	\item $T$: tree + back + forward + cross \emph{vs.} $T'$: tree + back + cross 
-  \end{itemize}
+  \begin{center}
+	$G_{\text{DFS}}$: tree + back \emph{vs.} $G_{\text{BFS}}$: tree + cross
+  \end{center}
+
+  \pause
+  \begin{alertblock}{Question}
+	\begin{itemize}
+	  \item DFS\&BFS from different $v's$?
+	  \item What if $G$ is a digraph?
+	\end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Lifttime of vertices in DFS}
+  \fignocaption{width = 0.40\textwidth}{figs/active-interval.png}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Lifttime of vertices in DFS}
@@ -138,7 +146,7 @@
 \begin{frame}{Ancestor/descendant relation}
   \begin{exampleblock}{Preprocessing for ancestor/descendant relation (Problem 5.23)}
     \begin{itemize}
-      \item binary tree $T = (V, E)$ (tree)
+      \item binary tree $T = (V, E)$
       \item $r \in V$
     \end{itemize}
   \end{exampleblock}
@@ -150,11 +158,11 @@
   \pause
   \begin{alertblock}{Question}
     $\forall v$: how many descendants?
+  \end{alertblock}
 
-	\pause
-    \[
-	  (\text{f}[v] - \text{d}[v] - 1) / 2
-	\]
+  \pause
+  \begin{alertblock}{Remark}
+	General (rooted) tree?
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -191,8 +199,14 @@
 	\end{itemize}
   \end{exampleblock}
 
+  \pause
+  \vspace{0.30cm}
+  \centerline{throught root or not?}
+
+  \pause
+  \vspace{0.50cm}
   \begin{alertblock}{Question}
-	Diameter of a tree \emph{without} designated root?
+	Diameter of a tree \emph{without} a designated root?
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -208,6 +222,11 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Counting shortest paths}
   \begin{exampleblock}{Counting shortest paths (Problem 5.26)}
+	Counting \# of shortest paths in (un)directed graphs using BFS.
   \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{Maybe in the next class$\dots$}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

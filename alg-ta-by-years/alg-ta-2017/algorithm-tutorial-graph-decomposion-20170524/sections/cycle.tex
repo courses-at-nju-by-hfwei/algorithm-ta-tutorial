@@ -2,7 +2,7 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Cycle detection}
-  \begin{exampleblock}{Cycle detection (Problem 5.24)}
+  \begin{exampleblock}{Cycle detection (Problem 5.24--1)}
 	\begin{table}[ht]
 	  \centering
 	  \renewcommand{\arraystretch}{1.1}
@@ -30,6 +30,35 @@
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Evasiveness of acyclicity}
+  \begin{exampleblock}{Evasiveness of acyclicity (Problem 5.24--2)}
+	\[
+	  \text{Evasiveness } \triangleq \text{ check } \binom{n}{2} \text{ edges (adjacency matrices)}
+	\]
+
+	\pause
+	\centerline{Is acyclicity evasive?}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \fignocaption{width = 0.20\textwidth}{figs/adversary-logo.png}{\centerline{\pause Hint: Kruskal}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Evasiveness of connectivity}
+  \begin{exampleblock}{Evasiveness of connectivity (Additional Problem)}
+	\[
+	  \text{Evasiveness } \triangleq \text{ check } \binom{n}{2} \text{ edges}
+	\]
+
+	\centerline{Is connectivity evasive?}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \fignocaption{width = 0.20\textwidth}{figs/adversary-logo.png}{\centerline{Hint: Anti-Kruskal}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Edge deletion}
   \begin{exampleblock}{Edge deletion (Problem 5.20)}
     \begin{itemize}
@@ -42,6 +71,11 @@
   \pause
   \[
 	\exists \text{ cycle} \iff \exists \text{ such } e
+  \]
+
+  \pause
+  \[
+	O(m + n)
   \]
 
   \pause
@@ -83,6 +117,7 @@
   \end{exampleblock}
 
   \pause
+  \vspace{0.50cm}
   \begin{alertblock}{Question}
 	What about digraphs?
   \end{alertblock}
