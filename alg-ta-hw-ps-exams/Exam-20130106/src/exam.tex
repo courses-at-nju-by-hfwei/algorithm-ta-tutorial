@@ -1,0 +1,567 @@
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+% examdoc.tex
+%
+% This is the user's guide for the exam documentclass, 
+% by Philip Hirschhorn.
+%
+% The exam documentclass itself is in the file exam.cls.
+
+
+%%% Copyright (c) 1997, 2000, 2004, 2008, 2011 Philip S. Hirschhorn
+%
+% This work may be distributed and/or modified under the
+% conditions of the LaTeX Project Public License, either version 1.3
+% of this license or (at your option) any later version.
+% The latest version of this license is in
+%   http://www.latex-project.org/lppl.txt
+% and version 1.3 or later is part of all distributions of LaTeX 
+% version 2003/12/01 or later.
+%
+% This work consists of the files exam.cls and examdoc.tex
+
+% The user's guide for exam.cls is in the file examdoc.tex.
+
+
+%%% Philip Hirschhorn
+%%% Department of Mathematics
+%%% Wellesley College
+%%% Wellesley, MA 02481
+%%% psh@math.mit.edu
+
+% The newest version of this documentclass should always be available
+% from my web page: http://www-math.mit.edu/~psh/
+
+
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+
+\documentclass[12pt, answers]{exam}
+\usepackage{amssymb}
+\usepackage{ctex}
+\usepackage{makeidx}
+
+\usepackage[colorlinks]{hyperref}
+\usepackage{graphicx}
+\usepackage{caption}
+
+% In case we're not using hyperref.sty:
+\providecommand{\texorpdfstring}[2]{#1}
+% The following can be used in \section commands
+% without generating pdf warnings:
+\newcommand{\bs}{\texorpdfstring{\char`\\}{}}
+
+\newcommand{\docversion}{2.4}
+\newcommand{\docdate}{May 22, 2011}
+%\newcommand{\docdate}{\today}
+
+\makeindex
+
+\newcommand{\indc}[1]{\index{#1@\texttt{\char`\\#1}}}
+\newcommand{\indcsub}[2]{\index{#1@\texttt{\char`\\#1}!#2}}
+\newcommand{\indcstart}[1]{\index{#1@\texttt{\char`\\#1}|(}}
+\newcommand{\indcstop}[1]{\index{#1@\texttt{\char`\\#1}|)}}
+
+\newcommand{\indt}[1]{\index{#1@\texttt{#1}}}
+\newcommand{\indtsub}[2]{\index{#1@\texttt{#1}!#2}}
+\newcommand{\indtstart}[1]{\index{#1@\texttt{#1}|(}}
+\newcommand{\indtstop}[1]{\index{#1@\texttt{#1}|)}}
+
+\newcommand{\set}[1]{\left\{\,#1\,\right\}}  % set {}
+\newcommand{\pair}[1]{\left<\,#1\,\right>}   % pair <>
+
+\qformat{Problem \thequestion: \thequestiontitle\hfill}
+
+\pagestyle{headandfoot}
+\firstpageheader{计算机算法设计与分析}{期末测试练习题}{\today}
+\runningheader{计算机算法设计与分析}{期末测试练习题}{\today}
+%--------------------------------------------------------------------
+%
+% Changes since version 2.3 are described in the comments
+% near the beginning of the file exam.cls.
+%
+%--------------------------------------------------------------------
+%---------------------------------------------------------------------
+\newenvironment{example}%
+   {\bigskip\filbreak
+    \subsubsection{Example:}
+   }%
+   {}
+
+\def\samplehead#1#2#3#4{%
+  \begin{trivlist}
+    \item[]
+    \leavevmode
+    \hbox to \textwidth{%
+      \rlap{\parbox[b]{\textwidth}{\raggedright#1\strut}}%
+      \hfil\parbox[b]{\textwidth}{\centering#2\strut}\hfil
+      \llap{\parbox[b]{\textwidth}{\raggedleft#3\strut}}%
+    }% hbox
+    #4
+  \end{trivlist}
+}
+
+\def\samplefoot#1#2#3#4{%
+  \begin{trivlist}
+    \item[]
+    \leavevmode
+    #1
+    \vskip 3pt
+
+    \hbox to \textwidth{%
+      \rlap{\parbox[t]{\textwidth}{\raggedright#2}}%
+      \hfil\parbox[t]{\textwidth}{\centering#3}\hfil
+      \llap{\parbox[t]{\textwidth}{\raggedleft#4}}%
+    }% hbox
+  \end{trivlist}
+}
+%---------------------------------------------------------------------
+\begin{document}
+
+  
+  \begin{center}
+	\fbox{\fbox{\parbox{5.5in}{
+	\centering
+	{\Large \textbf{期末测试练习题 —— 计算机算法设计与分析}}
+	\vspace{0.5cm}
+	
+	\begin{enumerate}
+	  \item 试卷中出现的$\lg$均以2为底数。
+	  \item 对于要求设计算法的题目，需要给出正确性证明和复杂度分析过程。
+      \item 尽量使用简洁的自然语言描述算法。 
+	  \item 本试卷作为练习使用，其题目取自各参考资料。在你决定查阅文献或求助Google之前，请先行思考。
+	\end{enumerate}
+    }}}
+  \end{center}
+ 
+ \vspace{0.50cm}
+ 
+\begin{questions}
+  \titledquestion{Asymptotic Notation}
+	将以下各表达式按照渐近阶的升序排列。
+	\[
+	  f(n) = n^{\lg 8}, g(n) = 2^{(2 \lg n)}, h(n) = (\min (n,2))^5,
+	\]
+	\[
+	  F(n) = 49 F(\frac{n}{25}) + n^{\frac{3}{2}}\lg n, F'(n) = 2 F'(\frac{n}{4}) +
+	  1, 
+	\]
+	\[
+	  G(n) = G(\sqrt{n}) + 1, H(n) = H(n-1) + \lg n.
+	\]
+	(提示：对于$G(n)$，可考虑变量代换$m = \lg n$；也可猜一个答案，使用数学归纳法证明。)  
+  \vspace{0.50cm}
+  \begin{solution}[2in]
+    \begin{enumerate}
+      \item $f(n) = n^{\lg 8} = n^3$
+      \item $g(n) = 2^{2 \lg n} = 2^{\lg n^2} = n^2$
+      \item $h(n) = \big ( \min(n,2) \big)^5 = 2^5 = \Theta(1) (n \to \infty)$
+      \item $F(n) = 49F(\frac{n}{25}) + n^{\frac{3}{2}}\lg n$。 $\lg_{25}49 =
+      \lg_{5}7 \approx 1.21 < 1.5$，故
+      \[
+        n^{\frac{3}{2}} \lg n \in
+      \Omega(n^{\lg_{25}49 + \epsilon)}, n^{\frac{3}{2}} \lg n \in
+      O(n^{\lg_{25}49 + \delta})
+      \]
+      比如$\epsilon = 0.2, \delta = 0.3$。应用 Master
+      Theorem第三条，得$F(n) = \Theta(n^{\frac{3}{2}} \lg n)$。
+      \item $F'(n) = 2 F'(\frac{n}{4}) + 1$，直接使用 Master Theoerm，得 $F'(n) = \Theta(
+      \sqrt{n})$。
+      \item 变量代换$m = \lg n, n = 2^m$，则有$G(2^m) = G(2^{m/2}) + 1$。令$S(m) =
+      G(2^m)$，则$S(m) = S(\frac{m}{2}) + 1 \Rightarrow S(m) = \Theta(\lg m)$，所以
+      $G(n) = \Theta(\lg \lg n)$。
+      \item $H(n) = H(n-1) + \lg n$。展开该递归式，得 $H(n) = \sum_{k=1}^{k=n} \lg k =
+      \Theta(n \lg n)$。
+    \end{enumerate}
+    按渐近阶排序依次为：
+    
+    \[
+      h(n)=\Theta(1), G(n)=\Theta(\lg \lg n), F'(n)=\Theta(\sqrt{n}),
+      H(n)=\Theta(n \lg n), 
+    \]
+    \[
+      F(n)=\Theta(n^{\frac{3}{2}} \lg n), g(n) = n^2, f(n) = n^3.
+    \]
+  \end{solution}
+   	
+  \titledquestion{Mathematical Induction}
+      有两堆棋子，数目相等。两人游戏，轮流取子。每人可以从一堆里取走任意数量的棋子，但是不能同时从两堆里取子。
+  游戏规定取得最后一颗棋子者胜。请证明，后取者有必胜策略。
+  
+  (提示：当然，你需要先为后取者设计必胜策略。)
+  \vspace{0.50cm}
+  \begin{solution}[2in]
+    后取者的必胜策略为：始终保持两堆棋子数目相等。
+    
+    使用数学归纳法证明该策略的正确性。对每堆棋子的数目$n$作归纳。
+    \begin{enumerate}
+      \item 基础步骤：$n=1$，易见。
+      \item 归纳假设：假设每堆棋子的数目为$n \le k$时，上述策略都能保证后取者必胜。
+      \item 归纳步骤：当每堆棋子数为$n = k + 1$时，假设先取者从某堆取走$x \le (k+1)$颗棋子，后取者按照策略
+      从另外一堆取走同样数目的棋子。则问题规约为$n = k+1-x$的子问题。根据归纳假设，上述策略能保证后取者必胜。
+    \end{enumerate}
+  \end{solution}
+  
+  \titledquestion{Divide and Conquer}
+    给定顶点数为$n$的完全二叉树$T$($n = 2^d - 1$，for some $d$)。树$T$中每个顶点$v$都附带着一个实数值$x_v$。
+  $x_v$各不相同。如果顶点$v$的值$x_v$小于其所有邻居节点(包括其子节点和父节点)附带的实数值，则称顶点$v$为局部最小值点。
+  
+  设计$O(\lg n)$算法确定$T$中的某个局部最小值顶点。算法的关键操作为Probe($v$)：对于每个顶点$v$，Probe($v$)返回
+  $x_v$。
+  \vspace{0.50cm}
+    \begin{solution}[2in]
+    \begin{itemize}
+      \item 如果完全二叉树顶点数为1，即只有一个节点$v$，直接返回$v$。
+      \item 否则，考虑根节点$r$，如果其两个子节点的值均比$x_r$大，则$r$为局部最小值点。返回$r$。
+      \item 否则，两个子节点$u,v$中至少有一个节点的值比$x_r$小。比如$u$节点。如果两个子节点的值均比
+        $x_r$小，则任取一个即可。
+      \item 递归处理以$u$为根节点的子树。 
+    \end{itemize}
+    算法复杂度分析：
+    
+    \[
+      T(n) = T(\frac{n}{2}) + 1 = \Theta(\lg n).
+    \]
+  \end{solution}
+  
+  \titledquestion{Search}
+    给定整数数组$A$，其元素按升序存储。数组大小为$n$，但是具体数值未知。给定某整数$i$，设计时间复杂度为$\Theta(\lg n)$
+  的算法判断$i$是否在$A$中。
+  
+  \vspace{0.50cm}
+  \begin{solution}[2in]
+    \begin{itemize}
+      \item 依次检查数组第$1,2,4,\ldots, 2^k, 2^{k+1}$个数，直到$2^k < i < 2^{k+1}$(如果$i =
+      2^k$，则只检查前$k$个元素即可)。
+      \item 在$2^k, 2^{k+1}$区间段采用二分查找，搜索$i$。
+    \end{itemize}
+    该算法复杂度为$\Theta(\lg n)$，满足条件。
+  \end{solution}
+  
+  \vspace{0.50cm}
+  
+  \titledquestion{Amortized Analysis}
+  Here is a collection of arrays, where array $i$ has size $2^i$. Each array is
+either empty or full. The issue of which arrays are full and which are empty is based on the binary representation of the number of items. For example, 11 elements are stored as the following array:
+	\begin{eqnarray*}
+	  A0 &:& [a_1] \\
+	  A1 &:& [a_2, a_3]\\
+	  A2 &:& empty\\
+	  A3 &:& [a_4, a_5, \cdots, a_{11}]
+	\end{eqnarray*}
+  To insert a new element (in the above example, say $a_{12}$), we first create
+an array of size 1 that just has this single element in it. We now look to see if A0 is empty. If so we make this be A0. If not (like in the above example) we merge our array with A0 to create a new array (which in the above case would now be $[a_1, a_{12}]$) and look to see if A1 is empty. If A1 is empty, we make this be A1. If not (like in the above example) we merge this with A1 to create a new array and check to see if A2 is empty, and so on. So, inserting $a_{12}$ in the example above, we now have the new collection as shown below:
+	\begin{eqnarray*}
+	  A0 &:& empty\\
+	  A1 &:& empty\\
+	  A2 &:& [a_1, a_2, a_3, a_{12}]\\
+	  A3 &:& [a_4, a_5, \cdots, a_{11}]
+	\end{eqnarray*}
+  Cost model: To be clear about costs, let's say that creating the initial array
+of size 1 costs 1, and merging two arrays of size m costs 2m. So, the above insert had cost 1 + 2 + 4.
+
+  Please give the complexity of the insertion using amortized analysis.  
+  
+  \vspace{0.50cm}
+  
+  \begin{solution}[2in]
+    先考虑前几个操作，看看有没有规律可循，如表格\ref{tbl:insertion}：
+    \begin{center}
+      \captionof{table}{插入操作代价示例}
+      \label{tbl:insertion}
+	  \begin{tabular}{|c|c|c|c|}
+	    \hline
+	    操作序号 : & 代价的计算 & 代价 & 累积代价  \\ \hline
+	    1	& 1 & 1 & 1  \\ \hline
+	    2 & 1+2 & 3 & 4  \\ \hline
+	    3 & 1 & 1 & 5 \\ \hline
+	    4 & 1+2+4 & 7 & 12 \\ \hline
+	    5 & 1 & 1 & 13 \\ \hline
+	    6 & 1+2 & 3 & 16 \\ \hline
+	    7 & 1 & 1 & 17 \\ \hline
+	    8 & 1+2+4+8 & 15 & 32 \\ \hline
+	  \end{tabular}
+	\end{center}
+    数据结构初始为空，考虑$n$个插入操作构成的序列。记$k = \lceil \lg(n+1) \rceil$。
+    \begin{enumerate}
+      \item
+      方法一：使用记账方法。对于插入操作，定义其平摊代价为$\hat{c} =
+      k$，其中1份是创建的代价(实际代价)，剩余的$k-1$份(accounting cost，存款)记在要插入的元素上。accounting
+      cost用于以后可能的merge操作。对于$n$个插入操作构成的序列，任一元素最多参与 $k-1$次merge操作。所以，
+      对于整个数据结构而言，存款总是非负的，即
+      $\sum_{i=1}^{n} \hat{c_i} \geq \sum_{i=1}^{n} c_i$。所以，每个插入操作的平摊代价为$k =
+      \Theta(\lg n)$。
+      \item 方法二：使用聚集分析。从一个空的数据结构开始，我们计算$n$个插入操作构成的序列的代价之和$C_n$，那么
+      $\frac{C_n}{n}$即为单个插入操作的平摊代价。
+      
+      我们考虑某特定插入操作，该操作的代价与当前数据结构的状态有关，也就是与当前数据结构中已有元素的个数有关。假设
+      当前数据结构已有$n$个元素，我们要分析插入第$n+1$个元素的代价。含有$n$个元素的数据结构的状态由数字$n$的二进制
+      表示形式所决定：$\pair{n_{k-1}, n_{k-1}, \ldots, n_0}$。假设该二进制表示最右边的0处于第$r$位，
+      即$n_j = 1, 0 \le j \le r-1; n_r = 0$，更高位可以为0也可以为1。在这种状态下，插入第$n+1$个元素的代价为：
+      \[
+        1 + \sum_{j=0}^{r-1} 2 \cdot 2^j = O(2^{r+1}).
+      \]
+      考虑$n$个插入操作构成的序列：$r=0$的情况约有$\frac{n}{2}$次，$r=1$的情况约有$\frac{n}{4}$次，
+      推而广之，对于每个$r$，最多有$\lceil \frac{n}{2^r} \rceil$次。所以，$n$次插入操作的总代价为：
+      \[
+        O(\sum_{r=0}{\lceil \lg(n+1) \rceil} (\lceil \frac{n}{2^r} \rceil)
+        2^{r+1}) = O(n \lg n).
+      \]
+      所以，每个插入操作的平摊代价为$O(\lg n)$。
+    \end{enumerate}  
+  \end{solution}
+  
+  \titledquestion{Decompostion of Graphs}
+      给定有向图$G$，设计$\Theta(n + m)$的算法查找$G$中的奇圈(边数/顶点数为奇数的圈；给出一个即可)。如果$G$中不存在奇圈，
+  则返回false。
+  
+  (提示：考虑各个强连通分支。)
+  
+  \vspace{0.50cm}
+  
+  \begin{solution}[2in]
+    \begin{enumerate}
+      \item 使用SCC算法求有向图$G$的各个强连通分支，时间复杂度为$\Theta(n+m)$。
+      \item 对于每一个强连通分支，运行DFS算法。在DFS遍历过程中，对连续访问(以discover访问为准)的节点
+      交替染上黑白二色。下面证明 某back edge，forward edge, cross edge
+      $(u,v)$，$u,v$两个顶点着色相同当且仅当存在奇圈。
+      
+      证明如下：
+      
+      ``$\Rightarrow：$''某back edge，forward edge, cross edge
+      $(u,v)$，$u,v$两个顶点着色相同 $\Rightarrow$ 存在奇圈。
+      考虑DFS算法中的各种边：
+        \begin{itemize}
+          \item back edge：易见。
+          \item forward edge ($v_1 \to
+          v_2$)：表明从$v_1$到$v_2$ 有两条路径，且长度的奇偶性不同。那么从$v_2$到$v_1$的路径
+          不管奇偶性如何，总可以与$v_1$到$v_2$的其中一条路径构成奇圈。
+          \item cross edge ($u \to v$)：
+          取$u,v$的最小公共祖先$w$(公共祖先必存在，因为根节点为$u,v$的公共祖先)。$u,v$同色，分情况考虑$w$的颜色：
+            \begin{itemize}
+              \item $w$与$u,v$同色。则从$w$到$v$存在两条不同路径：$w \leadsto u \leadsto v$与$w
+              \leadsto v$，其长度奇偶性不同。在该强连通分支中，$v$到$w$存在有向路径。不管该路径长度如何，总可以
+              与$w$到$v$的其中一条路径构成奇圈。
+              \item $w$与$u,v$不同色。该情况与``$w$与$u,v$同色''类似。
+            \end{itemize}
+      ``$\Leftarrow：$'' 存在奇圈 $\Rightarrow$ 某back edge，forward edge, cross edge
+      $(u,v)$，$u,v$两个顶点着色相同。否则，只可能构成偶圈。
+        \end{itemize}
+    \end{enumerate}
+    另外，在网页\url{http://algs4.cs.princeton.edu/42directed/}中，提供了另外一种类似的方法：
+    ``A digraph has an odd-length directed cycle if and only if one (or more) of
+    its strong components is nonbipartite (when treated as an undirected
+    graph).''
+  \end{solution}
+  
+  \titledquestion{Minimum Spanning Tree}
+    考虑如下问题：给定无向连通带权图$G$，所有边的权值各不相同。给定边$e=(v,w)$，请设计一个复杂度为$O(m+n)$的算法
+  判断是否存在$G$的某个最小生成树包含边$e$。
+  
+  有人对此设计了如下算法：
+  \begin{itemize}
+    \item 删除图$G$中所有权值大于等于$w(e)$的边，得到图$G'$。
+    \item 使用BFS或者DFS测试$v,w$是否连通。
+    \item $e$属于某个最小生成树当且仅当$v,w$不连通。
+  \end{itemize}
+  
+  已知上述算法是正确的，请证明其正确性。
+  
+  \vspace{0.50cm}
+  \begin{solution}[2in]
+    \begin{itemize}
+      \item $\Rightarrow$ (cycle property) 要证明：$e$属于某个最小生成树$T$，则$v,w$不连通。
+       
+       反设$v,w$连通。$T-e$中$v,w$不连通，$v,w$分属两个不同的连通分支。记与$v$相连的连通分支为$V$，
+       与$w$相连的连通分支为$W$($V = V_G - W$)。但是在$G'$中$v,w$连通(反设)，
+       则在$G'$中必存在某条边$e'$连接$V,W$，且$w(e') < w(e)$ (因为$G'$中的所有边的权值都小于$w(e)$)。
+       考虑树$T- e + e'$，得到权值更小的生成树， 矛盾。
+     \item $\Leftarrow$ (cut property) 要证明：$v,w$不连通，则$e$属于某个最小生成树$T$。
+     
+      反设所有最小生成树都不包含$e$，考虑不包含$e$的最小生成树$T$。因为$G'$中$v,w$不连通，则$v,w$分处在两个不同
+      的连通分支中。记与$v$\emph{仅通过权值小于$w(e)$的边相连}的连通分支为$V$，其余所有顶点构成集合$S=V_G -
+      V$。$T$是生成树，故其必含有某条边$e'$连接$V$与$S$，且$w(e') > w(e)$。考虑生成树$T' = T -
+      e' + e$，其权值比$W(T)$更小。矛盾。 
+    \end{itemize}
+  \end{solution}
+  
+  \titledquestion{Graph Modeling}
+    给定$n$张长方形纸张$P_1, P_2, \ldots, P_n$。纸张$P_i$的长度和宽度分别为$l_i$和$w_i$。
+  今将任意纸张$A, B, C, \ldots$依次叠放成一堆，如果$A$纸张完全包含$B$纸张(允许旋转纸张)，而$B$纸张完全包含$C$纸张，
+  (依次类推)，则称$A, B, C, \ldots$构成一个``纸张栈''，栈的大小即为栈中纸张的数目。
+  
+  设计算法求出最大纸张栈。分析算法复杂度。
+  
+  \vspace{0.50cm}
+  \begin{solution}[2in]
+	\begin{enumerate}
+	  \item 图论建模：建立有向图$G=(V,E)$。每张纸对应于图中一个顶点。如果纸张$P_i$可以完全包含纸张$P_j$，则
+	  在$G$中添加边$V_i \to V_j$。该图$G$为有向无环图，因为``完全包含关系''蕴含纸张面积的大小关系。如果给定
+	  的$n$张纸中有完全相同的纸，则可以先去重。
+	  \item 求有向无环图$G$的最长路径。该最长路径即对应最大纸张栈。如果该最长路径中的每个顶点对应的纸张有重数，
+	  则将重数加上。
+	    \begin{enumerate}
+	      \item 方法一：添加一个顶点$v$，将其单向连接到其它所有顶点(权重为0)，然后使用DFS遍历(也是动态
+	      规划思想)求$v$到其它所有顶点的最长路径。算法复杂度为$\Theta(n+m)$。
+	      \item 方法二：先对$G$作拓扑排序。按照拓扑序求每个顶点对其它所有顶点的最长路径(动态规划思想)。
+	      算法复杂度为$\Theta(n+m)$。
+	    \end{enumerate}
+	\end{enumerate}  
+  \end{solution}
+  
+  \titledquestion{Greedy Algorithm: Storing Files on Tape}
+    现将$n$个文件$f_1, f_2, \ldots, f_i, \ldots, f_n$顺序存储在磁带上。文件$f_i$的长度为$L_i$。
+    存储在$k$位置的文件的访问代价为：$C(k) = \sum_{i=1}^{k} L_i$。假设每个文件的访问概率均相同，则
+    $n$个文件的平均访问代价为：
+    \[
+      E = \frac{1}{n} \sum_{k=1}^{n} C(k) = \frac{1}{n} \sum_{k=1}^{n}
+      \sum_{i=1}^{k} L_i.
+    \]
+    \begin{enumerate}
+      \item 应如何安排文件的存储顺序使得平均访问代价最小？
+      \item 假设已知各文件$f_i$的访问频率为$F_i$(不一定相等)，应如何安排文件的存储顺序使得平均访问代价最小？ 
+    
+        (提示：考虑$\frac{L_i}{F_i}$)
+    \end{enumerate}
+  
+  \vspace{0.50cm}
+  \begin{solution}[2pt]
+    \begin{enumerate}
+      \item 以文件长度的递增顺序存储。证明如下：假设文件存储顺序存在逆序，那么必存在两个相邻的文件构成逆序，即$L_a >
+      L_b$，但是$f_a$存储在$f_b$之前。交换这两个文件，平均访问代价将增加$L_b - L_a < 0$。
+      \item 已经证明如果文件访问频率都相等，应该按照文件长度的递增顺序存储；对应地，如果文件长度都相等，那么应该
+      按照文件的访问频率的递减顺序存储。那么，我们猜测在文件访问频率不等，文件长度也不等的情况下，文件应该按照
+      $\frac{L_i}{F_i}$的升序存储。其证明与第一个问题类似，过程如下：假设文件存储顺序存在逆序，那么必存在
+      两个相邻的文件构成逆序，即$\frac{L_a}{F_a} >
+      \frac{L_b}{F_b}$，但是$f_a$存储在$f_b$之前。交换这两个文件，平均访问代价将增加$L_b F_a  - L_a F_b <
+      0$。
+    \end{enumerate}
+  \end{solution}  
+
+  \titledquestion{Dynamic Programming: Opening Restaurants}
+    $X$先生打算沿某高速公路开设多家餐馆。餐馆位置有$n$种选择$x_1 < x_2 < \ldots < x_n$ (单位为公里)，且有两条约束：
+  \begin{itemize}
+    \item 在每个位置，最多只能开一家餐馆(开还是不开)。在$x_i$位置开设餐馆的利润为 $p_i > 0$。
+    \item 餐馆之间最少要相距$k > 0$公里。
+  \end{itemize}
+  优化目标：设计一个算法帮助$X$先生安排餐馆位置，使其利润最大化。
+  
+  提示：子问题参数个数为1。
+  
+  \vspace{0.50cm}
+  \begin{solution}[2in]
+    子问题定义：$P(i)$表示仅考虑前$i$个位置时可获取的最大利润。原问题为$P(n)$。
+  
+    递归公式：考虑是否在$x_i$位置开设餐馆。
+    \[
+      P(0) = 0; P(i) = \max_{x_i - x_j \ge k}(P(i-1), p_i + P(j)).
+    \]
+  \end{solution}
+
+  \vspace{0.50cm}
+  
+  \titledquestion{Dynamic Programming: Minimum Weight Triangulation}
+    给定$n$个顶点$p_1, p_2, \ldots, p_i = (x_i, y_i), \ldots,
+  p_n$构成的凸多边形$P$。为方便起见，$P$的$n$个顶点已按照顺时针方向标号$1,2, \ldots, n$。凸多边形的
+  任意一种``三角化''方案$T$由$P$的$n-3$条互不交叉(顶点除外)的对角线构成，如图\ref{fig:polygon}所示。
+  ``三角化''方案$T$的代价为$n-3$条对角线的长度之和。
+  
+  \begin{center}
+    \captionof{figure}{凸多边形三角化示例。}
+    \includegraphics[width = 0.70\linewidth]{figure/polygon.pdf}
+    \label{fig:polygon}
+  \end{center}
+  
+  设计算法给出具有最小代价的``三角化''方案。
+  
+  (提示：矩阵链相乘问题、最优二叉搜索树。)
+   
+  \vspace{0.50cm}
+  \begin{solution}[2in]
+    定义子问题：$T(i,j)$表示仅考虑凸多边形在顶点$v_i$到$v_j$部分的三角化的最小代价(不包括$v_i$与$v_j$距离$d_{ij}$)。
+    递归公式为(见图\ref{fig:triangle})：
+    \[
+      T(i,j) = \min_{k=i+1}^{j-1} \big( T(i,k) + T(k,j) + d_{ik} + d_{kj} \big).
+    \]  
+    
+	  \begin{center}
+	    \captionof{figure}{凸多边形三角化递归公式示意。}
+	    \includegraphics[width=0.70\linewidth]{figure/triangle.png}
+	    \label{fig:triangle}
+	  \end{center}
+  \end{solution}
+  
+  \titledquestion{NP-Complete}
+    无向图$G$是3-可着色(3-color)的，是指可以使用3种不同的颜色对图$G$的所有顶点进行着色，使得任意两个相邻顶点的颜色不同。
+  
+  \begin{enumerate}
+    \item 给出一种从3-可着色问题(3-color)到可满足性问题(SAT)的多项式规约。
+    \item 如果已知3-可着色问题(3-color)是NP-Complete问题，证明4-可着色问题(4-color)也是NP-Complete问题。
+  \end{enumerate} 
+  \vspace{0.50cm}
+  
+  \begin{solution}[2in]
+    \begin{enumerate}
+      \item 3-color问题的输入为无向图$G$，SAT问题的输入为CNF。多项式规约$R$的目的就在于使用CNF逻辑公式来
+        表达3-color问题中的约束。
+        
+        假设无向图$G=(V,E)$顶点数为$n$，边数为$m$。3种颜色记为$R, G, B$。按照如下步骤构造SAT实例$F$：
+        \begin{itemize}
+          \item 变量集合为$\set{x_{vc} \mid 1 \le v \le n, c \in \set{R, G,
+          B}}$，其中$x_{vc}$表示顶点$v$着色$c$。变量个数为$3n$。
+          \item 相邻顶点不能着相同颜色：
+            \[
+              \forall (i,j) \in E, c \in {R, G, B}: \neg (x_{ic} \land x_{jc})
+              \equiv (\neg x_{ic} \lor \neg x{jc}).
+            \]
+            共计$3m$个子句，每个子句包含2个文字。
+          \item 每个顶点都必须着色。
+            \[
+              \forall v \in V. (x_{vR} \lor x_{vG} \lor x_{vB}).
+            \]
+            共计$n$个子句，每个子句包含3个文字。
+        \end{itemize}
+        由上可知，该规约过程可在多项式时间内完成。
+        
+        下面证明$G$是3-可着色的当且仅当$F$可满足。
+        \begin{itemize}
+          \item $\Rightarrow$ 如果在图$G$中顶点$v$被着色为$c$，则在$F$中将$x_{vc}$设置为true；
+          \item $\Leftarrow$ 如果$F$可满足，则存在可满足性赋值$A$。对于任何一个$v$，至少有一个$x_{vc}$为true，
+            在$G$中将$v$着色为$c$(如果对于$v$，有多个$x_{vc}$为true，则任选一个)。对于每一条边$(i,j)$，如果$x_{ic}$
+            为true，则$x_{jc}$必为false，所以$i,j$着色不同。
+        \end{itemize}
+      \item 
+        \begin{enumerate}
+          \item 易证4-color $\in NP$。
+            \begin{itemize}
+              \item 非确定性地为$G$中每个顶点着色(四种既定颜色之一)。
+              \item 检查每条边，如果某条边的两个顶点着色相同，则返回false；否则返回true。
+              \item 以上步骤可在多项式时间内完成。
+            \end{itemize}
+          \item 规约如下：将3-color问题的输入$G=(V,E)$转化为4-color问题的输入$G'=(V',E'), V' =
+          V \cup \set{v'}, E' = E \cup \set{(v',v) \mid v \in V}$。
+          \item 证明$G$是3-可着色的当且仅当$G'$是4-可着色的。
+			\begin{itemize}
+			  \item ``$\Rightarrow:$'' $G$是3-可着色的 $\Rightarrow$ $G'$是4-可着色的。
+			    
+			    为$v'$着第四种颜色即可。
+			  \item ``$\Leftarrow:$'' $G'$是4-可着色的 $\Rightarrow$ $G$是3-可着色的。
+			  
+			    在$G'$的四着色方案中，因为$v'$与$V$中所有顶点相连，故$v'$独占一种颜色。删除$v'$及其
+			    相应边，即得$G$的三着色方案。
+			\end{itemize}
+		  \item 以上规约可在多项式时间内完成。
+        \end{enumerate}
+    \end{enumerate}
+    思考：由3-color问题是NP-Complete问题，可以按照以上规约证明4-color问题也是NP-Complete问题；同理，
+    也可以证明5-color，6-color问题，$k$-color问题都是NP-Complete问题。但是，如果取$k=n$，
+    该$n$-color问题是显然易解的。我们证明了``P=NP''吗？
+    
+    可参见 \url{http://cs.stackexchange.com/q/7671/4911}。
+  \end{solution}
+\end{questions}
+
+\end{document}
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------
+%--------------------------------------------------------------------

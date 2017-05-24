@@ -1,0 +1,718 @@
+%% LaTeX Beamer presentation template (requires beamer package)
+%% see http://bitbucket.org/rivanvx/beamer/wiki/Home
+%% idea contributed by H. Turgut Uyar
+%% template based on a template by Till Tantau
+%% this template is still evolving - it might differ in future releases!
+
+\documentclass{beamer}
+\mode<presentation>
+{
+	\usetheme{Dresden} % Dresden, Singapore, Amsterdam
+	\usecolortheme{beaver}
+	\setbeamercolor{itemize item}{fg=darkred!80!black}
+	\setbeamertemplate{footline}[frame number]
+	\setbeamerfont{subsection in toc}{size = \small}
+% 	\setbeamercovered{transparent}
+}
+
+\usepackage{tikz, adjustbox}
+\usetikzlibrary{calc, shapes.callouts, decorations.text}
+\usetikzlibrary{positioning, arrows, decorations.pathreplacing,
+decorations.pathmorphing, backgrounds, fit}
+
+\newcommand{\incitefull}[3]{\textcolor{blue}{\scriptsize [#1@#2'#3]}}
+
+\newcommand{\inputtikz}[2] % #1: size; #2: tikz file (without prefix: tex(tikz))
+{
+      \begin{center}
+      \adjustbox{max width = #1}
+      {
+        \input{tex(tikz)/#2}
+      }
+      \end{center}
+}
+
+% new command for figure:
+% #1: size; #2: figure file (without prefix figure/)
+\newcommand{\fig}[2]
+{
+  \begin{figure}[htp]
+	  \centering
+	  \includegraphics[#1]{figure/#2}
+  \end{figure}
+}
+
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{amsmath}
+\usepackage{wrapfig}
+\usepackage{algpseudocode}
+\usepackage{multicol}
+
+\title{Dynamic Programming}
+
+\author{Hengfeng Wei}
+
+\institute[Universities of]
+{
+	Institute of Computer Software, NJU
+}
+
+\date{\today}
+
+
+% If you have a file called "university-logo-filename.xxx", where xxx
+% is a graphic format that can be processed by latex or pdflatex,
+% resp., then you can add a logo as follows:
+
+% \pgfdeclareimage[height=0.5cm]{university-logo}{university-logo-filename}
+% \logo{\pgfuseimage{university-logo}}
+
+
+
+% Delete this, if you do not want the table of contents to pop up at
+% the beginning of each subsection:
+\AtBeginSubsection[]
+{
+	\begin{frame}<beamer>
+		\frametitle{Outline}
+		\begin{multicols}{2}
+		  \tableofcontents[currentsection]
+		\end{multicols}
+	\end{frame}
+}
+
+\AtBeginSection[]
+{
+	\begin{frame}<beamer>
+		\frametitle{Outline}
+		\begin{multicols}{2}
+		  \tableofcontents[currentsection]
+		\end{multicols}
+	\end{frame}
+}
+% If you wish to uncover everything in a step-wise fashion, uncomment
+% the following command:
+
+%\beamerdefaultoverlayspecification{<+->}
+
+\begin{document}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Outline}
+		\begin{multicols}{2}
+		  \tableofcontents[currentsection]
+		\end{multicols}
+% You might wish to add the option [pausesections]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%
+\section{Overview}
+
+%%%%%%%%%
+\begin{frame}{Overview}
+  \begin{mdframed}
+    \begin{center}
+    Dynamic programming is \emph{not} about filling in tables!
+    
+    It is about smart recursion.
+    
+    Smart recursion is about the \textcolor{blue}{\emph{structure of
+    subproblems}}.
+    \end{center}
+  \end{mdframed}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Common Subproblems}
+  \begin{itemize}
+    \setlength{\itemsep}{8pt}
+    \item 1-dimension subproblems
+      \begin{itemize}
+        \item input: string (or array) $x[1 \ldots n]$;  \\
+        subproblem: prefix ($x[1 \ldots i]$), suffix ($x[i \ldots n]$);  \\
+        examples: Maximum Subarray Sum, Typesetting Problem,
+        \textcolor{blue}{Longest Increasing Subsequence, Hotel Placement}
+      \end{itemize}
+    \item 2-dimension subproblems
+      \begin{itemize}
+        \setlength{\itemsep}{5pt}
+        \item input: two strings $x[1 \ldots m], y[1 \ldots n]$; \\ 
+        subproblem: prefixes $x[1 \ldots i], y[1 \ldots j]$;  \\
+        examples: \textcolor{blue}{Edit Distance, Longest Common Subsequence}
+        \item input: a string $x[1 \ldots n]$; \\
+        subproblem: interval $x[x \ldots j]$;  \\
+        examples: Chain Matrix Multiplication, Optimal BST,
+        \textcolor{blue}{Longest Palindrome}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Common Subproblems}
+  \begin{itemize}
+    \setlength{\itemsep}{8pt}
+    \item 3-dimension subproblems
+      \begin{itemize}
+        \item Floyd-Warshall algorithm
+      \end{itemize}
+    \item tree-like subproblems
+      \begin{itemize}
+        \item input: tree;
+          subproblem: rooted subtree;  \\
+          example: \textcolor{blue}{Independent Set in Tree}
+      \end{itemize}
+    \item two mind games
+      \begin{itemize}
+        \item \textcolor{blue}{Google Egg Game, Hungry-Lion Game}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Common Subproblems}
+  How to identify subproblems?
+  \vspace{0.50cm}
+  \begin{mdframed}
+    \centering
+    Make your choice:
+    \begin{itemize}
+      \item binary choice (whether)
+        \begin{itemize}
+          \item coin-changing, $\ldots$
+        \end{itemize}
+      \item multi-way choices (where, which $\ldots$)
+        \begin{itemize}
+          \item optimal BST, $\ldots$
+        \end{itemize}
+    \end{itemize}
+  \end{mdframed}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%
+\section{1-Dimension Subproblems}
+
+%%%%%%%%%%%%%%
+\subsection{Longest Increasing Subsequence}
+
+%%%%%%%%%
+\begin{frame}{Longest Increasing Subsequence}
+  \begin{problem}[Longest Increasing Subsequence (LIS)]
+    \begin{itemize}
+      \item given an integer array $A[1 \ldots n]$
+      \item to find (the length of) a longest increasing subseq.
+    \end{itemize}
+    
+    \vspace{0.50cm}
+    \begin{mdframed}[leftmargin = 2.5cm, rightmargin = 2.5cm]
+      \[ A: 5,2,8,6,3,6,7,9 \]
+      \[ IS: 5,8,9; \; 2, 3, 6, 9 \]
+    \end{mdframed}
+  \end{problem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Longest Increasing Subsequence}
+
+  \begin{mdframed}[rightmargin = 3.0cm]
+    $L(i):$ the length of the LIS of $A[1 \ldots i]$.
+  \end{mdframed}
+  
+  \vspace{0.50cm}
+  \begin{theorem}[Recurrence]
+    \fbox{Make choice:} whether $A[i] \in LIS[1 \ldots i]$.
+    \begin{displaymath}
+      L(i) = \max \left\{
+        \begin{array}{ll}
+          L(i - 1) & \textrm{if } A[i] \notin LIS[1 \ldots i]  \\
+          1 + \max \{ L(j): j < i \land A[j] < A[i] \} & \textrm{o.w.}    
+        \end{array}
+      \right.
+    \end{displaymath}
+  \end{theorem}
+  \vspace{0.50cm}
+  \fbox{Base cases:} $L(0) = 0$.
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Longest Increasing Subsequence}
+  Filling the table:
+  \fig{width = 0.70\textwidth}{LISorder}
+  
+  \vspace{0.50cm}
+  Time complexity: $\Theta(n^2)$
+  
+  Space complexity: $\Theta(n)$
+\end{frame}
+%%%%%%%%%
+\subsection{Hotel Placement}
+
+%%%%%%%%%
+\begin{frame}{Hotel Placement}
+  \begin{problem}[Hotel Placement]
+    \begin{itemize}
+      \item open hotels along a highway
+      \item possible locations: $X[1 \ldots n] = x_1, \ldots, x_n$
+      \item profit: $P[1 \ldots n] = p_1, \ldots, p_n$
+      \item any two hotels should be at least $k$ miles apart
+      \item \fbox{Goal:} to maximize the total profit
+    \end{itemize}
+  \end{problem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Hotel Placement}
+  \begin{mdframed}
+    $M(i):$ max profit when considering only the first $i$ locations.
+  \end{mdframed}
+  
+  \vspace{0.50cm}
+  \begin{theorem}[Recurrence]
+    \fbox{Make choice:} whether to build a hotel at location $i$.
+    \begin{displaymath}
+      M(i) = \max \left\{
+        \begin{array}{ll}
+          M(i-1) & \textrm{do not build at } i  \\
+          p_i + \max \{ M(j): j < i \land x_i - x_j \ge k \} & \textrm{o.w.}
+        \end{array}
+      \right.
+    \end{displaymath}
+    
+    \fbox{Base cases:} $M(0) = 0$
+
+    \vspace{0.30cm}
+    Time complexity: $\Theta(n^2)$
+    
+    Space complexity: $\Theta(n)$
+  \end{theorem}
+\end{frame}
+%%%%%%%%%
+\subsection{Typesetting Problem}
+
+%%%%%%%%
+\begin{frame}{Typesetting Problem}
+  \begin{problem}[Typesetting Problem]
+    \begin{itemize}
+      \item text: $n$ words of widths $W: w_1, \ldots, w_n$
+      \item line width $L$
+      \item penalty: $f(w_i \ldots w_j)$
+      \item \fbox{Goal:} to minimize the typesetting penalty
+    \end{itemize}
+  \end{problem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Typesetting Problem}
+  \begin{mdframed}[rightmargin = 2cm]
+    $P(i):$ the minimum penalty to typeset $W[i \ldots n]$.
+  \end{mdframed}
+  
+  \vspace{0.50cm}
+  \begin{theorem}[Recurrence]
+    \fbox{Make choice:} how many words to put in the first line.
+    \begin{displaymath}
+      P(i) = \left\{
+        \begin{array}{ll}
+          0 & \textrm{if } \sum (w_i, \ldots, w_n) \le L  \\
+          \min_{w_i + \ldots w_{i+k-1} \le L} f(w_i \ldots w_k) + P(i+k) &
+          \textrm{o.w.}
+          \\
+        \end{array}
+      \right.
+    \end{displaymath}
+  \end{theorem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Typesetting Problem}
+  Filling the table:
+  \fig{width = 0.60\textwidth}{typesettingorder}
+  \vspace{0.50cm}
+  
+  Time complexity: $\Theta(nW)$
+  
+  Space complexity: $\Theta(n)$
+\end{frame}
+% \begin{frame}{Rod-Cutting Problem}
+%   \begin{problem}[Rod-Cutting Problem]
+%     \begin{itemize}
+%       \item given a rod of length $n$
+%       \item I want to cut it into pieces
+%       \item profit table $P[1 \ldots n]$
+%       \item \fbox{Goal:} to maximize the profit
+%     \end{itemize}
+%   \end{problem}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%
+\section{2-Dimension Subproblems}
+
+%%%%%%%%%%%%%%
+\subsection{Edit Distance}
+
+%%%%%%%%%
+\begin{frame}{Edit Distance}
+  \begin{problem}[Edit Distance]
+    \begin{itemize}
+      \item transform string $A[1 \ldots m]$ to another one $B[1 \ldots n]$
+      \item allowed edits: insertion, deletion, substitution
+        \fig{width = 0.90\textwidth}{editdistanceex}
+      \item \fbox{Goal:} to find the edit distance (similarity) --- the minimum
+      number of edits
+    \end{itemize}
+  \end{problem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Edit Distance}
+  \begin{mdframed}[rightmargin = 1cm]
+    $E(i,j):$ the edit distance of $A[1 \ldots i]$ and $B[1 \ldots j]$.
+  \end{mdframed}
+  
+  \vspace{0.50cm}
+  \begin{theorem}[Recurrence]
+    \fbox{Make choices:} three cases for the rightmost column
+    \begin{displaymath}
+      E(i,j) = \min \left\{
+        \begin{array}{ll}
+          E(i-1,j) + 1 & (x[i], \_) \\
+          E(i, j-1) + 1 & (\_, y[j]) \\
+          E(i-1, j-1) & (x[i], y[j]) \textrm{ and $A[i] = B[j]$}  \\
+          E(i-1, j-1) + 1 & (x[i], y[j]) \textrm{ and $A[i] \neq B[j]$}  
+        \end{array}
+      \right.
+    \end{displaymath}
+    \fbox{Base cases:}
+    $E(i,0) = i \; (deletion); E(0,j) = j \; (insertion).$ 
+  \end{theorem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Edit Distance}
+  Filling the table:
+  \begin{columns}
+    \column{0.40\textwidth}
+      \fig{width = 0.80\textwidth}{EDorder}
+    \column{0.30\textwidth}
+      \fig{width = 0.80\textwidth}{row-major}
+    \column{0.30\textwidth}
+      \fig{width = 0.80\textwidth}{col-major}
+  \end{columns}
+  
+  \vspace{0.80cm}
+  Time complexity: $\Theta(nm)$
+  
+  Space complexity: $\Theta(nm)$
+\end{frame}
+%%%%%%%%%%%%%%
+\subsection{Longest Common Subsequence}
+  
+%%%%%%%%%
+\begin{frame}{Longest Common Subsequence}
+  \begin{problem}[Longest Common Subsequence (LCS)]
+    \begin{itemize}
+      \item another similarity measurement
+      \item given two sequences $X[1 \ldots m]$ and $Y[1 \ldots n]$.
+      \item to find (the length of) a longest subseq. common to both.
+    \end{itemize} 
+    \vspace{0.50cm}
+    \begin{mdframed}[leftmargin = 1.5cm, rightmargin = 1.5cm]
+      \begin{align*}
+        X &: A \; B \; C \; B \; D \; A \; B \\
+        Y &: B \; D \; C \; A \; B \; A
+      \end{align*}
+      \[
+        LCS: B \; D \; A\; B; \; B\; C\; A\; B; \; B\; C\; B\; A; \;
+      \]
+    \end{mdframed}
+  \end{problem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Longest Common Subsequence}
+  \begin{mdframed}[rightmargin = 0.5cm]
+    $L(i,j)$: the length of the LCS of $X[1 \ldots i]$ and $Y[1 \ldots j]$.
+  \end{mdframed}
+  
+  \vspace{0.50cm}
+  \fbox{Make choice:} Let $Z[1 \ldots k] = LCS(X[1 \ldots i], Y[1 \ldots j]$, \\
+    whether $(X[i], Y[j]) \in Z[1 \ldots k]$?
+  \begin{lemma}[Make Choice]
+    \fbox{If} $(X[i],Y[j]) \notin Z[1 \ldots k]$, then either $X[i] \notin Z$ or
+    $X[j] \notin Z$.
+  \end{lemma}
+  
+  \pause
+  \begin{proof}
+    \fbox{By contradiction. \textcolor{blue}{Or, case by case.}} 
+    \fig{width = 0.50\textwidth}{lcschoice}
+  \end{proof}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Longest Common Subsequence}
+  \begin{theorem}[Recurrence]
+    \begin{displaymath}
+      L(i,j) = \left\{
+        \begin{array}{ll}
+      	  L(i-1, j-1) + 1 \textrm{ (\textcolor{red}{why?})} & \textrm{if } X[i] =
+      	  Y[j]
+      	  \\
+      	  \max \{ L(i,j-1), L(i-1,j) \} & \textrm{o.w.}  
+        \end{array}
+      \right.
+    \end{displaymath}
+    
+    \vspace{0.50cm}
+    \fbox{Base cases:} 
+    \[
+      L(i,0) = 0; L(0,j) = 0;
+    \]  
+  \end{theorem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Longest Common Subsequence}
+  \begin{columns}
+    \column{0.40\textwidth}
+      \fig{width = 0.80\textwidth}{EDorder}
+    \column{0.30\textwidth}
+      \fig{width = 0.80\textwidth}{row-major}
+    \column{0.30\textwidth}
+      \fig{width = 0.80\textwidth}{col-major}
+  \end{columns}
+  
+  \vspace{0.80cm}
+  Time complexity: $\Theta(nm)$
+  
+  Space complexity: $\Theta(nm)$
+\end{frame}
+%%%%%%%%%%%%%%
+\subsection{Longest Palindrome}
+
+%%%%%%%%%
+\begin{frame}{Palindrome}
+  \begin{problem}[Palindrome]
+    \begin{itemize}
+      \item given a seq. $X[1 \ldots n]$
+      \item to find (the length of) a longest palindrome subseq.
+    \end{itemize}
+    
+    \vspace{0.50cm}
+    \begin{mdframed}[leftmargin = 2.0cm, rightmargin = 2.0cm]
+      \begin{align*}
+        X &: A\; C\; G\; T\; G\; T\; C\; A\; A\; A\; T\; C\; G\;  \\
+        P &: A\; C\; G\; C\; A; \;\; A\; C\; G\; T\; G\; C\; A
+      \end{align*}
+    \end{mdframed}
+  \end{problem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Palindrome}
+  \begin{mdframed}[rightmargin = 1.5cm]
+    $L[i \ldots j]:$ the length of the LP subseq. of $X[i \ldots
+    j]$.
+  \end{mdframed}
+  
+  \vspace{0.50cm}
+  \fbox{Make choice:} Let $Z[1 \ldots k] = LP(X)$, whether $X[i] = Z[1] = X[j]
+  = Z[k]$. 
+  \begin{theorem}[Recurrence]
+    \fbox{If} $X[i] \neq X[j]$, then either $X[i] \notin Z$ or $X[j] \notin Z$.
+  \end{theorem}
+  
+  \begin{proof}
+    \fbox{By contradiction.}
+%    \fig{width = 0.50\textwidth}{palindrome}
+  \end{proof}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Palindrome}
+  \begin{theorem}[Recurrence]
+    \begin{displaymath}
+      L(i,j) = \left\{
+        \begin{array}{ll}
+          L(i+1,j-1) + 2 \textrm{ (\textcolor{red}{why?})} & \textrm{if } X[i]
+          = Y[j]
+          \\
+          \max \{ L(i+1,j), L(i, j-1) \} & \textrm{o.w.}
+        \end{array}
+      \right.
+    \end{displaymath}
+    
+    \vspace{0.50cm}
+    \fbox{Base cases:} 
+    \[ L(i,i) = 1, \forall i = 1 \ldots n \]
+  \end{theorem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Palindrome}
+  Filling the table:
+  \begin{columns}
+    \column{0.30\textwidth}
+    \fig{width = 0.95\textwidth}{palindromeorder}
+    \column{0.70\textwidth}
+    \fig{width = 0.90\textwidth}{threeorders}
+    \begin{center}
+      diagonal-major, row-major, column-major
+    \end{center}
+  \end{columns}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Palindrome}
+  \begin{columns}
+    \column{0.60\textwidth}
+	  Diagonal-major:
+	  \vspace{0.20cm}
+	  \begin{mdframed}
+	  \begin{algorithmic}[1]
+	    \For{$i = 1 \to n$}
+	      \State $L(i,i) = 1$
+	    \EndFor
+	    \Statex
+	    \For{$l = 1 \to n$}
+	      \For{$i = 1 \to n-l$}
+	        \State $j = i + l$
+	        \State $L(i,j) = \ldots$
+	      \EndFor
+	    \EndFor
+	  \end{algorithmic}
+	  \end{mdframed}
+	\column{0.40\textwidth}
+	  \begin{mdframed}
+	    \textcolor{red}{Questions:} 
+	    \begin{itemize}
+	      \item ED vs. LCS
+	      \item LCS vs. LP
+	    \end{itemize}
+	  \end{mdframed}
+  \end{columns}
+\end{frame}
+%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+\section{3-Dimension Subproblems}
+
+%%%%%%%%%%%%%%%%%%%
+\subsection{Floyd-Warshall Algorithm}
+
+%%%%%%%%%
+\begin{frame}{Floyd-Warshall Algorithm Revisited}
+  \fbox{$D^{k}(i,j) \equiv D(i,j,k)$:} the length of the shortest path from $i$
+  to $j$ where intermediate vertex is numbered at most $k$.
+  
+  \begin{theorem}[Recurrence]
+    \fig{width = 0.70\textwidth}{floyd-warshall-recursion}
+    \[
+      D^{k}(i,j) = \min \{ D^{k-1}(i,k) + D^{k-1}(k,j), D^{k-1}(i,j) \}
+    \]
+    
+    \vspace{0.20cm}
+    \fbox{Base cases:} 
+    \[ D^{0}(i,j) = w(i \to j). \]
+  \end{theorem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%
+\section{Tree-Like Subproblems}
+
+%%%%%%%%%%%%%%
+\subsection{Independent Set in Tree}
+
+%%%%%%%%%
+\begin{frame}{Independent Set in Tree}
+  \begin{problem}{Independent Set in Tree}
+    \begin{itemize}
+      \item \fbox{Goal:} to find the largest independent set in \emph{tree}
+    \end{itemize}
+  \end{problem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Independent Set in Tree}
+  \begin{mdframed}
+    $I(u):$ the size of the LIS of the subtree rooted at $u$.
+  \end{mdframed}
+  
+  \vspace{0.30cm}
+  \begin{theorem}[Recurrence]
+    \fbox{Make choice:} whether $u$ is in LIS.
+      \[
+        I(u) = \max \big\{
+        \sum_{\textrm{children } w \textrm{ of } u} I(w),
+		1 + \sum_{\textrm{grandchildren } w \textrm{ of } u} I(w) \big\}.
+	  \]
+  \end{theorem}
+  
+  \vspace{0.30cm}
+  \fbox{Base cases:} $I(v) = 1, \forall \textrm{ leave in tree.}$
+\end{frame}
+%%%%%%%%%%%%%%%%%%%
+\section{Two Mind Games}
+
+%%%%%%%%%%%%%%
+\subsection{Google Eggs Game}
+
+%%%%%%%%%
+\begin{frame}{Google Eggs Game}
+  \begin{problem}[Google Eggs Game]
+    \begin{itemize}
+      \item $n$ floors, $m$ eggs
+      \item test the ``quality'' of egg: critical floor $c$
+      \item cases of $c=0, c=n$
+      \item \fbox{Goal:} to determine $c$ while minimizing the number of throws 
+    \end{itemize}
+  \end{problem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Google Eggs Game}
+  \begin{mdframed}
+    $T(i,j):$ minimum number of throws with $i$ floors and $j$ eggs
+  \end{mdframed}
+  
+  \vspace{0.30cm}
+  \begin{theorem}[Recurrence]
+    \fbox{Make choice:} which floor to throw; broken or not.
+    \begin{align*}
+      T(i,j) &= \min_{1 \le k \le i} \big( T(i,j \mid k) \big)  \\
+      T(i,j \mid k) &= \max \{ T(i,j \mid k,Y), T(i,j \mid k,N) \} \\
+      T(i,j \mid k,Y) &= 1 + T(k-1, j-1)  \\
+      T(i,j \mid k,N) &= 1 + T(i-k, j)
+    \end{align*}
+    \[
+	  T(i,j) = \min_{1 \le k \le i} \{ 1 + \max \{ T(k-1,j-1), T(i-k,j) \} \}.      
+    \]
+    \vspace{0.30cm}
+    \fbox{Base cases:} $T(n,0) = 0, T(0,m) = 0; T(i,1) = i, T(1,j) = 1$
+  \end{theorem}
+\end{frame}
+%%%%%%%%%
+\begin{frame}{Google Eggs Game}
+  Filling the table:
+  \begin{columns}
+    \column{0.40\textwidth}
+      \fig{width = 0.90\textwidth}{googleeggorder}
+    \column{0.30\textwidth}
+      \fig{width = 0.75\textwidth}{row-major}
+    \column{0.30\textwidth}
+      \fig{width = 0.75\textwidth}{col-major}
+  \end{columns}
+
+  \vspace{1.00cm}
+  \begin{mdframed}
+    \textcolor{blue}{Strongly recommend}: numerical experiments
+  \end{mdframed}
+\end{frame}
+%%%%%%%%%%%%%%
+\subsection{Hungry-Lion Game}
+
+%%%%%%%%%
+\begin{frame}{Hungry-Lion Game}
+  \begin{problem}[Hungry-Lion Game]
+    \begin{itemize}
+      \item a sheep in danger
+      \item hungry lions
+    \end{itemize}
+    \begin{columns}
+      \column{0.20\textwidth}
+        \fig{width = 0.90\textwidth}{sheep}
+       \column{0.20\textwidth}
+        \fig{width = 0.90\textwidth}{lionking}
+      \column{0.15\textwidth}
+        \fig{width = 0.90\textwidth}{lion}
+      \column{0.15\textwidth}
+        \fig{width = 0.90\textwidth}{lion}
+      \column{0.15\textwidth}
+        \fig{width = 0.90\textwidth}{lion}  
+      \column{0.15\textwidth}
+        \fig{width = 0.90\textwidth}{lion}
+    \end{columns}
+  \end{problem}
+\end{frame}
+%%%%%%%%%%
+\end{document}
