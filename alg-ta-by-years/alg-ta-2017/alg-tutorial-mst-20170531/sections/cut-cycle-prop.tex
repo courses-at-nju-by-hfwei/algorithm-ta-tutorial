@@ -1,0 +1,167 @@
+\section{Cut Property and Cycle Property}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{A generic MST algorithm}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cut property (strong)}
+  \begin{exampleblock}{Cut property (strong)}
+	\begin{itemize}
+	  \item Graph $G = (V, E)$
+	  \item $X$ is some part of an MST $T$ of $G$
+	  \item Any cut $(S, V \setminus S)$ \emph{s.t.} $X$ does not cross $(S, V \setminus S)$
+	 ­\item Let $e$ be a lightest edge across $(S, V \setminus S)$
+	\end{itemize}
+	Then $X \cup \set{e}$ is some part of an MST $T'$ of $G$.
+  \end{exampleblock}
+
+  \begin{proof}
+	\centerline{Exchange argument}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cut property (strong)}
+  Correctness of Prim's and Kruskal's algorithms.
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cut property (weak)}
+  \begin{exampleblock}{Cut Property \pno{3.6.18 (a)}}
+    \begin{itemize}
+	  \item Graph $G = (V, E)$
+	  \item Any cut $(S, V \setminus S)$ where $S, V-S \neq \emptyset$
+	  \item Let $e = (u,v)$ be \emph{a} minimum-weight edge across $(S, V \setminus S)$
+	\end{itemize}
+	Then $e$ must be in \emph{some} MST of $G$.
+  \end{exampleblock}
+
+  \begin{center}
+	``a'' $\to$ ``the'' $\implies$ ``some'' $\to$ ``any''
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Applications of cut property}
+  \begin{exampleblock}{Application of cut property (Problem 6.10)}
+	\begin{enumerate}[(1)]
+	  \setcounter{enumi}{2}
+	  \item (Problem 6.10--3) $e \in G$ is a lightest edge $\implies$ $e \in \exists$ MST of $G$
+	  \item $e \in G$ is the unique lightest edge $\implies$ $e \in \forall$ MST of $G$
+	\end{enumerate}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Applications of cut property}
+  \begin{exampleblock}{Wrong divide\&conquer algorithm for MST (Problem 6.14)}
+    \begin{itemize}
+      \item $G = (V, E, w)$
+      \item $(V_{1}, V_{2}): ||V_{1}| - |V_{2}|| \le 1$
+      \item $T_{1} + T_{2} + \set{e}$: $e$ is a lightest edge across $(V_{1}, V_{2})$
+    \end{itemize}
+  \end{exampleblock}
+
+  \fignocaption{width = 0.30\textwidth}{figs/divide-conquer-mst-counterexample.pdf}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cycle property (weak)}
+  \begin{exampleblock}{Cycle property (Problem 6.13--2)}
+	\begin{itemize}
+	  \item $G = (V,E,w)$
+	  \item Let $C$ be any cycle in $G$
+	  \item $e = (u,v)$ is \emph{a} maximum-weight edge in $C$
+	\end{itemize}
+	Then $\exists \textrm{ MST } T \text{ of } G: e \notin T$.
+  \end{exampleblock}
+
+  \begin{center}
+	``a'' $\to$ ``the'' $\implies$ ``some'' $\to$ ``any''
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Applications of cycle property}
+  \begin{exampleblock}{Anti-Kruskal algorithm (Problem 6.13--3)}
+	\centerline{\href{https://en.wikipedia.org/wiki/Reverse-delete_algorithm}{Reverse-delete algorithm (wiki)}}
+
+	\[
+	  O(m \log n (\log \log n)^3)
+	\]
+  \end{exampleblock}
+
+  \begin{proof}
+	\textbf{Invariant: } If $F$ is the set of edges remained at the end of the while loop, 
+	then there is some MST that are a subset of $F$.
+  \end{proof}
+
+  \begin{alertblock}{Reference}
+	\begin{itemize}
+	  \item ``On the Shortest Spanning Subtree of a Graph and the Traveling Salesman Problem'' by Kruskal, 1956.
+	\end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Application of cycle property}
+  \begin{exampleblock}{(Problem 6.13--1)}
+	\begin{enumerate}[(1)]
+	  \item $e \notin$ any cycle of $G$ $\implies$ $e \in \forall$ MST
+	\end{enumerate}
+  \end{exampleblock}
+
+  \centerline{By contradiction.}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Application of cycle property}
+  \begin{exampleblock}{(Problem 6.10)}
+	\begin{enumerate}[(1)]
+	  \item $|E| > |V| - 1$, $e$ is the unique max-weight edge of $G$ $\implies$ $e \notin \forall$ MST
+	  \item $\exists C \subseteq G$, $e$ is the unique max-weight edge of $G$ $\implies$ $e \notin \forall$ MST
+	  \setcounter{enumi}{4}
+	  \item Cycle $C \subseteq G$, $e \in C$ is the unique lightest edge of $G$ $\implies$ $e \in \forall$ MST
+	\end{enumerate}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unique MST}
+  \begin{exampleblock}{Unique MST (Problem 6.12--1)}
+    Distinct weights $\implies$ unique MST.
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unique MST}
+  \begin{exampleblock}{Unique MST (Problem 6.12--2)}
+	Unique MST $\centernot\implies$ Equal weights.
+  \end{exampleblock}
+
+  \fignocaption{width = 0.20\textwidth}{figs/unique-mst-unique-weight-counterexample.pdf}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unique MST}
+  \begin{exampleblock}{Unique MST (Problem 6.12--3)}
+	Unique MST $\centernot\implies$ Minimum-weight edge across any cut is unique.
+  \end{exampleblock}
+
+  \fignocaption{width = 0.20\textwidth}{figs/unique-mst-cut-counterexample.pdf}
+
+  \begin{theorem}
+    Minimum-weight edge across any cut is unique $\implies$ Unique MST.
+  \end{theorem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unique MST}
+  \begin{exampleblock}{Unique MST (Problem 6.12--3)}
+    Unique MST $\centernot\implies$ Maximum-weight edge in any cycle is unique.
+  \end{exampleblock}
+
+  \fignocaption{width = 0.20\textwidth}{figs/unique-mst-cycle-noncounterexample.pdf}
+
+  \begin{theorem}[Conjecture]
+	Maximum-weight edge in any cycle is unique $\implies$ Unique MST.
+  \end{theorem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unique MST}
+  \begin{exampleblock}{Unique MST (Problem 6.12--4)}
+	Decide whether a graph has a unique MST?
+  \end{exampleblock}
+
+  \vspace{0.60cm}
+  \centerline{Modify an MST by exchange argument?}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
