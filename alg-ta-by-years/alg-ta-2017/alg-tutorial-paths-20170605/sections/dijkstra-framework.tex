@@ -1,36 +1,73 @@
 \section{Dijkstra's Algorithm as Framework}
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+\begin{frame}{Dijkstra's algorithm}
+  \[
+	\dist(v) = \min_{u \in N(v)} \set{\dist(u) + l(u,v)}
+  \]
+  
+  \begin{columns}
+	\column{0.40\textwidth}
+	  \begin{algorithmic}
+		\ForAll{$v \in V$}
+		  \State $\dist[v] \gets \infty$
+		\EndFor
+
+		\State $\dist[s] \gets 0$
+		\Statex
+		\State $Q \gets \text{MinPQ}(V)$
+	  \end{algorithmic}
+	\column{0.55\textwidth}
+	  \begin{algorithmic}
+		\While{$Q \neq \emptyset$}
+		  \State $u \gets \text{deleteMin}(Q)$
+		  \ForAll{$(u,v) \in E \land v \in Q$}
+			\If{$\dist[v] > \dist[u] + l(u,v)$}
+			  \State $\dist[v] \gets \dist[u] + l(u,v)$
+			  \State $\text{decreaseKey(Q, v)}$
+			\EndIf
+		  \EndFor
+		\EndWhile
+	  \end{algorithmic}
+  \end{columns}
+
+  \vspace{0.50cm}
+  \[
+	O(n + (n+m) \log n) \implies O((n + m) \log n) \implies O(m \log n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm}
+  \begin{columns}
+	\column{0.50\textwidth}
+	  Prim
+	\column{0.50\textwidth}
+	  BFS
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Unique shortest paths}
+  \begin{exampleblock}{Unique shortest paths (Problem 6.18)}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Number of shortest paths}
+  \begin{exampleblock}{Number of shortest paths (Problem 6.31, 5.26)}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Min-max path problem}
+  \begin{exampleblock}{Min-max path problem (Problem 6.23)}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Max-min path problem (Problem 6.26)}
+  \begin{exampleblock}{}
+  \end{exampleblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+  \begin{exampleblock}{}
+  \end{exampleblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
