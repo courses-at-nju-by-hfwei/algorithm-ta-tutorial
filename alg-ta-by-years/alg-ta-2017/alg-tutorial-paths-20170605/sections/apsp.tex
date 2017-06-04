@@ -1,16 +1,109 @@
-\section{All Pairs Shortest Paths}
+\section{Bellman-Ford and Floyd-Warshall Algorithms}
 
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Bellman-Ford algorithm}
+  \begin{exampleblock}{Bellman-Ford algorithm (Problem 6.30)}
+	\begin{itemize}
+	  \item digraph $G = (V, E), \exists e: w(e) < 0$
+	  \item $\forall s, t: |s \leadsto^{\SP} t| \le k$
+	  \item Given $s,t$, find $s \leadsto^{\SP} t$.
+	\end{itemize}
+  \end{exampleblock}
+
+  $\text{d}(v,k)$: shortest path distance from $s$ to $v$ using $\le k$ edges
+
+  \[
+	s \leadsto^{\SP; \le k-1} u \to^{=1} v
+  \]
+
+  \[
+	\text{d}(v, k) = \min_{u \in N(v)} \text{d}(u, k-1) + w(u,v)
+  \]
+
+  \begin{center}
+	\begin{minipage}{0.50\linewidth}
+	  \begin{algorithmic}[c]
+		\ForAll{$i = 1 \to n - 1$}
+		  \ForAll{$e \in E$}
+			\State update $e$
+		  \EndFor
+		\EndFor
+	  \end{algorithmic}
+	\end{minipage}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Floyd-Warshall algorithm}
+  \[
+	\dist(i,j,k) = \min(\dist(i,j,k-1), \dist(i,k,k-1) + \dist(k,j,k-1))
+  \]
+
+  \[
+	\# k's = 1 \implies \dist(i,k,k-1)
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Routing table}
   \begin{exampleblock}{Routing table (Problem 6.25)}
+	Contruct routing table and extract shortest paths from it.
   \end{exampleblock}
+
+  \begin{columns}
+	\column{0.50\textwidth}
+	  \begin{algorithmic}
+		\State Init: $\text{Go}(i,j) \gets \text{Null}$
+		\Statex
+		\State $\forall (i,j) \in E: \text{Go}(i,j) \gets j$
+		\Statex
+		\If{$\dots$}
+		  \State $\text{Go}(i,j) \gets \text{Go}(i,k)$
+		\EndIf
+	  \end{algorithmic}
+	\column{0.50\textwidth}
+	  \begin{algorithmic}
+		\If{$Go(i,j) = \text{Null}$}
+		  \State $\dots$
+		\EndIf
+		\Statex
+		\While{$i \neq j$}
+		  \State $i \gets \text{Go}(i,j)$
+		\EndWhile
+	  \end{algorithmic}
+  \end{columns}
+
+  \vspace{0.50cm}
+  \[
+	\text{Prev}(i,j) \gets \text{Prev}(k,j)
+  \]
+  \[
+	\text{Intermediate}(i,j) \gets k
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Shortest cycle in digraph}
   \begin{exampleblock}{Shortest cycle in digraph}
+	Find shortest cycle in digraph $G = (V, E), w(e) > 0$.
   \end{exampleblock}
+
+  \vspace{0.50cm}
+  \centerline{Initialize $\dist[v][v] \gets \infty$ in Floyd-Warshall algorithm} 
+
+  \[
+	\exists v: \dist[v][v] < 0 \text{\emph { vs. }} \forall v: \dist[v][v] = \infty
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Max-min path problem}
+  \begin{exampleblock}{Max-min path problem (Problem 6.26)}
+	\begin{itemize}
+	  \item $G = (V, E)$: network of oil pipelines
+	  \item $c(u,v)$: capacity of $(u,v)$
+	  \item (2) Compute all-pair $\text{cap}(u,v)$.
+	\end{itemize}
+  \end{exampleblock}
+
+  \[
+	\text{cap}(u,v,k) = \max(\text{cap}(u,v,k-1), \min(\text{cap}(u,k,k-1), \text{cap}(k,v,k-1)))
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

@@ -39,35 +39,126 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Dijkstra's algorithm}
   \begin{columns}
-	\column{0.50\textwidth}
-	  Prim
-	\column{0.50\textwidth}
-	  BFS
+	\column{0.45\textwidth}
+	  Prim's algorithm for MST:
+	  \begin{algorithmic}
+		\If{$\text{cost}[u] > w(u,v)$}
+		  \State $\text{cost}[u] \gets w(u,v)$
+		\EndIf
+	  \end{algorithmic}
+	\column{0.45\textwidth}
+	  BFS:
+	  \begin{algorithmic}
+		\State $Q \gets \text{FIFO-Q}(s)$
+		\Statex
+		\If{$\dist[v] = \infty$}
+		  \State $\dist[v] \gets \dist[u] + 1$
+		\EndIf
+	  \end{algorithmic}
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Unique shortest paths}
   \begin{exampleblock}{Unique shortest paths (Problem 6.18)}
+	  Undirected graph $G = (V, E), w(e) > 0, s \in V$:
+	  \[
+		\text{usp}[v] = T \iff \exists! s \leadsto^{\SP} v 
+	  \]
   \end{exampleblock}
+
+  \begin{columns}[t]
+	\column{0.30\textwidth}
+	  \begin{algorithmic}
+		\ForAll{$v \in V$}
+		  \State $\text{usp}[v] \gets F$
+		\EndFor
+		\State $\text{usp}[s] \gets T$
+	  \end{algorithmic}
+	\column{0.60\textwidth}
+	  \begin{algorithmic}
+		\If{$\dist[v] > \dist[u] + l(u,v)$}
+		  \State $\dist[v] \gets \dist[u] + l(u,v)$
+		  \State $\text{usp}[v] \gets \text{usp}[u]$
+		\ElsIf{$\dist[v] = \dist[u] + l(u,v)$}
+		  \State $\text{usp}[v] \gets F$
+		\EndIf
+	  \end{algorithmic}
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Number of shortest paths}
   \begin{exampleblock}{Number of shortest paths (Problem 6.31, 5.26)}
+	\[
+	  \# s \leadsto^{\SP} v
+	\]
+
+	\[
+	  O(n + m) \text{\emph{ if }} w(e) = 1
+	\]
   \end{exampleblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Min-max path problem}
   \begin{exampleblock}{Min-max path problem (Problem 6.23)}
+	\begin{itemize}
+	  \item $G = (V, E)$: network of highways
+	  \item $l_e$: road length; $L$: tank capacity
+	  \item (1) Given $L$, $\exists? s \leadsto t$.
+	  \item (2) Given $G$, compute $\min L$.
+	\end{itemize}
   \end{exampleblock}
+
+  \[
+	L[v] = \min_{u \in N(v)} \max \set{L[u], l(u,v)}
+  \]
+
+  \begin{columns}
+	\column{0.35\textwidth}
+	  \begin{algorithmic}
+		\ForAll{$v \in V$}
+		  \State $L[v] \gets \infty$
+		\EndFor
+		\State $L[s] \gets 0$
+	  \end{algorithmic}
+	\column{0.65\textwidth}
+	  \begin{algorithmic}
+		\If{$L[v] > \max(L[u], l(u,v))$}
+		  \State $L[v] \gets \max(L[u], l(u,v))$
+		\EndIf
+	  \end{algorithmic}
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Max-min path problem (Problem 6.26)}
-  \begin{exampleblock}{}
+\begin{frame}{Min-max path problem}
+  \begin{exampleblock}{Min-max path problem (Problem 6.23)}
+	\begin{itemize}
+	  \item $G = (V, E)$: network of highways
+	  \item $l_e$: road length; $L$: tank capacity
+	  \item (1) Given $L$, $\exists? s \leadsto t$.
+	  \item (2) Given $G$, compute $\min L$.
+	\end{itemize}
   \end{exampleblock}
+
+  \vspace{0.50cm}
+  \centerline{$O(\log m)$ binary searches for $\min L$}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \begin{exampleblock}{}
+\begin{frame}{Max-min path problem}
+  \begin{exampleblock}{Max-min path problem (Problem 6.26)}
+	\begin{itemize}
+	  \item $G = (V, E)$: network of oil pipelines
+	  \item $c(u,v)$: capacity of $(u,v)$
+	  \item (1) Given $s$, compute $\text{cap}(s, v)$.
+	  \item (2) Compute all-pair $\text{cap}(u,v)$.
+	\end{itemize}
   \end{exampleblock}
+
+  \[
+	\text{cap}[v] = \max_{u \in N(v)} \min (\text{cap}[u], c(u,v))
+  \]
+
+  \[
+	Q \gets \text{MaxPQ}(V)
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
