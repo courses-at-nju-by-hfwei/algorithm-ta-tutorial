@@ -9,7 +9,7 @@
 	\end{itemize}
 
 	\[
-	  T(n,m) = O(n T(\text{getMin}) + n T(\text{deleteMin}) + m T(\text{decreaseKey}))
+	  T(n,m) = O(n + n T(\text{deleteMin}) + m T(\text{decreaseKey}))
 	\]
   \end{exampleblock}
 \end{frame}

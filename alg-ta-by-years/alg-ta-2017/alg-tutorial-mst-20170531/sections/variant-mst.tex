@@ -79,16 +79,47 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Updating MST}
   \begin{exampleblock}{Updating MST (Problem 6.7)}
+	$T = (V, E')$ is an MST of $G = (V, E)$:
+	\begin{columns}
+	  \column{0.45\textwidth}
+		\begin{enumerate}
+		  \item $w'(e) < w(e)$
+			\begin{enumerate}
+			  \item $e \in E'$
+			  \item $e \notin E'$
+			\end{enumerate}
+		\end{enumerate}
+	  \column{0.45\textwidth}
+		\begin{enumerate}
+		  \setcounter{enumi}{1}
+		  \item $w'(e) > w(e)$
+			\begin{enumerate}
+			  \item $e \in E'$
+			  \item $e \notin E'$
+			\end{enumerate}
+		\end{enumerate}
+	\end{columns}
   \end{exampleblock}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Updating MST}
-  \begin{exampleblock}{Updating MST (Problem 6.7)}
-  \end{exampleblock}
+
+  \fignocaption{width = 0.15\textwidth}{figs/qrcode-update-mst.png}{\centerline{Let me know if you fully understand this answer.}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Second-best MST}
   \begin{exampleblock}{Second-best MST (Problem 6.15)}
+	Find a second-best (or, generally $k$-th) MST.
   \end{exampleblock}
+
+  \begin{theorem}{Second-best MST}
+	A second-best MST $T'$ is of the form ($T$: an MST)
+	\[
+	  T' = T - e + e'.
+	\]
+  \end{theorem}
+
+  \centerline{By contradiction (assume distinct edge weights).}
+
+  \[
+	w(T) < w(T'') < w(T')
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
