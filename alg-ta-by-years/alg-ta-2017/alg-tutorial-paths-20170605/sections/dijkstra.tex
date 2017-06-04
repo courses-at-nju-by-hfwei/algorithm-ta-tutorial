@@ -1,0 +1,112 @@
+\section{Dijkstra's Algorithm for SSSP}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm for SSSP}
+  \[
+	R \triangleq \set{v \mid s \leadsto v \text{ is known}}
+  \]
+
+  \vspace{0.50cm}
+  \begin{center}
+	Finding shortest paths from $s$ to other nodes $t$ in increasing order of $\dist(s,t)$.
+  \end{center}
+
+  \begin{theorem}[Invariant]
+	$\begin{displaystyle}
+	  \exists d: \begin{cases}
+		\dist(s,v) \le l, 	& \forall v \in R, \\
+		\dist(s,v) > l, 	& \forall v \notin R
+	  \end{cases}
+	\end{displaystyle}$
+  \end{theorem}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Dijkstra's algorithm for SSSP}
+  \fignocaption{width = 0.35\textwidth}{figs/dijkstra-alg.png}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Negative edges}
+  \begin{exampleblock}{Negative edges (Problem 6.16)}
+	Dijkstra's algorithm may fail if $w(e) < 0$.
+  \end{exampleblock}
+
+  \fignocaption{width = 0.20\textwidth}{figs/dijkstra-negative.png}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Negative edges}
+  \begin{exampleblock}{Negative edges from $s$ (Problem 6.21)}
+	All negative edges are from $s$.
+  \end{exampleblock}
+
+  \vspace{0.50cm}
+  \[
+	\argmin_{(s,v)} w(s,v)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Generalized shortest path problem}
+  \begin{exampleblock}{Generalized shortest path problem (Problem 6.20)}
+	\begin{itemize}
+	  \item digraph $G = (V, E), l_e > 0, c_v > 0, s \in V$
+	  \item shortest paths from $s$
+	\end{itemize}
+  \end{exampleblock}
+
+  \[
+	l'(u,v) = l(u,v) + c_v
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shortest paths among nodes}
+  \begin{exampleblock}{Shortest paths among nodes (Problem 6.27)}
+	\begin{itemize}
+	  \item $G = (V, E), w(e) \ge 0$ 
+	  \item $S, T \subseteq V$
+	  \item compute $\min \set{\text{d}(s,t): s \in S, t \in T}$
+	\end{itemize}
+  \end{exampleblock}
+
+  \[
+	V' = V + \set{s_0, t_0}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shortest path through $v_0$}
+  \begin{exampleblock}{Shortest paths through $v_0$ (Problem 6.28)}
+	\begin{itemize}
+	  \item strongly connected digraph $G = (V, E), w(e) > 0$
+	  \item $v_0 \in V$
+	  \item find shortest paths $s \leadsto^{\SP} t$ through $v_0$
+	\end{itemize}
+  \end{exampleblock}
+
+  \[
+	s \leadsto^{\SP} v_0 \leadsto^{\SP} t
+  \]
+
+  \[
+	\# v_0's = 1
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shortest path in maze}
+  \begin{exampleblock}{Shortest paths in maze (Problem 6.24)}
+	\begin{enumerate}
+	  \item $w(e) = c > 0$ without obstacles
+	  \item $w(e) = c > 0$ with obstacles
+	  \item $w(e) > 0$
+		\begin{enumerate}
+		  \item $\rightarrow, \downarrow$; in $O(n + m)$
+		  \item $\uparrow, \downarrow, \leftarrow, \uparrow$
+		\end{enumerate}
+	  \item $\exists e: w(e) < 0$ without negative cycles
+	\end{enumerate}
+  \end{exampleblock}
+
+  \[
+	(3.1)\; \text{d}[v] = \min_{u \in v} \text{d}[u] + w(u \to v)
+  \]
+
+  \centerline{Compute $\dist[v]$ in topo. order.}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
