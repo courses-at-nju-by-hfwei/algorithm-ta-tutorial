@@ -1,0 +1,7 @@
+# How to Solve Problems
+
+- Special cases
+  - special values for parameters
+- Does dynamic programming work?
+- Does divide-and-conquer work?
+- Does greedy strategies work?
