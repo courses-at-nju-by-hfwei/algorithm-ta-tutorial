@@ -1,1 +1,333 @@
 \section{1D DP}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$f^{(S(n))} = 1$}
+  \begin{exampleblock}{$f^{(S(n))} = 1$ (Problem 7.2)}
+	\begin{displaymath}
+	  f(n) = \begin{cases}
+		n - 1 & \text{if } n \in \mathbb{Z}^{+} \\
+		n / 2 & \text{if } n \% 2 = 0 \\
+		n / 3 & \text{if } n \% 3 = 0
+	  \end{cases}
+	\end{displaymath}
+
+	\centerline{$S(n):$ minimum number of steps taking $n$ to 1.}
+  \end{exampleblock}
+
+  \pause
+  \[
+	S(i): \text{minimum number of steps taking } i \text{ to } 1
+  \]
+
+  \pause
+  \[
+	S(i) = 1 + \min \set{N(i-1), N(i/2) (\text{if } n\%2 = 0), N(i/3) (\text{if } n\%3 = 0)}
+  \]
+
+  \[
+	S(1) = 0
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$f^{(S(n))} = 1$}
+  Collatz ($3n+1$) conjecture:
+  \begin{displaymath}
+	f(n) = \begin{cases}
+	  n / 2 & \text{if } n \% 2 = 0 \\
+	  3n + 1 & \text{if } n \% 2 = 1
+	\end{cases}
+  \end{displaymath}
+
+  \[
+	f^{\ast}(n) = 1 ?
+  \]
+
+  \pause
+  \vspace{0.50cm}
+  \begin{quote}
+	``Mathematics may not be ready for such problems.''\\
+	\hfill --- Paul Erdős
+  \end{quote}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Longest increasing subsequence}
+  \begin{exampleblock}{Longest increasing subsequence (Problem 7.3)}
+    \begin{itemize}
+      \item Given an integer array $A[1 \ldots n]$
+      \item To find (the length of) a longest increasing subseqence.
+    \end{itemize}
+  \end{exampleblock}
+
+  \[
+    5,2,8,6,3,6,9,7 \implies 2, 3, 6, 9
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Longest increasing subsequence}
+  \begin{description}
+	\item[Subproblem:] $L(i):$ the length of the LIS of $A[1 \ldots i]$
+	\item[Goal:] $L(n)$
+	  \pause
+	\item[Make choice:] whether $A[i] \in LIS[1 \ldots i]$?
+	\item[Recurrence:] 
+	  \[
+		L(i) = \max \set{L(i-1), 1 + \max_{j < i \land A[j] \le A[i]} L(j)}
+	  \]
+	  \pause
+	\item[Init:]
+	  \[
+		L(0) = 0
+	  \]
+	\item[Time:] 
+	  \[
+		O(n^2) = \Theta(n) \cdot O(n)
+	  \]
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Longest increasing subsequence}
+  \fignocaption{width = 0.40\textwidth}{figs/LIS-example.png}
+
+  \centerline{Longest path distance in the DAG!}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Maximum-sum subarray}
+  \begin{exampleblock}{Maximum-sum subarray (Google Interview)}
+    \begin{itemize}
+      \item Array $A[1 \cdots n], a_{i} >=< 0$
+      \item To find (the sum of) a maximum-sum subarray of $A$
+		\begin{itemize}
+		  \item $\text{mss} = 0$ if all negative
+		\end{itemize}
+    \end{itemize}
+	
+    \[
+      A[-2,1 ,-3,4,-1,2,1,-5,4] \implies [4,-1,2,1]
+    \]
+  \end{exampleblock}
+
+  \pause
+  \begin{description}
+	\item[Subproblem:] $\text{MSS}[i]$: the sum of the $\text{MS}[i]$ of $A[1 \cdots i]$
+	\item[Goal:] $\text{mss} = \text{MSS}[n]$
+	\pause
+	\item[Make choice:] Is $a_{i} \in \text{MS}[i]$?
+	\item[Recurrence:]
+	  \[ 
+		\text{MSS}[i] = \max \set{\text{MSS}[i-1], \textcolor{red}{???}}
+	  \]
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Maximum-sum subarray}
+  \begin{description}
+	\item[Subproblem:] $\text{MSS}[i]$: the sum of the $\text{MS}[i]$ \textcolor{red}{\it ending with} $a_{i}$ or 0
+	\item[Goal:] $\text{mss} = \max_{1 \le i \le n} \text{MSS}[i]$
+	\pause
+	\item[Make choice:] where does the $\text{MS}[i]$ start?
+	\item[Recurrence:]
+	  \[ 
+		\text{MSS}[i] = \max \set{\text{MSS}[i-1] + a_{i}, 0} \text{ \textcolor{red}{(prove it!)}}
+	  \]
+	\pause
+	\item[Init:]
+	  \[
+		\text{MSS}[0] = 0
+	  \]
+	  \pause
+	\item[Time:] $\Theta(n)$
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Maximum-sum subarray}
+%  \begin{block}{Code.}
+%    \begin{verbatim}
+%      MSS[0] = 0
+%      For i = 1 to n
+%        MSS[i] = max{MSS[i-1] + A[i], 0}
+%      return max_{i = 1 to n} MSS[i]
+%    \end{verbatim}
+%  \end{block}
+%
+%  \begin{block}{Simpler code.}
+%    \begin{verbatim}
+%      mss = 0
+%      MSS = 0
+%      For i = 1 to n
+%        MSS = max{MSS + A[i], 0}
+%        mss = max{mss, MSS}
+%      return mss
+%    \end{verbatim}
+%  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Maximum-product subarray}
+  \begin{exampleblock}{Maximum-product subarray (Problem 7.4)}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Reconstructing string}
+  \begin{exampleblock}{Reconstructing string (Problem 7.9)}
+    \begin{itemize}
+      \item String $S[1 \cdots n]$
+      \item Dict for \emph{lookup}:
+		\begin{displaymath}
+		  \text{dict}(w) = \left\{ \begin{array}{ll}
+			\text{true} & \textrm{if } w \textrm{ is a valid word}\\
+			\text{false} & \textrm{o.w.}
+		  \end{array} \right.
+		\end{displaymath}
+	  \item Is $S[1 \cdots n]$ valid (reconstructed as a sequence of valid words)?
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Reconstructing string}
+  \begin{description}
+	\item[Subproblem:] $V[i]$: is $S[1 \cdots i]$ valid?
+	\item[Goal:] $V[n]$
+	\pause
+	\item[Make choice:] where does the last word start?
+	\item[Recurrence:] 
+	  \[ 
+		V[i] = \bigvee_{j = 1 \ldots i} (V[j-1] \land \text{dict}(S[j \cdots i]))
+	  \]
+	\pause
+	\item[Init:]
+	  \[
+		V[0] = \text{true}
+	  \]
+	\item[Time:] $O(n^2)$
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Hotel along a trip}
+  \begin{exampleblock}{Hotel along a trip (Problem 7.15)}
+    \begin{itemize}
+      \item Hotel sequence (distance): $a_{0} = 0, a_{1}, \cdots, a_{n}$
+      \item $a_0 \leadsto a_n$ 
+	  \item Stop at only hotels
+      \item Cost: $(200 - x)^{2}$ 
+      \item To minimize overall cost
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Hotel along a trip}
+  \begin{description}
+	\item[Subproblem:] $C[i]$: minimum cost when the destination is $a_{i}$
+	\item[Goal:] $C[n]$
+	\pause
+	\item[Make choice:] what is the last but one hotel $a_{j}$ to stop?
+	\item[Recurrence:] 
+	  \[
+		C[i] = \min_{0 \le j < i} \set{C[j] + (200 - (a_{i} - a_{j}))^{2}}
+	  \]
+	\pause
+	\item[Init:]
+	  \[
+		C[0] = 0
+	  \]
+	\item[Time:] 
+	  \[
+		O(n^2) = \Theta(n) \cdot O(n)
+	  \]
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Highway restaurants}
+  \begin{exampleblock}{Highway restaurants (Problem 7.16)}
+	\begin{itemize}
+	  \item Locations: $L[1 \dots n]$
+	  \item Profits: $P[1 \dots n]$
+	  \item Any two hotels should be $\ge k$ miles apart
+	  \item To maximize the total profit
+	\end{itemize}
+  \end{exampleblock}
+
+  \begin{description}
+	\item[Subproblem:]
+	\item[Goal:] 
+	\item[Make choice:] 
+	\item[Recurrence:] 
+	\item[Time:] 
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Weighted interval/class scheduling}
+  \begin{exampleblock}{Weighted interval/class scheduling (Problem 7.14)}
+    \begin{itemize}
+      \item Classes: $\mathcal{C} = \set{c_{1}, c_{2}, \cdots, c_{n}} \quad c_{i} \triangleq \langle g_{i}, s_{i}, f_{i} \rangle$
+      \item Choosing non-conflicting classes to maximize your grades
+    \end{itemize}
+  \end{exampleblock}
+
+  \fignocaption{width = 0.40\textwidth}{figs/weighted-interval.png}
+  \centerline{\textcolor{red}{sort $\mathcal{C}$ by finishing time.}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Weighted interval/class scheduling}
+  \centerline{Greedy algorithms by finishing time or weights fail.}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Weighted interval/class scheduling}
+  \begin{description}
+	\item[Subproblem:] $G[i]$: the maximal grades obtained from $\set{c_{1}, c_{2}, \cdots, c_{i}}$
+	\item[Goal:] $G[n]$
+	  \pause
+	\item[Make choice:] choose $c_{i}$ or not in $G[i]$?  
+	\item[Recurrence:] 
+	  \[
+		G[i] = \max \set{G[i-1], G[p(i)] + g_{i}}
+	  \]
+
+	  $p(i)$: the largest index $j < i$ \emph{s.t.} $c_{i}$ and $c_{j}$ are disjoint
+	  \pause
+	\item[Init:]
+	  \[
+		G[0] = 0
+	  \]
+	  \pause
+	\item[Time:] $O(n \log n) + T(p(i)) + O(n) \cdot O(1)$
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Weighted interval/class scheduling}
+  Why is ordering necessary?
+  \fignocaption{width = 0.50\textwidth}{figs/weighted-interval-unordered.pdf}
+
+  \[
+	G[7] = \max \set{G[6], G[\set{1,3,5}] + g_{7}}
+  \]
+
+  \begin{center}
+	subproblems changed: all $O(2^{n})$ subsets
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Weighted interval/class scheduling}
+  What about sorting by starting time?
+  \fignocaption{width = 0.50\textwidth}{figs/weighted-interval-starting-time-ordered.pdf}
+
+  \[
+	G[6] = \max \set{G[5], G[\set{2,3}] + g_{6}}
+  \]
+
+  \begin{center}
+	subproblems changed: all $O(2^{n})$ subsets
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{description}
+	\item[Subproblem:]
+	\item[Goal:] 
+	  \pause
+	\item[Make choice:] 
+	\item[Recurrence:] 
+	  \pause
+	\item[Init:]
+	\item[Time:] 
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
