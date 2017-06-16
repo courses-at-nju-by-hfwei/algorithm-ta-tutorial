@@ -1,27 +1,297 @@
 \section{2D DP}
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+\begin{frame}{Longest common subsequence}
+  \begin{exampleblock}{LCS: longest common subsequence (Problem 7.5)}
+	\[
+	  X = X_{1} \cdots X_{m} \quad Y = Y_{1} \cdots Y_{n}
+	\]
+
+	\begin{enumerate}[(1)]
+      \item Find (the length of) an LCS of $X$ and $Y$
+    \end{enumerate}
+  \end{exampleblock}
+
+  \begin{align*}
+	X &= \langle A,\textcolor{blue}{B},\textcolor{blue}{C},\textcolor{blue}{B},D,\textcolor{blue}{A},B \rangle  \\
+	Y &= \langle \textcolor{blue}{B},D,\textcolor{blue}{C},A,\textcolor{blue}{B},\textcolor{blue}{A} \rangle \\
+	Z &= \langle B,C,B,A \rangle
+  \end{align*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Longest common subsequence}
+  \begin{description}
+	\item[Subproblem:] $L[i,j]$: the length of an LCS of $X[1 \cdots i]$ and $Y[1 \cdots j]$
+	\item[Goal:] $L[m,n]$
+	  \pause
+	\item[Make choice:] Is $X_{i} = Y_{j}$?
+	\item[Recurrence:] \textcolor{red}{(Proof!)}
+	  \begin{displaymath}
+		L[i,j] = \left\{ \begin{array}{ll}
+		  L[i-1, j-1] + 1 & \textrm{if $X_{i} = Y_{j}$}\\
+		  \max \set{L[i-1,j], L[i,j-1]} & \textrm{if $X_{i} \neq Y_{j}$}
+		\end{array} \right.
+	  \end{displaymath}
+	  \pause
+	\item[Init:]
+	  \begin{align*}
+		L[0,j] &= 0, \; 0 \le j \le n \\
+		L[i,0] &= 0, \; 0 \le i \le m 
+	  \end{align*}
+	\item[Time:] $\Theta(mn)$
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Longest common subsequence}
+  \begin{exampleblock}{Longest common subsequence (Problem 7.5)}
+	\[
+	  X = X_{1} \cdots X_{m} \quad Y = Y_{1} \cdots Y_{n}
+	\]
+
+	\begin{enumerate}[(1)]
+	  \setcounter{enumi}{1}
+	  \item Allowing repetition of $X$
+	  \item Allowing repetition $\le k$ of $X$
+	\end{enumerate}
+  \end{exampleblock}
+
+  \pause
+  \begin{displaymath}
+	L[i,j] = \left\{ \begin{array}{ll}
+	  L[\textcolor{red}{i}, j-1] + 1 & \textrm{if $X_{i} = Y_{j}$}\\
+	  \max \set{L[i-1,j], L[i,j-1]} & \textrm{if $X_{i} \neq Y_{j}$}
+	\end{array} \right.
+  \end{displaymath}
+
+  \pause
+  \[
+	X \implies X^{(k)} \triangleq X_{1}^{(k)} \cdots X_{m}^{(k)}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Longest common substring}
+  \centerline{What about longest common \emph{substring}?}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shortest common supersequence}
+  \begin{exampleblock}{Shortest common supersequence (Problem 7.6)}
+	\[
+	  X = X_{1} \cdots X_{m} \quad Y = Y_{1} \cdots Y_{n}
+	\]
+
+	\begin{itemize}
+	  \item Find (the length of) a shortest common subsequence of $X$ and $Y$
+	\end{itemize}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shortest common supersequence}
+  \begin{description}
+	\item[Subproblem:] $L[i,j]$: the length of an SCS of $X[1 \cdots i]$ and $Y[1 \cdots j]$
+	\item[Goal:] $L[m,n]$
+	  \pause
+	\item[Make choice:] Is $X_{i} = Y_{j}$?
+	\item[Recurrence:] 
+	  \begin{displaymath}
+		L[i,j] = \left\{ \begin{array}{ll}
+		  L[i-1, j-1] + 1 & \textrm{if $X_{i} = Y_{j}$}\\
+		  \max \set{L[i-1,j] + 1, L[i,j-1] + 1} & \textrm{if $X_{i} \neq Y_{j}$}
+		\end{array} \right.
+	  \end{displaymath}
+	  \pause
+	\item[Init:]
+	  \begin{align*}
+		L[0,j] &= j, \; 0 \le j \le n \\
+		L[i,0] &= i, \; 0 \le i \le m 
+	  \end{align*}
+  \end{description}
+
+  \pause
+  \begin{alertblock}{Remark}
+	\[
+	  \max(m,n) \le L(m,n) \le m+n
+	\]
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Variants of LCS}
+  \begin{exampleblock}{Variants of LCS (Problem 7.7)}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Longest contiguous substring both forward and backward}
+  \begin{exampleblock}{Longest contiguous substring both forward and backward (Problem 7.8)}
+    \begin{itemize}
+      \item String $T[1 \cdots n]$
+      \item Find a longest contiguous substring (LCS) both forward and backward
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{center}
+	d\textcolor{blue}{ynam}icprogramming\textcolor{blue}{many}times
+  \end{center}
+
+  \begin{itemize}
+	\item try subproblem $L[i]$: the length of an LCS in $T[1 \cdots i]$
+	\item try subproblem $L[i,j]$: the length of an LCS in $T[i \cdots j]$
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Longest contiguous substring both forward and backward}
+  \begin{description}
+	\item[Subproblem:] $L[i,j]$: the length of an LCS \textcolor{red}{starting with $T_{i}$ and ending with $T_{j}$}
+	\item[Goal:] $\max_{1 \le i \le j \le n} L[i,j]$
+	  \pause
+	\item[Make choice:] Is $T_{i} = T_{j}$?
+	\item[Recurrence:] 
+	  \begin{displaymath}
+		L[i,j] = \left\{ \begin{array}{ll}
+		  0 & \textrm{if $T_{i} \neq T_{j}$}  \\
+		  L[i+1,j-1] + 1 & \textrm{if $T_{i} = T_{j}$}
+		\end{array} \right.
+	  \end{displaymath}
+	  \pause
+	\item[Init:]
+	  \begin{align*}
+		L[i,i] &= 0, \; 0 \le i \le n  \\
+		L[i,i+1] &= \left\{ \begin{array}{ll}
+		  1 & \text{if } T_{i} = T_{i+1}  \\
+		  0 & \text{if } T_{i} \neq T_{i+1}
+		  \end{array} \right.
+	  \end{align*}
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{Longest contiguous substring both forward and backward}
+  Code: three ways of filling the table
+    \fignocaption{width = 0.50\textwidth}{figs/three-ways-filling-table.png}
+
+    \begin{center}
+        \begin{verbatim}
+          for d = 2 to n-1
+            for i = 1 to n-d
+              j = i + d
+              ...
+          return max_{1 <= i <= j <= n} L[i,j]
+       \end{verbatim}
+    \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Longest palindrome subsequence}
+  \begin{exampleblock}{Longest palindrome subsequence (Problem 7.10)}
+	\begin{enumerate}[(1)]
+      \item Find (the length of) a longest palindrome subsequence of $S[1 \cdots n]$
+    \end{enumerate}
+  \end{exampleblock}
+
+  \begin{description}
+	\item[Subproblem:] $L[i,j]$: the length of an LSP of $S[i \cdots j]$
+	\item[Goal:] $L[1,n]$
+	  \pause
+	\item[Make choice:] Is $S[i] = S[j]$?
+	\item[Recurrence:] 
+	  \begin{displaymath}
+		L[i,j] = \left\{ \begin{array}{ll}
+		  L[i+1, j-1] + 2 & \text{if } S[i] = S[j]  \\
+		  \max{L[i+1,j], L[i,j-1]} & \text{if } S[i] \neq S[j]
+		\end{array} \right.
+	  \end{displaymath}
+	  \pause
+	\item[Init:]
+	  \[
+		L[i,i] = 1, \; \forall 1 \le i \le n
+	  \]
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Palindrome splitting}
+  \begin{exampleblock}{Palindrome splitting (Problem 7.10)}
+	\begin{enumerate}[(1)]
+	  \setcounter{enumi}{1}
+	  \item Split a string $S[1 \dots n]$ into minimum number of palindromes (\# cuts)
+    \end{enumerate}
+  \end{exampleblock}
+
+  \begin{description}
+	\item[Subproblem:] $C[i,j]$: minimum number of cuts for string $S[i \dots j]$
+	\item[Goal:] $C[1,n] + 1$
+	  \pause
+	\item[Make choice:] Where is the first cut?
+	\item[Recurrence:] 
+	  \[
+		C[i,j] = \left\{ \begin{array}{ll}
+		  0	\; \text{ if } S[i \dots j] \text{ is a palindrome} & \\
+		  \min\limits_{i+1 \le k \le j-1} C[i,k] + 1 + C[k+1,j] & \text{ o.w.}
+		\end{array} \right.
+	  \]
+	  \pause
+	\item[Init:] $C[i,i] = 0$
+	\item[Time:] $O(n^3)$
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Palindrome splitting}
+  \begin{exampleblock}{Palindrome splitting (Problem 7.10)}
+	\begin{enumerate}[(1)]
+	  \setcounter{enumi}{1}
+	  \item Split a string $S[1 \dots n]$ into minimum number of palindromes
+    \end{enumerate}
+  \end{exampleblock}
+
+  \begin{description}
+	\item[Subproblem:] $P[i]$: minimum number of palindromes for $S[1 \cdots i]$
+	\item[Goal:] $P[n]$
+	  \pause
+	\item[Make choice:] Where does the last palindrome start from?
+	\item[Recurrence:] 
+	  \[
+		P[i] = \min_{\begin{subarray}{c}
+			1 \le k \le i \\
+			S[k \dots i] \text{ is a palindrome}
+		  \end{subarray}} P[k-1] + 1
+	  \]
+	  \pause
+	\item[Init:] $P[0] = 1$
+	\item[Time:] $O(n^2)$
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{String splitting}
+  \begin{exampleblock}{String splitting (Problem 7.11)}
+    \begin{itemize}
+      \item Split a string $S$ into many pieces
+      \item Cost $|S| = n \implies n$
+      \item Given locations of $m$ cuts: $\textcolor{gray}{C_{0}}, C_{1}, \cdots, C_{m}, \textcolor{gray}{C_{m+1}}$
+      \item Find the minimum cost of splitting $S$ into $m+1$ pieces $S_{0} \cdots S_{m}$
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{String splitting}
+  \begin{description}
+	\item[Subproblem:] $C[i,j]$: the minimum cost of splitting substring $S_{i} \cdots S_{j-1}$ using cuts $C_{i+1} \cdots C_{j-1}$
+	\item[Goal:] $C[0,m+1]$
+	  \pause
+	\item[Make choice:] What is the first cut in $C_{i+1} \cdots C_{j-1}$?
+	\item[Recurrence:] 
+	  \[
+		C[i,j] = \min_{i < k < j} \left(C[i,k] + C[k,j] + l(S_{i} \cdots S_{j-1}) \right)
+	  \]
+	  \pause
+	\item[Init:] $C[i, i+1] = 0$
+  \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+  \begin{description}
+	\item[Subproblem:]
+	\item[Goal:] 
+	  \pause
+	\item[Make choice:] 
+	\item[Recurrence:] 
+	  \pause
+	\item[Init:]
+	\item[Time:] 
+  \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
