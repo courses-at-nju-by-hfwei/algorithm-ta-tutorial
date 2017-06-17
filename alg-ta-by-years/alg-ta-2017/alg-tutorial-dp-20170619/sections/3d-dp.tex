@@ -45,7 +45,7 @@
   \begin{exampleblock}{Floyd-Warshall algorithm (Problem 6.25)}
 	\begin{enumerate}[(1)]
 	  \setcounter{enumi}{1}
-	  \item Routing table
+	  \item Routing table for Floyd-Warshall algorithm
 	\end{enumerate}
   \end{exampleblock}
 
@@ -115,7 +115,7 @@
   \begin{exampleblock}{Floyd-Warshall algorithm (Problem 6.29)}
 	\begin{enumerate}[(1)]
 	  \setcounter{enumi}{2}
-	  \item Find Minimum-weighted cycle
+	  \item Find minimum-weighted cycle of directed graph ($w(e) > 0$)
 	\end{enumerate}
   \end{exampleblock}
 
@@ -123,10 +123,21 @@
 	\text{dist}[i,i] \gets 0 \implies \text{dist}[i,i] \gets \infty 
   \]
 
+  \pause
   \begin{columns}
 	\column{0.50\textwidth}
+	  \[
+		\exists i: \text{dist}[i,i] < 0
+	  \]
 	\column{0.50\textwidth}
+	  \[
+		\forall i: \text{dist}[i,i] \ge 0
+	  \]
   \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shortest paths on undirected graphs}
+  \fignocaption{width = 0.70\textwidth}{figs/undirected-negative.png}
 
   \centerline{\url{https://cs.stackexchange.com/q/76578/4911}}
 \end{frame}

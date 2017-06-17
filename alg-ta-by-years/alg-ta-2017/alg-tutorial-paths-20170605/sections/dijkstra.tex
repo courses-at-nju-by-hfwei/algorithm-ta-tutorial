@@ -8,7 +8,8 @@
 
   \vspace{0.50cm}
   \begin{center}
-	Finding shortest paths from $s$ to other nodes $t$ in increasing order of $\dist(s,t)$.
+	Finding shortest paths from $s$ to other nodes $t$ \\
+	in increasing order of $\dist(s,t)$.
   \end{center}
 
   \begin{theorem}[Invariant]
@@ -104,7 +105,7 @@
   \end{exampleblock}
 
   \[
-	(3.1)\; \text{d}[v] = \min_{u \in v} \text{d}[u] + w(u \to v)
+	(3.1)\; \text{d}[v] = \min_{u \to v} \text{d}[u] + w(u \to v)
   \]
 
   \centerline{Compute $\dist[v]$ in topo. order.}
