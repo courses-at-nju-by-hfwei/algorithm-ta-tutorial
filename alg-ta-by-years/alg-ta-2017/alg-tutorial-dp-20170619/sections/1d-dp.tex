@@ -140,30 +140,46 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Maximum-sum subarray}
-%  \begin{block}{Code.}
-%    \begin{verbatim}
-%      MSS[0] = 0
-%      For i = 1 to n
-%        MSS[i] = max{MSS[i-1] + A[i], 0}
-%      return max_{i = 1 to n} MSS[i]
-%    \end{verbatim}
-%  \end{block}
-%
-%  \begin{block}{Simpler code.}
-%    \begin{verbatim}
-%      mss = 0
-%      MSS = 0
-%      For i = 1 to n
-%        MSS = max{MSS + A[i], 0}
-%        mss = max{mss, MSS}
-%      return mss
-%    \end{verbatim}
-%  \end{block}
+  \begin{columns}
+	\column{0.55\textwidth}
+	  \begin{algorithmic}
+		\State $\text{MSS}[0] \gets 0$
+		\ForAll{$i \gets 1 \dots n$}
+		  \State $\text{MSS}[i] \gets \max\set{\text{MSS}[i-1] + a_i, 0}$
+		\EndFor
+		\State \Return $\max\limits_{i = 1 \dots n} \text{MSS}[i]$ 
+	  \end{algorithmic}
+	  \pause
+	\column{0.50\textwidth}
+	  \begin{algorithmic}
+		\State $\text{mss} \gets 0$
+		\State $\text{MSS} \gets 0$
+		\ForAll{$i \gets 1 \dots n$}
+		  \State $\text{MSS} \gets \max\set{\text{MSS} + a_i, 0}$
+		  \State $\text{mss} \gets \max\set{\text{mss}, \text{MSS}}$
+		\EndFor
+		\State \Return $\text{mss}$
+	  \end{algorithmic}
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Maximum-product subarray}
   \begin{exampleblock}{Maximum-product subarray (Problem 7.4)}
+	\begin{itemize}
+	  \item Array $A[1 \dots n]$
+	  \item Find maximum-product subarray of $A$
+	\end{itemize}
+
+	\begin{enumerate}[(1)]
+	  \item $a_i \in \mathbb{N}$
+	  \item $a_i \in \mathbb{Z}$
+	  \item $a_i \in \mathbb{R}$ 
+	\end{enumerate}
   \end{exampleblock}
+
+  \pause
+  \vspace{0.60cm}
+  \centerline{}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Reconstructing string}
