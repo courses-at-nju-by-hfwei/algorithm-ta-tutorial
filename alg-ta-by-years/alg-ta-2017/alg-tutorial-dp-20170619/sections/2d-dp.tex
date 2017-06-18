@@ -114,9 +114,129 @@
   \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Variants of LCS}
-  \begin{exampleblock}{Variants of LCS (Problem 7.7)}
+\begin{frame}{Shortest common supersequence}
+  \[
+	X[1 \dots m] \qquad Y[1 \dots n]
+  \]
+
+  \begin{align*}
+	r &= |\text{LCS}(X,Y)| \\
+	t &= |\text{SCS}(X,Y)|  
+  \end{align*}
+
+  \pause
+  \[
+	X \cap Y = \emptyset \implies r = 0 \quad t = m + n
+  \]
+
+  \pause
+  \[ 
+	X \prec Y \implies r = m \quad t = n
+  \]
+
+  \pause
+  \[
+	r + t = m + n
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{String shuffling}
+  \begin{exampleblock}{String shuffling (Problem 7.7)}
+	\begin{itemize}
+	  \item Strings $X[1 \dots m], Y[1 \dots n], Z[1 \dots k]$
+	  \item Is $X \oplus Y = Z$?
+	\end{itemize}
+
+	\begin{enumerate}[(1)]
+	  \item Reduced to LCS:
+		\[
+		  (Z' \triangleq Z \setminus \text{LCS}(X, Z)) = Y
+		\]
+	  \item $O(mn)$
+	  \item Minimum \# deleted characters to ensure $X \oplus Y = Z$ in $O(mnk)$
+	\end{enumerate}
   \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{String shuffling}
+  \[
+	(Z' \triangleq Z \setminus \text{LCS}(X, Z)) = Y
+  \]
+
+  \vspace{0.60cm}
+  \begin{columns}
+	\column{0.50\textwidth}
+	  \[
+		\text{``YES''} \implies X \oplus Y = Z
+	  \]
+
+	  \uncover<2->{
+		\begin{align*}
+		  X &= \textcolor{red}{A}C \\
+		  Y &= CB \\
+		  Z &= CB\textcolor{red}{A} 
+		\end{align*}
+	  }
+	\column{0.50\textwidth}
+	  \[
+		\text{``NO''} \implies X \oplus Y \neq Z
+	  \]
+	  
+	  \uncover<3->{
+		\begin{align*}
+		  X &= \textcolor{red}{A} \\
+		  Y &= AB \\
+		  Z &= \textcolor{red}{A}BA 
+		\end{align*}
+	  }
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{String shuffling}
+  \begin{description}
+	\item[Subproblem:] $S[i,j]$: Is $X[1 \dots i] \oplus Y[1 \dots j] = Z[1 \dots r \triangleq i + j]$?
+	\item[Goal:] $S[m,n]$
+	  \pause
+	\item[Make choice:] Is $Z[r] = X[i] \lor Z[r] = Y[j]$?
+	\item[Recurrence:] 
+	  \begin{align*}
+		S[i,j] = &(Z[r] = X[i] \land S[i-1,j]) \lor \\
+			&(Z[r] = Y[j] \land S[i,j-1])
+	  \end{align*}
+	  \pause
+	\item[Init:]
+	  \begin{align*}
+		S[0,j] &= (Z = Y), \; \forall 0 \le j \le n  \\
+		S[i,0] &= (Z = X), \; \forall 0 \le i \le m
+	  \end{align*}
+	\item[Time:] $O(mn)$
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{String shuffling}
+  \begin{description}
+	\item[Subproblem:] $D[i,j,r]$: minimum \# deleted characters to ensure $X[1 \dots i] \oplus Y[1 \dots j] = Z[1 \dots r]$
+	\item[Goal:] $D[m,n,k]$
+	  \pause
+	\item[Make choice:] Is $Z[r] = X[i] \lor Z[r] = Y[j]$?
+	\item[Recurrence:] 
+	  \[
+		D[i,j,r] = \min \left\{ \begin{array}{ll}
+		  D[i-1, j, r-1] & \text{if } Z[r] = X[i] \\
+		  D[i, j-1, r-1] & \text{if } Z[r] = Y[j] \\
+		  1 + D[i-1, j, r] & \\
+		  1 + D[i, j-1, r] & \\
+		  1 + D[i, j, r-1] & \\
+		\end{array} \right.
+	  \]
+	  \pause
+	\item[Init:]
+	  \begin{align*}
+		D[0,j,r] &= j + r - 2|\text{LCS}(Y[1 \dots j], Z[1 \dots r])| \\
+		D[i,0,r] &=	i + r - 2|\text{LCS}(X[1 \dots i], Z[1 \dots r])| \\
+		D[i,j,0] &= i + j
+	  \end{align*}
+  \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Longest contiguous substring both forward and backward}
@@ -132,15 +252,15 @@
   \end{center}
 
   \begin{itemize}
-	\item try subproblem $L[i]$: the length of an LCS in $T[1 \cdots i]$
-	\item try subproblem $L[i,j]$: the length of an LCS in $T[i \cdots j]$
+	\item Subproblem $L[i]$: the length of an LCS in $T[1 \cdots i]$
+	\item Subproblem $L[i,j]$: the length of an LCS in $T[i \cdots j]$
   \end{itemize}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Longest contiguous substring both forward and backward}
   \begin{description}
 	\item[Subproblem:] $L[i,j]$: the length of an LCS \textcolor{red}{starting with $T_{i}$ and ending with $T_{j}$}
-	\item[Goal:] $\max_{1 \le i \le j \le n} L[i,j]$
+	\item[Goal:] $\max\limits_{1 \le i \le j \le n} L[i,j]$
 	  \pause
 	\item[Make choice:] Is $T_{i} = T_{j}$?
 	\item[Recurrence:] 
@@ -164,17 +284,28 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}[fragile]{Longest contiguous substring both forward and backward}
   Code: three ways of filling the table
-    \fignocaption{width = 0.50\textwidth}{figs/three-ways-filling-table.png}
+  \fignocaption{width = 0.50\textwidth}{figs/three-ways-filling-table.png}
 
-    \begin{center}
-        \begin{verbatim}
-          for d = 2 to n-1
-            for i = 1 to n-d
-              j = i + d
-              ...
-          return max_{1 <= i <= j <= n} L[i,j]
-       \end{verbatim}
-    \end{center}
+  \begin{algorithmic}
+	\ForAll{$d \gets 2 \dots n-1$}
+	  \ForAll{$i \gets 1 \dots n-d$}
+	    \State $j \gets i + d$
+		\State $\dots$
+	  \EndFor
+    \EndFor
+
+	\State \Return $\max\limits_{1 \le i \le j \le n} L[i,j]$
+  \end{algorithmic}
+
+  % \begin{center}
+  %     \begin{verbatim}
+  %       for d = 2 to n-1
+  %         for i = 1 to n-d
+  %           j = i + d
+  %           ...
+  %       return max_{1 <= i <= j <= n} L[i,j]
+  %    \end{verbatim}
+  % \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Longest palindrome subsequence}
@@ -193,14 +324,15 @@
 	  \begin{displaymath}
 		L[i,j] = \left\{ \begin{array}{ll}
 		  L[i+1, j-1] + 2 & \text{if } S[i] = S[j]  \\
-		  \max{L[i+1,j], L[i,j-1]} & \text{if } S[i] \neq S[j]
+		  \max\set{L[i+1,j], L[i,j-1]} & \text{if } S[i] \neq S[j]
 		\end{array} \right.
 	  \end{displaymath}
 	  \pause
 	\item[Init:]
-	  \[
-		L[i,i] = 1, \; \forall 1 \le i \le n
-	  \]
+	  \begin{align*}
+		L[i,i] &= 1, \; \forall 1 \le i \le n  \\
+		\textcolor{red}{L[i,i+1]} &= 2, \; \text{if } S[i] = S[i+1], \; \forall 1 \le i \le n-1
+	  \end{align*}
   \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -221,7 +353,7 @@
 	  \[
 		C[i,j] = \left\{ \begin{array}{ll}
 		  0	\; \text{ if } S[i \dots j] \text{ is a palindrome} & \\
-		  \min\limits_{i+1 \le k \le j-1} C[i,k] + 1 + C[k+1,j] & \text{ o.w.}
+		  \min\limits_{i+1 \le k \le j-1} C[i,k-1] + 1 + C[k,j] & \text{ o.w.}
 		\end{array} \right.
 	  \]
 	  \pause
