@@ -21,7 +21,7 @@
 
   \pause
   \[
-	S(i) = 1 + \min \set{N(i-1), N(i/2) (\text{if } n\%2 = 0), N(i/3) (\text{if } n\%3 = 0)}
+	S(i) = 1 + \min \set{S(i-1), S(i/2) (\text{if } n\%2 = 0), S(i/3) (\text{if } n\%3 = 0)}
   \]
 
   \[
@@ -96,9 +96,6 @@
     \begin{itemize}
       \item Array $A[1 \cdots n], a_{i} >=< 0$
       \item To find (the sum of) a maximum-sum subarray of $A$
-		\begin{itemize}
-		  \item $\text{mss} = 0$ if all negative
-		\end{itemize}
     \end{itemize}
 	
     \[
@@ -108,7 +105,7 @@
 
   \pause
   \begin{description}
-	\item[Subproblem:] $\text{MSS}[i]$: the sum of the $\text{MS}[i]$ of $A[1 \cdots i]$
+	\item[Subproblem:] $\text{MSS}[i]$: sum of an $\text{MS}[i]$ of $A[1 \cdots i]$
 	\item[Goal:] $\text{mss} = \text{MSS}[n]$
 	\pause
 	\item[Make choice:] Is $a_{i} \in \text{MS}[i]$?
@@ -121,13 +118,13 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Maximum-sum subarray}
   \begin{description}
-	\item[Subproblem:] $\text{MSS}[i]$: the sum of the $\text{MS}[i]$ \textcolor{red}{\it ending with} $a_{i}$ or 0
-	\item[Goal:] $\text{mss} = \max_{1 \le i \le n} \text{MSS}[i]$
+	\item[Subproblem:] $\text{MSS}[i]$: sum of an $\text{MS}[i]$ \textcolor{red}{\it ending with} $a_{i}$
+	\item[Goal:] $\text{mss} = \max\limits_{1 \le i \le n} \text{MSS}[i]$
 	\pause
-	\item[Make choice:] where does the $\text{MS}[i]$ start?
+	\item[Make choice:] Where does the $\text{MS}[i]$ start?
 	\item[Recurrence:]
 	  \[ 
-		\text{MSS}[i] = \max \set{\text{MSS}[i-1] + a_{i}, 0} \text{ \textcolor{red}{(prove it!)}}
+		\text{MSS}[i] = \max \set{\text{MSS}[i-1] + a_{i}, a_{i}} \text{ \textcolor{red}{(Proof!)}}
 	  \]
 	\pause
 	\item[Init:]
@@ -140,6 +137,21 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Maximum-sum subarray}
+  \begin{columns}
+	\column{0.40\textwidth}
+	  \fignocaption{width = 0.60\textwidth}{figs/programming-pearls.jpg}
+	\column{0.60\textwidth}
+	  \begin{description}[<+->][Michael Shamos]
+		\item[Ulf Grenander] $O(n^3) \implies O(n^2)$
+		\item[Michael Shamos] $O(n \log n)$, onenight
+		\item[Jon Bentley] Conjecture: $\Omega(n \log n)$
+		\item[Michael Shamos] Carnegie Mellon seminar
+		\item[Jay Kadane] $O(n)$, \uncover<6->{\textcolor{red}{$\le 1$ minute}}
+	  \end{description}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<beamer:0>{Maximum-sum subarray}
   \begin{columns}
 	\column{0.55\textwidth}
 	  \begin{algorithmic}
@@ -179,7 +191,27 @@
 
   \pause
   \vspace{0.60cm}
-  \centerline{}
+  \centerline{sum \emph{vs.} product}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Maximum-product subarray}
+  \centerline{Subproblem: $\text{MaxP}[i], \text{MinP}[i]$}
+
+  \begin{table}
+	\renewcommand{\arraystretch}{1.5}
+	\centering
+	\begin{tabular}{|L||C|C|C|C|C|C|C|}
+	  \hline
+	  &	& \frac{1}{2} & 4 & -2 & \textcolor{red}{5} & \textcolor{red}{-\frac{1}{5}} & 8 \\ \hline
+	  \text{MaxP}[i] & 1	& \frac{1}{2} & 4 & -2 & 5 & 8 & 64 \\ \hline
+	  \text{MinP}[i] & 1	& \frac{1}{2} & 2 & -8 & -40 & -1 & -8  \\ \hline
+	\end{tabular}
+  \end{table}
+
+  \begin{align*}
+	\text{MaxP}[i] &= \max\set{\text{MaxP}[i-1] \cdot a_i, \text{MinP}[i-1] \cdot a_i, a_i} \\
+	\text{MinP}[i] &= \min\set{\text{MaxP}[i-1] \cdot a_i, \text{MinP}[i-1] \cdot a_i, a_i}
+  \end{align*}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Reconstructing string}
@@ -200,10 +232,10 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Reconstructing string}
   \begin{description}
-	\item[Subproblem:] $V[i]$: is $S[1 \cdots i]$ valid?
+	\item[Subproblem:] $V[i]$: Is $S[1 \cdots i]$ valid?
 	\item[Goal:] $V[n]$
 	\pause
-	\item[Make choice:] where does the last word start?
+	\item[Make choice:] Where does the last word start?
 	\item[Recurrence:] 
 	  \[ 
 		V[i] = \bigvee_{j = 1 \ldots i} (V[j-1] \land \text{dict}(S[j \cdots i]))
@@ -213,7 +245,10 @@
 	  \[
 		V[0] = \text{true}
 	  \]
-	\item[Time:] $O(n^2)$
+	\item[Time:]
+	  \[
+		O(n^2) = \Theta(n) \cdot O(n)
+	  \]
   \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -234,7 +269,7 @@
 	\item[Subproblem:] $C[i]$: minimum cost when the destination is $a_{i}$
 	\item[Goal:] $C[n]$
 	\pause
-	\item[Make choice:] what is the last but one hotel $a_{j}$ to stop?
+	\item[Make choice:] What is the last but one hotel $a_{j}$ to stop?
 	\item[Recurrence:] 
 	  \[
 		C[i] = \min_{0 \le j < i} \set{C[j] + (200 - (a_{i} - a_{j}))^{2}}
@@ -262,11 +297,17 @@
   \end{exampleblock}
 
   \begin{description}
-	\item[Subproblem:]
-	\item[Goal:] 
-	\item[Make choice:] 
+	\item[Subproblem:] $T[i]$: max profit achievable using only $L[1 \dots i]$
+	\item[Goal:] $T[n]$
+	  \pause
+	\item[Make choice:] Whether to open a restaurant at $L_i$?
 	\item[Recurrence:] 
-	\item[Time:] 
+	  \begin{align*}
+		T[i] &= \max\set{T[i-1], P_i + T[\text{prev}(i)]} \\
+		\text{prev}(i) &= \max\set{j \mid j < i \land L_i - L_j \ge k}
+	  \end{align*}
+	  \pause
+	\item[Init:] $T[0] = 0$
   \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -283,7 +324,16 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Weighted interval/class scheduling}
-  \centerline{Greedy algorithms by finishing time or weights fail.}
+  \centerline{Greedy algorithms fail:}
+  
+  \vspace{0.30cm}
+  \begin{columns}
+	\column{0.50\textwidth}
+	  \fignocaption{width = 0.40\textwidth}{figs/weighted-interval-greedy-finish-time.pdf}{\centerline{By finishing time.}}
+	  \pause
+	\column{0.50\textwidth}
+	  \fignocaption{width = 0.75\textwidth}{figs/weighted-interval-greedy-weights.pdf}{\centerline{By weights.}}
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Weighted interval/class scheduling}
@@ -291,19 +341,14 @@
 	\item[Subproblem:] $G[i]$: the maximal grades obtained from $\set{c_{1}, c_{2}, \cdots, c_{i}}$
 	\item[Goal:] $G[n]$
 	  \pause
-	\item[Make choice:] choose $c_{i}$ or not in $G[i]$?  
+	\item[Make choice:] Choose $c_{i}$ or not?  
 	\item[Recurrence:] 
-	  \[
-		G[i] = \max \set{G[i-1], G[p(i)] + g_{i}}
-	  \]
-
-	  $p(i)$: the largest index $j < i$ \emph{s.t.} $c_{i}$ and $c_{j}$ are disjoint
+	  \begin{align*}
+		G[i] &= \max \set{G[i-1], G[\text{prev}(i)] + g_{i}}  \\
+		\text{prev}(i) &= \max\set{j \mid j < i \land c_{i} \cap c_{j} = \emptyset}
+	  \end{align*}
 	  \pause
-	\item[Init:]
-	  \[
-		G[0] = 0
-	  \]
-	  \pause
+	\item[Init:] $G[0] = 0$
 	\item[Time:] $O(n \log n) + T(p(i)) + O(n) \cdot O(1)$
   \end{description}
 \end{frame}
