@@ -3,9 +3,9 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{What is DP?}
   \begin{center}
-	DP $\approx$ ``\only<2->{smarter} brute force'' \\
-	DP $\approx$ ``smart scheduling of subproblems'' \\
-	DP $\approx$ ``shortest/longest paths in some DAG''
+	DP $\approx$ ``\only<2->{smarter} brute force'' \\[8pt]
+	\uncover<3->{DP $\approx$ ``smart scheduling of subproblems''} \\[8pt]
+    \uncover<4->{DP $\approx$ ``shortest/longest paths in some DAG''}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -29,8 +29,9 @@
 		\item larger subproblem $\gets$ \# smaller subproblems
 		\item init. conditions
 	  \end{itemize}
+	  \pause
 	\item Write pseudo-code: fill ``table'' in topo. order
-	\item Analyze Time/Space complexity
+	\item Analyze the time complexity
 	\item Extract the optimal sulution
   \end{enumerate}
 \end{frame}
@@ -41,7 +42,6 @@
 	\item[Input:] $x_1, x_2, \dots, x_n$ (array, sequence, string)
 	\item[Subproblems:] $x_1, x_2, \dots, x_i$ (prefix/suffix)
 	\item[\#:] $\Theta(n)$
-	  \pause
 	\item[Examples:] Maximum-sum subarray, Longest increasing subsequence, Text justification (\LaTeX)
   \end{description}
 \end{frame}
@@ -53,7 +53,6 @@
 	  \begin{description}
 		\item[Subproblems:] $x_{1}, x_{2}, \dots, x_{i}; \quad y_{1}, y_{2}, \dots, y_{j}$
 		\item[\#:] $\Theta(mn)$
-		  \pause
 		\item[Examples:] Edit distance, Longest common subsequence
 	  \end{description}
 	  \pause
@@ -62,7 +61,6 @@
 	  \begin{description}
 		\item[Subproblems:] $x_{i}, \dots, x_{j}$
 		\item[\#:] $\Theta(n^{2})$
-		  \pause
 		\item[Examples:] Matrix chain multiplication, Optimal BST
 	  \end{description}
   \end{enumerate}
@@ -99,7 +97,7 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Common subproblems in DP}
-  \centerline{\Huge And Others $\dots$}
+  \centerline{\huge And Others $\dots$}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Recurrences in DP}

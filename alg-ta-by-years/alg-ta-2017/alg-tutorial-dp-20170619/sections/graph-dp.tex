@@ -98,9 +98,37 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Bitonic tour}
   \begin{exampleblock}{Bitonic tour (Problem 7.18)}
+	\begin{itemize}
+	  \item Points: $P[1 \dots n], \; p_i = (x_i, y_i)$
+	  \item $x_1 < x_2 < \dots < x_n$
+	  \item Bitonic tour: $p_1 \leadsto^{x_i < x_{i+1}} p_n \leadsto^{x_i > x_{i+1}} p_1$
+	  \item Compute a shorest bitonic tour.
+	\end{itemize}
   \end{exampleblock}
+
+  \fignocaption{width = 0.30\textwidth}{figs/bitonic-tour-wiki.png}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Bitonic tour}
+  \centerline{$P_{i,j} (i \le j)$: bitonic path $p_i \leadsto p_1 \leadsto p_j$ includes all $p_1, p_2, \dots, p_j$}
+
+  \vspace{0.20cm}
+  \begin{description}
+	\item[Subproblem:] $d[i,j]$: the length of a shortest bitonic path $P_{i,j}$
+	\item[Goal:] $d[n,n] = d[n-1, n] + l(p_{n-1}p_{n})$
+	  \pause
+	\item[Make choice:] Is $p_{j-1}$ on the increasing path or the decreasing path?
+	\item[Recurrence:] 
+	  \begin{align*}
+		d[i,j] &=  d[i,j-1] + l(p_{j-1}p_j) \quad \forall i < j-1 \\
+		d[i,j] &= \min_{1 \le k < j-1} \set{d[k, j-1] + l(p_kp_j)} \quad \forall i = j-1
+	  \end{align*}
+	  \pause
+	\item[Init:] $d[1,2] = l(p_1p_2)$
+	\item[Time:] 
+	  \[
+		O(n^2) = O(n \log n) + O(n^2) \cdot O(1) + O(n) \cdot O(n)
+	  \]
+  \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

@@ -21,10 +21,10 @@
 
   \pause
   \begin{description}
-	\item[Subproblem:] $C[i, w]$: Possible to make change for $w$ using only $x_{1} \dots x_{n}$?
+	\item[Subproblem:] $C[i, w]$: Make change for $w$ using only values of $x_{1} \dots x_{i}$?
 	\item[Goal:] $C[n,v]$
 	  \pause
-	\item[Make choice:] Using $x_{i}$ or not?
+	\item[Make choice:] Using value $x_{i}$ or not?
 	\item[Recurrence:] 
 	  \[
 		C[i,w] = C[i-1, w] \lor (C[i-1, w-x_{i}] \textcolor{blue}{\land w \ge x_{i}})
@@ -49,10 +49,10 @@
 
   \pause
   \begin{description}
-	\item[Subproblem:] $C[i, w]$: Possible to make change for $w$ using only $x_{1} \dots x_{n}$?
+	\item[Subproblem:] $C[i, w]$: Make change for $w$ using only values of $x_{1} \dots x_{i}$?
 	\item[Goal:] $C[n,v]$
 	  \pause
-	\item[Make choice:] Using $x_{i}$ or not?
+	\item[Make choice:] Using value $x_{i}$ or not?
 	\item[Recurrence:] 
 	  \[
 		C[i,w] = C[i-1, w] \lor (C[\textcolor{red}{i}, w-x_{i}] \land w \ge x_{i})
@@ -90,7 +90,7 @@
   \end{description}
 
   \pause
-  \centerline{Q: $C[i,w]$ \emph{vs.} $C[w]$}
+  \centerline{\textcolor{red}{Q:} $C[i,w]$ \emph{vs.} $C[w]$}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{The change-making problem}
@@ -103,10 +103,10 @@
 
   \pause
   \begin{description}
-	\item[Subproblem:] $C[i,w,l]$: Possible to make change for $w$ with $\le l$ coins of $x_{1} \dots x_{i}$?
+	\item[Subproblem:] $C[i,w,l]$: Possible to make change for $w$ with $\le l$ coins of values of $x_{1} \dots x_{i}$?
 	\item[Goal:] $C[n,v,k]$
 	  \pause
-	\item[Make choice:] Using $x_{i}$ or not? 
+	\item[Make choice:] Using value $x_{i}$ or not? 
 	\item[Recurrence:] 
 	  \[
 		C[i,w,l] = C[i-1,w,l] \lor \left( C[\textcolor{red}{i}, w-x_{i}, \textcolor{red}{l-1}] \land w \ge x_{i} \right)
@@ -119,9 +119,4 @@
 	  \end{align*}
   \end{description}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%
