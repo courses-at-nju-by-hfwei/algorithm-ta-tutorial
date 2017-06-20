@@ -48,7 +48,7 @@
 	  \end{algorithmic}
 	  \pause
 	\column{0.60\textwidth}
-	  Greedy algorithm:
+	Greedy algorithm (\textcolor{red}{Rough Proof!}):
 
 	  \vspace{0.50cm}
 	  \begin{theorem}
@@ -82,7 +82,7 @@
 	\item[Subproblem:] $\text{dist}[v]$: longest distance from $s$ to $v$ 
 	\item[Goal:] $\text{dist}[v], \forall v \in V$
 	  \pause
-	\item[Make choice:] 
+	\item[Make choice:] What is the previous node before $v$ on the longest path?
 	\item[Recurrence:] 
 	  \[
 		\text{dist}[v] = \max_{u \to v} \left(\text{dist}[u] + w(u \to v)\right) 
@@ -110,7 +110,7 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{Bitonic tour}
-  \centerline{$P_{i,j} (i \le j)$: bitonic path $p_i \leadsto p_1 \leadsto p_j$ includes all $p_1, p_2, \dots, p_j$}
+  \centerline{$P_{i,j} (i \le j)$: bitonic path $p_i \leadsto^{x_i > x_{i+1}} p_1 \leadsto^{x_i < x_{i+1}} p_j$ includes all $p_1, p_2, \dots, p_j$}
 
   \vspace{0.20cm}
   \begin{description}

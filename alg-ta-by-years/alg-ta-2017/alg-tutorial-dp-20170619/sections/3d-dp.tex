@@ -33,9 +33,9 @@
 	\item[Init:]
 	  \[
 		\text{dist}[i,j,0] = \left\{\begin{array}{ll}
-		  0 & i = j \\
+		  \textcolor{red}{0} & i = j \\
 		  w(i,j) & (i,j) \in E \\
-		  \textcolor{red}{\infty} & \text{o.w.}
+		  \infty & \text{o.w.}
 		\end{array} \right.
 	  \]
   \end{description}
@@ -55,20 +55,23 @@
 		\ForAll{$j \gets 1 \dots n$}
 		  \If{$\text{dist}[i,j] > \text{dist}[i,k] + \text{dist}[k,j]$}
 			\State $\text{dist}[i,j] \gets \text{dist}[i,k] + \text{dist}[k,j]$
-			\pause
-			\State \textcolor{red}{$\text{Go}[i,j] \gets \text{Go}[i,k]$}
+			\uncover<3->{\State \textcolor{red}{$\text{Go}[i,j] \gets \text{Go}[i,k]$}}
 		  \EndIf
 		\EndFor
 	  \EndFor
 	\EndFor
   \end{algorithmic}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{Time: $\Theta(n^3)$ \hspace{0.10cm} Space: $\Theta(n^2)$}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{3-D DP}
   \begin{exampleblock}{Floyd-Warshall algorithm (Problem 6.25)}
 	\begin{enumerate}[(1)]
 	  \setcounter{enumi}{1}
-	  \item Routing table
+	  \item Routing table for Floyd-Warshall algorithm
 	\end{enumerate}
   \end{exampleblock}
 
@@ -115,12 +118,21 @@
   \begin{exampleblock}{Floyd-Warshall algorithm (Problem 6.29)}
 	\begin{enumerate}[(1)]
 	  \setcounter{enumi}{2}
-	  \item Find minimum-weighted cycle of directed graph ($w(e) > 0$)
+	  \item Find minimum-weighted cycle of \textcolor{red}{directed} graph ($w(e) > 0$)
 	\end{enumerate}
   \end{exampleblock}
 
   \[
 	\text{dist}[i,i] \gets 0 \implies \text{dist}[i,i] \gets \infty 
+  \]
+
+  \[
+	\forall i: \text{dist}[i,i] = \infty
+  \]
+
+  \pause
+  \[
+	\textcolor{red}{\text{Q:}}\;\; \exists e: w(e) < 0
   \]
 
   \pause
@@ -131,7 +143,7 @@
 	  \]
 	\column{0.50\textwidth}
 	  \[
-		\forall i: \text{dist}[i,i] \ge 0
+		\forall i: \text{dist}[i,i] \ge 0 \; (= \infty)
 	  \]
   \end{columns}
 \end{frame}
