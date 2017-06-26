@@ -95,7 +95,7 @@
 	  \begin{displaymath}
 		L[i,j] = \left\{ \begin{array}{ll}
 		  L[i-1, j-1] + 1 & \textrm{if $X_{i} = Y_{j}$}\\
-		  \max \set{L[i-1,j] + 1, L[i,j-1] + 1} & \textrm{if $X_{i} \neq Y_{j}$}
+		  \min \set{L[i-1,j] + 1, L[i,j-1] + 1} & \textrm{if $X_{i} \neq Y_{j}$}
 		\end{array} \right.
 	  \end{displaymath}
 	  \pause
@@ -384,7 +384,7 @@
 	  \]
 	  \pause
 	\item[Init:] $P[0] = 1$
-	\item[Time:] $O(n^2)$
+	\item[Time:] $O(n^3)$ \emph{vs.} $O(n^2)$
   \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
