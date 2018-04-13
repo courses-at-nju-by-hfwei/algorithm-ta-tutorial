@@ -1,0 +1,14 @@
+% file: algs/integer-mult.tex
+
+\begin{algorithm}[H]
+  % \caption{Integer Multiplication.}
+  \begin{algorithmic}[1]
+    \Procedure{Int-Mult}{$y, z$}
+      \If{$z = 0$}
+        \State \Return 0
+      \EndIf
+
+      \State \Return $\Call{Int-Mult}{cy, \lfloor \frac{z}{c} \rfloor} + y (z \mod c)$
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}

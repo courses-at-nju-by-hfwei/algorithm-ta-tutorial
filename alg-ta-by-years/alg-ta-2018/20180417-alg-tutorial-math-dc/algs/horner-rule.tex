@@ -1,0 +1,18 @@
+% file: algs/horner-rule.tex
+
+\begin{algorithm}[H]
+  % \caption{Horner rule for polynomial evaluation.}
+  \begin{algorithmic}[1]
+    \Procedure{Horner}{$A[0 \dots n], x$} \Comment{$A: \set{a_0 \dots a_n}$}
+      \State $p \gets A[n]$
+
+      \hStatex
+      \For{$i \gets n-1 \;\text{\bf downto } 0$}
+	\State $p \gets px + A[i]$
+      \EndFor
+
+      \hStatex
+      \State \Return $p$
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}

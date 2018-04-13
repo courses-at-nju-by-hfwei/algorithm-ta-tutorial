@@ -1,3 +1,49 @@
 % file: parts/mathematical-induction.tex
 
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\Large \teal{Mathematical Induction}}
 
+  \fignocaption{width = 0.45\textwidth}{figs/domino}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Horner's rule (Problem $1.5$)}
+    \[
+      P(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_{n-1} x^{n-1} + a_n x^n
+    \]
+
+    \input{algs/horner-rule}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{\red{Loop invariant} (after the $k$-th loop):}
+  \[
+    \sum_{i = n}^{i = n-k} a_i x^{k-(n-i)}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \sum_{i = n}^{i = n-k} a_i x^{k-(n-i)}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Integer Multiplication (Problem $1.6$)}
+    \input{algs/integer-mult}
+  \end{exampleblock}
+  
+  \pause
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
