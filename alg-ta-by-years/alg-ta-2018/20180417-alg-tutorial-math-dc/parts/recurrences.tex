@@ -1,70 +1,75 @@
-\section{Recurrences}
+% file: parts/recurrences.tex
 
+%%%%%%%%%%%%%%%
 \begin{frame}{Recurrences}
   \[
-	T(n) = aT(n/b) + f(n) \quad (a > 0, b > 1)
+    T(n) = aT(n/b) + f(n) \quad (a > 0, b > 1)
   \]
 
   \begin{equation*}
-	\left.\begin{aligned}
-	  f(n) \\
-	  af(\frac{n}{b}) \\
-	  a^2f(\frac{n}{b^2}) \\
-	  \vdots \\
-	  a^{\log_b^n}f(1) = n^{\log_b^a}
-	\end{aligned}\right\}
-	\pause
-	\sum = \left\{\begin{aligned}
-	  n^{\log_b^a}	\quad & q > 1 \\
-	  n^{\log_b^a}\log n \quad & q = 1 \\
-	  f(n)	\quad & q < 1 \quad \\
-	\end{aligned}\right.
-	\pause
-	\quad \left.\begin{aligned}
-	  f(n) &= O(n^{E-\epsilon}) \\
-      f(n) &= \Theta(n^E) \\
-      f(n) &= \Omega(n^{E+\epsilon}) 
-	\end{aligned}\right.
+    \left.\begin{aligned}
+      f(n) \\
+      af(\frac{n}{b}) \\
+      a^2f(\frac{n}{b^2}) \\
+      \vdots \\
+      a^{\log_b^n}f(1) = n^{\log_b^a}
+    \end{aligned}\right\}
+    \pause
+    \sum = \left\{\begin{aligned}
+      n^{\log_b^a}	\quad & q > 1 \\
+      n^{\log_b^a}\log n \quad & q = 1 \\
+      f(n)	\quad & q < 1 \quad \\
+    \end{aligned}\right.
+    \pause
+    \quad \left.\begin{aligned}
+      f(n) &= O(n^{E-\epsilon}) \\
+  f(n) &= \Theta(n^E) \\
+  f(n) &= \Omega(n^{E+\epsilon}) 
+    \end{aligned}\right.
   \end{equation*}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
 \begin{frame}{Solving recurrences (Problem 1.2.13, 1.2.16)}
   \begin{columns}
-	\column{0.40\textwidth}
-	  \begin{enumerate}
-		\item $\Theta(n^{\log_3^2})$
-		\item \textcolor{red}{$\Theta(\log^2 n)$}
-		\item $\Theta(n)$
-		\item $\Theta(n \log n)$
-		\item \textcolor{red}{$\Theta(n \log^2 n)$}
-		\item $\Theta(n^2)$
-		\item $\Theta(n^{\frac{3}{2}}\log n)$
-		\item $\Theta(n)$
-		\item $\Theta(n^{c+1})$
-		\item $\Theta(c^{n+1})$
-		\item \textcolor{blue}{$\Theta(n)$}
-	  \end{enumerate}
-	\column{0.60\textwidth}
-	  \[
-		T(n) = T(n/2) + \log n
-	  \]
+    \column{0.40\textwidth}
+      \begin{enumerate}
+	\item $\Theta(n^{\log_3^2})$
+	\item \textcolor{red}{$\Theta(\log^2 n)$}
+	\item $\Theta(n)$
+	\item $\Theta(n \log n)$
+	\item \textcolor{red}{$\Theta(n \log^2 n)$}
+	\item $\Theta(n^2)$
+	\item $\Theta(n^{\frac{3}{2}}\log n)$
+	\item $\Theta(n)$
+	\item $\Theta(n^{c+1})$
+	\item $\Theta(c^{n+1})$
+	\item \textcolor{blue}{$\Theta(n)$}
+      \end{enumerate}
+    \column{0.60\textwidth}
+      \[
+	T(n) = T(n/2) + \log n
+      \]
 
-	  \[
-		T(n) = 2T(n/2) + n\log n
-	  \]
+      \[
+	T(n) = 2T(n/2) + n\log n
+      \]
 
-	\pause
-	\begin{alertblock}{Reference}
-	  \[
-		f(n) = \Theta(n^{\log_b^a} \lg^{k}n) \Rightarrow \Theta(n^{\log_b^a} \lg^{k+1}n)
-	  \]
-	\end{alertblock}
+    \pause
+    \begin{alertblock}{Reference}
+      \[
+	f(n) = \Theta(n^{\log_b^a} \lg^{k}n) \Rightarrow \Theta(n^{\log_b^a} \lg^{k+1}n)
+      \]
+    \end{alertblock}
   \end{columns}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
 \begin{frame}{Solving recurrences (Problem 1.2.13, 1.2.16)}
   \[
-	T(n) = T(n/2) + T(n/4) + T(n/8) + n
+    T(n) = T(n/2) + T(n/4) + T(n/8) + n
   \]
 
   \pause
@@ -85,7 +90,9 @@
 	\]
   \end{alertblock}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
 \begin{frame}{Gaps (Problem 1.2.16)}
   \[
 	T(n) = 2T(n/2) + \frac{n}{\log n} \pause = \Theta(n \log \log n)
@@ -111,7 +118,9 @@
 	n = 2\pi k (k \text{ odd}) \Rightarrow c \ge \frac{3}{2}
   \]
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
 \begin{frame}{(Problem 1.2.15)}
   \begin{align*} 
 	\text{T}(n) &= \sqrt{n}\ \text{T}(\sqrt{n})+n \\
@@ -124,7 +133,9 @@
 		&= n^{\sum_{i=1}^{k}\frac{1}{2^i}}\ \text{T}\left(n^{\frac{1}{2^k}}\right ) +kn\\ 
   \end{align*}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
 \begin{frame}{(Problem 1.2.15)}
   \[
 	n^{\frac{1}{2^k}} = 2 \Rightarrow k = \log\log n
@@ -146,7 +157,9 @@
   \vspace{0.30cm}
   \centerline{Exercise: Prove it by Mathematical Induction.}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
 \begin{frame}{(Problem 1.2.15)}
   \[
 	T(n) = \sqrt{n} T(\sqrt{n}) + n
@@ -156,6 +169,4 @@
 	n = 2^k \quad \sqrt{n} = 2^{k/2} \quad k = \log n
   \]
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%

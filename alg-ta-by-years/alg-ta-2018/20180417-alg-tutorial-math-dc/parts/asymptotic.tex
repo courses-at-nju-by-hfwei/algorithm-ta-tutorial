@@ -1,0 +1,135 @@
+% file: parts/asymptotic.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large Asymptotics}}
+  \vspace{-0.30cm}
+  \fignocaption{width = 0.60\textwidth}{figs/asymptotic-notations}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    \red{Q: \text{\huge $\theta(f)$}?}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    O(g(n)) = \set{f(n) \mid \red{\exists} c > 0, \exists n_0, \forall n \ge n_0: 0 \le f(n) \le c g(n)}
+  \]
+  \[
+    \Omega(g(n)) = \set{f(n) \mid \red{\exists} c > 0, \exists n_0, \forall n \ge n_0: 0 \le c g(n) \le f(n)}
+  \]
+
+  \pause
+  \begin{align*}
+    \Theta(g(n)) &= \set{f(n) \mid \exists c_1 > 0, \exists c_2 >0, \exists n_0, \forall n \ge n_0: \\ 
+		& 0 \le c_1 g(n) \le f(n) \le c_2 g(n)}
+  \end{align*}
+
+  \pause
+  \[
+    o(g(n)) = \set{f(n) \mid \textcolor{red}{\forall c > 0}, \exists n_0, \forall n \ge n_0: 0 \le f(n) \le c g(n)}
+  \]
+  \[
+    \omega(g(n)) = \set{f(n) \mid \textcolor{red}{\forall c > 0}, \exists n_0, \forall n \ge n_0: 0 \le c g(n) \le f(n)}
+  \]
+
+  \pause
+  \[
+    \teal{f(n) \sim g(n) \iff \lim_{n \to \infty} \frac{f(n)}{g(n)} = 1}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Asymptotics (Problem $2.6\; (4)$)}
+    \[
+      f(n) = \Theta(g(n)) \iff f(n) = O(g(n)) \land f(n) = \Omega(g(n))
+    \]
+  \end{exampleblock}
+
+  % \pause
+  % \begin{exampleblock}{Asymptotics (Problem $2.6 (5)$)}
+  %   \begin{align*}
+  %     f(n) = O(g(n)) &\iff g(n) = \Omega(f(n)) \\
+  %     f(n) = o(g(n)) &\iff g(n) = \omega(f(n))
+  %   \end{align*}
+  % \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{exampleblock}{Asymptotics (Problem $2.6\; (6)$)}
+    \[
+      \Theta(g(n)) \cap o(g(n)) = \emptyset
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{alertblock}{$\red{Q:}\; f(n) = O(g(n)) \lor g(n) = \Omega(f(n)) ?$}
+    \pause
+    \[
+      f(n) = n, \quad g(n) = n^{1 + \sin n}
+    \]
+  \end{alertblock}
+
+  \pause
+  \vspace{0.20cm}
+  \begin{alertblock}{Reference:}
+    {\it ``Big Omicron and Big Omega and Big Theta''} by Donald E. Knuth, 1976.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Asymptotics (Problem $2.7\; (2)$)}
+    \[
+      (\log n)^{2} \;\;\text{\it vs. }\; \sqrt{n}
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    (\log n)^{c_1} = O(n^{c_2}) \quad c_1, c_2 > 0
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Asymptotics (Problem $2.10$)}
+    \[
+      \log(n!) = \Theta(n \log n)
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \begin{alertblock}{Stirling Formula (by {\it James Stirling}):}
+    \begin{columns}
+      \column{0.50\textwidth}
+	\[
+	  n! = \Theta\Big(\sqrt{2 \pi n} \Big(\frac{n}{e}\Big)^{n}\Big)
+	\]
+      \column{0.50\textwidth}
+	\fignocaption{width = 0.30\textwidth}{figs/stirling-formula-wiki-qrcode}
+    \end{columns}
+  \end{alertblock}
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    \log (n!) = \log 1 + \log 2 + \cdots + \log n
+  \]
+
+  \pause
+  \[
+    \log (n!) \le n \log n \pause \qquad \log (n!) \ge \frac{n}{2} \log \frac{n}{2}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
