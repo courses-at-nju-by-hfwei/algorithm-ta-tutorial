@@ -59,7 +59,9 @@
       &= \frac{1}{8} n + \frac{65}{4}
   \end{align*}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
 \begin{frame}{Average-case Analysis of Quicksort}
   \[
     A(n) = n-1 + \frac{1}{n} \sum_{i=0}^{i=n-1} (A(i) + A(n-i-1))
@@ -77,4 +79,97 @@
 	 &= \sum_{i=0}^{i=n-1} \frac{1}{n} [n-1 + A(i) + A(n-i-1)]
   \end{align*}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{$3$-element Sorting (Problem $1.1$)}
+    \begin{enumerate}[(1)]
+      \item Design an algorithm for \red{sorting} $3$ distinct elements.
+      \item Worst-case and average-case time complexity.
+      \item Worst-case lower bound.
+    \end{enumerate}
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.65\textwidth}{figs/3-sorting}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    W(3) =\pause 3 \pause\qquad B(3) =\pause 2 \pause\qquad \red{A(3)} = \pause \frac{1}{6} (3+3+2+3+3+2) = \frac{8}{3}
+  \]
+
+  \pause
+  \vspace{-0.60cm}
+  \[
+    \text{LB}(3) =\pause 3 \pause \qquad \teal{(\text{LB}(3) \ge \log 3!)}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{$3$-element Median Seletion (Problem $1.2$)}
+    \begin{enumerate}[(1)]
+      \item Design an algorithm for \red{selecting the median} of $3$ distinct elements.
+      \item Worst-case and average-case time complexity.
+      \item Worst-case lower bound.
+    \end{enumerate}
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.45\textwidth}{figs/3-median}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    W(3) = 3 \qquad B(3) = 2 \qquad A(3) = \frac{8}{3}
+  \]
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    \text{LB}(3) =\pause 3 \pause \qquad \teal{(\text{LB}(3) \ge \frac{3n}{2} - \frac{3}{2})}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.40\textwidth}
+      \fignocaption{width = 0.60\textwidth}{figs/keep-calm-wait}
+      \[
+	\blue{\text{LB} = 2}
+      \]
+    \column{0.55\textwidth}
+      \pause
+      \input{algs/3-median-noncomp}
+  \end{columns}
+
+  \pause
+  \vspace{0.60cm}
+  \centerline{\red{\Large Not comparison-based!}}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Exercise}
+    \[
+      n = 5
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.80cm}
+  \begin{alertblock}{Reference}
+    ``{\it The Art of Computer Programming, Vol 3: Sorting and Searching (Section 5.3.1)}'' by Donald E. Knuth
+  \end{alertblock}
+
+  \[
+    S(21) = 66
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
