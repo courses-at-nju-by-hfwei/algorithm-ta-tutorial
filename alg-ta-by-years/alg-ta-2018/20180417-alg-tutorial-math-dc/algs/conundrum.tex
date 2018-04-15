@@ -1,0 +1,22 @@
+% file: algs/conundrum.tex
+
+\begin{algorithm}[H]
+  % \caption{Conundrum.}
+  \begin{algorithmic}[1]
+    \Procedure{Conundrum}{$n$}
+      \State $r \gets 0$
+
+      \hStatex
+      \For{$i \gets 1 \;\text{\bf to } n$}
+	\For{$j \gets i+1 \;\text{\bf to } n$}
+	  \For{$k \gets i+j-1 \;\text{\bf to } n$}
+	    \State $r \gets r + 1$
+	  \EndFor
+	\EndFor
+      \EndFor
+
+      \hStatex
+      \State \Return $r$
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
