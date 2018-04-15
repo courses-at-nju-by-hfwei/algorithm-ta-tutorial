@@ -68,22 +68,87 @@
 	T(n) = 2T(n/2) + n\log n
       \]
 
-    \pause
-    \begin{alertblock}{Reference:}
-      \vspace{-0.30cm}
-      \[
-	f(n) = \Theta(n^{\log_b a} \log^{\red{k}}n) \implies \Theta(n^{\log_b a} \log^{\red{k+1}}n)
-      \]
-    \end{alertblock}
+      \pause
+      \vspace{0.20cm}
+      \begin{alertblock}{Reference:}
+	\vspace{-0.30cm}
+	\[
+	  f(n) = \Theta(n^{\log_b a} \log^{\red{k}}n) \implies \Theta(n^{\log_b a} \log^{\red{k+1}}n)
+	\]
+      \end{alertblock}
 
-    \pause
-    \[
-      T(n) = T(n-1) + n^c \quad c \ge 1
-    \]
-    \[
-      T(n) = T(n-1) + c^n \quad c > 1
-    \]
+      \pause
+      \vspace{0.50cm}
+      \begin{exampleblock}{Gaps in Master Theorem (Problem $2.18$)}
+	\pause
+	\[
+	  T(n) = 2T(n/2) + \frac{n}{\log n} \pause = \Theta(n \log \log n)
+	\]
+      \end{exampleblock}
   \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.30\textwidth}
+      \begin{exampleblock}{Solving Recurrences (Problem $2.15$)}
+	\begin{enumerate}[(1)]
+	  \item $\Theta(n^{\log_3 2})$
+	  \item \textcolor{red}{$\Theta(\log^2 n)$}
+	  \item $\Theta(n)$
+	  \item $\Theta(n \log n)$
+	  \item \textcolor{red}{$\Theta(n \log^2 n)$}
+	  \item $\Theta(n^2)$
+	  \item $\Theta(n^{\frac{3}{2}}\log n)$
+	  \item $\Theta(n)$
+	  \item \teal{$\Theta(n^{c+1})$}
+	  \item \teal{$\Theta(c^{n+1})$}
+	  \item \purple{$\cdots$}
+	\end{enumerate}
+      \end{exampleblock}
+    \column{0.65\textwidth}
+      \[
+	T(n) = T(n-1) + n^c \quad c \ge 1
+      \]
+      \[
+	T(n) = T(n-1) + c^n \quad c > 1
+      \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{}
+  \begin{exampleblock}{Solving Recurrences (Problem $2.15\; (11)$)}
+    \[
+      T(n) = T(n/2) + T(n/4) + T(n/8)
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    \boxed{\teal{T(n) = \Theta(n^{0.879146})}}
+  \]
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    \boxed{\red{T(n) = \Theta(n^\alpha)}}
+  \]
+
+  \pause
+  \[
+    2^{-\alpha} + 4^{-\alpha} + 8^{-\alpha} = 1
+  \]
+
+  \pause
+  \begin{center}
+    \begin{verbatim}
+      Solve[2^{-x} + 4^{-x} + 8^{-x} == 1, x] // N
+    \end{verbatim}
+  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%
 
@@ -91,13 +156,14 @@
 \begin{frame}{}
   \begin{exampleblock}{Solving Recurrences (Problem $2.15\; (11)$)}
     \[
-      T(n) = T(n/2) + T(n/4) + T(n/8) \pause \;\red{+\; n}
+      T(n) = T(n/2) + T(n/4) + T(n/8) \;\red{+\; n}
     \]
   \end{exampleblock}
 
   \pause
   \vspace{0.30cm}
   \centerline{By recursion-tree.}
+  \pause
   \[
     \boxed{\teal{T(n) = \Theta(n)}}
   \]

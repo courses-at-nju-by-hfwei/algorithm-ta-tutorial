@@ -1,0 +1,16 @@
+% file: algs/bubblesort-largest.tex
+
+\begin{algorithm}[H]
+  % \caption{Bubblesort.}
+  \begin{algorithmic}[1]
+    \Procedure{Bubblesort}{$A[1 \cdots n]$}
+      \For{$i \gets n \;\text{\bf downto } 2$}
+	\For{$j \gets 1 \;\text{\bf to } i-1$}
+	  \If{\red{$A[j] > A[j+1]$}}
+	    \State $\Call{Swap}{A[j], A[j+1]}$
+	  \EndIf
+	\EndFor
+      \EndFor
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
