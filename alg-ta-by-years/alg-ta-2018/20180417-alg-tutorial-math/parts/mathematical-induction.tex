@@ -1,0 +1,144 @@
+% file: parts/mathematical-induction.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\Large \teal{Mathematical Induction}}
+
+  \fignocaption{width = 0.45\textwidth}{figs/domino}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Horner's rule (Problem $1.5$)}
+    \[
+      P(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_{n-1} x^{n-1} + a_n x^n
+    \]
+
+    \input{algs/horner-rule}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{\red{Loop invariant} (after the $k$-th loop):}
+  \pause
+  \[
+    \boxed{\red{\mathcal{I}:}\;\; \teal{p = \sum_{i = n}^{i = n-k} a_i x^{k-(n-i)}}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \boxed{\red{\mathcal{I}:}\;\; \teal{p = \sum_{i = n}^{i = n-k} a_i x^{k-(n-i)}}}
+  \]
+
+  \vspace{0.50cm}
+  \begin{columns}
+    \column{0.50\textwidth}
+      \fignocaption{width = 0.70\textwidth}{figs/8020-rule}
+    \column{0.50\textwidth}
+      \pause
+      \qquad When you are in an exam:\\[5pt]
+      \begin{description}
+	\item[$20\%:$] Finding $\mathcal{I}$
+	\item[$80\%:$] Proving $\mathcal{I}$ by \red{PMI}
+      \end{description}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\red{\large Prove by mathematical induction on the number $k$ of loops.}}
+
+  \pause
+  \vspace{0.30cm}
+  \begin{description}[<+->]
+    \setlength{\itemsep}{6pt}
+    \item[Base Case:] $k = 0$.
+    \item[Inductive Hypothesis:] $\mathcal{I}$ is valid after the $k$-th ($k \ge 0$) loop.
+    \item[Inductive Step:] $\mathcal{I}$ maintains for the $(k+1)$-th loop:
+  \end{description}
+
+    \pause
+    \vspace{-0.50cm}
+    \[
+      \boxed{\teal{\left(\sum_{i = n}^{i = n-k} a_i x^{k-(n-i)}\right) \cdot x + A[n-k-1] = \sum_{i = n}^{i = n-(k+1)} a_i x^{(k+1)-(n-i)}}}
+    \]
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{\red{\large Termination}}
+  \pause
+  \begin{enumerate}[(a)]
+    \centering
+    \item $i \gets n-1 \;\text{\bf downto } 0$
+    \item $k = n \implies p = \sum\limits_{i=0}^{i=n} a_i x^i$
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Integer Multiplication (Problem $1.6$)}
+    \vspace{-0.30cm}
+    \input{algs/integer-mult}
+  \end{exampleblock}
+  
+  \pause
+  \vspace{0.30cm}
+  \centerline{\red{\large Prove by mathematical induction on \pause{the non-negative integer $z$.}}}
+
+  \pause
+  \vspace{0.20cm}
+  \begin{description}[<+->]
+    \item[BC:] $z = 0: \quad \textsc{Int-Mult}(y,0) = 0 = y \cdot 0$.
+    \item[I.H.:] $\red{< z}\; (z > 0): \quad \textsc{Int-Mult}(y,z) = yz$.
+    \item[I.S.:] $=z$.
+  \end{description}
+
+  \pause
+  \vspace{-0.80cm}
+  \begin{align*}
+    \textsc{Int-Mult}(y,z) &= \textsc{Int-Mult}(cy, \lfloor \frac{z}{c} \rfloor) + y (z \bmod c) \\
+			   &= cy \cdot \lfloor \frac{z}{c} \rfloor + y (z \bmod c) = yz
+  \end{align*}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{$2$-tree; Full Binary Tree (Problem $2.5$)}
+    \fignocaption{width = 0.40\textwidth}{figs/full-binary-tree}
+    \[
+      \teal{n_0} = \red{n_2} + 1
+    \]
+  \end{exampleblock}
+
+  \vspace{0.50cm}
+  \centerline{\red{\large Prove by mathematical induction on \pause {\it the size of binary tree.}}}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{$2$-tree; Full Binary Tree (Problem $2.5$)}
+    \fignocaption{width = 0.40\textwidth}{figs/full-binary-tree}
+  \end{exampleblock}
+  
+  \pause
+  \[
+    \teal{n_{0L}} = \red{n_{2L}} + 1
+  \]
+  \[
+    \teal{n_{0R}} = \red{n_{2R}} + 1
+  \]
+
+  \pause
+  \[
+    \teal{n_{0L}} + \teal{n_{0R}} \;\text{\it vs. } \red{n_{2L}} + \red{n_{2R}} + 1
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%

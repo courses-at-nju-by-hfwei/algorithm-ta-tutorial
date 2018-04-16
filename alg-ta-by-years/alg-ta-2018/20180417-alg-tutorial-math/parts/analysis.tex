@@ -25,7 +25,7 @@
 
   \pause
   \[
-    A(n) = \sum_{X \in \mathcal{X}_{n}} T(X) \cdot P(X) \pause = \underset{X \in \mathcal{X}_{n}}{\mathbb{E}} [T(X)]
+    A(n) = \boxed{\red{\sum_{X \in \mathcal{X}_{n}} T(X) \cdot P(X)}} \pause = \underset{X \in \mathcal{X}_{n}}{\mathbb{E}} [T(X)]
   \]
 \end{frame}
 %%%%%%%%%%%%%%%
@@ -34,8 +34,9 @@
 \begin{frame}{}
   \begin{exampleblock}{Average-case Time Complexity (Problem $1.8$)}
     \[
-      \text{Input}: r \in [1,n], \;\; r \in \mathbb{Z}^{+}
+      r \in [1,n], \; r \in \mathbb{Z}^{+}
     \]
+    \vspace{-0.80cm}
 
     \begin{columns}
       \column{0.40\textwidth}
@@ -46,17 +47,28 @@
 	    \frac{1}{2n}, & \frac{n}{2} < i \le n
 	  \end{array}\right.
 	\]
-      \column{0.60\textwidth}
+      \column{0.50\textwidth}
+	\[
+	  T(r) = \left\{\begin{array}{lr}
+	    10, & r \le \frac{n}{4} \\[6pt]
+	    20, & \frac{n}{4} < r \le \frac{n}{2} \\[6pt]
+	    30, & \frac{n}{2} < r \le \frac{3n}{4} \\[6pt]
+	    n, & \frac{3n}{4} < r \le n \\[6pt]
+	  \end{array}\right.
+	\]
+	% \input{algs/op-perform}
     \end{columns}
   \end{exampleblock}
 
   \pause
+  \vspace{-0.30cm}
   \begin{align*}
     A &= \sum_{X \in \mathcal{X}} T(X) \cdot P(X) \\
       &= T(1) P(1) + T(2) P(2) + \cdots + T(n) P(n) \\
-      &= \frac{n}{4} \times 10 \times \frac{1}{n} + \frac{n}{4} \times 20 \times \frac{2}{n} + 
-         \frac{n}{4} \times 30 \times \frac{1}{2n} + \frac{n}{4} \times n \times \frac{1}{2n} \\
-      &= \frac{1}{8} n + \frac{65}{4}
+      &= \frac{n}{4} \times 10 \times \frac{1}{n} \red{+} \frac{n}{4} \times 20 \times \frac{2}{n} \red{+} 
+	 \frac{n}{4} \times 30 \times \frac{1}{2n} \red{+} \frac{n}{4} \times n \times \frac{1}{2n} \\
+      % &= \frac{1}{8} n + \frac{65}{4}
+      &= \cdots
   \end{align*}
 \end{frame}
 %%%%%%%%%%%%%%%
@@ -182,7 +194,7 @@
 	\begin{enumerate}[(a)]
 	  \item \gray{Correctness}
 	  \item \gray{$W(n)$} \& \red{$A(n)$}
-	  \item Improved version \red{$A'(n)$}:
+	  \item Improved version \red{$A'(n):$}
 	    \[
 	      \!\!\!\! l \triangleq \max_{k} \Big\{\textsc{Swap}(A[k], A[k+1])\Big\}
 	    \]
@@ -208,5 +220,34 @@
   \begin{alertblock}{Reference}
     {\it ``The Art of Computer Programming, Vol 3: Sorting and Searching (Section 5.2.2)''} by Donald E. Knuth
   \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+
+  \begin{quote}
+    {\large People who analyze algorithms have \red{double happiness}. \\[8pt]
+
+    \uncover<3->{
+      First of all they experience the sheer \teal{beauty of elegant mathematical patterns}
+      that surround elegant computational procedures. \\[6pt]
+    }
+
+    \uncover<2->{
+      Then they receive a \teal{practical payoff} when their theories 
+      make it possible to get other jobs done more quickly and more economically.} \\[4pt]
+    }
+    
+    \hfill --- Donald E. Knuth (1995)
+  \end{quote}
+
+  \vspace{-0.30cm}
+  \begin{columns}[c]
+    \column{0.50\textwidth}
+      \fignocaption{width = 0.55\textwidth}{figs/taocp-box}
+    \column{0.50\textwidth}
+      \fignocaption{width = 0.35\textwidth}{figs/knuth}
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%

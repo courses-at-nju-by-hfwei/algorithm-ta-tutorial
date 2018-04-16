@@ -1,0 +1,18 @@
+% file: algs/op-perform.tex
+
+\begin{algorithm}[H]
+  % \caption{Performing Operations.}
+  \begin{algorithmic}[1]
+    \Procedure{Perform}{$r$} \Comment{$r \in [1,n], \; r \in \mathbb{Z}^{+}$}
+      \If{$r \le \frac{n}{4}$}
+	\State perform $10$ operations
+      \ElsIf{$\frac{n}{4} < r \le \frac{n}{2}$}
+	\State perform $20$ operations
+      \ElsIf{$\frac{n}{2} < r \le \frac{3n}{4}$}
+	\State perform $30$ operations
+      \Else
+	\State perform $n$ operations
+      \EndIf
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}

@@ -4,11 +4,11 @@
   % \caption{A median selection algorithm for $3$ distinct elements which is not comparison-based.}
   \begin{algorithmic}[1]
     \Procedure{Median}{$a, b, c$}
-      \If{$(a-b)(a-c) < 0$}
+      \If{$(\red{a}-b)(\red{a}-c) < 0$}
         \State \Return $a$
       \EndIf
 
-      \If{$(b-a)(b-c) < 0$}
+      \If{$(\red{b}-a)(\red{b}-c) < 0$}
         \State \Return $b$
       \EndIf
 

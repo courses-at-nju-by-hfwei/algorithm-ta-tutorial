@@ -1,0 +1,59 @@
+% file: parts/max-subarray.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Maximal Sum Subarray (Problem 1.3.5)}
+    \begin{itemize}
+      \item array $A[1 \cdots n], a_{i} >=< 0$
+      \item to find (the sum of) an MS in $A$
+    \end{itemize}
+	
+    \[
+      A[-2,1 ,-3, \boxed{\red{4,-1,2,1}} ,-5,4]
+    \]
+  \end{exampleblock}
+
+  \pause
+  \begin{alertblock}{Trial and error.}
+    \begin{itemize}
+      \item try subproblem $\text{MSS}[i]$: the sum of the MS (\text{MS}[i]) in $A[1 \cdots i]$
+      \item goal: $\text{mss} = \text{MSS}[n]$
+      \item question: Is $a_{i} \in \text{MS}[i]$?
+      \item recurrence: 
+	\[ 
+	  \text{MSS}[i] = \max \set{\text{MSS}[i-1], \textcolor{red}{???}}
+	\]
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item subproblem $\text{MSS}[i]$: the sum of the MS \textcolor{red}{\it ending with} $a_{i}$ or 0
+      \item goal: $\text{mss} = \max_{1 \le i \le n} \text{MSS}[i]$
+      \item<2-> question: where does the $\text{MS}[i]$ start?
+      \item<3-> recurrence: 
+	\[ 
+	  \text{MSS}[i] = \max \set{\text{MSS}[i-1] + a_{i}, 0} \text{ \textcolor{red}{(prove it!)}}
+	\]
+      \item<4-> initialization: $\text{MSS}[0] = 0$
+    \end{itemize}
+
+    % \begin{displaymath}
+    %   \text{MSS}[i] = \left\{ \begin{array}{ll}
+    %     0 & i = 0 \\
+    %     \max \set{\text{MSS}[i-1] + a_{i}, 0} & i > 0
+    %   \end{array} \right.
+    % \end{displaymath}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \input{algs/max-subarray-origin}
+
+  \pause
+  \vspace{-0.30cm}
+  \input{algs/max-subarray}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
