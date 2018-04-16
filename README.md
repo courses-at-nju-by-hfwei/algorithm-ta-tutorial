@@ -6,4 +6,4 @@ in Nanjing University, China.
 ---
 
 If you have a question, want to report an error, or make a suggestion,
-please feel free to contact me (hengxin0912@gmail.com).
+please feel free to contact me (hfwei@nju.edu.cn).

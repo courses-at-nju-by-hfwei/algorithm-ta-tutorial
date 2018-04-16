@@ -3,13 +3,13 @@
 %%%%%%%%%%%%%%%
 \begin{frame}{}
   \centerline{\teal{\large Asymptotics}}
-  \vspace{-0.30cm}
-  \fignocaption{width = 0.60\textwidth}{figs/asymptotic-notations}
+
+  \fignocaption{width = 0.45\textwidth}{figs/growth-order}
 
   \pause
   \vspace{-0.30cm}
   \[
-    \red{Q: \text{\huge $\theta(f)$}?}
+    \red{\text{\LARGE $Q: \theta(f)\;?$}}
   \]
 \end{frame}
 %%%%%%%%%%%%%%%
@@ -31,10 +31,10 @@
 
   \pause
   \[
-    o(g(n)) = \set{f(n) \mid \textcolor{red}{\forall c > 0}, \exists n_0, \forall n \ge n_0: 0 \le f(n) \le c g(n)}
+    o(g(n)) = \set{f(n) \mid \textcolor{red}{\forall c > 0}, \exists n_0, \forall n \ge n_0: 0 \le f(n) \;\red{<}\; c g(n)}
   \]
   \[
-    \omega(g(n)) = \set{f(n) \mid \textcolor{red}{\forall c > 0}, \exists n_0, \forall n \ge n_0: 0 \le c g(n) \le f(n)}
+    \omega(g(n)) = \set{f(n) \mid \textcolor{red}{\forall c > 0}, \exists n_0, \forall n \ge n_0: 0 \le c g(n) \;\red{<}\; f(n)}
   \]
 
   \pause
@@ -69,19 +69,15 @@
   \end{exampleblock}
 
   \pause
-  \vspace{0.50cm}
-  \begin{alertblock}{$\red{Q:}\; f(n) = O(g(n)) \lor g(n) = \Omega(f(n)) ?$}
-    \pause
-    \[
-      f(n) = n, \quad g(n) = n^{1 + \sin n}
-    \]
-  \end{alertblock}
+  \vspace{0.30cm}
+  \[
+    \red{Q:}\; f(n) = O(g(n)) \;\teal{\lor}\; g(n) = \Omega(f(n)) \;?
+  \]
 
   \pause
-  \vspace{0.20cm}
-  \begin{alertblock}{Reference:}
-    {\it ``Big Omicron and Big Omega and Big Theta''} by Donald E. Knuth, 1976.
-  \end{alertblock}
+  \[
+    f(n) = n, \quad g(n) = n^{1 + \sin n}
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%
 
@@ -114,7 +110,7 @@
     \begin{columns}
       \column{0.50\textwidth}
 	\[
-	  n! = \Theta\Big(\sqrt{2 \pi n} \Big(\frac{n}{e}\Big)^{n}\Big)
+	  n! \;\red{\sim}\; \sqrt{2 \pi n} \Big(\frac{n}{e}\Big)^{n}
 	\]
       \column{0.50\textwidth}
 	\fignocaption{width = 0.30\textwidth}{figs/stirling-formula-wiki-qrcode}
@@ -142,7 +138,17 @@
 
   \pause
   \[
-    \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; \red{\sum_{k=i+j-1}^{n}}\; 1 = \pause \purple{\frac{n^2-n}{2}} = \Theta(n^2)
+    \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; \red{\sum_{k=i+j-1}^{n}}\; 1 = \cdots % \pause \purple{\frac{n^2-n}{2}} = \Theta(n^2)
   \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fignocaption{width = 0.25\textwidth}{figs/knuth}
+
+  \begin{alertblock}{Reference:}
+    {\it ``Big Omicron and Big Omega and Big Theta''} by Donald E. Knuth, 1976.
+  \end{alertblock}
 \end{frame}
 %%%%%%%%%%%%%%%
