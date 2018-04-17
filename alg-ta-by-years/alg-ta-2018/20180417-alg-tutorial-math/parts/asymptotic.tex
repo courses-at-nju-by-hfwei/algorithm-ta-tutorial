@@ -133,13 +133,26 @@
 %%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{exampleblock}{Summation (Problem $2.20$)}
+    \vspace{-0.30cm}
     \input{algs/conundrum}
   \end{exampleblock}
 
   \pause
   \[
-    \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; \red{\sum_{k=i+j-1}^{n}}\; 1 = \cdots % \pause \purple{\frac{n^2-n}{2}} = \Theta(n^2)
+    \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; \red{\sum_{k=i+j-1}^{n}}\; 1 = \pause \purple{\frac{n^2-n}{2}} = \Theta(n^2)
   \]
+
+  \pause
+  \vspace{-0.50cm}
+  \[
+    \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; \red{\sum_{k=i+j-1}^{n}}\; 1 = \frac{1}{48} \Big(3 \red{\big(-1 + (-1)^n \big)} + 2n (n+2) (2n-1)\Big) = \Theta(n^3)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fignocaption{width = 0.60\textwidth}{figs/sum}{\centerline{From Zheng (171860658)}}
 \end{frame}
 %%%%%%%%%%%%%%%
 

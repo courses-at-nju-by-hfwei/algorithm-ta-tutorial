@@ -127,6 +127,7 @@
     \]
   \end{exampleblock}
 
+  \pause
   \vspace{0.50cm}
   \fignocaption{width = 0.40\textwidth}{figs/kidding}
 \end{frame}
@@ -260,7 +261,7 @@
   \pause
   \vspace{-0.30cm}
   \[
-    \sum_{i=1}^{\log_2\log_2(n)}\frac{1}{2^i} < 1 \implies T(n) = \Theta(n \log \log n)
+    \sum_{i=1}^{\log \log n}\frac{1}{2^i} < 1 \implies T(n) = \Theta(n \log \log n)
   \]
 
   \pause
@@ -310,11 +311,15 @@
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{columns}
-    \column{0.50\textwidth}
-      \fignocaption{width = 0.50\textwidth}{figs/concrete-mathematics}
-    \column{0.50\textwidth}
-    \fignocaption{width = 0.40\textwidth}{figs/knuth}
-  \end{columns}
+  \centerline{\teal{\large \only<1>{A Little}\only<2->{\red{\bf More}} Mathematics for Computer Science}}
+
+  \uncover<2->{
+    \begin{columns}
+      \column{0.50\textwidth}
+	\fignocaption{width = 0.50\textwidth}{figs/concrete-mathematics}
+      \column{0.50\textwidth}
+      \fignocaption{width = 0.45\textwidth}{figs/knuth}
+    \end{columns}
+  }
 \end{frame}
 %%%%%%%%%%%%%%%

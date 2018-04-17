@@ -1,6 +1,6 @@
 % file: parts/max-subarray.tex
 
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{exampleblock}{Maximal Sum Subarray (Problem $3.7$)}
     \begin{itemize}
@@ -28,7 +28,9 @@
     \end{itemize}
   \end{alertblock}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{block}{Solution.}
     \begin{itemize}
@@ -53,7 +55,9 @@
     % \end{displaymath}
   \end{block}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
 \begin{frame}{}
   \input{algs/max-subarray-origin}
 
@@ -61,4 +65,22 @@
   \vspace{-0.30cm}
   \input{algs/max-subarray}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.40\textwidth}
+      \fignocaption{width = 0.60\textwidth}{figs/programming-pearls.jpg}
+    \column{0.60\textwidth}
+      \begin{description}[<+->][Michael Shamos]
+	\setlength{\itemsep}{6pt}
+	\item[Ulf Grenander] $O(n^3) \implies O(n^2)$
+	\item[Michael Shamos] $O(n \log n)$, onenight
+	\item[Jon Bentley] Conjecture: $\Omega(n \log n)$
+	\item[Michael Shamos] Carnegie Mellon seminar
+	\item[Jay Kadane] $O(n)$, \uncover<6->{\textcolor{red}{$\le 1$ minute}}
+      \end{description}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%
