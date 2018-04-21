@@ -1,0 +1,20 @@
+% file: algs/max-subarray.tex
+
+\begin{algorithm}[H]
+  % \caption{Max-sum subarray.}
+  \begin{algorithmic}[1]
+    \Procedure{MSS}{$A[1 \cdots n]$}
+      \State $\text{mss} \gets 0$
+      \State $\text{MSS} \gets 0$
+
+      \hStatex
+      \For{$i \gets 1 \;\text{\bf to } n$}
+	\State $\text{MSS} \gets \max\left\{\text{MSS} + A[i], 0\right\}$
+	\State $\text{mss} \gets \max\left\{\text{mss}, \text{MSS}\right\}$
+      \EndFor
+
+      \hStatex
+      \State \Return $\text{mss}$
+    \EndProcedure
+  \end{algorithmic}
+\end{algorithm}
