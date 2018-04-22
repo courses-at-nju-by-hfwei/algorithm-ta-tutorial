@@ -1,0 +1,273 @@
+% file: parts/amortized-analysis.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{quote}
+    \centering
+    {\large
+      \red{\Large Amortized analysis} is \\[6pt]
+      \blue{an algorithm analysis technique} for \\[6pt]
+      \purple{analyzing a sequence of operations} \\[6pt]
+      \blue{irrespective of the input} to show that \\[6pt]
+      \textcolor{cyan}{the average cost per operation} is small, even though \\[6pt]
+      \teal{a single operation within the sequence might be expensive}.
+    }
+  \end{quote}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large The Summation Method}}
+
+  \[
+    o_1, o_2, \ldots, o_n
+  \]
+
+  \[
+    c_1, c_2, \ldots, c_n
+  \]
+
+  \pause
+  \[
+    \boxed{\red{\forall i,\; \hat{c_i} = \frac{\left(\sum\limits_{i = 1}^{n} c_i\right)}{n}}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large The Summation Method for Array Doubling}}
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{On \red{any sequence} of $n$ \textsc{Insert}s on an \blue{initially empty} array.}
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    \begin{array}{ccccccccccc}
+      o_i:  & o_1 & \red{o_2} & \red{o_3} & o_4 & \red{o_5} & o_6 & o_7 & o_8 & \red{o_9} & o_{10} \\[3pt]
+      c_i:  & 1 & \red{2} & \red{3} & 1 & \red{5} & 1 & 1 & 1 & \red{9} & 1  \\
+    \end{array}
+  \]
+
+  \pause
+  \vspace{0.30cm}
+  \begin{displaymath}
+    c_i = \left\{ \begin{array}{ll}
+      (i-1)+1 = i & \textrm{if $i - 1$ is an exact power of 2}\\
+      1 & \textrm{o.w.}
+    \end{array} \right.
+  \end{displaymath}
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    \sum_{i=1}^{n} c_i \le n + \sum_{j=0}^{\lceil \lg n \rceil - 1} 2^{j} = n +
+    (2^{\lceil \lg n \rceil} - 1) \le n + 2n = 3n
+  \]
+
+  \pause
+  \[
+    \boxed{\teal{\forall i,\; \hat{c_i} = 3}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large The Accounting Method}}
+
+  \vspace{-0.50cm}
+  \begin{gather*}
+    o_1, o_2, \ldots, o_n \\[5pt]
+    c_1, c_2, \ldots, c_n \\[5pt]
+    \red{a_1, a_2, \ldots, a_n}
+  \end{gather*}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    \boxed{\red{\hat{c_i} = c_i + a_i, \; a_i >=< 0}}
+  \]
+
+  \[
+    \teal{\text{Amortized Cost } = \text{ Actual Cost } + \text{ Accounting Cost }}
+  \]
+
+  \pause
+  \[
+    \forall n,\; \sum_{i=1}^{n} c_i \le \sum_{i=1}^{n} \hat{c_i} \pause \implies \boxed{\red{\forall n,\; \sum_{i=1}^{n} a_i \geq 0}}
+  \]
+
+  \pause
+  \begin{center}
+    {\large \red{Key Point: Put the accounting cost on specific objects.}}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large The Accounting Method for Array Doubling}}
+
+  \[
+    \red{Q:}\; \hat{c_i} = 3 \text{\emph{ vs. }} \hat{c_i} = 2
+  \]
+
+  \pause
+  \[
+    \hat{c_i} = 3 = \underbrace{1}_{\textrm{insert}} +
+    \underbrace{1}_{\textrm{move itself}} + \underbrace{1}_{\textrm{\red{help move another}}}
+  \]
+
+  \pause
+  \vspace{0.30cm}
+  \begin{table}
+    \begin{tabular}{c|ccc}
+      & $\hat{c_i}$ & $c_i$ {\it (actual cost)} & $a_i$ {\it (accounting cost)}
+      \\ \hline
+      \textsc{Insert} {\it (normal)} & $3$ & $1$ & $2$\\
+      \textsc{Insert} {\it (expansion)} & $3$ & $1 + t$ & $-t + 2$
+    \end{tabular}
+  \end{table}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+% \begin{frame}{Array merging (Problem 4.13): the summation method}
+%   \centerline{\textsc{Create} ($1$); \textsc{Merge} ($2m$)}
+% 
+%   \begin{columns}
+% 	\column{0.40\textwidth}
+% 	  \pause
+% 	  \begin{align*}
+% 		i & \quad c_i \\
+% 		1 & \quad 1  \\
+% 		2 & \quad 1 + 2 \\
+% 		3 & \quad 1 \\
+% 		4 & \quad 1 + 2 + 4 \\
+% 		5 & \quad 1 \\
+% 		6 & \quad 1 + 2 \\
+% 		7 & \quad 1 \\
+% 		8 & \quad 1 + 2 + 4 \\
+% 		\vdots & \quad \cdots
+% 	  \end{align*}
+% 	\column{0.55\textwidth}
+% 	  \pause
+% 	  \[
+% 		\sum_{i=1}^{n} c_i = \sum_{j=0}^{\lfloor \log n \rfloor} \lfloor \frac{n}{2^j} \rfloor 2^j \le n (\lfloor \log n \rfloor + 1)
+% 	  \]
+% 
+% 	  \pause
+% 	  \[
+% 		\forall i, \hat{c_i} = 1 + \lfloor \log n \rfloor
+% 	  \]
+%   \end{columns}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Array merging (Problem 4.13): the accounting method}
+%   \[
+% 	\hat{c_i} = 1 + \lfloor \log n \rfloor
+%   \]
+% 
+%   \pause
+%   \vspace{0.60cm}
+%   \centerline{What does it mean?}
+% 
+%   \pause
+%   \vspace{0.80cm}
+%   \[
+% 	\forall n, \sum_{i=1}^{n} a_i \geq 0
+%   \]
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large Simulating a queue $Q$ using two stacks $S_1, S_2$ {\small (Problem )}}}
+
+  \begin{algorithm}[H]
+    \begin{algorithmic}[]
+      \Procedure{Enq}{$x$}
+	\State \textsl{Push}($S_1, x$)
+      \EndProcedure
+
+      \Statex
+      \Procedure{Deq}{\null}
+        \If{$S_2 = \emptyset$}
+          \While{$S_1 \neq \emptyset$}
+            \State \textsl{Push}($S_2$, \textsl{Pop}($S_1$))
+          \EndWhile
+        \EndIf
+        \textsl{Pop}($S_2$)
+      \EndProcedure
+    \end{algorithmic}
+  \end{algorithm}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large The Summation Method for Queue Simulation}}
+
+  \vspace{0.30cm}
+  \[
+    \frac{\left(\sum\limits_{i = 1}^{n} c_i\right)}{n}
+  \]
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{The operation sequence is \red{\it NOT} known.}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large The Accounting Method for Queue Simulation}}
+
+  \begin{table}
+    \begin{tabular}{ccccc}
+      {\it item}: & Push into $S_1$ & Pop from $S_1$ & Push into $S_2$ & Pop from $S_2$ \\
+      & $1$ & $1$ & $1$ & $1$
+    \end{tabular}
+  \end{table}
+
+  \pause
+  \vspace{-0.60cm}
+  \begin{align*}
+    \hat{c}_{\textsc{Enq}} &= 3 \\
+    \hat{c}_{\textsc{Deq}} &= 1 \\
+  \end{align*}
+
+  \pause
+  \vspace{-0.60cm}
+  \[ 
+    \sum_{i=1}^{n} a_i \ge 0 \pause \Longleftarrow \sum_{i=1}^{n} a_i = \#S_1 \times 2
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large The Accounting Method for Queue Simulation}}
+
+  \begin{align*}
+    \hat{c}_{\textsc{Enq}} &= 3 \\
+    \hat{c}_{\textsc{Deq}} &= 1 \\
+  \end{align*}
+
+  \vspace{-0.60cm}
+  \[
+    \#S_1 = t
+  \]
+
+  \begin{table}
+    \begin{tabular}{c|ccc}
+      & $\hat{c_i}$ & $c_i$ {\it (actual cost)} & $a_i$ {\it (accounting cost)} \\
+      \textsc{Enqueue} & $3$ & $1$ & $2$ \\
+      \textsc{Dequeue} ($S_2 = \emptyset$) & $1$ & $1$ & $0$ \\
+      \textsc{Dequeue} ($S_2 \neq \emptyset$) & $1$ & $1+2t$ & $-2t$
+    \end{tabular}
+  \end{table}
+\end{frame}
+%%%%%%%%%%%%%
