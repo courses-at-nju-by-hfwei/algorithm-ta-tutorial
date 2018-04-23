@@ -12,29 +12,33 @@
       A[-2,1 ,-3, \boxed{\red{4,-1,2,1}} ,-5,4]
     \]
   \end{exampleblock}
-\end{frame}
-%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \centerline{$\text{MSS}[i]$: the sum of the MS ($\text{MS}[i]$) in $A[1 \cdots i]$}
-
-  \pause
-  \vspace{0.30cm}
   \[
-    \text{mss} = \text{MSS}[n]
-  \]
-
-  \pause
-  \vspace{0.60cm}
-  \centerline{\red{$Q:$} Is $a_{i} \in \text{MS}[i]$?}
-  
-  \pause
-  \vspace{0.30cm}
-  \[ 
-    \text{MSS}[i] = \max \set{\text{MSS}[i-1], \red{???}}
+    \red{O(n)}
   \]
 \end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+% \begin{frame}{}
+%   \centerline{$\text{MSS}[i]$: the sum of the MS ($\text{MS}[i]$) in $A[1 \cdots i]$}
+% 
+%   \pause
+%   \vspace{0.30cm}
+%   \[
+%     \text{mss} = \text{MSS}[n]
+%   \]
+% 
+%   \pause
+%   \vspace{0.60cm}
+%   \centerline{\red{$Q:$} Is $a_{i} \in \text{MS}[i]$?}
+%   
+%   \pause
+%   \vspace{0.30cm}
+%   \[ 
+%     \text{MSS}[i] = \max \set{\text{MSS}[i-1], \red{???}}
+%   \]
+% \end{frame}
 %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%
@@ -47,14 +51,14 @@
     \boxed{\teal{\text{mss} = \max\limits_{1 \le i \le n} \text{MSS}[i]}}
   \]
 
-  \vspace{0.60cm}
-  \centerline{\red{$Q:$} where does the $\text{MS}[i]$ start?}
-
   \pause
   \vspace{0.30cm}
   \[ 
     \boxed{\red{\text{MSS}[i] = \max \left\{\text{MSS}[i-1] + a_{i}, 0\right\}}}
   \]
+
+  \vspace{0.60cm}
+  \centerline{\red{$Q:$} Where does the $\text{MSS}[i]$ start?}
 
   \pause
   \vspace{0.30cm}
@@ -75,9 +79,9 @@
 \begin{frame}{}
   \input{algs/max-subarray-origin}
 
-  % \pause
-  % \vspace{-0.30cm}
-  % \input{algs/max-subarray}
+  \pause
+  \vspace{-0.30cm}
+  \input{algs/max-subarray}
 \end{frame}
 %%%%%%%%%%%%%%%
 

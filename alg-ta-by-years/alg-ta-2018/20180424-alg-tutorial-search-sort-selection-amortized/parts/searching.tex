@@ -2,37 +2,93 @@
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{exampleblock}{Repeated elements (Problem 2.12)}
+  \centerline{\teal{\Huge Searching}}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Repeated Elements (Problem 2.12)}
     \[
       R[1 \dots n]
     \]
     \[
       \# > \frac{n}{13}
     \]
+    \[
+      \text{To find all $\frac{n}{13}$-repeated elements}
+    \]
 
-    \pause
     \[
       \red{\text{check}(R[i], R[j])}
     \]
   \end{exampleblock}
+
+  \pause
+  \[
+    \# \text{ of } \frac{n}{13}\text{-repeated elements} \le 13
+  \]
+  \pause
+  \vspace{-0.50cm}
+  \begin{align*}
+    x &\text{ is a } \frac{n}{13}\text{-repeated element} \\
+    &\implies x \text{ is a } \frac{n}{13}\text{-repeated element of } 
+    R[1 \cdots \frac{n}{2}] \text{ or } R[\frac{n}{2}+1 \cdots n]
+  \end{align*}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{Divide and Conquer Algorithm}}
+
+  \pause
+  \[
+    T(n) = 2 T(\frac{n}{2}) + O(n)
+  \]
+
+  \begin{columns}
+    \column{0.50\textwidth}
+    \pause
+      \[
+	\red{Q: 13 \to k}
+      \]
+
+      \pause
+      \[
+	T(n) = 2T(\frac{n}{2}) + O(kn)
+      \]
+    \column{0.50\textwidth}
+      \pause
+      \[
+	\red{Q: k \gets 2}
+      \]
+
+      \pause
+      \fignocaption{width = 0.40\textwidth}{figs/pk-duck}
+  \end{columns}
+
+  \pause
+  \[
+    \teal{k: O(n \log k)}
+  \]
 \end{frame}
 %%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
   \[
-    \# > \frac{n}{k}
+    \red{\Omega(n \log k)}
   \]
 
   \pause
-  \begin{center}
-    An $O(n \log k)$ algorithm \\[15pt] \pause
-    Lower bound $\red{\Omega(n \log k)}$
-  \end{center}
+  \[
+    \red{Q: \exists} \text{ a repeated element}?
+  \]
 
   \pause
   \[
-    \red{L: \# \text{ of leaves} ?}
+    \teal{L: \# \text{ of leaves} ?}
   \]
 
   \pause
@@ -41,6 +97,61 @@
     \centering
     {\it ``Finding Repeated Elements''} by Misra \& Gries, 1982
   \end{quote}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Maxima of a Point Set (Problem $6.15$)}
+    \fignocaption{width = 0.35\textwidth}{figs/maxima}
+    \[
+      (x_1, y_1) \succ (x_2, y_2) \iff x_1 > x_2 \land y_1 > y_2
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    x\text{-sorting}, \quad \max y \pause \implies O(n \log n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \teal{\red{Wrong} Divide and Conquer Algorithms} \\[6pt]
+
+    $x$-median \& $y$-median
+  \end{center}
+
+  \[
+    T(n) = T(\frac{3}{4} n) + O(n) \implies T(n) = O(n)
+  \]
+
+  \[
+    T(n) = 3T(\frac{1}{4} n) + O(n) \implies T(n) = O(n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \teal{Divide and Conquer Algorithm}  \\[6pt]
+
+    $x$-median
+  \end{center}
+
+  \pause
+  \[
+    T(n) = 2T(\frac{n}{2}) + \red{O(n^2)}
+  \]
+
+  \pause
+  \fignocaption{width = 0.25\textwidth}{figs/qrcode-maxima-lower-bound}
+  \[
+    \red{\Omega(n \log n)}
+  \]
 \end{frame}
 %%%%%%%%%%%%%
 
@@ -55,7 +166,6 @@
       \forall i \neq j: a_i \neq a_j
     \end{gather*}
 
-    \pause
     \vspace{-0.30cm}
     \[
       A = [1,2,4,5] \implies 3
@@ -69,7 +179,11 @@
 
   \pause
   \[
-    T(n) = T(\frac{n}{2}) + 1 = O(\log n)
+    \red{O(\log n)}
+  \]
+  \pause
+  \[
+    T(n) = T(\frac{n}{2}) + 1
   \]
 \end{frame}
 %%%%%%%%%%%%%
@@ -189,7 +303,7 @@
 
   \pause
   \vspace{0.30cm}
-  \centerline{\red{Always checking the lower left corner.}}
+  \centerline{\red{\large Always checking the lower left corner.}}
 
   \pause
   \[
@@ -243,7 +357,6 @@
       \red{\exists A, B: A + B = c?}
     \]
 
-    \pause
     \[
       O(n)
     \]
@@ -257,4 +370,28 @@
     S_i + S_j \;\red{>=<}\; c
   \]
 \end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+% \begin{frame}{Space for hashing (Problem 4.4)}
+%   \begin{exampleblock}{Space for Hashing}
+%     \begin{description}
+%       \item[Key:] $x$
+%       \item[Node:] $y$
+%       \item[Load factor:] $\alpha$
+%     \end{description}
+%   \end{exampleblock}
+% 
+%   \pause
+%   \begin{itemize}
+%     \item Closed-address hashing
+%       \[
+% 	h_c + \alpha y h_c
+%       \]
+%     \item Open-address hashing
+%       \[
+% 	\frac{\alpha h_c}{\frac{h_c + \alpha y h_c }{x}} = \frac{\alpha x}{1 + \alpha y}
+%       \]
+%   \end{itemize}
+% \end{frame}
 %%%%%%%%%%%%%
