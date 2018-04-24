@@ -13,7 +13,7 @@
       R[1 \dots n]
     \]
     \[
-      \# > \frac{n}{13}
+      \# > \lfloor \frac{n}{13} \rfloor
     \]
     \[
       \text{To find all $\frac{n}{13}$-repeated elements}
@@ -32,7 +32,7 @@
   \vspace{-0.50cm}
   \begin{align*}
     x &\text{ is a } \frac{n}{13}\text{-repeated element} \\
-    &\implies x \text{ is a } \frac{n}{13}\text{-repeated element of } 
+    &\implies x \text{ is a } \frac{n}{26}\text{-repeated element of } 
     R[1 \cdots \frac{n}{2}] \text{ or } R[\frac{n}{2}+1 \cdots n]
   \end{align*}
 \end{frame}
@@ -144,7 +144,7 @@
 
   \pause
   \[
-    T(n) = 2T(\frac{n}{2}) + \red{O(n^2)}
+    T(n) = 2T(\frac{n}{2}) + \red{O(n)}
   \]
 
   \pause
