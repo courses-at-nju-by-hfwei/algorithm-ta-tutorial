@@ -1,0 +1,75 @@
+\section{Biconnectivity}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Biconnectivity algorithm in one word}
+  % \fignocaption{width = 0.50\textwidth}{figs/back-logo.jpg}
+  \centerline{\Huge Back!}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Biconnectivity algorithm in two questions}
+  \begin{center}
+	(1) When and how to update $\text{back}[v]$? \\[15pt] \pause
+	(2) When and how to identify a bicomponent?
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Biconnectivity algorithm}
+  \begin{exampleblock}{Initialization of $\text{back}[v]$ (Problem 5.6)}
+	\[
+	  \text{back}[v] = d[v] \text{\emph{ vs. }} \text{back}[v] = \infty, 2(n+1) 
+	\]
+  \end{exampleblock}
+
+  % $\text{back}[v]$: the earliest reachable ancestor of $v$ by tree + back edges
+  % \begin{itemize}
+  %   \item tree edge ($\to v$; discovered): $\text{back}[v] = d[v]$
+  %   \item back edge ($v \to w$): $\text{back}[v] = \min \set{\text{back}[v], d[w]}$
+  %   \item backtracking from $w$: $\text{back}[v] = \min \set{\text{back}[v], \text{back}[w] = \text{wBack}}$
+  % \end{itemize}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{itemize}
+	\item if updated
+	  \pause
+	\item if never updated: 
+	  \[
+		\text{wBack} = \infty > d[v] \text{\emph{ vs. }} \pause \text{wBack} = d[w] > d[v]
+	  \]
+  \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Root cutnode}
+  \begin{exampleblock}{Root cutnode (Problem 5.5)}
+	\[
+	  v \text{ is a cutnode} \iff \text{OutDegree}[v] \ge 2
+	\]
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.40\textwidth}{figs/cutnode-types.png}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{$K$-core of a graph}
+  \begin{exampleblock}{Planning a party (Problem 5.27)}
+	\begin{itemize}
+	  \item undirected graph $G$
+	  \item subgraph $G' = (V', E')$:
+		\[
+		  \forall v' \in V: K(v') \ge 5 \land D(v') \ge 5
+		\]
+	\end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  $K$-core of a graph:
+  \[
+	\forall v' \in V': \text{deg}[v'] \ge k
+  \]
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{Iteratively delete nodes $v$ of $K(v) < 5 \lor D(v) < 5$}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,202 @@
+\section{SCC}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Digraph as DAG}
+  \begin{exampleblock}{Digraph as DAG (Problem 5.3)}
+    Every digraph is a dag of its SCCs.
+  \end{exampleblock}
+
+  \begin{alertblock}{Remark}
+    Two tiered structure of digraphs:
+    \begin{itemize}
+	  \item digraph $\equiv$ a dag of SCCs
+      \item SCC: equivalence class over reachability
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{SCC}
+  \begin{exampleblock}{Kosaraju SCC algorithm, 1978}
+	\begin{quote}
+	  ``SCCs can be topo-sorted in decreasing order of their highest finish time.''
+	\end{quote}
+
+	\pause
+	\centerline{The vertice with the highest finish time is in a source SCC.}
+  \end{exampleblock}
+
+  \pause
+  \begin{alertblock}{Remark}
+    \begin{itemize}
+      \item DFS on $G$; \; DFS/BFS on $G^{T}$
+      \item DFS on $G^{T}$; DFS/BFS on $G$
+    \end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{SCC}
+  \begin{exampleblock}{Kosaraju SCC algorithm, 1978 (Problem 5.4)}
+    \begin{itemize}
+      \item 1st DFS $\xLongrightarrow{?}$ BFS
+      \item 2nd DFS $\xLongrightarrow{?}$ BFS
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{One-to-all reachability}
+  \begin{exampleblock}{One-to-all reachability (Problem 5.12)}
+	Digraph $G = (V, E)$:
+    \begin{itemize}
+      \item given $v: v \leadsto^{?} \forall u$
+      \item $\exists?\; v: v \leadsto \forall u$
+    \end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \[
+	\text{SCC; } \exists! \text{source vertex } v \iff v \leadsto \forall u
+  \]
+
+  \pause
+  \begin{proof}
+	\begin{itemize}
+	  \item $\Longleftarrow$: (1) source (2) $\exists !$
+		\pause
+	  \item $\implies$: By contradiction. 
+		% \pause
+		% \[
+		%   \exists u: v \not\leadsto u \land \text{in}[u] > 0 \implies \exists u' \to u \land v \nrightarrow u' \implies \exists \text{ cycle}
+		% \]
+	\end{itemize}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Impacts of vertices}
+  \begin{exampleblock}{Impacts of vertices (Problem 5.13)}
+	Digraph $G$:
+	\[
+	  \text{impact}(v) = |\set{w: v \leadsto w}|
+	\]
+
+	\begin{itemize}
+	  \item $\argmin_{v} \text{impact}(v)$
+	  \item $\argmax_{v} \text{impact}(v)$
+	\end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{$\argmin_{v} \text{impact}(v) \in \text{SCC of smallest cardinality}$}
+
+  \pause
+  \begin{alertblock}{Question}
+	$\forall v:$ computing $\text{impact}(v)$.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{One-way streets}
+  \begin{exampleblock}{One-way streets (Problem 5.15)}
+	Digraph $G$ for city:
+    \begin{enumerate}
+      \item $\forall u,v: u \leftrightsquigarrow v$
+      \item $s: s \leadsto v \leadsto s$
+    \end{enumerate}
+  \end{exampleblock}
+
+  \pause
+  \[
+	(2)\; \set{v \mid s \leadsto v} \text{ is an SCC}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Connectivity}
+  \begin{exampleblock}{Connectivity (Problem 5.7)}
+	\begin{description}[Example:]
+	  \item[Prove:] connected undirected graph $G$: 
+		\[
+		  \exists v: G \setminus v \text{ is still connected}
+		\]
+	  \item[Example:] strongly connected digraph $G$:
+		\[
+		  \exists v: G \setminus v \text{ is not strongly connected}
+		\]
+	  \item[Example:] digraph $G$ with 2 SCCs:
+		\[
+		  (G + e) \text{ is not strongly connected}
+		\]
+	\end{description}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2SAT}
+  \begin{exampleblock}{2SAT (Problem 5.17)}
+	\[
+	  I: (x_1 \lor \overline{x_2}) \land (\overline{x_1} \lor \overline{x_3}) \land (x_1 \lor x_2) \land (\overline{x_3} \lor x_4) \land (\overline{x_1} \lor x_4)
+	\]
+  \end{exampleblock}
+
+  \pause
+  \[
+	\alpha \lor \beta \equiv \overline{\alpha} \to \beta \equiv \overline{\beta} \to \alpha
+  \]
+
+  \pause
+  \begin{center}
+	Implication graph $G_I$.
+  \end{center}
+
+  \pause
+  \begin{theorem}
+	\[
+	  \exists \text{ SCC } \exists x: v_x \in \text{SCC} \land v_{\overline{x}} \in \text{SCC} \iff I \text{ is not satisfiable}.
+	\]
+  \end{theorem}
+
+  \pause
+  \begin{alertblock}{Reference}
+	\begin{itemize}
+	  \pause
+	  \item ``A Linear-time Algorithm for Testing the Truth of Certain Quantified Boolean Formulas'' by Bengt Aspvall, Michael Plass, and Robert Tarjan, 1979.
+	\end{itemize}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{2SAT}
+  % \begin{gather*}
+  %   (x_0\lor x_2)\land(x_0\lor\lnot x_3)\land(x_1\lor\lnot x_3)\land(x_1\lor\lnot x_4)\land\\
+  %   (x_2\lor\lnot x_4)\land (x_0\lor\lnot x_5)\land (x_1\lor\lnot x_5)\land (x_2\lor\lnot x_5)\land\\
+  %   (x_3\lor x_6)\land (x_4\lor x_6)\land (x_5\lor x_6)
+  % \end{gather*}
+  \begin{columns}
+	\column{0.50\textwidth}
+	  % \fignocaption{width = 0.80\textwidth}{figs/2sat-implication-graph-wiki.png}
+	  \fignocaption{width = 0.80\textwidth}{figs/2sat-implication-graph.pdf}
+	\column{0.50\textwidth}
+	  \pause
+	  \fignocaption{width = 0.80\textwidth}{figs/2sat-implication-graph.png}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+% \begin{frame}{Odd cycle in digraph}
+%   \begin{exampleblock}{Odd cycle in digraph (Additional Problem)}
+%     Find an odd cycle in a digraph $G$.
+%   \end{exampleblock}
+% 
+%   \pause
+%   \begin{lemma}
+%     A digraph $G$ has an odd directed cycle $\iff$ $\exists \text{scc}: $ scc is non-bipartite (when treated undirected).
+%   \end{lemma}
+% 
+%   \pause
+%   \begin{alertblock}{Question}
+% 	To prove the lemma and design an algorithm.
+%   \end{alertblock}
+%   % \begin{proof}
+%   %   $\Longleftarrow$: undirected $C$; oriented
+%   %     \begin{itemize}
+%   %   	\item odd directed cycle
+%   %   	\item choose a direction $\forall u \to v$: $\text{Len}(v \leadsto u)$ 
+%   %     \end{itemize}
+%   % \end{proof}
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,125 @@
+\section{Cycles}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Cycle detection}
+  \begin{exampleblock}{Cycle detection (Problem 5.24--1)}
+	\begin{table}[ht]
+	  \centering
+	  \renewcommand{\arraystretch}{1.1}
+	  \begin{tabular}{c||c|c}
+	    \hline
+		& Digraph 			& Undirected graph  \\ \hline \hline
+		DFS & {\uncover<2->{back edge $\iff$ cycle}}
+		& {\uncover<3->{back edge $\iff$ cycle}}
+		\\ \hline
+		BFS & {\uncover<5->{\begin{tabular}[c]{@{}l@{}}back edge $\implies$ cycle\\ cycle \textcolor{red}{$\centernot\implies$} back edge \end{tabular}}}
+		& {\uncover<4->{cross edge $\iff$ cycle}}
+		\\ \hline
+	  \end{tabular}
+	\end{table}
+  \end{exampleblock}
+
+  \begin{columns}
+	\column{0.50\textwidth}
+	  \uncover<6->{\fignocaption{width = 0.30\textwidth}{figs/bfs-digraph-cycle-without-back.png}}
+	\column{0.50\textwidth}
+	  \uncover<7->{%
+		\begin{alertblock}{Remark}
+		  How to identify back edges?
+		\end{alertblock}}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Evasiveness of acyclicity}
+  \begin{exampleblock}{Evasiveness of acyclicity (Problem 5.24--2)}
+	\[
+	  \text{Evasiveness } \triangleq \text{ check } \binom{n}{2} \text{ edges (adjacency matrices)}
+	\]
+
+	\pause
+	\centerline{Is acyclicity evasive?}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \fignocaption{width = 0.20\textwidth}{figs/adversary-logo.png}{\centerline{\pause Hint: Kruskal}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Evasiveness of connectivity}
+  \begin{exampleblock}{Evasiveness of connectivity (Additional Problem)}
+	\[
+	  \text{Evasiveness } \triangleq \text{ check } \binom{n}{2} \text{ edges}
+	\]
+
+	\centerline{Is connectivity evasive?}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \fignocaption{width = 0.20\textwidth}{figs/adversary-logo.png}{\centerline{Hint: Anti-Kruskal}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Edge deletion}
+  \begin{exampleblock}{Edge deletion (Problem 5.20)}
+    \begin{itemize}
+      \item connected, undirected graph $G$
+      \item $\exists? e \in E: G \setminus e$ is connected?
+      \item $O(|V|)$
+    \end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \[
+	\exists \text{ cycle} \iff \exists \text{ such } e
+  \]
+
+  \pause
+  \[
+	O(m + n)
+  \]
+
+  \pause
+  \[
+	\text{tree: } |E| = |V| - 1 \implies \text{ check } |E| \ge |V|
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Orientation of undirected graph}
+  \begin{exampleblock}{Orientation of undirected graph (Problem 5.9)}
+	\begin{itemize}
+      \item undirected (connected) graph $G$ 
+	  \item edges oriented \emph{s.t.} 
+		\[
+		  \forall v, \text{in}[v] \ge 1
+		\]
+	\end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \[
+	\text{orientation} \iff \exists \text{ cycle } C
+  \]
+
+  \pause
+  \[
+	\text{BFS/DFS from } v \in C
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shortest cycle of undirected graph}
+  \begin{exampleblock}{Shortest cycle of undirected graph (Problem 5.8)}
+	Shortest cycle of $G$:
+	\begin{itemize}
+	  \item DFS on $G$
+	  \item $\forall v: \text{level}[v]$
+	  \item back edge $u \to v: \text{level}[u] - \text{level}[v] + 1$
+	\end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{alertblock}{Question}
+	What about digraphs?
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
