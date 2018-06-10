@@ -1,125 +1,190 @@
-\section{Cycles}
+% file: sections/cycle.tex
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Cycle detection}
-  \begin{exampleblock}{Cycle detection (Problem 5.24--1)}
-	\begin{table}[ht]
-	  \centering
-	  \renewcommand{\arraystretch}{1.1}
-	  \begin{tabular}{c||c|c}
-	    \hline
-		& Digraph 			& Undirected graph  \\ \hline \hline
-		DFS & {\uncover<2->{back edge $\iff$ cycle}}
-		& {\uncover<3->{back edge $\iff$ cycle}}
-		\\ \hline
-		BFS & {\uncover<5->{\begin{tabular}[c]{@{}l@{}}back edge $\implies$ cycle\\ cycle \textcolor{red}{$\centernot\implies$} back edge \end{tabular}}}
-		& {\uncover<4->{cross edge $\iff$ cycle}}
-		\\ \hline
-	  \end{tabular}
-	\end{table}
+\begin{frame}{}
+  \begin{exampleblock}{Cycle detection (Problem $5.8-1$)}
+    \begin{table}[ht]
+      \centering
+      \renewcommand{\arraystretch}{1.3}
+      \begin{tabular}{c||c|c}
+	\hline
+	& Digraph 			& Undirected graph  \\ \hline \hline
+	DFS & {\uncover<2->{back edge $\iff$ cycle}}
+	& {\uncover<3->{back edge $\iff$ cycle}}
+	\\ \hline
+	BFS & {\uncover<5->{\begin{tabular}[c]{@{}l@{}}back edge $\implies$ cycle\\ cycle \textcolor{red}{$\centernot\implies$} back edge \end{tabular}}}
+	& {\uncover<4->{cross edge $\iff$ cycle}}
+	\\ \hline
+      \end{tabular}
+    \end{table}
   \end{exampleblock}
 
+  \uncover<6->{\fignocaption{width = 0.20\textwidth}{figs/bfs-digraph-cycle-without-back.png}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Evasiveness of acyclicity of \red{undirected} graphs (Problem $5.8-2$)}
+    \[
+      \text{Evasiveness } \triangleq \text{ check } \binom{n}{2} \text{ edges \teal{\small (adjacency matrix)}}
+    \]
+
+    \pause
+    \centerline{\brown{$Q:$ Is \red{acyclicity} evasive?}}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{\red{By Adversary Argument.}}
+
   \begin{columns}
-	\column{0.50\textwidth}
-	  \uncover<6->{\fignocaption{width = 0.30\textwidth}{figs/bfs-digraph-cycle-without-back.png}}
-	\column{0.50\textwidth}
-	  \uncover<7->{%
-		\begin{alertblock}{Remark}
-		  How to identify back edges?
-		\end{alertblock}}
+    \column{0.30\textwidth}
+      \uncover<4->{
+	\begin{center}
+	  \red{Adversary $\mathcal{A}$:} \\[8pt]
+
+	  \tikz{\node (u) [draw, circle]{$u$}; \node (v) [draw, circle, right = of u] {$v$}; \draw (u) -- (v);} \\[5pt]
+
+	  \tikz{\node (u) [draw, circle]{$u$}; \node (v) [draw, circle, right = of u] {$v$}; \draw[dashed] (u) -- (v);}
+	\end{center}
+      }
+    \column{0.40\textwidth}
+      \fignocaption{width = 0.70\textwidth}{figs/adversary-alg}
+      \vspace{-0.30cm}
+      \uncover<5->{\centerline{Hint: Kruskal}}
+    \column{0.30\textwidth}
+      \uncover<4->{
+	\centerline{\teal{Algorithm $\mathbb{A}$:}}
+	\[
+	  \textsc{CheckEdge}(u,v)
+	\]
+      }
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Evasiveness of acyclicity}
-  \begin{exampleblock}{Evasiveness of acyclicity (Problem 5.24--2)}
-	\[
-	  \text{Evasiveness } \triangleq \text{ check } \binom{n}{2} \text{ edges (adjacency matrices)}
-	\]
 
-	\pause
-	\centerline{Is acyclicity evasive?}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fignocaption{width = 0.30\textwidth}{figs/adversary}
+
+  \vspace{-0.60cm}
+  \begin{gather*}
+    \textsc{CheckEdge}(u,v) \gets 
+    \tikz{\node (u) [draw, circle]{$u$}; \node (v) [draw, circle, right = of u] {$v$}; \draw (u) -- (v);} \\
+    \iff \\
+    \red{\nexists \text{ cycle }} \in G + \tikz{\node (u) [draw, circle]{$u$}; \node (v) [draw, circle, right = of u] {$v$}; \draw (u) -- (v);} 
+  \end{gather*}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{\red{\large $Q:$ Why adjacency matrix?}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{After-class Exercise: Evasiveness of connectivity of undirected graphs}
+    \[
+      \text{Evasiveness } \triangleq \text{ check } \binom{n}{2} \text{ edges \teal{\small (adjacency matrix)}}
+    \]
+
+    \centerline{\brown{$Q:$ Is \red{connectivity} evasive?}}
   \end{exampleblock}
 
   \pause
   \vspace{0.50cm}
-  \fignocaption{width = 0.20\textwidth}{figs/adversary-logo.png}{\centerline{\pause Hint: Kruskal}}
+  \fignocaption{width = 0.30\textwidth}{figs/adversary}{\centerline{Hint: Anti-Kruskal}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Evasiveness of connectivity}
-  \begin{exampleblock}{Evasiveness of connectivity (Additional Problem)}
-	\[
-	  \text{Evasiveness } \triangleq \text{ check } \binom{n}{2} \text{ edges}
-	\]
 
-	\centerline{Is connectivity evasive?}
-  \end{exampleblock}
-
-  \pause
-  \vspace{0.50cm}
-  \fignocaption{width = 0.20\textwidth}{figs/adversary-logo.png}{\centerline{Hint: Anti-Kruskal}}
-\end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Edge deletion}
-  \begin{exampleblock}{Edge deletion (Problem 5.20)}
+% \begin{frame}{}
+%   \begin{exampleblock}{Edge deletion (Problem 5.20)}
+%     \begin{itemize}
+%       \item connected, undirected graph $G$
+%       \item $\exists? e \in E: G \setminus e$ is connected?
+%       \item $O(|V|)$
+%     \end{itemize}
+%   \end{exampleblock}
+% 
+%   \pause
+%   \[
+% 	\exists \text{ cycle} \iff \exists \text{ such } e
+%   \]
+% 
+%   \pause
+%   \[
+% 	O(m + n)
+%   \]
+% 
+%   \pause
+%   \[
+% 	\text{tree: } |E| = |V| - 1 \implies \text{ check } |E| \ge |V|
+%   \]
+% \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Orientation of undirected graph (Problem $4.13$)}
     \begin{itemize}
-      \item connected, undirected graph $G$
-      \item $\exists? e \in E: G \setminus e$ is connected?
-      \item $O(|V|)$
+      \item undirected (connected) graph $G$ 
+      \item edges oriented \emph{s.t.} 
+	\[
+	  \forall v, \text{in}[v] \ge 1
+	\]
     \end{itemize}
   \end{exampleblock}
 
   \pause
-  \[
-	\exists \text{ cycle} \iff \exists \text{ such } e
-  \]
+  \begin{columns}
+    \column{0.50\textwidth}
+      \[
+	\text{orientation} \red{\iff} \exists \text{ cycle } C
+      \]
 
-  \pause
-  \[
-	O(m + n)
-  \]
-
-  \pause
-  \[
-	\text{tree: } |E| = |V| - 1 \implies \text{ check } |E| \ge |V|
-  \]
+      \pause
+      \[
+	\text{DFS \red{from} } \red{v \in C}
+      \]
+    \column{0.50\textwidth}
+      \pause
+      \fignocaption{width = 0.35\textwidth}{figs/orientation}
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Orientation of undirected graph}
-  \begin{exampleblock}{Orientation of undirected graph (Problem 5.9)}
-	\begin{itemize}
-      \item undirected (connected) graph $G$ 
-	  \item edges oriented \emph{s.t.} 
-		\[
-		  \forall v, \text{in}[v] \ge 1
-		\]
-	\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Shortest cycle of undirected graph (Problem $4.12$)}
+    A \red{\large WRONG} DFS-based algorithm:
+    \[
+      \forall v: \text{level}[v]
+    \]
+    \[
+      \text{\brown{Back edge }} u \to v: \text{level}[u] - \text{level}[v] + 1
+    \]
   \end{exampleblock}
 
   \pause
-  \[
-	\text{orientation} \iff \exists \text{ cycle } C
-  \]
-
-  \pause
-  \[
-	\text{BFS/DFS from } v \in C
-  \]
+  \fignocaption{width = 0.30\textwidth}{figs/minimum-cycle-undirected-graph}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Shortest cycle of undirected graph}
-  \begin{exampleblock}{Shortest cycle of undirected graph (Problem 5.8)}
-	Shortest cycle of $G$:
-	\begin{itemize}
-	  \item DFS on $G$
-	  \item $\forall v: \text{level}[v]$
-	  \item back edge $u \to v: \text{level}[u] - \text{level}[v] + 1$
-	\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Shortest cycle of \red{digraph} (Problem $4.12$)}
+    A \only<2->{\red{\large WRONG}} DFS-based algorithm:
+    \[
+      \forall v: \text{level}[v]
+    \]
+    \[
+      \text{\brown{Back edge }} u \to v: \text{level}[u] - \text{level}[v] + 1
+    \]
   \end{exampleblock}
 
   \pause
-  \vspace{0.50cm}
-  \begin{alertblock}{Question}
-	What about digraphs?
-  \end{alertblock}
+  \fignocaption{width = 0.30\textwidth}{figs/shortest-cycle-digraph}
+
+  % \centerline{\red{$A:$} Floyd-Warshall algorithm.}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
