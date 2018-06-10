@@ -1,121 +1,120 @@
 % file: sections/dag.tex
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{DAG}
-  \begin{center}
-    no back edge $\iff$ DAG \pause $\iff$ $\exists$ topo. ordering
-  \end{center}
+\begin{frame}{}
+  \centerline{\large On digraphs:}
+  \[
+    \nexists\; \text{\red{back edge}} \iff \text{ DAG } \pause \iff \exists \text{ topo. ordering}
+  \]
 
-  \begin{block}{Toposort algorithm by Tarjan (probably), 1976}
-    DFS on digraph, $u \to v$:
-    \begin{itemize}
-	  \item \sout{back edge:} $\text{f}[u] < \text{f}[v]$
-      \item others: $\text{f}[u] > \text{f}[v]$
-    \end{itemize}
+  \pause
+  \begin{block}{\textsc{Toposort} by Tarjan \teal{\small (probably)}, 1976}
+    \vspace{0.30cm}
+    \[
+      \nexists \text{ cycle} \implies \red{\boxed{u \to v \iff \text{f}[v] < \text{f}[u]}}
+    \]
 
-	\pause
-    \[ 
-	  u \to v \implies \text{f}[u] > \text{f}[v]
-	\]
-
-	\pause
-    \begin{center}
-	  Toposort: sort vertices in \textcolor{blue}{\emph{decreasing}} order of their \textcolor{blue}{\emph{finish}} times.
-    \end{center}
+    \pause
+    \vspace{0.50cm}
+    \centerline{Sort vertices in \textcolor{blue}{\emph{decreasing}} order of their \textcolor{blue}{\emph{finish}} times.}
   \end{block}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Kahn's toposort algorithm}
-  \begin{exampleblock}{Kahn's toposort algorithm (1962; Problem 5.11) }
+\begin{frame}{}
+  \begin{exampleblock}{Kahn's \textsc{Toposort} algorithm (1962; Problem $4.16$) }
     \begin{itemize}
-      \item queue for source vertices ($\text{in}[v] = 0$)
-      \item repeat: dequeue $v$, delete it, output it
+      \item \red{Queue $Q$} for source vertices ($\text{in}[v] = 0$)
+      \item \brown{Repeat:} $\textsc{Dequeue}(u \in Q)$, delete $u$ and $u \to v$ from $Q$, \\
+	\hspace{1.5cm} output $u$, $\textsc{Enqueue}(v)$ if $\text{in}[v] = 0$
     \end{itemize}
   \end{exampleblock}
 
   \pause
-  \begin{lemma}
-	Every DAG has at least one source (and at least one sink vertex).
+  \vspace{0.60cm}
+  \begin{lemma}[Correctness of Kahn's \textsc{Toposort}]
+    Every DAG has at least one source (and at least one sink vertex).
   \end{lemma}
 
   \pause
-  \begin{alertblock}{Question}
-	What if $G$ is not a DAG?
-  \end{alertblock}
+  \vspace{0.80cm}
+  \centerline{\red{$Q:$ What if $G$ is {\it not} a DAG?}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Taking courses}
+\begin{frame}{}
   \begin{exampleblock}{Taking courses in few semesters (Problem 5.14)}
-	\begin{itemize}
-	  \item $n$ courses
-	  \item $c_1 \to c_2$
-	  \item goal: taking courses in few semesters
-	\end{itemize}
+    \begin{itemize}
+      \item $n$ courses
+      \item $m$ of $c_1 \to c_2$: prerequisite
+      \item Goal: taking courses in few semesters
+    \end{itemize}
   \end{exampleblock}
 
   \pause
-  \begin{center}
-	critical path \emph{OR} longest path
-  \end{center}
+  \vspace{0.60cm}
+  \centerline{\red{\large Critical path \emph{OR} Longest path} using DFS in $O(n + m)$}
 
   \pause
-  \begin{alertblock}{Remark}
-	For general digraph, LONGEST-PATH is NP-hard.
-  \end{alertblock}
+  \vspace{0.80cm}
+  \centerline{For general digraph, \teal{LONGEST-PATH} is NP-hard.}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Line up}
-  \begin{exampleblock}{Line up (Problem 5.16)}
+\begin{frame}{}
+  \begin{exampleblock}{Line up (Problem $4.22$)}
     \begin{enumerate}
-      \item $i$ hates $j$: $i \prec j$
+      \item $i$ hates $j$: $i \succ j$
       \item $i$ hates $j$: $\# i < \# j$
     \end{enumerate}
   \end{exampleblock}
 
   \vspace{0.50cm}
-  \centerline{\sout{BFS}}
+  \begin{center}
+    \textsc{Toposort} \\[8pt]
+
+    Critical path
+  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Hamiltonian path in DAG}
-  \begin{exampleblock}{Hamiltonian path in DAG (Problem 5.10)}
-    \begin{itemize}
-      \item DAG $G$
-      \item HP: path visiting each vertex once
-    \end{itemize}
+\begin{frame}{}
+  \begin{exampleblock}{Hamiltonian path in DAG (Problem $4.14$)}
+    \begin{center}
+      HP: path visiting each vertex once \\[8pt]
+
+      \red{$Q:$ $\exists$ HP in a DAG in $O(n + m)$}
+    \end{center}
   \end{exampleblock}
 
   \pause
-  \begin{alertblock}{Remark}
-    For general (di)graph, HP is NP-hard.
-  \end{alertblock}
+  \vspace{0.60cm}
+  \centerline{\teal{For general (di)graph, HP is NP-hard.}}
+
+  \pause
+  \vspace{0.50cm}
+  \fignocaption{width = 0.70\textwidth}{figs/hamiltonian-path-dag}
 
   \pause
   \[
-	\text{DAG: } \exists \text{ HP} \iff \exists! \text{ topo. ordering}
+    \red{\boxed{\text{DAG: } \exists \text{ HP} \iff \exists! \text{ topo. ordering}}}
   \]
-
-  \begin{columns}
-	\column{0.50\textwidth}
-	  \pause
-	  \begin{proof}
-		$\Longleftarrow$: By construction.
-	  \end{proof}
-	\column{0.50\textwidth}
-	  \pause
-	  Algorithms:
-	  \begin{enumerate}
-		\item toposort, check edges
-		  \pause
-		\item the Kahn toposort algorithm
-	  \end{enumerate}
-	\end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Hamiltonian path in DAG}
-  \centerline{$\exists! \text{ topo. ordering}$ in DFS framework}
+\begin{frame}{}
+  \[
+    \red{\boxed{\text{DAG: } \exists \text{ HP} \iff \exists! \text{ topo. ordering}}}
+  \]
 
-  \vspace{0.50cm}
+  \pause
+  \vspace{0.60cm}
+  \centerline{Tarjan's \textsc{Toposort} + \teal{Check edges $(v_i, v_{i+1})$}}
 
-  \centerline{Cross edges!}
+  \pause
+  \fignocaption{width = 0.70\textwidth}{figs/hamiltonian-path-dag-topo}
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{Kahn's \textsc{Toposort} \teal{\small (Problem $4.16$)}}
+  \pause
+  \[
+    |Q| \le 1
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
