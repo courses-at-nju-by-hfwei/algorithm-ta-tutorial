@@ -17,11 +17,11 @@
       \begin{center}
 	\purple{life time} of \tikz{\node[draw, circle]{$v$}}: \\[15pt]
 
-	$v: \text{d}[v], \text{f}[v]$ \\[10pt]
+	$\brown{v:} \text{d}[v], \text{f}[v]$ \\[10pt]
 
-	$\text{f}[v]$: DAG, SCC \\[10pt]
+	\brown{$\text{d}[v]$:} \textsc{Bicomp} \\[10pt]
 
-	$\text{d}[v]$: biconnectivity
+	\brown{$\text{f}[v]$:} \textsc{Toposort}, \textsc{SCC}
       \end{center}
   \end{columns}
 \end{frame}
@@ -48,7 +48,7 @@
   \vspace{0.50cm}
   \begin{itemize}
     \centering
-    \item also applicable to BFS
+    \item Also applicable to BFS
     \item w.r.t. DFS/BFS trees
   \end{itemize}
 \end{frame}
@@ -85,7 +85,7 @@
       \includegraphics[width = 0.95\textwidth]{figs/bfs-undirected.png}
 
       \vspace{0.50cm}
-      \centerline{\purple{BFS on undirected graph}}
+      \centerline{\purple{BFS on undirected graph} \teal{\footnotesize (Problem $5.1$)}}
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -96,7 +96,7 @@
     \centerline{Undirected connected graph $G = (V,E), v \in V$}
       
     \[
-      \text{DFS tree } T \text{ from } v \equiv \text{ BFS tree } T' \text{ from } v
+      \text{DFS tree } T \text{ from } v \;\red{\equiv} \text{ BFS tree } T' \text{ from } v
     \]
 
     \pause
@@ -114,7 +114,7 @@
   \pause
   \vspace{0.30cm}
   \begin{center}
-    \red{$Q:$} What if $G$ is a digraph?
+    \red{$Q:$ What if $G$ is a digraph?}
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -124,10 +124,10 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{theorem}[Disjoint or Contained (Problem $4.2$: (1) \& (2))]
+  \begin{theorem}[Disjoint or Contained (Problem $4.2: (1) \& (2)$)]
     \[
       \forall u,v: [_{u} \; ]_{u} \cap [_{v} \; ]_{v} = \emptyset \bigvee 
-      \Big([_{u} \; ]_{u} \subsetneqq [_{v} \; ]_{v} \lor [_{v} \; ]_{v} \subsetneqq [_{u} \; ]_{u}\Big)
+      \Big([_{u} \; ]_{u} \subset [_{v} \; ]_{v} \lor [_{v} \; ]_{v} \subset [_{u} \; ]_{u}\Big)
     \]
   \end{theorem}
 
@@ -139,8 +139,8 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{exampleblock}{Preprocessing for \red{ancestor/descendant} relation (Problem 5.23)}
-    \fignocaption{width = 0.45\textwidth}{figs/binary-tree}
+  \begin{exampleblock}{Preprocessing for \red{ancestor/descendant} relation (Problem $5.6$)}
+    \fignocaption{width = 0.42\textwidth}{figs/binary-tree}
 
     \centerline{\red{\large $Q:$ \it Is $u$ an ancestor of $v$? $O(1)$}}
   \end{exampleblock}
@@ -190,12 +190,21 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
+  \centerline{\large DFS from the perspective of a single node:}
+  
+  \pause
+  \fignocaption{width = 0.30\textwidth}{figs/dfs-node-visiting}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
   \begin{exampleblock}{Height and diameter of tree (Problem $5.4$)}
     Binary tree $T = (V, E)$ with $|V| = n$ and the root $r$:
-    \begin{itemize}
-      \item height $H(T)$ in $O(n)$
-      \item diameter $D(T)$ in $O(n)$
-    \end{itemize}
+    \begin{enumerate}[(I)]
+      \item Height $H(T)$ in $O(n)$
+      \item Diameter $D(T)$ in $O(n)$
+    \end{enumerate}
   \end{exampleblock}
 
   \pause
@@ -235,17 +244,29 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\red{$Q:$ Diameter of a \blue{\it tree} \teal{\it without} a designated root}}
+  \centerline{\red{$Q:$ Diameter of a tree \teal{\it without} a designated root}}
+
+  \pause
+  \vspace{0.80cm}
+  \begin{columns}
+    \column{0.60\textwidth}
+      {\large A beautiful algorithm:}
+      \begin{itemize}
+	\item Pick any $u$
+	\item Run BFS from $u$, obtain the farthest $v$
+	\item Run BFS from $v$, obtain the farthest $w$
+      \end{itemize}
+      \[
+	(v, w)
+      \]
+    \pause
+    \column{0.20\textwidth}
+      \centerline{\red{\blue{Your Job:} Prove it!}}
+  \end{columns}
 
   \pause
   \vspace{0.50cm}
-  \begin{columns}
-    \column{0.50\textwidth}
-
-    \pause
-    \column{0.50\textwidth}
-      \centerline{\red{Your Job: Prove it!}}
-  \end{columns}
+  \centerline{\teal{Back to our original problem with $u \gets r$.}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
