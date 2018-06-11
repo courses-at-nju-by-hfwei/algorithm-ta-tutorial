@@ -34,9 +34,9 @@
 
   \pause
   \vspace{0.50cm}
-  \centerline{\red{By Adversary Argument.}}
+  \centerline{\blue{By Adversary Argument.}}
 
-  \begin{columns}
+  \begin{columns}[c]
     \column{0.30\textwidth}
       \uncover<4->{
 	\begin{center}
@@ -66,12 +66,13 @@
 \begin{frame}{}
   \fignocaption{width = 0.30\textwidth}{figs/adversary}
 
+  \pause
   \vspace{-0.60cm}
   \begin{gather*}
-    \textsc{CheckEdge}(u,v) \gets 
-    \tikz{\node (u) [draw, circle]{$u$}; \node (v) [draw, circle, right = of u] {$v$}; \draw (u) -- (v);} \\
+    \teal{\mathbb{A}:}\; \textsc{CheckEdge}(u,v) \gets 
+    \red{\mathcal{A}:}\; \tikz{\node (u) [draw, circle]{$u$}; \node (v) [draw, circle, right = of u] {$v$}; \draw (u) -- (v);} \\
     \iff \\
-    \red{\nexists \text{ cycle }} \in G + \tikz{\node (u) [draw, circle]{$u$}; \node (v) [draw, circle, right = of u] {$v$}; \draw (u) -- (v);} 
+    \red{\mathcal{A}:}\; \brown{\nexists \text{ cycle }} \in G + \tikz{\node (u) [draw, circle]{$u$}; \node (v) [draw, circle, right = of u] {$v$}; \draw (u) -- (v);} 
   \end{gather*}
 
   \pause
@@ -91,36 +92,36 @@
   \end{exampleblock}
 
   \pause
-  \vspace{0.50cm}
-  \fignocaption{width = 0.30\textwidth}{figs/adversary}{\centerline{Hint: Anti-Kruskal}}
+  \vspace{0.20cm}
+  \fignocaption{width = 0.30\textwidth}{figs/adversary-alg}{\centerline{Hint: Anti-Kruskal}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{}
-%   \begin{exampleblock}{Edge deletion (Problem 5.20)}
-%     \begin{itemize}
-%       \item connected, undirected graph $G$
-%       \item $\exists? e \in E: G \setminus e$ is connected?
-%       \item $O(|V|)$
-%     \end{itemize}
-%   \end{exampleblock}
-% 
-%   \pause
-%   \[
-% 	\exists \text{ cycle} \iff \exists \text{ such } e
-%   \]
-% 
-%   \pause
-%   \[
-% 	O(m + n)
-%   \]
-% 
-%   \pause
-%   \[
-% 	\text{tree: } |E| = |V| - 1 \implies \text{ check } |E| \ge |V|
-%   \]
-% \end{frame}
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Edge deletion (Problem 5.20)}
+    \begin{itemize}
+      \item connected, undirected graph $G$
+      \item $\exists? e \in E: G \setminus e$ is connected?
+      \item $O(|V|)$
+    \end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \[
+	\exists \text{ cycle} \iff \exists \text{ such } e
+  \]
+
+  \pause
+  \[
+	O(m + n)
+  \]
+
+  \pause
+  \[
+	\text{tree: } |E| = |V| - 1 \implies \text{ check } |E| \ge |V|
+  \]
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
@@ -144,8 +145,12 @@
 
       \pause
       \[
-	\text{DFS \red{from} } \red{v \in C}
+	\text{DFS \purple{from} } \purple{v \in C}
       \]
+
+      \pause
+      \vspace{0.50cm}
+      \uncover<6->{\centerline{\red{$Q:$ BFS?}}}
     \column{0.50\textwidth}
       \pause
       \fignocaption{width = 0.35\textwidth}{figs/orientation}
@@ -161,7 +166,7 @@
       \forall v: \text{level}[v]
     \]
     \[
-      \text{\brown{Back edge }} u \to v: \text{level}[u] - \text{level}[v] + 1
+      \text{\purple{Back edge }} u \to v: \text{level}[u] - \text{level}[v] + 1
     \]
   \end{exampleblock}
 
@@ -178,7 +183,7 @@
       \forall v: \text{level}[v]
     \]
     \[
-      \text{\brown{Back edge }} u \to v: \text{level}[u] - \text{level}[v] + 1
+      \text{\purple{Back edge }} u \to v: \text{level}[u] - \text{level}[v] + 1
     \]
   \end{exampleblock}
 

@@ -21,22 +21,28 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{exampleblock}{Kahn's \textsc{Toposort} algorithm (1962; Problem $4.16$) }
+  \begin{exampleblock}{Kahn's \textsc{Toposort} algorithm ($1962$; Problem $4.16$) }
     \begin{itemize}
+      \setlength{\itemsep}{5pt}
       \item \red{Queue $Q$} for source vertices ($\text{in}[v] = 0$)
-      \item \brown{Repeat:} $\textsc{Dequeue}(u \in Q)$, delete $u$ and $u \to v$ from $Q$, \\
-	\hspace{1.5cm} output $u$, $\textsc{Enqueue}(v)$ if $\text{in}[v] = 0$
+      \item \red{Repeat:} $\textsc{Dequeue}(\exists u \in Q)$, output $u$ \\[6pt]
+	\hspace{1.3cm} delete $u$ and $u \to v$ from $Q$, \\[5pt]
+	\hspace{1.3cm} $\textsc{Enqueue}(v)$ if $\text{in}[v] = 0$
     \end{itemize}
   \end{exampleblock}
 
   \pause
-  \vspace{0.60cm}
+  \[
+    O(m + n)
+  \]
+
+  \pause
   \begin{lemma}[Correctness of Kahn's \textsc{Toposort}]
     Every DAG has at least one source (and at least one sink vertex).
   \end{lemma}
 
   \pause
-  \vspace{0.80cm}
+  \vspace{0.50cm}
   \centerline{\red{$Q:$ What if $G$ is {\it not} a DAG?}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -70,7 +76,7 @@
   \begin{center}
     \textsc{Toposort} \\[8pt]
 
-    Critical path
+    Critical path \emph{OR} Longest path
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

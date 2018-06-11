@@ -72,26 +72,26 @@
   \fignocaption{width = 0.40\textwidth}{figs/cutnode-types.png}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{$K$-core of a graph}
-%   \begin{exampleblock}{Planning a party (Problem 5.27)}
-% 	\begin{itemize}
-% 	  \item undirected graph $G$
-% 	  \item subgraph $G' = (V', E')$:
-% 		\[
-% 		  \forall v' \in V: K(v') \ge 5 \land D(v') \ge 5
-% 		\]
-% 	\end{itemize}
-%   \end{exampleblock}
-% 
-%   \pause
-%   \vspace{0.50cm}
-%   $K$-core of a graph:
-%   \[
-% 	\forall v' \in V': \text{deg}[v'] \ge k
-%   \]
-% 
-%   \pause
-%   \vspace{0.50cm}
-%   \centerline{Iteratively delete nodes $v$ of $K(v) < 5 \lor D(v) < 5$}
-% \end{frame}
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Planning a party (Problem $5.11$)}
+	\begin{itemize}
+	  \item undirected graph $G$
+	  \item subgraph $G' = (V', E')$:
+		\[
+		  \forall v' \in V: K(v') \ge 5 \land D(v') \ge 5
+		\]
+	\end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  $K$-core of a graph:
+  \[
+    \forall v' \in V': \text{deg}[v'] \ge k
+  \]
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{Iteratively delete nodes $v$ of $K(v) < 5 \lor D(v) < 5$}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%
