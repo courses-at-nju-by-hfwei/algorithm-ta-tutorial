@@ -13,14 +13,17 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
+  \centerline{\red{$\text{back}[v]$:} the earliest reachable ancestor of $v$} % by tree + back edges
+
+  \vspace{0.30cm}
   \begin{enumerate}[(I)]
     \centering
-    \item When and how to \brown{update} $\text{back}[v]$? \\[10pt]
+    \item When and how to \brown{update} $\text{back}[v]$? \\[6pt]
     \item When and how to \brown{identify} a bicomponent?
   \end{enumerate}
 
   \pause
-  \fignocaption{width = 0.35\textwidth}{figs/bicomp-dfs-alg}
+  \fignocaption{width = 0.30\textwidth}{figs/bicomp-dfs-alg}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -31,10 +34,6 @@
       \text{back}[v] = d[v] \text{\emph{ vs. }} \text{back}[v] = \infty \lor 2(n+1) 
     \]
   \end{exampleblock}
-
-  \pause
-  \vspace{0.50cm}
-  \centerline{\red{$\text{back}[v]$:} the earliest reachable ancestor of $v$} % by tree + back edges
 
   \pause
   \vspace{0.30cm}
