@@ -1,0 +1,443 @@
+% file: sections/mst.tex
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large Cut Property}}
+
+  \[
+    G = (V, E, w)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Cut Property (Strong)}
+    \begin{itemize}
+      \item $X$ is some part of an MST $T$ of $G$
+      \item Any \red{\it cut} $(S, V \setminus S)$ \emph{s.t.} $X$ does \red{\it not} cross $(S, V \setminus S)$
+     ­\item Let $e$ be \red{\it a} lightest edge across $(S, V \setminus S)$
+    \end{itemize}
+
+    \pause
+    Then $X \cup \set{e}$ is some part of an MST $T'$ of $G$.
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.60cm}
+  \centerline{\red{\large Correctness of Prim's and Kruskal's algorithms.}}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large By Exchange Argument.}}
+
+  \pause
+  \vspace{0.30cm}
+  \fignocaption{width = 0.50\textwidth}{figs/cut-property}
+
+  \pause
+  \[
+    T + \set{e} - \set{e'}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Cut Property (Weak)}
+    \begin{center}
+      A cut $(S, V \setminus S)$ \\[6pt]
+      Let $e = (u,v)$ be \red{\emph{a}} minimum-weight edge across $(S, V \setminus S)$ \\[8pt] \pause
+
+      Then $e$ must be in \red{\emph{some}} MST of $G$.
+    \end{center}
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.45\textwidth}{figs/cut-property-no-name}
+
+  \pause
+  \centerline{``a'' $\to$ ``the'' \red{$\implies$} ``some'' $\to$ ``any''}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Converse of Cut Property (Weak)}
+    \begin{center}
+      $e = (u,v) \in \exists$ MST $T$ of $G$ \\[6pt]
+      $\implies$ \\[6pt]
+      $e$ is a lightest edge across some cut $(S, V \setminus S)$
+    \end{center}
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.40\textwidth}{figs/cut-property-no-name}
+  \[
+    T' = \underbrace{T - \set{e}}_{\teal{\text{to find } (S, V \setminus S)}} +\; \underbrace{\set{e'}}_{\red{\exists?}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cut Property \pno{$10.15\; (3)$}}
+    \centerline{$e \in G$ is a lightest edge $\implies$ $e \in \exists$ MST of $G$}
+  \end{exampleblock}
+
+  \pause
+  \[
+    (S = \set{u}, V \setminus S)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cut Property \pno{$10.15\; (4)$}}
+    \centerline{$e \in G$ is the unique lightest edge $\Rightarrow$ $e \in \forall$ MST}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{By contradiction.}
+  \[
+    e \notin T: T' = T + \set{e} - \set{e'} \implies w(T') < w(T)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Wrong divide-and-conquer algorithm for MST \pno{$10.21$}}
+    \[
+      (V_{1}, V_{2}): ||V_{1}| - |V_{2}|| \le 1
+    \]
+    
+    \[
+      T_{1} + T_{2} + \set{e}: e \text{ is a lightest edge across } (V_{1}, V_{2})
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \fignocaption{width = 0.40\textwidth}{figs/divide-conquer-mst-counterexample.pdf}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large Cycle Property}}
+
+  \[
+    G = (V, E, w)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Cycle property \pno{$10.19 (b)$}}
+    \begin{itemize}
+      \item Let $C$ be any cycle in $G$
+      \item Let $e = (u,v)$ be \red{\it a} maximum-weight edge in $C$
+    \end{itemize}
+    Then $\exists \textrm{ MST } T \text{ of } G: e \notin T$.
+  \end{block}
+
+  \fignocaption{width = 0.50\textwidth}{figs/cycle-property.pdf}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    T' = \underbrace{T - \set{e}}_{\red{e \;\in\; T}} + \set{e'}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+% \begin{frame}{}
+%   \begin{proof}
+%     Basic idea: pick any MST $T$ of $G$
+%     \begin{itemize}
+%       \item $e \notin T$
+%       \item $e \in T \Rightarrow e \notin T'$
+% 	\begin{itemize}
+% 	  \item $T - \set{e}$ $\Rightarrow$ $(S, V \setminus S)$
+% 	  \item $\exists e' = (u', v') \in C$ ($e' \in P_{u,v}$) across the cut
+% 	  \item \textcolor{red}{$T' = T - \set{e} + \set{e'}$}: spanning tree
+% 	  \item $w(e') \leq w(e) \Rightarrow w(T') \leq w(T) \Rightarrow w(T') = w(T)$
+% 	\end{itemize}
+%     \end{itemize}
+%   \end{proof}
+% \end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Anti-Kruskal algorithm \pno{$10.19 (c)$}}
+    \centerline{\href{https://en.wikipedia.org/wiki/Reverse-delete_algorithm}{Reverse-delete algorithm (wiki)}}
+
+    \[
+      O\Big(m \log n (\log \log n)^3\Big)
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{proof}
+    \textbf{Invariant: } If $F$ is the set of edges remained at the end of the while loop, 
+    then there is some MST that are a subset of $F$.
+  \end{proof}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{center}
+    {\it ``On the Shortest Spanning Subtree of a Graph \\
+    and the Traveling Salesman Problem''} \qquad --- Kruskal, $1956$.
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cycle Property \pno{$10.15\; (1)$}}
+    \begin{center}
+      $G = (V, E), |E| > |V| - 1$, $e$ unique maximum-weighted edge \\[6pt]
+      \red{$\implies^{?}$} \\[6pt]
+      $e \notin$ any MST
+    \end{center}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.60cm}
+  \centerline{\large Bridge}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cycle Property \pno{$10.15\; (2)$}}
+    \begin{center}
+      $C \subseteq G, e \in C$, $e$ is the unique maximum-weighted edge of $G$ \\[6pt]
+      $\implies$ \\[6pt]
+      $e \notin$ any MST of $G$
+    \end{center}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{By contradiction.}
+  \[
+    T' = T - \set{e} + \set{e'}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cycle Property \pno{$10.15\; (5)$}}
+    \centerline{$C \subseteq G, e \in C$, $e$ is the unique lightest edge of $C$ $\implies^{?} e \in \forall$ MST}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \fignocaption{width = 0.40\textwidth}{figs/cycle-property-inverse.pdf}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{Properties of MST}
+  \begin{exampleblock}{\cmark or \xmark \pno{3.6.15}}
+    \begin{enumerate}
+      \item \xmark The shortest-path tree computed by Dijkstra's algorithm is
+      necessarily an MST.
+      \item \xmark The shortest path between two nodes is necessarily part of some
+      MST.
+      \fignocaption{width = 0.10\textwidth}{figs/mst-sssp.pdf}
+      \item \cmark Prim's algorithm works correctly when there are negative edges.
+      \item \cmark If $e$ belongs to some MST, then $e$ is a minimum edge across some
+      cut.
+      \item \cmark $w > 0$; Vertex $s$; shortest-path tree of $s$ and some MST share
+      a common edge
+      \pno{6.1.5}
+      \item \cmark $w'(e) = \left(w(e)\right)^2$ \pno{6.2.2}
+    \end{enumerate}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%
+\begin{frame}{Uniqueness of MST}
+  \begin{exampleblock}{Uniqueness of MST \pno{3.6.21}}
+    Distinct weights $\Rightarrow$ unique MST.
+  \end{exampleblock}
+
+  % \fignocaption{width = 0.35\textwidth}{figs/mst-unique.pdf}
+  \begin{block}{Solution.}
+    \begin{proof}
+      By contradiction: two MSTs $T_1 \neq T_2$.
+      \begin{itemize}
+	\item $\Delta E = \set{e \mid e \in T_1 \setminus T_2 \lor e \in T_2
+	  \setminus T_1}$
+	\item $e = \min \Delta E$. Suppose $e \in T_1 \setminus T_2$
+	\item $T_2 + \set{e} \Rightarrow C$
+	\item $\exists (e' \in C) \notin T_1 \Rightarrow e' \in T_{2} \setminus T_{1} \Rightarrow e' \in \Delta E \Rightarrow w(e') > w(e)$
+	\item $e' \in T_{2} \setminus T_{1} \Rightarrow e' \in \Delta E$
+	\item $T' = T_{2} + \set{e} - \set{e'} \Rightarrow w(T') < w(T_{2})$
+      \end{itemize}
+    \end{proof}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Uniqueness of MST}
+  \begin{block}{Conditions for Uniqueness of MST \pno{3.6.19}}
+    \begin{itemize}
+      \item \pno{3.6.19 (a)}: unique MST $\nRightarrow$ equal weights
+        \fignocaption{width = 0.20\textwidth}{figs/unique-mst-partition.pdf}
+      \item \pno{3.6.19 (c)}: Counterexamples
+        \begin{itemize}
+          \item \xmark cut: minimum-weight edge across any cut is unique
+          \item \xmark cycle: maximum-weight edge in any cycle is unique
+        \end{itemize}
+        \begin{columns}
+          \column{0.50\textwidth}
+            \fignocaption{width = 0.40\textwidth}{figs/unique-mst-partition.pdf}
+          \column{0.50\textwidth}
+            \fignocaption{width = 0.45\textwidth}{figs/unique-mst-cycle.pdf}
+        \end{columns}
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}{Updating MST}
+  \begin{exampleblock}{Adding vertex to MST \pno{3.6.2}}
+    \begin{itemize}
+      \item $G = (V,E)$; an MST $T$
+      \item $G' = (V',E')$: $V' = V + \set{X}, E' = E + E_X$; $E_X$: incident
+      edges to $X$
+      \item To find an MST $T'$ of $G'$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{enumerate}
+      \item Recomputing $O((m+n) \log n)$
+      \item
+        \begin{itemize}
+          \item There \emph{exists} an MST of $G'$ that includes no edges in $G
+          \setminus T$
+          \item Run MST alg. on $G'' =(V + \set{X}, T + E_X)$
+          \item $O(n \log n)$
+        \end{itemize}
+      \item $O(n)$
+        \begin{itemize}
+          \item ``On Finding and Updating Spanning Tress and Shortest Paths'', 1975
+          \item ``Algorithms for Updating Minimum Spanning Trees'', 1978
+        \end{itemize}
+    \end{enumerate}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{Variants of MST}
+  \begin{exampleblock}{Feedback edge set: \pno{3.6.4}}
+    \begin{enumerate}
+      \item maximum spanning tree
+      \item (minimum) feedback edge set:
+	\begin{itemize}
+	  \item a set of edges which, when removed from the graph, leave an acyclic graph $G'$
+	  \item assuming $G$ is connected $\Rightarrow$ $G'$ is connected
+	  \item feedback \emph{arc} set: ``cycle'' $\Rightarrow$ circular dependency
+	\end{itemize}
+    \end{enumerate}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item $G'$ is connected + acyclic $\Rightarrow$ $G'$ is an ST
+      \item $\textrm{FES} \Leftrightarrow G \setminus \textrm{Max-ST}$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%
+\begin{frame}{Variants of MST}
+  \begin{exampleblock}{Edge weights \pno{3.6.15 (8); 3.6.16}}
+    \begin{itemize}
+      \item \pno{3.6.15 (8)}: negative edges for Prim algorithm
+      \item \pno{3.6.16}: $w'(e) = (w(e))^{2}$
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{Variants of MST}
+  \begin{exampleblock}{MST with specified leaves: \pno{3.6.7}}
+    \begin{itemize}
+      \item $G = (V, E), U \subset V$
+      \item finding an MST with $U$ as leaves
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution.}
+    \begin{columns}
+      \column{0.60\textwidth}
+	\begin{itemize}
+	  \item $G' = G \setminus U$
+	  \item MST $T'$ of $G'$
+	  \item attach $\forall u \in U$ to $T'$ (lightest edge)
+	\end{itemize}
+      \column{0.40\textwidth}
+	\fignocaption{width = 0.50\textwidth}{figs/mst-specified-leaves.pdf}
+    \end{columns}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%
+\begin{frame}{Variants of MST}
+  \begin{block}{ST with specified edges: \pno{3.6.10}}
+    \begin{itemize}
+      \item $G = (V,E), S \subset E$ (no cycle in S)
+      \item finding an MST with $E$ as edges
+    \end{itemize}
+  \end{block}
+
+  \begin{block}{Solution.}
+    \begin{itemize}
+      \item contract each isolated component of $S$ to a \emph{super-vertex}
+      \item $G \to G'$
+      \item find MST of $G'$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%
+\section{MST vs. Shortest Paths}
+
+%%%%%%%%%%%%%
+\begin{frame}{MST vs. shortest paths}
+  \begin{exampleblock}{\pno{3.6.15}}
+     \begin{itemize}
+       \item \pno{3.6.15 (6)}: Dijkstra $\Rightarrow$ SSSP tree $\Rightarrow^{?}$ MST
+       \item \pno{3.6.15 (7)}: $s \to t$ shortest path $\Rightarrow^{?} \subseteq \exists \text{ MST}$
+     \end{itemize}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%
+\begin{frame}{MST vs. shortest paths}
+  \begin{exampleblock}{Sharing edges \pno{3.6.5}}
+    \begin{itemize}
+      \item $G = (V, E), w(e) > 0$
+      \item Given $s$: all sssp trees from $s$ must share some edge with \textcolor{red}{all} (\textcolor{gray}{some}) MSTs of $G$
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{block}{Solution}
+    $E'$: lightest edges leaving $s$
+    \begin{itemize}
+      \item any MST $T$ of $G$: $T \cap E' \neq \emptyset$
+      \item $E' \subset \forall \text{ sssp trees}$
+    \end{itemize}
+  \end{block}
+\end{frame}
+%%%%%%%%%%%%%

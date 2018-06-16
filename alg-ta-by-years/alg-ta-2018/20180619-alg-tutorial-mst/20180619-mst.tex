@@ -1,0 +1,84 @@
+\documentclass{beamer}
+\usepackage{lmodern}
+
+\usetheme{CambridgeUS} % try Madrid, Pittsburgh
+\usecolortheme{beaver}
+\usefonttheme[onlymath]{serif} % try "professionalfonts"
+
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+
+\usepackage{amsmath, amsfonts, latexsym}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\usepackage{pifont}
+
+\usepackage[normalem]{ulem}
+\newcommand{\middlewave}[1]{\raisebox{0.5em}{\uwave{\hspace{#1}}}}
+
+\usepackage{graphicx, subcaption}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+% colors
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\redoverlay}[2]{\textcolor<#2>{red}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\greenoverlay}[2]{\textcolor<#2>{green}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\blueoverlay}[2]{\textcolor<#2>{blue}{#1}}
+\newcommand{\purple}[1]{\textcolor{purple}{#1}}
+\newcommand{\cyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\violet}[1]{\textcolor{violet}{#1}}
+\newcommand{\lgray}[1]{\textcolor{lightgray}{#1}}
+\newcommand{\teal}[1]{\textcolor{teal}{#1}}
+\newcommand{\pno}[1]{\textcolor{blue}{\scriptsize [Problem: #1]}}
+\newcommand{\set}[1]{\{#1\}}
+
+\newcommand{\cmark}{\textcolor{red}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for fig without caption: #1: width/size; #2: fig file
+\newcommand{\fignocaption}[2]{
+  \begin{figure}[htp]
+    \centering
+      \includegraphics[#1]{#2}
+  \end{figure}
+}
+
+% for fig without caption: #1: width/size; #2: fig file; #3: fig caption
+\newcommand{\fig}[3]{
+  \begin{figure}[htp]
+    \centering
+      \includegraphics[#1]{#2}
+      \caption[labelInTOC]{#3}
+  \end{figure}
+}
+
+\newcommand{\titletext}{Minimum Spanning Tree (MST)}
+%%%%%%%%%%%%%%%%%%%%
+\title[\titletext]{\titletext}
+\subtitle{}
+
+\author[Hengfeng Wei]{Hengfeng Wei}
+\institute{hfwei@nju.edu.cn}
+\date{June 19, 2018}
+
+\AtBeginSection[]{
+  \begin{frame}[noframenumbering, plain]
+    \frametitle{\titletext}
+    \tableofcontents[currentsection, sectionstyle=show/shaded, subsectionstyle=show/show/hide]
+  \end{frame}
+}
+
+%%%%%%%%%%
+\begin{document}
+\maketitle
+
+\input{sections/mst}
+\input{sections/summary}
+
+\end{document}
+%%%%%%%%%%

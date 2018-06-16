@@ -1,0 +1,125 @@
+\section{Variants of MST}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Feedback edge set}
+  \begin{exampleblock}{Feedback edge set (Problem 6.5)}
+    \begin{enumerate}
+      \item Max-ST
+      \item (minimum) feedback edge set $F$:
+		\[
+		  G' \triangleq G \setminus F \text{ is acyclic.}
+		\]
+    \end{enumerate}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MST with specific leaves}
+  \begin{exampleblock}{MST with specific leaves (Problem 6.8)}
+    \begin{itemize}
+      \item $G = (V, E), U \subset V$
+      \item finding an MST with $U$ as leaves
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{columns}
+	\column{0.55\textwidth}
+	  \begin{itemize}
+		\item MST $T'$ of $G' \triangleq G \setminus U$
+		\item attach $\forall u \in U$ to $T'$ (lightest edge)
+	  \end{itemize}
+	\column{0.40\textwidth}
+  	  \fignocaption{width = 0.50\textwidth}{figs/mst-specified-leaves.pdf}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{MST with specific edges}
+  \begin{exampleblock}{MST with specific edges (Problem 6.9)}
+    \begin{itemize}
+      \item $G = (V,E), S \subset E$ (no cycle in S)
+      \item finding an MST with $E$ as edges
+    \end{itemize}
+  \end{exampleblock}
+
+  \begin{enumerate}
+	\item Run Kruskal
+	\item Computing MST on graph of CCs
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Edge weights}
+  \begin{exampleblock}{Edge weights (Problem 6.11)}
+	\[
+	  w(e) > 0, w'(e) = \left(w(e)\right)^2
+	\]
+  \end{exampleblock}
+
+  \vspace{0.50cm}
+  \begin{exampleblock}{Edge weights (Problem 6.10--7)}
+	\[
+	  \exists e: w(e) < 0
+	\]
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Linear MST algorithms on special graphs}
+  \begin{exampleblock}{Linear MST algorithms on special graphs (Problem 5.25)}
+	\begin{enumerate}
+	  \item $\forall e \in E: w(e) = 1$
+	  \item $m = n + 10$
+	  \item $\forall e \in E: w(e) = 1 \lor w(e) = 2$
+	\end{enumerate}
+  \end{exampleblock}
+
+  \begin{enumerate}
+	\item BFS
+	\item Cycle-breaking $\times 11$
+	\item BFS $\times 2$ ($\equiv$ Kruskal)
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Updating MST}
+  \begin{exampleblock}{Updating MST (Problem 6.7)}
+	$T = (V, E')$ is an MST of $G = (V, E)$:
+	\begin{columns}
+	  \column{0.45\textwidth}
+		\begin{enumerate}
+		  \item $w'(e) < w(e)$
+			\begin{enumerate}
+			  \item $e \in E'$
+			  \item $e \notin E'$
+			\end{enumerate}
+		\end{enumerate}
+	  \column{0.45\textwidth}
+		\begin{enumerate}
+		  \setcounter{enumi}{1}
+		  \item $w'(e) > w(e)$
+			\begin{enumerate}
+			  \item $e \in E'$
+			  \item $e \notin E'$
+			\end{enumerate}
+		\end{enumerate}
+	\end{columns}
+  \end{exampleblock}
+
+  \fignocaption{width = 0.15\textwidth}{figs/qrcode-update-mst.png}{\centerline{Let me know if you fully understand this answer.}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Second-best MST}
+  \begin{exampleblock}{Second-best MST (Problem 6.15)}
+	Find a second-best (or, generally $k$-th) MST.
+  \end{exampleblock}
+
+  \begin{theorem}{Second-best MST}
+	A second-best MST $T'$ is of the form ($T$: an MST)
+	\[
+	  T' = T - e + e'.
+	\]
+  \end{theorem}
+
+  \centerline{By contradiction (assume distinct edge weights).}
+
+  \[
+	w(T) < w(T'') < w(T')
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
