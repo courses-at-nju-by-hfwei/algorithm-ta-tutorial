@@ -25,6 +25,7 @@
 
 % colors
 \newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\brown}[1]{\textcolor{brown}{#1}}
 \newcommand{\redoverlay}[2]{\textcolor<#2>{red}{#1}}
 \newcommand{\green}[1]{\textcolor{green}{#1}}
 \newcommand{\greenoverlay}[2]{\textcolor<#2>{green}{#1}}
@@ -58,12 +59,20 @@
   \end{figure}
 }
 
+\newcommand{\tx}{%
+  \section*{}
+  \begin{frame}[noframenumbering]
+	\fignocaption{width = 0.50\textwidth}{figs/thankyou.jpg}
+  \end{frame}
+}
+
 \newcommand{\titletext}{Minimum Spanning Tree (MST)}
 %%%%%%%%%%%%%%%%%%%%
 \title[\titletext]{\titletext}
 \subtitle{}
 
 \author[Hengfeng Wei]{Hengfeng Wei}
+\titlegraphic{\includegraphics[height = 2.0cm]{figs/qrcode-alg-ta-tutorial-2018}}
 \institute{hfwei@nju.edu.cn}
 \date{June 19, 2018}
 
@@ -84,7 +93,7 @@
 \input{sections/mst-variants}
 \input{sections/mst-sp}
 
-\input{sections/summary}
+\tx{}
 
 \end{document}
 %%%%%%%%%%

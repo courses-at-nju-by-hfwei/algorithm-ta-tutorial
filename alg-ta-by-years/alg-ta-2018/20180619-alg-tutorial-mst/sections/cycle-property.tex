@@ -3,10 +3,6 @@
 %%%%%%%%%%%%
 \begin{frame}{}
   \centerline{\teal{\Large Cycle Property}}
-
-  \[
-    G = (V, E, w)
-  \]
 \end{frame}
 %%%%%%%%%%%%%
 
@@ -17,7 +13,8 @@
       \item Let $C$ be any cycle in $G$
       \item Let $e = (u,v)$ be \red{\it a} maximum-weight edge in $C$
     \end{itemize}
-    Then $\exists \textrm{ MST } T \text{ of } G: e \notin T$.
+
+    \centerline{Then $\red{\exists} \text{ MST } T \text{ of } G: e \notin T$.}
   \end{block}
 
   \fignocaption{width = 0.50\textwidth}{figs/cycle-property.pdf}
@@ -25,8 +22,11 @@
   \pause
   \vspace{-0.30cm}
   \[
-    T' = \underbrace{T - \set{e}}_{\red{e \;\in\; T}} + \set{e'}
+    T' = \underbrace{T - \set{e}}_{\red{\text{if } e \;\in\; T}} + \set{e'}
   \]
+
+  \pause
+  \centerline{``a'' $\to$ ``the'' \red{$\implies$} ``$\exists$'' $\to$ ``$\forall$''}
 \end{frame}
 %%%%%%%%%%%%%
 
@@ -52,24 +52,27 @@
 \begin{frame}{}
   \begin{exampleblock}{Anti-Kruskal algorithm \pno{$10.19 (c)$}}
     \centerline{\href{https://en.wikipedia.org/wiki/Reverse-delete_algorithm}{Reverse-delete algorithm (wiki)}}
-
-    \[
-      O\Big(m \log n (\log \log n)^3\Big)
-    \]
   \end{exampleblock}
 
   \pause
-  \vspace{0.50cm}
-  \begin{proof}
-    \textbf{Invariant: } If $F$ is the set of edges remained at the end of the while loop, 
-    then there is some MST that are a subset of $F$.
-  \end{proof}
+  \[
+    O\Big(m \log n (\log \log n)^3\Big)
+  \]
+
+  \pause
+  \begin{theorem}[Invariant for Correctness]
+    \begin{center}
+      If $F$ is the set of edges remained at the end of the while loop, \\
+      then there is some \text{MST} that are a subset of $F$.
+    \end{center}
+  \end{theorem}
 
   \pause
   \vspace{0.50cm}
   \begin{center}
     {\it ``On the Shortest Spanning Subtree of a Graph \\
-    and the Traveling Salesman Problem''} \qquad --- Kruskal, $1956$.
+    and the Traveling Salesman Problem''} \\
+    \hfill --- Kruskal, $1956$.
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%
@@ -102,7 +105,7 @@
 
   \pause
   \vspace{0.50cm}
-  \centerline{By contradiction.}
+  \centerline{\teal{By Contradiction.}}
   \[
     T' = T - \set{e} + \set{e'}
   \]

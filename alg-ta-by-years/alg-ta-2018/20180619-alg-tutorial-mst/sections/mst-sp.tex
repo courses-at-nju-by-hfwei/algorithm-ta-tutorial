@@ -1,31 +1,42 @@
 % file: sections/mst-sp.tex
 
+%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large MST \emph{v.s.} Shortest Path}}
+\end{frame}
+%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%
 \begin{frame}{}
   \begin{exampleblock}{MST vs. Shortest Paths \pno{$10.15 \; (6)$}}
     \centerline{\xmark The shortest path between two nodes is necessarily part of some MST.}
   \end{exampleblock}
 
-  \fignocaption{width = 0.10\textwidth}{figs/mst-sssp.pdf}
+  \fignocaption{width = 0.25\textwidth}{figs/mst-sssp.pdf}
 \end{frame}
 %%%%%%%%%%%%%
 
 %%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{exampleblock}{Sharing edges \pno{3.6.5}}
-    \begin{itemize}
-      \item $G = (V, E), w(e) > 0$
-      \item Given $s$: all sssp trees from $s$ must share some edge with \textcolor{red}{all} (\textcolor{gray}{some}) MSTs of $G$
-    \end{itemize}
-      \cmark $w > 0$; Vertex $s$; shortest-path tree of $s$ and some MST share a common edge \pno{$10.9$}
+  \begin{exampleblock}{Sharing Edges \pno{$10.9$}}
+    \[
+      G = (V, E, w), w(e) > 0, s \in V
+    \]
+
+    \centerline{All sssp trees from $s$ must share some edge with \textcolor{red}{all} {\small (\textcolor{gray}{some})} MSTs of $G$.}
   \end{exampleblock}
 
-  \begin{block}{Solution}
-    $E'$: lightest edges leaving $s$
-    \begin{itemize}
-      \item any MST $T$ of $G$: $T \cap E' \neq \emptyset$
-      \item $E' \subset \forall \text{ sssp trees}$
-    \end{itemize}
-  \end{block}
+  \pause
+  \[
+    E' \subseteq E: \text{ lightest edges leaving } s
+  \]
+
+  \pause
+  \[
+    E' \subseteq \forall \text{ sssp trees from } s
+  \]
+  \[
+    \forall \text{ MST } T \text{ of } G: T \cap E' \neq \emptyset
+  \]
 \end{frame}
 %%%%%%%%%%%%%
