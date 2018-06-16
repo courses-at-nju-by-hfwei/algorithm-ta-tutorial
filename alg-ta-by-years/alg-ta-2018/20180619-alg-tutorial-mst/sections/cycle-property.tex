@@ -1,0 +1,122 @@
+% file: sections/cycle-property.tex
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large Cycle Property}}
+
+  \[
+    G = (V, E, w)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{Cycle property \pno{$10.19 (b)$}}
+    \begin{itemize}
+      \item Let $C$ be any cycle in $G$
+      \item Let $e = (u,v)$ be \red{\it a} maximum-weight edge in $C$
+    \end{itemize}
+    Then $\exists \textrm{ MST } T \text{ of } G: e \notin T$.
+  \end{block}
+
+  \fignocaption{width = 0.50\textwidth}{figs/cycle-property.pdf}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    T' = \underbrace{T - \set{e}}_{\red{e \;\in\; T}} + \set{e'}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+% \begin{frame}{}
+%   \begin{proof}
+%     Basic idea: pick any MST $T$ of $G$
+%     \begin{itemize}
+%       \item $e \notin T$
+%       \item $e \in T \Rightarrow e \notin T'$
+% 	\begin{itemize}
+% 	  \item $T - \set{e}$ $\Rightarrow$ $(S, V \setminus S)$
+% 	  \item $\exists e' = (u', v') \in C$ ($e' \in P_{u,v}$) across the cut
+% 	  \item \textcolor{red}{$T' = T - \set{e} + \set{e'}$}: spanning tree
+% 	  \item $w(e') \leq w(e) \Rightarrow w(T') \leq w(T) \Rightarrow w(T') = w(T)$
+% 	\end{itemize}
+%     \end{itemize}
+%   \end{proof}
+% \end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Anti-Kruskal algorithm \pno{$10.19 (c)$}}
+    \centerline{\href{https://en.wikipedia.org/wiki/Reverse-delete_algorithm}{Reverse-delete algorithm (wiki)}}
+
+    \[
+      O\Big(m \log n (\log \log n)^3\Big)
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{proof}
+    \textbf{Invariant: } If $F$ is the set of edges remained at the end of the while loop, 
+    then there is some MST that are a subset of $F$.
+  \end{proof}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{center}
+    {\it ``On the Shortest Spanning Subtree of a Graph \\
+    and the Traveling Salesman Problem''} \qquad --- Kruskal, $1956$.
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cycle Property \pno{$10.15\; (1)$}}
+    \begin{center}
+      $G = (V, E), |E| > |V| - 1$, $e$ unique maximum-weighted edge \\[6pt]
+      \red{$\implies^{?}$} \\[6pt]
+      $e \notin$ any MST
+    \end{center}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.60cm}
+  \centerline{\large Bridge}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cycle Property \pno{$10.15\; (2)$}}
+    \begin{center}
+      $C \subseteq G, e \in C$, $e$ is the unique maximum-weighted edge of $G$ \\[6pt]
+      $\implies$ \\[6pt]
+      $e \notin$ any MST of $G$
+    \end{center}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{By contradiction.}
+  \[
+    T' = T - \set{e} + \set{e'}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cycle Property \pno{$10.15\; (5)$}}
+    \centerline{$C \subseteq G, e \in C$, $e$ is the unique lightest edge of $C$ $\implies^{?} e \in \forall$ MST}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \fignocaption{width = 0.40\textwidth}{figs/cycle-property-inverse.pdf}
+\end{frame}
+%%%%%%%%%%%%%

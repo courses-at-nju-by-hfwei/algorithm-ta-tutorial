@@ -17,6 +17,7 @@
 \usepackage[normalem]{ulem}
 \newcommand{\middlewave}[1]{\raisebox{0.5em}{\uwave{\hspace{#1}}}}
 
+\usepackage{centernot}
 \usepackage{graphicx, subcaption}
 
 \usepackage{algorithm}
@@ -77,7 +78,12 @@
 \begin{document}
 \maketitle
 
-\input{sections/mst}
+\input{sections/cut-property}
+\input{sections/cycle-property}
+\input{sections/unique-mst}
+\input{sections/mst-variants}
+\input{sections/mst-sp}
+
 \input{sections/summary}
 
 \end{document}

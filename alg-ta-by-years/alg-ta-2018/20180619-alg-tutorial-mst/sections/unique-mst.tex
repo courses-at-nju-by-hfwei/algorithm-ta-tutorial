@@ -1,0 +1,125 @@
+% file: sections/unique-mst.tex
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Uniqueness of MST \pno{$10.18\; (1)$}}
+    \centerline{Distinct weights $\implies$ unique MST.}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{By contradiction.}
+
+  \pause
+  \[
+    \exists \text{ MSTs } T_1 \neq T_2
+  \]
+
+  \pause
+  \[
+    \Delta E = \set{e \mid e \in T_1 \setminus T_2 \lor e \in T_2 \setminus T_1}
+  \]
+
+  \pause
+  \[
+    e = \min \Delta E
+  \]
+
+  \pause
+  \[
+    e \in T_1 \setminus T_2 \;\text{\small \it (w.l.o.g)}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    e \in T_1 \setminus T_2
+  \]
+
+  \fignocaption{width = 0.40\textwidth}{figs/mst-unique.pdf}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    T_2 + \set{e} \implies C
+  \]
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    \exists (e' \in C) \red{\notin T_1} \implies e' \in T_{2} \setminus T_{1} \implies e' \in \Delta E \pause \implies w(e') > w(e)
+  \]
+
+  \pause
+  \vspace{-0.50cm}
+  \[
+    T' = T_{2} + \set{e} - \set{e'} \implies w(T') < w(T_{2})
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Condition for Uniqueness of MST \pno{$10.18\; (2)$}}
+    \centerline{Unique MST $\centernot\implies$ Equal weights.}
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.30\textwidth}{figs/unique-mst-partition.pdf}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Unique MST \pno{$10.21 (3)$}}
+    \centerline{Unique MST $\centernot\implies$ Minimum-weight edge across any cut is unique.}
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.30\textwidth}{figs/unique-mst-cut-counterexample.pdf}
+
+  \pause
+  \begin{theorem}
+    Minimum-weight edge across any cut is unique $\implies$ Unique MST.
+  \end{theorem}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Unique MST \pno{$10.21\; (3)$}}
+    Unique MST $\centernot\implies$ Maximum-weight edge in any cycle is unique.
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.30\textwidth}{figs/unique-mst-cycle-counterexample.pdf}
+
+  \pause
+  \begin{theorem}[Conjecture]
+    Maximum-weight edge in any cycle is unique $\implies$ Unique MST.
+  \end{theorem}
+
+  \pause
+  \fignocaption{width = 0.20\textwidth}{figs/unique-mst-cycle-noncounterexample.pdf}
+\end{frame}
+%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Unique MST \pno{$10.21\; (4)$}}
+    \centerline{To decide whether a graph has a unique MST.}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.80cm}
+  \centerline{Ties breaking in Prim's and Kruskal's algorithms}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{proof}
+    \centerline{Cut property and Cycle property.}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%

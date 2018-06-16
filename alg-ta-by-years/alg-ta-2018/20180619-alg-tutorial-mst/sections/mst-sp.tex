@@ -1,37 +1,31 @@
-\section{MST vs. Shortest Path}
+% file: sections/mst-sp.tex
 
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Sharing edges}
-  \begin{exampleblock}{Sharing edges (Problem 6.6)}
-	\begin{itemize}
-	  \item $G = (V, E), w(e) > 0$
-	  \item Given $s$: all sssp trees from $s$ must share some edge with some MST of $G$
-	\end{itemize}
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{MST vs. Shortest Paths \pno{$10.15 \; (6)$}}
+    \centerline{\xmark The shortest path between two nodes is necessarily part of some MST.}
   \end{exampleblock}
 
-  \vspace{0.60cm}
-  \centerline{a lightest edge leaving $s$}
+  \fignocaption{width = 0.10\textwidth}{figs/mst-sssp.pdf}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{SP \emph{vs.} MST}
-  \begin{exampleblock}{SP \emph{vs.} MST (Problem 6.10--6)}
-	\xmark\; The shortest path between two nodes is necessarily part of some MST.
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Sharing edges \pno{3.6.5}}
+    \begin{itemize}
+      \item $G = (V, E), w(e) > 0$
+      \item Given $s$: all sssp trees from $s$ must share some edge with \textcolor{red}{all} (\textcolor{gray}{some}) MSTs of $G$
+    \end{itemize}
+      \cmark $w > 0$; Vertex $s$; shortest-path tree of $s$ and some MST share a common edge \pno{$10.9$}
   \end{exampleblock}
 
-  \vspace{0.50cm}
-  \begin{exampleblock}{SPT \emph{vs.} MST (Problem 6.17)}
-	\xmark\; The shortest-path tree computed by Dijkstra's algorithm is necessarily an MST.
-  \end{exampleblock}
-
-  \fignocaption{width = 0.20\textwidth}{figs/mst-sssp.pdf}
+  \begin{block}{Solution}
+    $E'$: lightest edges leaving $s$
+    \begin{itemize}
+      \item any MST $T$ of $G$: $T \cap E' \neq \emptyset$
+      \item $E' \subset \forall \text{ sssp trees}$
+    \end{itemize}
+  \end{block}
 \end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Edge weights}
-  \begin{exampleblock}{Edge weights (Problem 6.19)}
-	MST \emph{vs.} SPT (from $s$):
-	\[
-	  w(e) \ge 0, w'(e) = w(e) + 1
-	\]
-  \end{exampleblock}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%

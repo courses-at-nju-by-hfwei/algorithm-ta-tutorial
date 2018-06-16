@@ -1,0 +1,130 @@
+% file: sections/cut-property.tex
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large Cut Property}}
+
+  \[
+    G = (V, E, w)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Cut Property (Strong)}
+    \begin{itemize}
+      \item $X$ is some part of an MST $T$ of $G$
+      \item Any \red{\it cut} $(S, V \setminus S)$ \emph{s.t.} $X$ does \red{\it not} cross $(S, V \setminus S)$
+     ­\item Let $e$ be \red{\it a} lightest edge across $(S, V \setminus S)$
+    \end{itemize}
+
+    \pause
+    Then $X \cup \set{e}$ is some part of an MST $T'$ of $G$.
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.60cm}
+  \centerline{\red{\large Correctness of Prim's and Kruskal's algorithms.}}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large By Exchange Argument.}}
+
+  \pause
+  \vspace{0.30cm}
+  \fignocaption{width = 0.50\textwidth}{figs/cut-property}
+
+  \pause
+  \[
+    T + \set{e} - \set{e'}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Cut Property (Weak)}
+    \begin{center}
+      A cut $(S, V \setminus S)$ \\[6pt]
+      Let $e = (u,v)$ be \red{\emph{a}} minimum-weight edge across $(S, V \setminus S)$ \\[8pt] \pause
+
+      Then $e$ must be in \red{\emph{some}} MST of $G$.
+    \end{center}
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.45\textwidth}{figs/cut-property-no-name}
+
+  \pause
+  \centerline{``a'' $\to$ ``the'' \red{$\implies$} ``some'' $\to$ ``any''}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Converse of Cut Property (Weak)}
+    \begin{center}
+      $e = (u,v) \in \exists$ MST $T$ of $G$ \\[6pt]
+      $\implies$ \\[6pt]
+      $e$ is a lightest edge across some cut $(S, V \setminus S)$
+    \end{center}
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.40\textwidth}{figs/cut-property-no-name}
+  \[
+    T' = \underbrace{T - \set{e}}_{\teal{\text{to find } (S, V \setminus S)}} +\; \underbrace{\set{e'}}_{\red{\exists?}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cut Property \pno{$10.15\; (3)$}}
+    \centerline{$e \in G$ is a lightest edge $\implies$ $e \in \exists$ MST of $G$}
+  \end{exampleblock}
+
+  \pause
+  \[
+    (S = \set{u}, V \setminus S)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cut Property \pno{$10.15\; (4)$}}
+    \centerline{$e \in G$ is the unique lightest edge $\Rightarrow$ $e \in \forall$ MST}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{By contradiction.}
+  \[
+    e \notin T: T' = T + \set{e} - \set{e'} \implies w(T') < w(T)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Wrong divide-and-conquer algorithm for MST \pno{$10.21$}}
+    \[
+      (V_{1}, V_{2}): ||V_{1}| - |V_{2}|| \le 1
+    \]
+    
+    \[
+      T_{1} + T_{2} + \set{e}: e \text{ is a lightest edge across } (V_{1}, V_{2})
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \fignocaption{width = 0.40\textwidth}{figs/divide-conquer-mst-counterexample.pdf}
+\end{frame}
+%%%%%%%%%%%%%
+
+

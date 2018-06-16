@@ -1,0 +1,112 @@
+% file: sections/mst-variants.tex
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Adding a Vertex $v$ to MST $T$ \pno{$10.7$}}
+    \[
+      G' = (V',E'): V' = V + \set{v}, E' = E + E_v
+    \]
+
+    \centerline{To find an MST $T'$ of $G'$.}
+  \end{exampleblock}
+
+  \[
+    O\Big((m+n) \log n\Big) \quad \text{\small (recompute on $G'$)}
+  \]
+
+  \pause
+  \begin{theorem}
+    \centerline{There \emph{exists} an MST of $G'$ that includes no edges in $G \setminus T$.}
+  \end{theorem}
+  \pause
+  \[
+    O(n \log n) \quad \text{\small (recompute on $G'' = (V + \set{v}, T + E_v)$)}
+  \]
+
+
+  \pause
+  \[
+    O(n)
+  \]
+
+  \pause
+  \vspace{-0.30cm}
+  \begin{center}
+    ``On Finding and Updating Spanning Tress and Shortest Paths'', $1975$ \\
+    ``Algorithms for Updating Minimum Spanning Trees'', $1978$
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Feedback Edge Set: \pno{$10.8$}}
+    \begin{enumerate}
+      \item Maximum spanning tree
+      \item (Minimum) feedback edge set:
+	\begin{itemize}
+	  \item a set of edges which, when removed from the graph, leave an acyclic graph $G'$
+	  \item assuming $G$ is connected $\Rightarrow$ $G'$ is connected
+	  \item feedback \emph{arc} set: ``cycle'' $\Rightarrow$ circular dependency
+	\end{itemize}
+    \end{enumerate}
+  \end{exampleblock}
+
+    \begin{itemize}
+      \item $G'$ is connected + acyclic $\Rightarrow$ $G'$ is an ST
+      \item $\textrm{FES} \Leftrightarrow G \setminus \textrm{Max-ST}$
+    \end{itemize}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Edge Weights}
+    \begin{itemize}
+      \item \pno{$10.15\; (7)$}: negative edges for Prim algorithm
+      \item \pno{$10.16$}: $w'(e) = (w(e))^{2}$
+    \end{itemize}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{MST with Specified Leaves: \pno{$10.11$}}
+    \begin{itemize}
+      \item $G = (V, E), U \subset V$
+      \item finding an MST with $U$ as leaves
+    \end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.25\textwidth}{figs/mst-specified-leaves.pdf}
+
+  \vspace{-0.30cm}
+  \[
+    \text{MST } T' \text{ of } G' = G \setminus U
+  \]
+
+  \pause
+  \centerline{Attach $\forall u \in U$ to $T'$ {\teal{\small (with lightest edge)}}}
+\end{frame}
+%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{block}{MST with Specified Edges: \pno{$10.13$}}
+    \[
+      G = (V,E),\quad S \subset E \text{ \small (no cycle in $S$)}
+    \]
+    
+    \centerline{To find an MST with $S$ as edges.}
+  \end{block}
+
+  \pause
+  \[
+    G \to G': \text{contract each component of $S$ to a vertex}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+
