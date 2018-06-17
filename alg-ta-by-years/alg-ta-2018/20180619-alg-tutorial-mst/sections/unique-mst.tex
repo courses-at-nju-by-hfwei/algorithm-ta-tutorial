@@ -55,7 +55,7 @@
   \pause
   \vspace{-0.30cm}
   \[
-    \exists (e' \in C) \red{\;\notin\; T_1} \implies e' \in T_{2} \setminus T_{1} \implies e' \in \Delta E \pause \implies w(e') > w(e)
+    \exists (e' \in C) \red{\;\notin\; T_1} \pause \implies e' \in T_{2} \setminus T_{1} \implies e' \in \Delta E \pause \implies w(e') > w(e)
   \]
 
   \pause
@@ -79,7 +79,7 @@
 
 %%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{exampleblock}{Unique MST \pno{$10.21 (3)$}}
+  \begin{exampleblock}{Unique MST \pno{$10.21\; (3)$}}
     \centerline{Unique MST $\centernot\implies$ Minimum-weight edge across any cut is unique.}
   \end{exampleblock}
 
@@ -87,8 +87,8 @@
   \fignocaption{width = 0.30\textwidth}{figs/unique-mst-cut-counterexample.pdf}
 
   \pause
-  \begin{theorem}
-    Minimum-weight edge across any cut is unique $\implies$ Unique MST.
+  \begin{theorem}[After-class Exercise]
+    \centerline{Minimum-weight edge across any cut is unique $\implies$ Unique MST.}
   \end{theorem}
 \end{frame}
 %%%%%%%%%%%%%
@@ -103,12 +103,25 @@
   \fignocaption{width = 0.30\textwidth}{figs/unique-mst-cycle-counterexample.pdf}
 
   \pause
-  \begin{theorem}[Conjecture]
-    Maximum-weight edge in any cycle is unique $\implies$ Unique MST.
+  \begin{theorem}[After-class Exercise]
+    \centerline{Maximum-weight edge in any cycle is unique $\implies$ Unique MST.}
   \end{theorem}
 
-  \pause
-  \fignocaption{width = 0.20\textwidth}{figs/unique-mst-cycle-noncounterexample.pdf}
+  % \pause
+  % \fignocaption{width = 0.20\textwidth}{figs/unique-mst-cycle-noncounterexample.pdf}
+\end{frame}
+%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \fignocaption{width = 0.20\textwidth}{figs/qrcode-jeffe-unique-mst}
+
+  \begin{columns}
+    \column{0.50\textwidth}
+      \fignocaption{width = 0.40\textwidth}{figs/qrcode-cut-unique-mst}
+    \column{0.50\textwidth}
+      \fignocaption{width = 0.40\textwidth}{figs/qrcode-cycle-unique-mst}
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%
 
@@ -120,12 +133,14 @@
 
   \pause
   \vspace{0.80cm}
-  \centerline{Ties breaking in Prim's and Kruskal's algorithms}
+  \centerline{\large \red{Ties} in Prim's and Kruskal's algorithms}
 
   \pause
-  \vspace{0.50cm}
-  \begin{proof}
-    \centerline{\teal{Cut property and Cycle property.}}
-  \end{proof}
+  \fignocaption{width = 0.25\textwidth}{figs/unique-mst-cut-counterexample.pdf}
+
+  \pause
+  \[
+    \underbrace{\red{T}}_{\teal{\text{Any MST}}} +\; \underbrace{\red{\set{e}}, \forall e \notin T}_{\teal{\text{Cycle}}}
+  \]
 \end{frame}
 %%%%%%%%%%%%

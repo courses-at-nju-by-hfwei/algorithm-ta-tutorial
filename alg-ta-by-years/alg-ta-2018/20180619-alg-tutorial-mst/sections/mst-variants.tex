@@ -39,8 +39,10 @@
   \pause
   \vspace{-0.30cm}
   \begin{center}
-    ``On Finding and Updating Spanning Tress and Shortest Paths'', $1975$ \\
-    ``Algorithms for Updating Minimum Spanning Trees'', $1978$
+    {\small
+      ``On Finding and Updating Spanning Tress and Shortest Paths'', $1975$ \\
+      ``Algorithms for Updating Minimum Spanning Trees'', $1978$
+    }
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%
@@ -72,15 +74,17 @@
 %%%%%%%%%%%%%
 \begin{frame}{}
   \begin{exampleblock}{MST with Specified Leaves: \pno{$10.11$}}
-    \begin{itemize}
-      \item $G = (V, E), U \subset V$
-      \item finding an MST with $U$ as leaves
-    \end{itemize}
+    \[
+      G = (V, E), \quad U \subset V
+    \]
+
+    \centerline{To find an MST with $U$ as leaves.}
   \end{exampleblock}
 
   \pause
   \fignocaption{width = 0.25\textwidth}{figs/mst-specified-leaves.pdf}
 
+  \pause
   \vspace{-0.30cm}
   \[
     \text{MST } T' \text{ of } G' = G \setminus U
@@ -105,5 +109,8 @@
   \[
     G \to G': \text{contract each component of $S$ to a vertex}
   \]
+
+  \pause
+  \centerline{Compute MST on $G'$}
 \end{frame}
 %%%%%%%%%%%%%
