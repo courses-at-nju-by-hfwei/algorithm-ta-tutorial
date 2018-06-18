@@ -2,13 +2,21 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
+  \fignocaption{width = 0.60\textwidth}{figs/floyd-warshall}
+
   \[
-    \dist(i,j,k) = \min(\dist(i,j,k-1), \dist(i,k,k-1) + \dist(k,j,k-1))
+    \dist(i,j,k) = \min\Big(\dist(i,j,k-1), \dist(i,k,k-1) + \dist(k,j,k-1)\Big)
   \]
 
   \[
-    \# k's = 1 \implies \dist(i,k,k-1)
+    \red{\# k's = 1}
   \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \input{algs/floyd-warshall-alg}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -48,44 +56,58 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{exampleblock}{Max-Min Path (Problem $13.2$)}
+  \begin{exampleblock}{Max-Min Path (Problem $13.2\; (2)$)}
     \[
       G = (V, E): \text{ network of oil pipelines}
     \]
     \[
       c(u,v): \text{ capacity of } (u,v)
     \]
+    \[
+      \text{cap}(s,t): \max \min s \leadsto t
+    \]
       
+    \vspace{0.30cm}
     \centerline{\teal{Compute all-pair $\text{cap}(u,v)$.}}
   \end{exampleblock}
 
   \pause
   \[
-    \text{cap}(u,v,k) = \max(\text{cap}(u,v,k-1), \min(\text{cap}(u,k,k-1), \text{cap}(k,v,k-1)))
+    \text{cap}(u,v,k) = \red{\max}\Big(\text{cap}(u,v,k-1), \red{\min}\big(\text{cap}(u,k,k-1), \text{cap}(k,v,k-1)\big)\Big)
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{exampleblock}{Routing table (Problem $13.1$)}
+    \[
+      \text{Go}(i,j) = k \implies v_i \to v_k \leadsto v_j
+    \]
+
     Contruct routing table and extract shortest paths from it.
   \end{exampleblock}
 
+  \pause
+  \vspace{0.30cm}
   \begin{columns}
     \column{0.50\textwidth}
+      \[
+	\text{Go}(i,j) \gets \text{Nil}
+      \]
+      \[
+	\forall (i,j) \in E: \text{Go}(i,j) \gets j
+      \]
+
       \begin{algorithmic}
-	\State Init: $\text{Go}(i,j) \gets \text{Null}$
-	\Statex
-	\State $\forall (i,j) \in E: \text{Go}(i,j) \gets j$
-	\Statex
 	\If{$\dots$}
 	  \State $\text{Go}(i,j) \gets \text{Go}(i,k)$
 	\EndIf
       \end{algorithmic}
     \column{0.50\textwidth}
       \begin{algorithmic}
-	\If{$Go(i,j) = \text{Null}$}
+	\If{$Go(i,j) = \text{Nil}$}
 	  \State $\dots$
 	\EndIf
+
 	\Statex
 	\While{$i \neq j$}
 	  \State $i \gets \text{Go}(i,j)$
@@ -93,10 +115,13 @@
       \end{algorithmic}
   \end{columns}
 
+  \pause
   \vspace{0.50cm}
   \[
     \text{Prev}(i,j) \gets \text{Prev}(k,j)
   \]
+
+  \pause
   \[
     \text{Intermediate}(i,j) \gets k
   \]
@@ -104,7 +129,7 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{exampleblock}{Shortest Cycle in Digraph (Problem $13.9$)}
-    Find shortest cycle in digraph $G = (V, E), w(e) > 0$.
+    Find shortest cycle in digraph $G = (V, E), \quad w(e) > 0$.
   \end{exampleblock}
 
   \pause
