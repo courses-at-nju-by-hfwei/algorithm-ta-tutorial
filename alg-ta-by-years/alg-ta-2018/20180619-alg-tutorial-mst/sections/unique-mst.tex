@@ -128,7 +128,7 @@
 %%%%%%%%%%%%
 \begin{frame}{}
   \begin{exampleblock}{Unique MST \pno{$10.21\; (4)$}}
-    \centerline{To decide whether a graph has a unique MST.}
+    To decide whether a graph has a unique MST.
   \end{exampleblock}
 
   \pause
@@ -139,8 +139,50 @@
   \fignocaption{width = 0.25\textwidth}{figs/unique-mst-cut-counterexample.pdf}
 
   \pause
+  \vspace{-0.30cm}
   \[
     \underbrace{\red{T}}_{\teal{\text{Any MST}}} +\; \underbrace{\red{\set{e}}, \forall e \notin T}_{\teal{\text{Cycle}}}
   \]
+
+  \pause
+  \centerline{\purple{By Kruskal Algorithm.}}
+\end{frame}
+%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Critical Edges \pno{$10.12$}}
+    \[
+      G \to T, \qquad G' \triangleq G \setminus \red{\set{e}} \to T'
+    \]
+    \[
+      w(T') > w(T)
+    \]
+
+    \pause
+    \vspace{0.30cm}
+    \centerline{To find all critical edges in $O(m \log m)$ time.}
+  \end{exampleblock}
+
+  \pause
+  \begin{columns}
+    \column{0.50\textwidth}
+      \fignocaption{width = 0.50\textwidth}{figs/critical-edges}
+      \[
+	w(e) = 3 \quad w(e) = 2
+      \]
+    \column{0.50\textwidth}
+      \pause
+      \centerline{\teal{By Kruskal Algorithm.}}
+
+      \pause
+      \vspace{0.50cm}
+      \centerline{\purple{No missing: Check all cycles.}}
+
+      \pause
+      \[
+	\red{O(m \log m)}
+      \]
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%
