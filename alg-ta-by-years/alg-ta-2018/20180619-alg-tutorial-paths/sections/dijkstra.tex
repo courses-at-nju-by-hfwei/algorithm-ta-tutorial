@@ -1,0 +1,116 @@
+% file: sections/dijkstra.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centerline{\teal{\large Dijkstra's Algorithm for SSSP}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  % \[
+  %   \red{\boxed{\dist(v) = \min_{u \in N(v)} \set{\dist(u) + l(u,v)}}}
+  % \]
+
+  \begin{center}
+    \red{\large Finding shortest paths from $s$ to other nodes $t$ \\ in non-decreasing order of $\dist(s,t)$.}
+  \end{center}
+  
+  \begin{columns}
+    \column{0.50\textwidth}
+      \fignocaption{width = 0.80\textwidth}{figs/dijkstra-correctness}
+    \column{0.50\textwidth}
+      \[
+	\blue{R \triangleq \set{u \mid s \leadsto u \text{ is known}}}
+      \]
+
+      \pause
+      \[
+	\red{v: \min_{u \in R} \dist(u) + l(u,v)}
+      \]
+
+      \pause
+      \[
+	l(v' \leadsto v) \ge 0
+      \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \input{algs/dijkstra-alg}
+
+  \pause
+  \[
+    O(n + (n+m) \log n) \implies O((n + m) \log n) \implies O(m \log n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Negative Edges (Problem $11.1$)}
+    Dijkstra's algorithm may fail if $w(e) < 0$.
+  \end{exampleblock}
+
+  \fignocaption{width = 0.30\textwidth}{figs/dijkstra-negative-edges}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Negative Edges from $s$ (Problem $11.9$)}
+    All negative edges are from $s$.
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.35\textwidth}{figs/dijkstra-correctness}
+
+  \pause
+  \vspace{-0.50cm}
+  \[
+    l(v' \leadsto v) \ge 0
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Generalized Shortest Path (Problem $11.8$)}
+    \[
+      \text{Digraph } G = (V, E),\quad l_e > 0,\quad c_v > 0,\quad s \in V
+    \]
+
+    \centerline{Shortest paths from $s$}
+  \end{exampleblock}
+
+  \pause
+  \[
+    \forall u \to v: l'(u,v) = l(u,v) + c_v
+  \]
+
+  \pause
+  \[
+    +\; c_s
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Shortest Paths Through $v_0$ (Problem $13.7$)}
+    \centerline{Strongly connected digraph $G = (V, E),\quad w(e) > 0$}
+    \[
+      \red{v_0 \in V}
+    \]
+    \centerline{Find shortest paths $s \leadsto^{\SP} t$ through $v_0$.}
+  \end{exampleblock}
+
+  \pause
+  \[
+    s \leadsto^{\SP} \red{v_0} \leadsto^{\SP} t
+  \]
+
+  \pause
+  \[
+    \forall v: v_0 \leadsto^{\SP} v
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%

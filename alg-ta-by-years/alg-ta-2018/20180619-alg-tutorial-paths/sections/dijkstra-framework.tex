@@ -1,0 +1,197 @@
+% file: sections/dijkstra-framework.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centerline{\teal{\large Dijkstra's Algorithm as a Framework}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Unique shortest paths (Problem 6.18)}
+    Undirected graph $G = (V, E), w(e) > 0, s \in V$:
+    \[
+      \text{usp}[v] = T \iff \exists! s \leadsto^{\SP} v 
+    \]
+  \end{exampleblock}
+
+  \begin{columns}[t]
+    \column{0.30\textwidth}
+      \begin{algorithmic}
+	\ForAll{$v \in V$}
+	  \State $\text{usp}[v] \gets F$
+	\EndFor
+	\State $\text{usp}[s] \gets T$
+      \end{algorithmic}
+    \column{0.60\textwidth}
+      \begin{algorithmic}
+	\If{$\dist[v] > \dist[u] + l(u,v)$}
+	  \State $\dist[v] \gets \dist[u] + l(u,v)$
+	  \State $\text{usp}[v] \gets \text{usp}[u]$
+	\ElsIf{$\dist[v] = \dist[u] + l(u,v)$}
+	  \State $\text{usp}[v] \gets F$
+	\EndIf
+      \end{algorithmic}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Number of shortest paths (Problem 6.31, 5.26)}
+    \[
+      \# s \leadsto^{\SP} v
+    \]
+
+    \[
+      O(n + m) \text{\emph{ if }} w(e) = 1
+    \]
+  \end{exampleblock}
+
+  \[
+    \text{Num}[s] = 1 \text{\emph{ vs. }} \text{Num}[s] = 0
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Min-Max Path (Problem $11.12$)}
+    \[
+      G = (V, E): \text{ network of highways}
+    \]
+    \[
+      l_e: \text{ road length} \quad L: \text{ tank capacity}
+    \]
+
+    \vspace{0.30cm}
+    \centerline{\teal{Given $L$, $\exists? s \leadsto t$ in $O(n + m)$.}}
+  \end{exampleblock}
+
+  \pause
+  \[
+    l_e > L \implies l_e = \infty
+  \]
+
+  \pause
+  \[
+    s \leadsto^{?} t
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Min-Max Path (Problem $11.12$)}
+    \[
+      G = (V, E): \text{ network of highways}
+    \]
+    \[
+      l_e: \text{ road length} \quad L: \text{ tank capacity}
+    \]
+	  
+    \vspace{0.30cm}
+    \centerline{\teal{Given $G$, to compute $\min L$ in $O((n + m) \log n)$.}}
+  \end{exampleblock}
+
+  \pause
+  % \[
+  %   L[v] = \min_{u \in N(v)} \max \set{L[u], l(u,v)}
+  % \]
+  \[
+    \blue{R \triangleq \set{u \mid s \leadsto u \text{ is known}}}
+  \]
+
+  \pause
+  \begin{columns}
+    \column{0.30\textwidth}
+      \begin{algorithmic}
+	\ForAll{$v \in V$}
+	  \State $L[v] \gets \infty$
+	\EndFor
+	\State $L[s] \gets 0$
+      \end{algorithmic}
+    \column{0.50\textwidth}
+      \begin{algorithmic}
+	\If{$L[v] > \red{\max(L[u], l(u,v))}$}
+	  \State $L[v] \gets \max(L[u], l(u,v))$
+	\EndIf
+      \end{algorithmic}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Max-Min Path (Problem $13.2$)}
+    \[
+      G = (V, E): \text{ network of oil pipelines}
+    \]
+    \[
+      c(u,v): \text{ capacity of } (u,v)
+    \]
+    \[
+      \text{cap}(s,t): \max \min s \leadsto t
+    \]
+    
+    \vspace{0.30cm}
+    \centerline{\teal{Given $s$, to compute $\text{cap}(s, v)$.}}
+  \end{exampleblock}
+
+  \pause
+  \fignocaption{width = 0.45\textwidth}{figs/max-min-path}
+  % \[
+  %   \text{cap}[v] = \max_{u \in N(v)} \min (\text{cap}[u], c(u,v))
+  % \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \blue{R \triangleq \set{u \mid s \leadsto u \text{ is known}}}
+  \]
+
+  \pause
+  \[
+    \purple{Q \gets \text{MaxPQ}(V)}
+  \]
+
+  \pause
+  \vspace{0.50cm}
+  \begin{columns}
+    \column{0.30\textwidth}
+      \begin{algorithmic}
+	\ForAll{$v \in V$}
+	  \State $\text{cap}[v] \gets \teal{-\infty}$
+	\EndFor
+	\State $\text{cap}[s] \gets 0$
+      \end{algorithmic}
+    \column{0.60\textwidth}
+      \begin{algorithmic}
+	\If{$\text{cap}[v] \;\teal{<}\; \red{\min(\text{cap}[u], c(u,v))}$}
+	  \State $\text{cap}[v] \gets \min(\text{cap}[u], c(u,v))$
+	\EndIf
+      \end{algorithmic}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Max-Min Path (Problem $13.2$)}
+    \[
+      G = (V, E): \text{ network of oil pipelines}
+    \]
+    \[
+      c(u,v): \text{ capacity of } (u,v)
+    \]
+    \[
+      \text{cap}(s,t): \max \min s \leadsto t
+    \]
+      
+    \vspace{0.30cm}
+    \centerline{\teal{Compute all-pair $\text{cap}(u,v)$.}}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \fignocaption{width = 0.40\textwidth}{figs/loading-wait}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
