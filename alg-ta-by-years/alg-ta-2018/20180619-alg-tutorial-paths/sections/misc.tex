@@ -1,15 +1,77 @@
-\section{Miscellaneous}
+% file: sections/misc.tex
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{Hamiltonian path in Tournament graph}
-  \begin{exampleblock}{Hamiltonian path in Tournament graph (Problem 6.22)}
-	\begin{align*}
-	  \forall u, v:\; &(u \to v \lor v \to u) \\
-	  	&\land \lnot (u \to v \land v \to u)
-	\end{align*}
+\begin{frame}{}
+  \begin{exampleblock}{Hamiltonian Path in Tournament Graph (Problem $11.10$)}
+    \begin{align*}
+      \forall u, v:\; &(u \to v \lor v \to u) \\
+	    &\land \lnot (u \to v \land v \to u)
+    \end{align*}
   \end{exampleblock}
 
+  \pause
   \vspace{0.60cm}
   \centerline{By mathematical induction on $n$.}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Eulerian Circuit (Problem $13.5$)}
+    To find an Eulerian circuit of a strongly connected digraph $G = (V, E)$ in $O(m)$ time. 
+  \end{exampleblock}
+
+  \pause
+  \[
+    \forall v \in V: \text{in}[v] = \text{out}[v]
+  \]
+
+  \pause
+  \fignocaption{width = 0.35\textwidth}{figs/eulerian-circuit}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \input{algs/eulerian-circuit-hierholzer}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{\red{\large Data Structures?}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Most Critical Edge (Problem $11.3$)}
+    \[
+      s, t \in V
+    \]
+
+    \[
+      e: E \setminus \set{e} \implies \dist(s,t) \text{ increases most}
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \fignocaption{width = 0.80\textwidth}{figs/most-critical-edge}
+
+  \pause
+  \[
+    O(n \; (m \log n)) = O(mn \log n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Bitonic Shortest Path (Problem $11.7$)}
+    \fignocaption{width = 0.45\textwidth}{figs/bitonic-path}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \fignocaption{width = 0.25\textwidth}{figs/qrcode-bitonic-shortest-path-clrs}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
