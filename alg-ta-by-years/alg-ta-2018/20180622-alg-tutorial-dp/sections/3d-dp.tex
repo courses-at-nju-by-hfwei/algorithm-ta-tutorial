@@ -1,0 +1,156 @@
+\section{3D DP}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{3-D DP}
+  \begin{exampleblock}{Floyd-Warshall algorithm}
+	\begin{enumerate}[(1)]
+	  \item DP for Floyd-Warshall algorithm for APSP on \textcolor{red}{directed} graphs
+	\end{enumerate}
+  \end{exampleblock}
+
+  \begin{description}
+	\item[Subproblem:] $\text{dist}[i,j,k]$: the length of the shortest path from $i$ to $j$ via only nodes in $v_{1} \cdots v_{k}$
+	\item[Goal:] $\text{dist}[i,j,n], \forall i,j$
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{3-D DP}
+  \begin{exampleblock}{Floyd-Warshall algorithm}
+	\begin{enumerate}[(1)]
+	  \item DP for Floyd-Warshall algorithm for APSP on \textcolor{red}{directed} graphs
+	\end{enumerate}
+  \end{exampleblock}
+
+  \begin{description}
+	\item[Make choice:] Is $v_{k}$ on the $\text{ShortestPath}[i,j,k]$?
+	\item[Recurrence:] 
+	  \[
+		\text{dist}[i,j,k] = \min \set{\text{dist}[i,j,k-1], \text{dist}[i,k,k-1] + \text{dist}[k,j,k-1]}
+	  \]
+
+	  \fignocaption{width = 0.40\textwidth}{figs/floyd-warshall.png}
+	  \pause
+	\item[Init:]
+	  \[
+		\text{dist}[i,j,0] = \left\{\begin{array}{ll}
+		  \textcolor{red}{0} & i = j \\
+		  w(i,j) & (i,j) \in E \\
+		  \infty & \text{o.w.}
+		\end{array} \right.
+	  \]
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{3-D DP}
+  \begin{exampleblock}{Floyd-Warshall algorithm (Problem 6.25)}
+	\begin{enumerate}[(1)]
+	  \setcounter{enumi}{1}
+	  \item Routing table for Floyd-Warshall algorithm
+	\end{enumerate}
+  \end{exampleblock}
+
+  \begin{algorithmic}
+	\ForAll{$k \gets 1 \dots n$}
+	  \ForAll{$i \gets 1 \dots n$}
+		\ForAll{$j \gets 1 \dots n$}
+		  \If{$\text{dist}[i,j] > \text{dist}[i,k] + \text{dist}[k,j]$}
+			\State $\text{dist}[i,j] \gets \text{dist}[i,k] + \text{dist}[k,j]$
+			\uncover<3->{\State \textcolor{red}{$\text{Go}[i,j] \gets \text{Go}[i,k]$}}
+		  \EndIf
+		\EndFor
+	  \EndFor
+	\EndFor
+  \end{algorithmic}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{Time: $\Theta(n^3)$ \hspace{0.10cm} Space: $\Theta(n^2)$}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{3-D DP}
+  \begin{exampleblock}{Floyd-Warshall algorithm (Problem 6.25)}
+	\begin{enumerate}[(1)]
+	  \setcounter{enumi}{1}
+	  \item Routing table for Floyd-Warshall algorithm
+	\end{enumerate}
+  \end{exampleblock}
+
+  \begin{columns}
+	\column{0.50\textwidth}
+	  \begin{algorithmic}
+		\ForAll{$i \gets 1 \dots n$}
+		  \ForAll{$j \gets 1 \dots n$}
+			\State $\text{dist}[i,j] \gets \infty$
+			\State \textcolor{red}{$\text{Go}[i,j] \gets \text{Nil}$}
+		  \EndFor
+		\EndFor
+
+		\ForAll{$(i,j) \in E$}
+		  \State $\text{dist}[i,j] \gets w(i,j)$
+		  \State \textcolor{red}{$\text{Go}[i,j] \gets j$}
+		\EndFor
+
+		\ForAll{$i \gets 1 \dots n$}
+		  \State $\text{dist}[i,i] \gets 0$
+		  \State \textcolor{red}{$\text{Go}[i,i] \gets \text{Nil}$}
+		\EndFor
+	  \end{algorithmic}
+	  \pause
+	\column{0.50\textwidth}
+	  \begin{algorithmic}
+		\Procedure{Path}{$i,j$}
+		  \If{$\text{Go}[i,j] = \text{Nil}$}
+		  \State Output ``No Path.''
+		  \EndIf
+
+		  \Statex
+		  \State Output ``$i$''
+		  \While{$i \neq j$}
+			\textcolor{red}{\State $i \gets \text{Go}[i,j]$}
+			\State Output ``$i$''
+		  \EndWhile
+		\EndProcedure
+	  \end{algorithmic}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{3-D DP}
+  \begin{exampleblock}{Floyd-Warshall algorithm (Problem 6.29)}
+	\begin{enumerate}[(1)]
+	  \setcounter{enumi}{2}
+	  \item Find minimum-weighted cycle of \textcolor{red}{directed} graph ($w(e) > 0$)
+	\end{enumerate}
+  \end{exampleblock}
+
+  \[
+	\text{dist}[i,i] \gets 0 \implies \text{dist}[i,i] \gets \infty 
+  \]
+
+  \[
+	\forall i: \text{dist}[i,i] = \infty
+  \]
+
+  \pause
+  \[
+	\textcolor{red}{\text{Q:}}\;\; \exists e: w(e) < 0
+  \]
+
+  \pause
+  \begin{columns}
+	\column{0.50\textwidth}
+	  \[
+		\exists i: \text{dist}[i,i] < 0
+	  \]
+	\column{0.50\textwidth}
+	  \[
+		\forall i: \text{dist}[i,i] \ge 0 \; (= \infty)
+	  \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Shortest paths on undirected graphs}
+  \fignocaption{width = 0.70\textwidth}{figs/undirected-negative.png}
+
+  \centerline{\url{https://cs.stackexchange.com/q/76578/4911}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%

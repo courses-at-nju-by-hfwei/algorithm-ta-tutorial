@@ -1,0 +1,76 @@
+% file: sections/1d-dp.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large 1D DP}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{$f^{(S(n))} = 1$ (Problem $14.3$)}
+	\begin{displaymath}
+	  f(n) = \begin{cases}
+		n - 1 & \text{if } n \in \mathbb{Z}^{+} \\
+		n / 2 & \text{if } n \;\%\; 2 = 0 \\
+		n / 3 & \text{if } n \;\%\; 3 = 0
+	  \end{cases}
+	\end{displaymath}
+
+	\centerline{$S(n):$ minimum number of steps taking $n$ to 1.}
+  \end{exampleblock}
+
+  \pause
+  \[
+	S(i): \text{minimum number of steps taking } i \text{ to } 1
+  \]
+
+  \pause
+  \[
+	S(i) = 1 + \min \set{S(i-1), S(i/2) (\text{if } n\%2 = 0), S(i/3) (\text{if } n\%3 = 0)}
+  \]
+
+  \[
+	S(1) = 0
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Longest Increasing Subsequence (Problem $14.4$)}
+    \begin{itemize}
+      \item Given an integer array $A[1 \ldots n]$
+      \item To find (the length of) a longest increasing subseqence.
+    \end{itemize}
+  \end{exampleblock}
+
+  \[
+    5,2,8,6,3,6,9,7 \implies 2, 3, 6, 9
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{description}
+    \item[Subproblem:] $L(i):$ the length of the LIS ending with $A[i]$
+    \item[Goal:] $\max_{i} L(i)$
+      \pause
+    \item[Make choice:] whether $A[i] \in LIS[1 \ldots i]$?
+    \item[Recurrence:] 
+      \[
+	L(i) = \max \set{L(i-1), 1 + \max_{j < i \land A[j] \le A[i]} L(j)}
+      \]
+      \pause
+    \item[Init:]
+      \[
+	L(0) = 0
+      \]
+    \item[Time:] 
+      \[
+	O(n^2) = \Theta(n) \cdot O(n)
+      \]
+  \end{description}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
