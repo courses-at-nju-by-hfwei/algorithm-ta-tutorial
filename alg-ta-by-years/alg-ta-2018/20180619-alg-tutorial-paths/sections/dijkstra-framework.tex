@@ -7,6 +7,18 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.60\textwidth}
+      \input{algs/dijkstra-alg}
+    \pause
+    \column{0.40\textwidth}
+      \fignocaption{width = 0.80\textwidth}{figs/dijkstra-correctness}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
 \begin{frame}<presentation:0>[noframenumbering]
   \begin{exampleblock}{Unique shortest paths (Problem 6.18)}
     Undirected graph $G = (V, E), w(e) > 0, s \in V$:
@@ -93,14 +105,17 @@
   \end{exampleblock}
 
   \pause
-  % \[
-  %   L[v] = \min_{u \in N(v)} \max \set{L[u], l(u,v)}
-  % \]
+  \fignocaption{width = 0.45\textwidth}{figs/max-min-path}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
   \[
     \blue{R \triangleq \set{u \mid s \leadsto u \text{ is known}}}
   \]
 
-  \pause
+  \vspace{0.50cm}
   \begin{columns}
     \column{0.30\textwidth}
       \begin{algorithmic}
@@ -117,6 +132,8 @@
       \end{algorithmic}
   \end{columns}
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{exampleblock}{Max-Min Path (Problem $13.2\; (1)$)}
@@ -136,9 +153,6 @@
 
   \pause
   \fignocaption{width = 0.45\textwidth}{figs/max-min-path}
-  % \[
-  %   \text{cap}[v] = \max_{u \in N(v)} \min (\text{cap}[u], c(u,v))
-  % \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -148,12 +162,10 @@
     \blue{R \triangleq \set{u \mid s \leadsto u \text{ is known}}}
   \]
 
-  \pause
   \[
     \purple{Q \gets \text{MaxPQ}(V)}
   \]
 
-  \pause
   \vspace{0.50cm}
   \begin{columns}
     \column{0.30\textwidth}

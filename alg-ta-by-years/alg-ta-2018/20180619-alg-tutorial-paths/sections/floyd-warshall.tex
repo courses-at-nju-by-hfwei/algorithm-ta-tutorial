@@ -2,14 +2,20 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \fignocaption{width = 0.60\textwidth}{figs/floyd-warshall}
+  \centerline{\teal{\large Floyd-Warshall algorithm}}
 
   \[
-    \dist(i,j,k) = \min\Big(\dist(i,j,k-1), \dist(i,k,k-1) + \dist(k,j,k-1)\Big)
+    \text{dist}[i,j,k] = \min \Big(\text{dist}[i,j,k-1], \text{dist}[i,k,k-1] + \text{dist}[k,j,k-1]\Big)
   \]
 
+  \fignocaption{width = 0.50\textwidth}{figs/floyd-warshall}
+
   \[
-    \red{\# k's = 1}
+    \text{dist}[i,j,0] = \left\{\begin{array}{ll}
+      \textcolor{red}{0} & i = j \\
+      w(i,j) & (i,j) \in E \\
+      \infty & \text{o.w.}
+    \end{array} \right.
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -68,12 +74,12 @@
     \]
       
     \vspace{0.30cm}
-    \centerline{\teal{Compute all-pair $\text{cap}(u,v)$.}}
+    \centerline{\teal{Compute all-pair $\text{cap}(i,j)$.}}
   \end{exampleblock}
 
   \pause
   \[
-    \text{cap}(u,v,k) = \red{\max}\Big(\text{cap}(u,v,k-1), \red{\min}\big(\text{cap}(u,k,k-1), \text{cap}(k,v,k-1)\big)\Big)
+    \text{cap}(i,j,k) = \red{\max}\Big(\text{cap}(i,j,k-1), \red{\min}\big(\text{cap}(i,k,k-1), \text{cap}(k,j,k-1)\big)\Big)
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -88,44 +94,75 @@
 
   \pause
   \vspace{0.30cm}
+  \begin{algorithmic}
+    \ForAll{$k \gets 1 \dots n$}
+      \ForAll{$i \gets 1 \dots n$}
+	\ForAll{$j \gets 1 \dots n$}
+	  \If{\red{$\text{dist}[i,j,k-1] > \text{dist}[i,k,k-1] + \text{dist}[k,j,k-1]$}}
+	    \State $\text{dist}[i,j,k] \gets \text{dist}[i,k,k-1] + \text{dist}[k,j,k-1]$
+	    \uncover<3->{\State \textcolor{red}{$\text{Go}[i,j] \gets \text{Go}[i,k]$}}
+	  \Else
+	    \State $\text{dist}[i,j,k] \gets \text{dist}[i,j,k-1]$
+	  \EndIf
+	\EndFor
+      \EndFor
+    \EndFor
+  \end{algorithmic}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Routing table (Problem $13.1$)}
+    \[
+      \text{Go}(i,j) = k \implies v_i \to v_k \leadsto v_j
+    \]
+
+    Contruct routing table and extract shortest paths from it.
+  \end{exampleblock}
+
   \begin{columns}
     \column{0.50\textwidth}
-      \[
-	\text{Go}(i,j) \gets \text{Nil}
-      \]
-      \[
-	\forall (i,j) \in E: \text{Go}(i,j) \gets j
-      \]
-
       \begin{algorithmic}
-	\If{$\dots$}
-	  \State $\text{Go}(i,j) \gets \text{Go}(i,k)$
-	\EndIf
+	\ForAll{$i \gets 1 \dots n$}
+	  \ForAll{$j \gets 1 \dots n$}
+	    \State $\text{dist}[i,j] \gets \infty$
+	    \State \textcolor{teal}{$\text{Go}[i,j] \gets \text{Nil}$}
+	  \EndFor
+	\EndFor
+
+	\hStatex
+	\ForAll{$(i,j) \in E$}
+	  \State $\text{dist}[i,j] \gets w(i,j)$
+	  \State \textcolor{red}{$\text{Go}[i,j] \gets j$}
+	\EndFor
+
+	\hStatex
+	\ForAll{$i \gets 1 \dots n$}
+	  \State $\text{dist}[i,i] \gets 0$
+	  \State \textcolor{teal}{$\text{Go}[i,i] \gets \text{Nil}$}
+	\EndFor
       \end{algorithmic}
+      \pause
     \column{0.50\textwidth}
       \begin{algorithmic}
-	\If{$Go(i,j) = \text{Nil}$}
-	  \State $\dots$
-	\EndIf
+	\Procedure{Path}{$i,j$}
+	  \If{$\text{Go}[i,j] = \text{Nil}$}
+	  \State Output ``No Path.''
+	  \EndIf
 
-	\Statex
-	\While{$i \neq j$}
-	  \State $i \gets \text{Go}(i,j)$
-	\EndWhile
+	  \Statex
+	  \State Output ``$i$''
+	  \While{$i \neq j$}
+	    \textcolor{red}{\State $i \gets \text{Go}[i,j]$}
+	    \State Output ``$i$''
+	  \EndWhile
+	\EndProcedure
       \end{algorithmic}
   \end{columns}
-
-  \pause
-  \vspace{0.50cm}
-  \[
-    \text{Prev}(i,j) \gets \text{Prev}(k,j)
-  \]
-
-  \pause
-  \[
-    \text{Intermediate}(i,j) \gets k
-  \]
 \end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{exampleblock}{Shortest Cycle in Digraph (Problem $13.9$)}
@@ -134,16 +171,16 @@
 
   \pause
   \vspace{0.50cm}
-  \centerline{Initialize $\dist[v][v] \gets \infty$ in Floyd-Warshall algorithm} 
-
-  \pause
-  \[
-    \exists v: \dist[v][v] < \infty \pause \implies \min_{i} \dist[v][v]
-  \]
+  \centerline{Initialize \red{$\dist[v][v] \gets \infty$} in Floyd-Warshall algorithm} 
 
   \pause
   \[
     \forall v: \dist[v][v] = \infty
+  \]
+
+  \pause
+  \[
+    \exists v: \dist[v][v] < \infty \pause \implies \min_{i} \dist[v][v]
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

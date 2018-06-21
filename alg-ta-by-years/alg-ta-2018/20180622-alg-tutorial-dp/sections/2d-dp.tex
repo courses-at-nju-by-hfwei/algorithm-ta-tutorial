@@ -8,7 +8,7 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{exampleblock}{LCS: Longest Common Subsequence (Problem $14.6$)}
+  \begin{exampleblock}{LCS: Longest Common Subsequence (Problem $14.6\; (1)$)}
     \[
       X = X_{1} \cdots X_{m} \quad Y = Y_{1} \cdots Y_{n}
     \]
@@ -34,7 +34,7 @@
     \item[Recurrence:] \textcolor{red}{(Proof!)}
       \begin{displaymath}
 	L[i,j] = \left\{ \begin{array}{ll}
-	  L[i-1, j-1] + 1 & \textrm{if $X_{i} = Y_{j}$}\\
+	  L[i-1, j-1] + \red{1} & \textrm{if $X_{i} = Y_{j}$}\\
 	  \max \set{L[i-1,j], L[i,j-1]} & \textrm{if $X_{i} \neq Y_{j}$}
 	\end{array} \right.
       \end{displaymath}
@@ -49,7 +49,7 @@
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{exampleblock}{Longest Common Subsequence (Problem $14.6$)}
+  \begin{exampleblock}{Longest Common Subsequence (Problem $14.6\; (2) \& (3)$)}
     \[
       X = X_{1} \cdots X_{m} \quad Y = Y_{1} \cdots Y_{n}
     \]
@@ -57,7 +57,7 @@
     \begin{enumerate}[(1)]
       \setcounter{enumi}{1}
       \item Allowing repetition of $X$
-      \item Allowing repetition $\le k$ of $X$
+      \item<3-> Allowing repetition $\le k$ of $X$
     \end{enumerate}
   \end{exampleblock}
 
@@ -69,10 +69,12 @@
     \end{array} \right.
   \end{displaymath}
 
-  \pause
-  \[
-    X \implies X^{(k)} \triangleq X_{1}^{(k)} \cdots X_{m}^{(k)}
-  \]
+  \vspace{0.50cm}
+  \uncover<4->{
+    \[
+      X \implies X^{(k)} \triangleq X_{1}^{(k)} \cdots X_{m}^{(k)}
+    \]
+  }
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -111,39 +113,35 @@
 	  \pause
 	\item[Init:]
 	  \begin{align*}
-		L[i,i] &= 0, \; 0 \le i \le n  \\
-		L[i,i+1] &= \left\{ \begin{array}{ll}
-		  1 & \text{if } T_{i} = T_{i+1}  \\
-		  0 & \text{if } T_{i} \neq T_{i+1}
-		  \end{array} \right.
+	    L[i,i] &= 0, \; 0 \le i \le n  \\
+	    \red{L[i,i+1]} &= \left\{ \begin{array}{ll}
+	      1 & \text{if } T_{i} = T_{i+1}  \\
+	      0 & \text{if } T_{i} \neq T_{i+1}
+	      \end{array} \right.
 	  \end{align*}
   \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}[fragile]{}
-  Code: three ways of filling the table
-  \fignocaption{width = 0.50\textwidth}{figs/three-ways-filling-table.png}
+\begin{frame}{}
+  \centerline{\purple{\large Three ways of filling the table:}}
+  \fignocaption{width = 0.60\textwidth}{figs/three-ways-filling-table.png}
 
-  \begin{algorithmic}
+  \pause
+  \vspace{0.30cm}
+  \begin{center}
+    \begin{minipage}{0.50\textwidth}
+      \begin{algorithmic}
 	\ForAll{$d \gets 2 \dots n-1$}
 	  \ForAll{$i \gets 1 \dots n-d$}
 	    \State $j \gets i + d$
 		\State $\dots$
 	  \EndFor
-    \EndFor
+	\EndFor
 
 	\State \Return $\max\limits_{1 \le i \le j \le n} L[i,j]$
-  \end{algorithmic}
-
-  % \begin{center}
-  %     \begin{verbatim}
-  %       for d = 2 to n-1
-  %         for i = 1 to n-d
-  %           j = i + d
-  %           ...
-  %       return max_{1 <= i <= j <= n} L[i,j]
-  %    \end{verbatim}
-  % \end{center}
+      \end{algorithmic}
+    \end{minipage}
+  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
@@ -169,7 +167,10 @@
 	\item[Init:]
 	  \begin{align*}
 		L[i,i] &= 1, \; \forall 1 \le i \le n  \\
-		\textcolor{red}{L[i,i+1]} &= 2, \; \text{if } S[i] = S[i+1], \; \forall 1 \le i \le n-1
+		\red{L[i,i+1]} &= \left\{ \begin{array}{ll}
+		  2 & \text{if } S[i] = S[i+1]  \\
+		  0 & \text{if } S[i] \neq S[i+1]
+		  \end{array} \right.
 	  \end{align*}
   \end{description}
 \end{frame}

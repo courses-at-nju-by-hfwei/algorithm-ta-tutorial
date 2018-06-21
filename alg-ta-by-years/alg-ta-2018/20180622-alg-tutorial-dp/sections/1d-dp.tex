@@ -22,16 +22,18 @@
 
   \pause
   \[
-	S(i): \text{minimum number of steps taking } i \text{ to } 1
+    S(i): \text{minimum number of steps taking } i \text{ to } 1
   \]
+
+  \begin{align*}
+    S(i) = 1 + \min \set{&S(i-1), \\
+      &S(i/2) \quad (\text{if } n \;\%\; 2 = 0), \\
+      &S(i/3) \quad (\text{if } n \;\%\; 3 = 0)}
+  \end{align*}
 
   \pause
   \[
-	S(i) = 1 + \min \set{S(i-1), S(i/2) (\text{if } n\%2 = 0), S(i/3) (\text{if } n\%3 = 0)}
-  \]
-
-  \[
-	S(1) = 0
+    S(1) = 0
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -41,7 +43,7 @@
   \begin{exampleblock}{Longest Increasing Subsequence (Problem $14.4$)}
     \begin{itemize}
       \item Given an integer array $A[1 \ldots n]$
-      \item To find (the length of) a longest increasing subseqence.
+      \item To find (the length of) a longest increasing (non-decreasing) subseqence.
     \end{itemize}
   \end{exampleblock}
 
@@ -54,13 +56,13 @@
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{description}
-    \item[Subproblem:] $L(i):$ the length of the LIS ending with $A[i]$
-    \item[Goal:] $\max_{i} L(i)$
+    \item[Subproblem:] $L(i):$ the length of the LIS \red{ending with} $A[i]$
+    \item[Goal:] $\max\limits_{i} L(i)$
       \pause
-    \item[Make choice:] whether $A[i] \in LIS[1 \ldots i]$?
+    \item[Make choice:] What is the previous element?
     \item[Recurrence:] 
       \[
-	L(i) = \max \set{L(i-1), 1 + \max_{j < i \land A[j] \le A[i]} L(j)}
+	L(i) = 1 + \max_{j < i \;\land\; A[j] \le A[i]} L(j)
       \]
       \pause
     \item[Init:]

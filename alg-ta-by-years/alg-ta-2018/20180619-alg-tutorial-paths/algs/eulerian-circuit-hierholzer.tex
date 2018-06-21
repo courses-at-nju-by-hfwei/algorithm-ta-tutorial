@@ -2,11 +2,11 @@
 
 \begin{algorithm}[H]
   \begin{algorithmic}
-    \State $VE \gets \emptyset$
-    \State $C \gets \emptyset$
+    \State $VE \gets \emptyset$	\Comment{\teal{Visited Edges}}
+    \State $C \gets \emptyset$	\Comment{\teal{Current Circuit}}
 
     \Statex
-    \While{$VE \neq E$} 
+    \While{$VE \neq E$}
       \State $u \gets \Call{Choose}{u : (u \to v) \notin VE}$
 
       \hStatex

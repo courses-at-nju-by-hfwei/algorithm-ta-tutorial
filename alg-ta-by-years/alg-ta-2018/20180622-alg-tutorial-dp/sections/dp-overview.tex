@@ -80,12 +80,12 @@
   \begin{itemize}
     \item Floyd-Warshall algorithm
       \[
-	\text{d}(i,j,k) = \min \set{\text{d}(i,j,k-1), \text{d}(i,k,k-1) + \text{d}(k,j,k-1)}
+	\text{d}(i,j,k) = \min \Big(\text{d}(i,j,k-1), \text{d}(i,k,k-1) + \text{d}(k,j,k-1)\Big)
       \]
   \end{itemize}
 
   \pause
-  DP on graphs:
+  \centerline{\purple{\large DP on \red{graphs}}}
   \begin{enumerate}
     \item On rooted tree
       \begin{description}
@@ -99,10 +99,8 @@
 
   \pause
   \vspace{0.30cm}
-  Knapsack problem:
-  \begin{itemize}
-    \item Subset sum problem, change-making problem
-  \end{itemize}
+  \centerline{\purple{\large Knapsack problem}}
+  \centerline{Subset sum problem, Change-making problem}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -113,7 +111,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+\begin{frame}
   \centerline{\purple{\large Recurrences in DP: Make choices by asking yourself the right question}}
 
   \vspace{0.50cm}

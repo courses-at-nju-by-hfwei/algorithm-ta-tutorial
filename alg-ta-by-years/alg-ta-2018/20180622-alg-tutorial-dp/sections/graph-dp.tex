@@ -15,11 +15,11 @@
     \end{itemize}
   \end{exampleblock}
 
-  \fignocaption{width = 0.30\textwidth}{figs/vertex-cover.png}
+  \fignocaption{width = 0.50\textwidth}{figs/vertex-cover.png}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{Rooted $T$ at any node $r$.}
+  \centerline{\blue{Rooted $T$ at any node $r$.}}
   \pause
   \vspace{0.30cm}
 
@@ -36,30 +36,9 @@
 	  \pause
 	\item[Init:] $I(u) = 0$, if $u$ is a leave
   \end{description}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \begin{columns}
-	\column{0.35\textwidth}
-	  DFS on $T$ from root $r$:
 
-	  \vspace{0.50cm}
-	  \begin{algorithmic}
-		\State when $u$ is ``finished'':
-		\If{$u$ is a leave}
-		  \State $I(u) \gets 0$
-		\Else
-		  \State $I(u) \gets \dots$ 
-		\EndIf
-	  \end{algorithmic}
-	  \pause
-	\column{0.60\textwidth}
-	Greedy algorithm (\textcolor{red}{Rough Proof!}):
-
-	  \vspace{0.50cm}
-	  \begin{theorem}
-		There is an MVC which contains no leaves.
-	  \end{theorem}
-  \end{columns}
+  \pause
+  \vspace{0.30cm}
+  \centerline{\red{DFS from root $r$.}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%

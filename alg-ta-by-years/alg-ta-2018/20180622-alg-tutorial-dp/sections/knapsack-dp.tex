@@ -17,8 +17,8 @@
   \end{exampleblock}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{The change-making problem}
-  \begin{exampleblock}{The change-making problem (Problem $14.13\; (2)$, Problem $14.2$ (Subset sum))}
+\begin{frame}{}
+  \begin{exampleblock}{The Change-making Problem (Problem $14.13\; (2)$, Problem $14.2$ (Subset sum))}
     \begin{enumerate}[(1)]
       \setcounter{enumi}{1}
       \item Without repetition ($0/1$)
@@ -27,22 +27,22 @@
 
   \pause
   \begin{description}
-	\item[Subproblem:] $C[i, w]$: Make change for $w$ using only values of $x_{1} \dots x_{i}$?
-	\item[Goal:] $C[n,v]$
-	  \pause
-	\item[Make choice:] Using value $x_{i}$ or not?
-	\item[Recurrence:] 
-	  \[
-		C[i,w] = C[i-1, w] \lor (C[i-1, w-x_{i}] \textcolor{blue}{\land w \ge x_{i}})
-	  \]
-	  \pause
-	\item[Init:]
-	  \begin{align*}
-		C[i,0] &= \text{true}  \\
-		C[0,w] &= \text{false}, \text{if } w > 0 \\
-		C[0,0] &= \text{true}
-	  \end{align*}
-	\item[Time:] $O(nv)$
+    \item[Subproblem:] $C[i, w]$: Make change for $w$ using only values of $x_{1} \dots x_{i}$?
+    \item[Goal:] $C[n,v]$
+      \pause
+    \item[Make choice:] Using value $x_{i}$ or not?
+    \item[Recurrence:] 
+      \[
+	C[i,w] = C[i-1, w] \lor (C[i-1, w-x_{i}] \textcolor{red}{\;\land\; w \ge x_{i}})
+      \]
+      \pause
+    \item[Init:]
+      \begin{align*}
+	C[i,0] &= \text{true}  \; \forall i = 0 \dots n  \\
+	C[0,w] &= \text{false}, \;\text{if } w > 0 \\
+	C[0,0] &= \text{true}
+      \end{align*}
+    \item[Time:] $O(nv)$
   \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -55,66 +55,25 @@
 
   \pause
   \begin{description}
-	\item[Subproblem:] $C[i, w]$: Make change for $w$ using only values of $x_{1} \dots x_{i}$?
-	\item[Goal:] $C[n,v]$
-	  \pause
-	\item[Make choice:] Using value $x_{i}$ or not?
-	\item[Recurrence:] 
-	  \[
-		C[i,w] = C[i-1, w] \lor (C[\textcolor{red}{i}, w-x_{i}] \land w \ge x_{i})
-	  \]
-	  \pause
-	\item[Init:]
-	  \begin{align*}
-		C[i,0] &= \text{true}, \forall i = 0 \dots n  \\
-		C[0,w] &= \text{false}, \text{if } w > 0
-	  \end{align*}
-	\item[Time:] $O(nv)$
+    \item[Subproblem:] $C[i, w]$: Make change for $w$ using only values of $x_{1} \dots x_{i}$?
+    \item[Goal:] $C[n,v]$
+      \pause
+    \item[Make choice:] Using value $x_{i}$ or not?
+    \item[Recurrence:] 
+      \[
+	C[i,w] = C[i-1, w] \lor (C[\textcolor{red}{i}, w-x_{i}] \land w \ge x_{i})
+      \]
+      \pause
+    \item[Init:]
+      \begin{align*}
+	C[i,0] &= \text{true}, \; \forall i = 0 \dots n  \\
+	C[0,w] &= \text{false}, \; \text{if } w > 0 \\
+	C[0,0] &= \text{true}
+      \end{align*}
+    \item[Time:] $O(nv)$
   \end{description}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \begin{exampleblock}{The Change-making Problem (Problem $14.13\; (1)$)}
-    \begin{enumerate}[(1)]
-      \item Unbounded repetition ($\infty$)
-    \end{enumerate}
-  \end{exampleblock}
-
-  \pause
-  \begin{description}
-	\item[Subproblem:] $C[w]$: Possible to make change for $w$?
-	\item[Goal:] $C[v]$
-	  \pause
-	\item[Make choice:] What is the first coin to use?
-	\item[Recurrence:] 
-	  \[
-		C[w] = \bigvee_{\textcolor{red}{i: \; x_i \le w}} C[w-x_i]
-	  \]
-	  \pause
-	\item[Init:] $C[0] = \text{true}$
-	\item[Time:] $O(nv)$
-  \end{description}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \begin{exampleblock}{The Change-making Problem (Problem $14.13\; (1)$)}
-    \begin{enumerate}[(1)]
-      \item Unbounded repetition ($\infty$)
-    \end{enumerate}
-  \end{exampleblock}
-
-  \[
-	C[i,w] \text{\emph{ vs. }} C[w]
-  \]
-
-  \[
-	C[i,w] = C[i-1, w] \lor (C[i, w-x_{i}] \land w \ge x_{i})
-  \]
-
-  \[
-	C[w] = \bigvee_{i: \; x_i \le w} C[w-x_i]
-  \]
-\end{frame}
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{exampleblock}{The Change-making Problem (Problem $14.13\; (3)$)}
@@ -139,33 +98,6 @@
 	  \begin{align*}
 		C[0,0,l] &= \text{true}, \quad C[0,w,l] = \text{false}, \text{if } w > 0 \\
 		C[i,0,l] &= \text{true}, \quad C[i,w,0] = \text{false}, \text{if } w > 0
-	  \end{align*}
-  \end{description}
-\end{frame}
-%%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
-  \begin{exampleblock}{The Change-making Problem (Problem $14.13\; (3)$)}
-    \begin{enumerate}[(1)]
-      \setcounter{enumi}{2}
-      \item Unbounded repetition with $\le k$ coins
-    \end{enumerate}
-  \end{exampleblock}
-
-  \pause
-  \begin{description}
-	\item[Subproblem:] $C[w,l]$: Possible to make change for $w$ with $\le l$ coins?
-	\item[Goal:] $C[v,k]$
-	  \pause
-	\item[Make choice:] What is the first coin to use?
-	\item[Recurrence:] 
-	  \[
-		C[w,l] = \bigvee_{i: \; x_i \le w} C[w-x_i, l-1]
-	  \]
-	  \pause
-	\item[Init:]
-	  \begin{align*}
-		C[0,l] &= \text{true}, \\
-		C[w,0] &= \text{false}, \text{if } w > 0
 	  \end{align*}
   \end{description}
 \end{frame}
