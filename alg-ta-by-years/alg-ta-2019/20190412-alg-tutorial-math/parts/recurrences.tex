@@ -24,15 +24,16 @@
       af(\frac{n}{b}) \\
       a^2f(\frac{n}{b^2}) \\
       \vdots \\
-      a^{\log_b n} f(\purple{c}) = \Theta(n^{\log_b a})
+	  a^{\log_b n} \red{T}(1) = \Theta(n^{\log_b a})
     \end{aligned}\right\}
     \pause
-    \red{\sum}\;\; \blue{\overset{f(n) \text{ vs. } n^{E}}{=}} \left\{\begin{aligned}
-      n^{\log_b a}		 \\
-      n^{\log_b a}\log n 	 \\
-      f(n)		   \quad \\
+    \red{\sum} \pause\;\; \blue{\overset{f(n) \text{\it vs. } n^{E}}{=}} \pause
+	\left\{\begin{aligned}
+      n^{\log_b a},		 \\
+      n^{\log_b a}\log n, 	 \\
+      f(n),		   \quad \\
     \end{aligned}\right.
-    \; \left.\begin{aligned}
+    \quad \left.\begin{aligned}
       f(n) &= O(n^{E-\epsilon}) \\
       f(n) &= \Theta(n^E) \\
       f(n) &= \Omega(n^{E+\epsilon}) 
@@ -57,33 +58,33 @@
 	  \item $\Theta(n)$
 	  \item \teal{$\Theta(n^{c+1})$}
 	  \item \teal{$\Theta(c^{n+1})$}
-	  \item \purple{$\cdots$}
+	  \item \blue{$\cdots$}
 	\end{enumerate}
       \end{exampleblock}
     \column{0.65\textwidth}
       \[
-	T(n) = T(n/2) + \log n
+		T(n) = T(n/2) + \log n
       \]
       \[
-	T(n) = 2T(n/2) + n\log n
+		T(n) = 2T(n/2) + n\log n
       \]
 
       \pause
       \vspace{0.20cm}
       \begin{alertblock}{Reference:}
-	\vspace{-0.30cm}
-	\[
-	  f(n) = \Theta(n^{\log_b a} \log^{\red{k}}n) \implies \Theta(n^{\log_b a} \log^{\red{k+1}}n)
-	\]
+		\vspace{-0.30cm}
+		\[
+		  f(n) = \Theta(n^{\log_b a} \log^{\red{k}}n) \implies \Theta(n^{\log_b a} \log^{\red{k+1}}n)
+		\]
       \end{alertblock}
 
       \pause
       \vspace{0.50cm}
       \begin{exampleblock}{Gaps in Master Theorem (Problem $2.18$)}
-	\pause
-	\[
-	  T(n) = 2T(n/2) + \frac{n}{\log n} \pause = \Theta(n \log \log n)
-	\]
+		\pause
+		\[
+		  T(n) = 2T(n/2) + \frac{n}{\log n} \pause = \Theta(n \log \log n)
+		\]
       \end{exampleblock}
   \end{columns}
 \end{frame}
@@ -110,11 +111,20 @@
       \end{exampleblock}
     \column{0.65\textwidth}
       \[
-	T(n) = T(n-1) + n^c \quad c \ge 1
+		T(n) = T(n-1) + c^n \quad c > 1
       \]
+
       \[
-	T(n) = T(n-1) + c^n \quad c > 1
+		T(n) = T(n-1) + n^c \quad c \ge 1
       \]
+	  \pause
+	  \[
+		\int
+	  \]
+	  \pause
+	  \[
+		(\frac{n}{2}) \cdot (\frac{n}{2})^{c} \le T(n) \le n \cdot n^c
+	  \]
   \end{columns}
 \end{frame}
 %%%%%%%%%%%%%%%
@@ -130,6 +140,9 @@
   \pause
   \vspace{0.50cm}
   \fig{width = 0.40\textwidth}{figs/kidding}
+  \[
+	\red{\text{Where is } f(n)?}
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%
 
@@ -233,15 +246,36 @@
   \begin{exampleblock}{Solving Recurrences (Problem $2.17$)}
     \begin{align*} 
       \text{T}(n) &= \sqrt{n}\ \text{T}(\sqrt{n})+n \\
-	&= \teal{n^{\frac{1}{2}}\ \text{T}\left(n^{\frac{1}{2}} \right)+n} \\
-	&= n^{\frac{1}{2}}\left( n^{\frac{1}{2^2}}\ \text{T}\left(n^{\frac{1}{2^2}} \right) + n^{\frac{1}{2}} \right)+n\\
-	&= \teal{n^{\frac{1}{2}+\frac{1}{2^2}}\ \text{T}\left(n^{\frac{1}{2^2}}\right) + 2n} \\
-	&= n^{\frac{1}{2}+\frac{1}{2^2}}\left(n^{\frac{1}{2^3}}\ \text{T}\left(n^{\frac{1}{2^3}}\right) + n^{\frac{1}{2^2}} \right) + 2n\\
-	&= \teal{n^{\frac{1}{2}+\frac{1}{2^2}+\frac{1}{2^3}}\ \text{T}\left(n^{\frac{1}{2^3}}\right) + 3n} \\ 
-	&= \cdots \\ 
-	&= \red{n^{\sum_{i=1}^{k}\frac{1}{2^i}}\ \text{T}\left(n^{\frac{1}{2^k}}\right) + kn} \\ 
+	  &= \teal{n^{\frac{1}{2}}\ \text{T}\left(n^{\frac{1}{2}} \right)+n} \\
+	  \onslide<2->{
+		&= n^{\frac{1}{2}}\left( n^{\frac{1}{2^2}}\ \text{T}\left(n^{\frac{1}{2^2}} \right) + n^{\frac{1}{2}} \right)+n\\
+		&= \teal{n^{\frac{1}{2}+\frac{1}{2^2}}\ \text{T}\left(n^{\frac{1}{2^2}}\right) + 2n} \\
+	  }
+	  \onslide<3->{
+		&= n^{\frac{1}{2}+\frac{1}{2^2}}\left(n^{\frac{1}{2^3}}\ \text{T}\left(n^{\frac{1}{2^3}}\right) + n^{\frac{1}{2^2}} \right) + 2n\\
+		&= \teal{n^{\frac{1}{2}+\frac{1}{2^2}+\frac{1}{2^3}}\ \text{T}\left(n^{\frac{1}{2^3}}\right) + 3n} \\ 
+	  }
+	  \onslide<4->{
+		&= \cdots \\ 
+		&= \red{n^{\sum_{i=1}^{k}\frac{1}{2^i}}\ \text{T}\left(n^{\frac{1}{2^k}}\right) + kn} \\ 
+	  }
     \end{align*}
   \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \text{T}(n) = \red{n^{\sum_{i=1}^{k}\frac{1}{2^i}}\ \text{T}\left(n^{\frac{1}{2^k}}\right) + kn}
+  \]
+
+  \fig{width = 0.30\textwidth}{figs/slow-down}
+
+  \pause
+  \[
+	\red{n^{\frac{1}{2^k}} = 1}
+  \]
 \end{frame}
 %%%%%%%%%%%%%%%
 
@@ -254,7 +288,7 @@
   \pause
   \vspace{-0.30cm}
   \begin{align*} 
-    \text{T}(n) &= \teal{n^{\sum_{i=1}^{k}\frac{1}{2^i}}\ \text{T}\left(n^{\frac{1}{2^k}}\right) + kn}\\ 
+    \text{T}(n) &= \red{n^{\sum_{i=1}^{k}\frac{1}{2^i}}\ \text{T}\left(n^{\frac{1}{2^k}}\right) + kn}\\ 
 	    &=n^{\sum_{i=1}^{\log\log n}\frac{1}{2^i}}\ \text{T}(2) + n \log\log n\\ 
   \end{align*}
 

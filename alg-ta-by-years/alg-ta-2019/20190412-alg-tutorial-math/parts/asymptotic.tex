@@ -164,12 +164,34 @@
   \[
     \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; \red{\sum_{k=i+j-1}^{n}}\; 1 = \pause \purple{\frac{n^2-n}{2}} = \Theta(n^2)
   \]
+  \pause
+  \fig{width = 0.15\textwidth}{figs/wrong}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; \red{\sum_{k=i+j-1}^{n}}\; 1 = \purple{\frac{n^2-n}{2}} = \Theta(n^2)
+  \]
 
   \pause
-  \vspace{-0.50cm}
+  \fig{width = 0.40\textwidth}{figs/go-ok}
+
+  \pause
   \[
     \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; \red{\sum_{k=i+j-1}^{n}}\; 1 = \frac{1}{48} \Big(3 \red{\big(-1 + (-1)^n \big)} + 2n (n+2) (2n-1)\Big) = \Theta(n^3)
   \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{align*}
+	\teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; &\red{\sum_{k=i+j-1}^{n}}\; 1 \\[6pt]
+	\onslide<2->{&= \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; (n-i-j+2)} \onslide<3->{\;\red{[j \le n-i+1, i \le \frac{n}{2}]} \\[6pt]}
+	\onslide<4->{&= \teal{\sum_{i=1}^{\lfloor \frac{n}{2} \rfloor}}\; \blue{\sum_{j=i+1}^{n-i+1}}\; (n-i-j+2)}
+  \end{align*}
 \end{frame}
 %%%%%%%%%%%%%%%
 
