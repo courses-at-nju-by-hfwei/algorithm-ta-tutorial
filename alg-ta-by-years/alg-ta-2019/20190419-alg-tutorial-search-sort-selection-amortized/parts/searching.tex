@@ -1,0 +1,397 @@
+% file: parts/searching.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Huge Searching}}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Repeated Elements (Problem 2.12)}
+    \[
+      R[1 \dots n]
+    \]
+    \[
+      \# > \lfloor \frac{n}{13} \rfloor
+    \]
+    \[
+      \text{To find all $\frac{n}{13}$-repeated elements}
+    \]
+
+    \[
+      \red{\text{check}(R[i], R[j])}
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    \# \text{ of } \frac{n}{13}\text{-repeated elements} \le 13
+  \]
+  \pause
+  \vspace{-0.50cm}
+  \begin{align*}
+    x &\text{ is a } \frac{n}{13}\text{-repeated element} \\
+    &\implies x \text{ is a } \frac{n}{26}\text{-repeated element of } 
+    R[1 \cdots \frac{n}{2}] \text{ or } R[\frac{n}{2}+1 \cdots n]
+  \end{align*}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{Divide and Conquer Algorithm}}
+
+  \pause
+  \[
+    T(n) = 2 T(\frac{n}{2}) + O(n)
+  \]
+
+  \begin{columns}
+    \column{0.50\textwidth}
+    \pause
+      \[
+	\red{Q: 13 \to k}
+      \]
+
+      \pause
+      \[
+	T(n) = 2T(\frac{n}{2}) + O(kn)
+      \]
+    \column{0.50\textwidth}
+      \pause
+      \[
+	\red{Q: k \gets 2}
+      \]
+
+      \pause
+      \fignocaption{width = 0.40\textwidth}{figs/pk-duck}
+  \end{columns}
+
+  \pause
+  \[
+    \teal{k: O(n \log k)}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \red{\Omega(n \log k)}
+  \]
+
+  \pause
+  \[
+    \red{Q: \exists} \text{ a repeated element}?
+  \]
+
+  \pause
+  \[
+    \teal{L: \# \text{ of leaves} ?}
+  \]
+
+  \pause
+  \vspace{0.60cm}
+  \begin{quote}
+    \centering
+    {\it ``Finding Repeated Elements''} by Misra \& Gries, 1982
+  \end{quote}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Maxima of a Point Set (Problem $6.15$)}
+    \fignocaption{width = 0.35\textwidth}{figs/maxima}
+    \[
+      (x_1, y_1) \succ (x_2, y_2) \iff x_1 > x_2 \land y_1 > y_2
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    x\text{-sorting}, \quad \max y \pause \implies O(n \log n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \teal{\red{Wrong} Divide and Conquer Algorithms} \\[6pt]
+
+    $x$-median \& $y$-median
+  \end{center}
+
+  \[
+    T(n) = T(\frac{3}{4} n) + O(n) \implies T(n) = O(n)
+  \]
+
+  \[
+    T(n) = 3T(\frac{1}{4} n) + O(n) \implies T(n) = O(n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \teal{Divide and Conquer Algorithm}  \\[6pt]
+
+    $x$-median
+  \end{center}
+
+  \pause
+  \[
+    T(n) = 2T(\frac{n}{2}) + \red{O(n)}
+  \]
+
+  \pause
+  \fignocaption{width = 0.25\textwidth}{figs/qrcode-maxima-lower-bound}
+  \[
+    \red{\Omega(n \log n)}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Smallest Missing Positive Integer (Problem $9.6$)}
+    \centerline{Sorted array $A[1 \ldots n]$}
+
+    \vspace{-0.50cm}
+    \begin{gather*}
+      a_i \in \mathbb{Z}^{+} \\
+      \forall i \neq j: a_i \neq a_j
+    \end{gather*}
+
+    \vspace{-0.30cm}
+    \[
+      A = [1,2,4,5] \implies 3
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    T(n) = O(n)
+  \]
+
+  \pause
+  \[
+    \red{O(\log n)}
+  \]
+  \pause
+  \[
+    T(n) = T(\frac{n}{2}) + 1
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Local Minimum (Problem $9.12$)}
+    \[
+      A[1 \cdots n]
+    \]
+    \[
+      A[0] \ge A[1] \;\red{\land}\; A[n-2] \le A[n-1]
+    \]
+
+    \[
+      A[i-1] \ge \red{A[i]} \le A[i+1]
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    \red{\exists}
+  \]
+
+  \pause
+  \[
+    \text{\it Scan}: T(n) = O(n)
+  \]
+
+  \pause
+  \[
+    \min A: T(n) = O(n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Local Minimum (Problem $9.12$)}
+    \[
+      A[1 \cdots n]
+    \]
+    \[
+      A[0] \ge A[1] \;\red{\land}\; A[n-2] \le A[n-1]
+    \]
+
+    \[
+      A[i-1] \ge \red{A[i]} \le A[i+1]
+    \]
+  \end{exampleblock}
+
+  \vspace{0.60cm}
+  \begin{columns}
+    \column{0.40\textwidth}
+      \pause
+      \[
+	\red{T(n) = O(\log n)}
+      \]
+
+      \pause
+      \[
+	T(n) = T(\frac{n}{2}) + 1
+      \]
+    \column{0.60\textwidth}
+      \pause
+      \[
+	m = \frac{n}{2}
+      \]
+
+      \pause
+      \[
+	A[m-1] \ge \red{A[m]} \le A[m+1]
+      \]
+      \[
+	A[m-1] < A[m] \;\red{\lor}\; A[m+1] < A[m]
+      \]
+
+      \pause
+      \[
+	n = 1 \quad \lor \quad n = 2
+      \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Searching in Matrix (Problem $9.8$)}
+    \[
+      M: m \times n
+    \]
+
+    \begin{center}
+      {Row: increasing from left to right} \\[6pt]
+      {Col: increasing from top to down}
+    \end{center}
+
+    \vspace{-0.50cm}
+    \[
+      \red{x \in M?}
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{Divide \& Conquer}
+
+  \pause
+  \[
+    T(m,n) = 3T(\frac{m}{2}, \frac{n}{2}) + 1 
+  \]
+
+  % \pause
+  % \[
+  %   m = n \implies T(n) = 3T(\frac{n}{2}) + 1 \pause \implies T(n) = \Theta(n^{\log_{2}3})
+  % \]
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{\red{\large Always checking the lower left corner.}}
+
+  \pause
+  \[
+    T(m, n) = m + n - 1
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \text{Assume } M: n \times n 
+  \]
+
+  \[
+    W(n) \le 2n - 1
+  \]
+
+  \pause
+  \[
+    \boxed{\red{W(n) \ge 2n - 1}}
+  \]
+
+  \pause
+  \centerline{\teal{By Adversary Argument!}}
+
+  \pause
+  \[
+    \text{Diagonals: } i + j = n - 1 \quad\&\quad i + j = n
+  \]
+
+  \pause
+  \centerline{\teal{No particular ordering requirements on these two diagonals!}}
+
+  \pause
+  \begin{align*}
+    i + j \le n - 1 &\implies x > M_{ij} \\
+    i + j > n - 1 &\implies x < M_{ij} \\
+  \end{align*}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{$A + B = c$ (Problem $9.9$)}
+    \[
+      \red{\text{\it Sorted }} S[1 \cdots n], \quad c
+    \]
+
+    \[
+      \red{\exists A, B: A + B = c?}
+    \]
+
+    \[
+      O(n)
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{\teal{\large Left-right-pointers iteration}}
+
+  \[
+    S_i + S_j \;\red{>=<}\; c
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+% \begin{frame}{Space for hashing (Problem 4.4)}
+%   \begin{exampleblock}{Space for Hashing}
+%     \begin{description}
+%       \item[Key:] $x$
+%       \item[Node:] $y$
+%       \item[Load factor:] $\alpha$
+%     \end{description}
+%   \end{exampleblock}
+% 
+%   \pause
+%   \begin{itemize}
+%     \item Closed-address hashing
+%       \[
+% 	h_c + \alpha y h_c
+%       \]
+%     \item Open-address hashing
+%       \[
+% 	\frac{\alpha h_c}{\frac{h_c + \alpha y h_c }{x}} = \frac{\alpha x}{1 + \alpha y}
+%       \]
+%   \end{itemize}
+% \end{frame}
+%%%%%%%%%%%%%

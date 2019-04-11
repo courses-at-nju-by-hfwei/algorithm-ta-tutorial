@@ -1,0 +1,33 @@
+\documentclass[]{beamer}
+\input{preamble-alg-ta}
+
+\title[$S^3A^2$]{\titletext}
+\subtitle{\subtitletext}
+
+\author[Hengfeng Wei]{Hengfeng Wei}
+\titlegraphic{\includegraphics[height = 2.0cm]{figs/qrcode-alg-ta-tutorial-2018}}
+\institute{hfwei@nju.edu.cn}
+\date{April 24, 2018}
+
+\AtBeginSection[]{
+  \begin{frame}[noframenumbering, plain]
+    \frametitle{\titletext}
+    \tableofcontents[currentsection, sectionstyle=show/shaded, subsectionstyle=show/show/hide]
+  \end{frame}
+}
+
+%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+
+\input{parts/max-subarray}
+\input{parts/sorting}
+\input{parts/searching}
+\input{parts/selection}
+\input{parts/amortized-analysis}
+
+\thankyou{}
+\input{suggestion}
+
+\end{document}
+%%%%%%%%%%%%%%%

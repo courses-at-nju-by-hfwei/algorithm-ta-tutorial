@@ -1,0 +1,81 @@
+% file: parts/mathematical-induction.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\Large \teal{Mathematical Induction}}
+
+  \fig{width = 0.45\textwidth}{figs/domino}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Horner's rule (Problem $1.6$)}
+    \[
+      P(x) = a_0 + a_1 x + a_2 x^2 + \cdots + a_{n-1} x^{n-1} + a_n x^n
+    \]
+
+    \input{algs/horner-rule}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{\red{Loop invariant} (after the $k$-th loop):}
+  \pause
+  \[
+    \boxed{\red{\mathcal{I}:}\;\; \teal{p = \sum_{j = n}^{j = n-k} a_j x^{k-(n-j)}}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \boxed{\red{\mathcal{I}:}\;\; \teal{p = \sum_{j = n}^{j = n-k} a_j x^{k-(n-j)}}}
+  \]
+
+  \vspace{0.50cm}
+  \begin{columns}
+    \column{0.50\textwidth}
+      \fig{width = 0.70\textwidth}{figs/8020-rule}
+    \column{0.50\textwidth}
+      \pause
+      \qquad When you are in an exam:\\[5pt]
+      \begin{description}
+	\item[$20\%:$] Finding $\mathcal{I}$
+	\item[$80\%:$] Proving $\mathcal{I}$ by \red{PMI}
+      \end{description}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\red{\fbox{\large Prove by mathematical induction on the number $k$ of loops.}}}
+
+  \pause
+  \vspace{0.30cm}
+  \begin{description}[<+->]
+    \setlength{\itemsep}{6pt}
+    \item[Base Step:] $k = 0$.
+    \item[Inductive Hypothesis:] $\mathcal{I}$ is valid after the $k$-th ($k \ge 0$) loop.
+    \item[Inductive Step:] $\mathcal{I}$ maintains for the $(k+1)$-th loop:
+  \end{description}
+
+  \pause
+  \vspace{-0.50cm}
+  \[
+	\boxed{\teal{\left(\sum_{j = n}^{j = n-k} a_j x^{k-(n-j)}\right) \cdot x + A[n-k-1] = \sum_{j = n}^{j = n-(k+1)} a_j x^{(k+1)-(n-j)}}}
+  \]
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{\red{\fbox{\large Termination}}}
+  \pause
+  \begin{enumerate}[(a)]
+    \centering
+    \item $i \gets n-1 \;\Downarrow\; 0$
+    \item $k = n \implies p = \sum\limits_{i=0}^{i=n} a_i x^i$
+  \end{enumerate}
+\end{frame}
+%%%%%%%%%%%%%%%

@@ -1,0 +1,116 @@
+% file: parts/selection.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Huge Selection}}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{The $k$-th Largest Elements in a Heap (Problem $7.2$)}
+    \[
+      k \ll n
+    \]
+    \vspace{-0.60cm}
+    \fignocaption{width = 0.45\textwidth}{figs/max-heap}
+    \vspace{-0.50cm}
+    \[
+      \red{T(k)}
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{Must be in the first $k$ layers \pause $\implies O(2^k)$}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{The Largest $k$ Elements (Problem $8.5$)}
+    \begin{columns}
+      \column{0.50\textwidth}
+	\[
+	  O(n \log n)
+	\]
+
+	\[
+	  O(n + k \log n)
+	\]
+
+	\[
+	  O(n + k \log k)
+	\]
+      \column{0.50\textwidth}
+	\pause
+        \[
+	  \text{sorting}
+	\]
+
+	\pause
+	\[
+	  \text{max-heap}
+	\]
+
+	\pause
+	\[
+	  \text{$k$-selection + \red{partition} + sorting}
+	\]
+    \end{columns}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Selecting $k$ Elements Close to the Median (Problem $8.6$)}
+    \[
+      S = \set{800, 6, 900, \red{50}, 7}, \quad k = 2 \implies \set{6,7}
+    \]
+
+    \begin{columns}
+      \pause
+      \column{0.40\textwidth}
+        \[
+	  O(n \log n + k)
+	\]
+
+	\[
+	  O(n + k \log k)
+	\]
+        \pause
+      \column{0.60\textwidth}
+        \[
+	  \text{sorting} + \pause \red{\text{left-right iteration}}
+	\]
+
+	\pause
+	\vspace{-0.80cm}
+	\[
+	  \text{median-selection} + \pause \red{\text{the smallest $k$ elements}}
+	\]
+    \end{columns}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    \teal{\large Selecting the Median of $5$ Elements using $6$ Comparisons \\
+      {\small (Problem $8.2$)}}
+  \end{center}
+
+  \vspace{-0.30cm}
+  \fignocaption{width = 0.70\textwidth}{figs/median5}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large Sorting $5$ Elements using $7$ Comparisons}}
+
+  \fignocaption{width = 0.75\textwidth}{figs/sort5}
+\end{frame}
+%%%%%%%%%%%%%

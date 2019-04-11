@@ -1,0 +1,325 @@
+% file: parts/recurrences.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large Recurrences}}
+  \fig{width = 0.60\textwidth}{figs/fractal-tree}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    T(n) = aT(n/b) + f(n) \quad (a > 0, b > 1) 
+  \]
+
+  \pause
+  \centerline{\red{Assume that $T(n)$ is constant for sufficiently small $n$.}}
+
+  \pause
+  \vspace{0.30cm}
+  \begin{equation*}
+    \left.\begin{aligned}
+      f(n) \\
+      af(\frac{n}{b}) \\
+      a^2f(\frac{n}{b^2}) \\
+      \vdots \\
+      a^{\log_b n} f(\purple{c}) = \Theta(n^{\log_b a})
+    \end{aligned}\right\}
+    \pause
+    \red{\sum}\;\; \blue{\overset{f(n) \text{ vs. } n^{E}}{=}} \left\{\begin{aligned}
+      n^{\log_b a}		 \\
+      n^{\log_b a}\log n 	 \\
+      f(n)		   \quad \\
+    \end{aligned}\right.
+    \; \left.\begin{aligned}
+      f(n) &= O(n^{E-\epsilon}) \\
+      f(n) &= \Theta(n^E) \\
+      f(n) &= \Omega(n^{E+\epsilon}) 
+    \end{aligned}\right.
+  \end{equation*}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.30\textwidth}
+      \begin{exampleblock}{Solving Recurrences (Problem $2.15$)}
+	\begin{enumerate}[(1)]
+	  \item $\Theta(n^{\log_3 2})$
+	  \item \textcolor{red}{$\Theta(\log^2 n)$}
+	  \item $\Theta(n)$
+	  \item $\Theta(n \log n)$
+	  \item \textcolor{red}{$\Theta(n \log^2 n)$}
+	  \item $\Theta(n^2)$
+	  \item $\Theta(n^{\frac{3}{2}}\log n)$
+	  \item $\Theta(n)$
+	  \item \teal{$\Theta(n^{c+1})$}
+	  \item \teal{$\Theta(c^{n+1})$}
+	  \item \purple{$\cdots$}
+	\end{enumerate}
+      \end{exampleblock}
+    \column{0.65\textwidth}
+      \[
+	T(n) = T(n/2) + \log n
+      \]
+      \[
+	T(n) = 2T(n/2) + n\log n
+      \]
+
+      \pause
+      \vspace{0.20cm}
+      \begin{alertblock}{Reference:}
+	\vspace{-0.30cm}
+	\[
+	  f(n) = \Theta(n^{\log_b a} \log^{\red{k}}n) \implies \Theta(n^{\log_b a} \log^{\red{k+1}}n)
+	\]
+      \end{alertblock}
+
+      \pause
+      \vspace{0.50cm}
+      \begin{exampleblock}{Gaps in Master Theorem (Problem $2.18$)}
+	\pause
+	\[
+	  T(n) = 2T(n/2) + \frac{n}{\log n} \pause = \Theta(n \log \log n)
+	\]
+      \end{exampleblock}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.30\textwidth}
+      \begin{exampleblock}{Solving Recurrences (Problem $2.15$)}
+	\begin{enumerate}[(1)]
+	  \item $\Theta(n^{\log_3 2})$
+	  \item \textcolor{red}{$\Theta(\log^2 n)$}
+	  \item $\Theta(n)$
+	  \item $\Theta(n \log n)$
+	  \item \textcolor{red}{$\Theta(n \log^2 n)$}
+	  \item $\Theta(n^2)$
+	  \item $\Theta(n^{\frac{3}{2}}\log n)$
+	  \item $\Theta(n)$
+	  \item \teal{$\Theta(n^{c+1})$}
+	  \item \teal{$\Theta(c^{n+1})$}
+	  \item \purple{$\cdots$}
+	\end{enumerate}
+      \end{exampleblock}
+    \column{0.65\textwidth}
+      \[
+	T(n) = T(n-1) + n^c \quad c \ge 1
+      \]
+      \[
+	T(n) = T(n-1) + c^n \quad c > 1
+      \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{}
+  \begin{exampleblock}{Solving Recurrences (Problem $2.15\; (11)$)}
+    \[
+      T(n) = T(n/2) + T(n/4) + T(n/8)
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \fig{width = 0.40\textwidth}{figs/kidding}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}[fragile]{}
+  \begin{exampleblock}{Solving Recurrences (Problem $2.15\; (11)$)}
+    \[
+      T(n) = T(n/2) + T(n/4) + T(n/8)
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    \boxed{\teal{T(n) = \Theta(n^{0.879146})}}
+  \]
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    \boxed{\red{T(n) = \Theta(n^\alpha)}}
+  \]
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    2^{-\alpha} + 4^{-\alpha} + 8^{-\alpha} = 1
+  \]
+
+  \pause
+  \vspace{0.30cm}
+  \begin{center}
+    \begin{verbatim}
+      Solve[2^{-x} + 4^{-x} + 8^{-x} == 1, x] // N
+    \end{verbatim}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Solving Recurrences (Problem $2.15\; (11)$)}
+    \[
+      T(n) = T(n/2) + T(n/4) + T(n/8) \;\red{+\; n}
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{By recursion-tree.}
+  \pause
+  \[
+    \boxed{\teal{T(n) = \Theta(n)}}
+  \]
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{\red{Exercise: Prove it by mathematical induction.}}
+
+  \pause
+  \begin{alertblock}{Reference:}
+    {\it ``On the Solution of Linear Recurrence Equations''} by Akra \& Bazzi, 1996.
+
+    \[
+      T(n) = \sum_{i=1}^{k} a_i T(n/b_i) + f(n)
+    \]
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+% \begin{frame}{Gaps (Problem 1.2.16)}
+%   \[
+%     T(n) = 2T(n/2) + \frac{n}{\log n} \pause = \Theta(n \log \log n)
+%   \]
+% 
+%   \pause
+% 
+%   The regularity condition in Case 3:
+%   \[
+% 	bf(n/c) \le cf(n), \text{ for some } c < 1 \text{ and sufficiently large } n
+%   \]
+% 
+%   \[
+% 	T(n) = T(n/2) + n(2 - \cos n)
+%   \]
+% 
+%   \[
+% 	n^{E} = n^0 \quad f(n) = n(2 - \cos n) = \Omega(n^{0 + \epsilon})
+%   \]
+% 
+%   \pause
+%   \[
+% 	n = 2\pi k (k \text{ odd}) \Rightarrow c \ge \frac{3}{2}
+%   \]
+% \end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Solving Recurrences (Problem $2.17$)}
+    \begin{align*} 
+      \text{T}(n) &= \sqrt{n}\ \text{T}(\sqrt{n})+n \\
+	&= \teal{n^{\frac{1}{2}}\ \text{T}\left(n^{\frac{1}{2}} \right)+n} \\
+	&= n^{\frac{1}{2}}\left( n^{\frac{1}{2^2}}\ \text{T}\left(n^{\frac{1}{2^2}} \right) + n^{\frac{1}{2}} \right)+n\\
+	&= \teal{n^{\frac{1}{2}+\frac{1}{2^2}}\ \text{T}\left(n^{\frac{1}{2^2}}\right) + 2n} \\
+	&= n^{\frac{1}{2}+\frac{1}{2^2}}\left(n^{\frac{1}{2^3}}\ \text{T}\left(n^{\frac{1}{2^3}}\right) + n^{\frac{1}{2^2}} \right) + 2n\\
+	&= \teal{n^{\frac{1}{2}+\frac{1}{2^2}+\frac{1}{2^3}}\ \text{T}\left(n^{\frac{1}{2^3}}\right) + 3n} \\ 
+	&= \cdots \\ 
+	&= \red{n^{\sum_{i=1}^{k}\frac{1}{2^i}}\ \text{T}\left(n^{\frac{1}{2^k}}\right) + kn} \\ 
+    \end{align*}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    n^{\frac{1}{2^k}} = \red{2} \pause \implies k = \log\log n
+  \]
+
+  \pause
+  \vspace{-0.30cm}
+  \begin{align*} 
+    \text{T}(n) &= \teal{n^{\sum_{i=1}^{k}\frac{1}{2^i}}\ \text{T}\left(n^{\frac{1}{2^k}}\right) + kn}\\ 
+	    &=n^{\sum_{i=1}^{\log\log n}\frac{1}{2^i}}\ \text{T}(2) + n \log\log n\\ 
+  \end{align*}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    \sum_{i=1}^{\log \log n}\frac{1}{2^i} < 1 \implies T(n) = \Theta(n \log \log n)
+  \]
+
+  \pause
+  \vspace{0.40cm}
+  \centerline{\red{Exercise: Prove it by mathematical induction.}}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \boxed{T(n) = \sqrt{n} T(\sqrt{n}) + n}
+  \]
+
+  \pause
+  \[
+    \frac{T(n)}{n} = \frac{T(\sqrt{n})}{\sqrt{n}} + 1
+  \]
+
+  \pause
+  \[
+    \red{n \leftrightarrow 2^m}
+  \]
+
+  \pause
+  \[
+    \frac{T(2^m)}{2^m} = \frac{T(2^{m/2})}{2^{m/2}} + 1
+  \]
+
+  \pause
+  \[
+    \red{S(m) \leftrightarrow \frac{T(2^m)}{2^m}}
+  \]
+
+  \pause
+  \[
+    S(m) = S(m/2) + 1 = \pause \Theta(\log m)
+  \]
+
+  \pause
+  \vspace{-0.60cm}
+  \[
+    \boxed{\teal{T(n) = n \log \log n}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large \only<1>{A Little}\only<2->{\red{\bf More}} Mathematics for Computer Science}}
+
+  \uncover<2->{
+    \begin{columns}
+      \column{0.50\textwidth}
+	\fig{width = 0.50\textwidth}{figs/concrete-mathematics}
+      \column{0.50\textwidth}
+      \fig{width = 0.45\textwidth}{figs/knuth}
+    \end{columns}
+  }
+\end{frame}
+%%%%%%%%%%%%%%%

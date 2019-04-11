@@ -1,0 +1,190 @@
+% file: parts/asymptotic.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large Asymptotics}}
+
+  \fig{width = 0.45\textwidth}{figs/growth-order}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    \red{\text{\Large $Q: \theta(f)\;?$}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+	O(g(n)) = \Big\{f(n) \mid \red{\exists c > 0}, \blue{\exists n_0 > 0, \forall n \ge n_0}: 0 \le f(n) \le c g(n)\Big\}
+  \]
+
+  \pause
+  \[
+	\purple{\Big\{ \quad \Big\}}
+  \]
+
+  \pause
+  \[
+	\blue{\exists n_0 > 0, \forall n \ge n_0}
+  \]
+
+  \pause
+  \[
+	\red{\exists c > 0}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+	O(g(n)) = \Big\{f(n) \mid \red{\exists} c > 0, \exists n_0 > 0, \forall n \ge n_0: 0 \le f(n) \le c g(n)\Big\}
+  \]
+  \[
+	\Omega(g(n)) = \Big\{f(n) \mid \red{\exists} c > 0, \exists n_0 > 0, \forall n \ge n_0: 0 \le \red{c} g(n) \le f(n) \Big\}
+  \]
+
+  \pause
+  \begin{align*}
+    \Theta(g(n)) = \Big\{f(n) \mid &\exists c_1 > 0, \exists c_2 >0, \exists n_0 > 0, \forall n \ge n_0: \\ 
+								   & 0 \le c_1 g(n) \le f(n) \le c_2 g(n)\Big\}
+  \end{align*}
+
+  \pause
+  \[
+	o(g(n)) = \Big\{f(n) \mid \textcolor{red}{\forall c > 0}, \exists n_0 > 0, \forall n \ge n_0: 0 \le f(n) \;\red{<}\; c g(n)\Big\}
+  \]
+  \[
+	\omega(g(n)) = \Big\{f(n) \mid \textcolor{red}{\forall c > 0}, \exists n_0 > 0, \forall n \ge n_0: 0 \le c g(n) \;\red{<}\; f(n)\Big\}
+  \]
+
+  \pause
+  \[
+	\teal{f(n) \;\red{\sim}\; g(n) \iff \lim_{n \to \infty} \frac{f(n)}{g(n)} = 1}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Asymptotics (Problem $2.6\; (4)$)}
+    \[
+      f(n) = \Theta(g(n)) \iff f(n) = O(g(n)) \land f(n) = \Omega(g(n))
+    \]
+  \end{exampleblock}
+
+  % \pause
+  % \begin{exampleblock}{Asymptotics (Problem $2.6 (5)$)}
+  %   \begin{align*}
+  %     f(n) = O(g(n)) &\iff g(n) = \Omega(f(n)) \\
+  %     f(n) = o(g(n)) &\iff g(n) = \omega(f(n))
+  %   \end{align*}
+  % \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{exampleblock}{Asymptotics (Problem $2.6\; (6)$)}
+    \[
+      \Theta(g(n)) \cap o(g(n)) = \emptyset
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    \red{Q:}\; f(n) = O(g(n)) \;\teal{\lor}\; g(n) = \Omega(f(n)) \;?
+  \]
+
+  \pause
+  \[
+    f(n) = n, \quad g(n) = n^{1 + \sin n}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Asymptotics (Problem $2.7\; (2)$)}
+    \[
+      (\log n)^{2} \;\;\text{\it vs. }\; \sqrt{n}
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    (\log n)^{c_1} = O(n^{c_2}) \quad c_1, c_2 > 0
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Asymptotics (Problem $2.10$)}
+    \[
+      \log(n!) = \Theta(n \log n)
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \begin{alertblock}{Stirling Formula (by {\it James Stirling}):}
+    \begin{columns}
+      \column{0.50\textwidth}
+	\[
+	  n! \;\red{\sim}\; \sqrt{2 \pi n} \Big(\frac{n}{e}\Big)^{n}
+	\]
+      \column{0.50\textwidth}
+	\fig{width = 0.30\textwidth}{figs/stirling-formula-wiki-qrcode}
+    \end{columns}
+  \end{alertblock}
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    \log (n!) = \log 1 + \log 2 + \cdots + \log n
+  \]
+
+  \pause
+  \[
+    \log (n!) \le n \log n \pause \qquad \log (n!) \ge \frac{n}{2} \log \frac{n}{2}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Summation (Problem $2.20$)}
+    \vspace{-0.30cm}
+    \input{algs/conundrum}
+  \end{exampleblock}
+
+  \pause
+  \[
+    \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; \red{\sum_{k=i+j-1}^{n}}\; 1 = \pause \purple{\frac{n^2-n}{2}} = \Theta(n^2)
+  \]
+
+  \pause
+  \vspace{-0.50cm}
+  \[
+    \teal{\sum_{i=1}^{n}}\; \blue{\sum_{j=i+1}^{n}}\; \red{\sum_{k=i+j-1}^{n}}\; 1 = \frac{1}{48} \Big(3 \red{\big(-1 + (-1)^n \big)} + 2n (n+2) (2n-1)\Big) = \Theta(n^3)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fig{width = 0.60\textwidth}{figs/sum}{\centerline{From Zheng (171860658)}}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fig{width = 0.25\textwidth}{figs/knuth}
+
+  \begin{alertblock}{Reference:}
+    {\it ``Big Omicron and Big Omega and Big Theta''} by Donald E. Knuth, 1976.
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%

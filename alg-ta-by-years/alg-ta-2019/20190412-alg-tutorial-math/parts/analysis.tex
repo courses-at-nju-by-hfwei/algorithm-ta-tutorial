@@ -1,0 +1,96 @@
+% parts/analysis.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fignocaption{width = 0.35\textwidth}{figs/AoA}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\large \teal{Problem $P$ \qquad Algorithm $A$}} \\[8pt] \pause
+    {\large \red{Inputs: $\mathcal{X}_{n}$ of size $n$}}
+  \end{center}
+
+  \pause
+  \[
+    W(n) = \max_{x \in \mathcal{X}_{n}} T(x)
+  \]
+
+  \pause
+  \[
+    B(n) = \min_{x \in \mathcal{X}_{n}} T(x)
+  \]
+
+  \pause
+  \[
+	A(n) = \boxed{\red{\sum_{x \in \mathcal{X}_{n}} T(x) \cdot P(x)}} \pause 
+	     = \blue{\mathbb{E} [T]} \pause 
+		 = \boxed{\red{\sum_{t \in T(\mathcal{X}_{n})} t \cdot P(T = t)}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Average-case Time Complexity (Problem $1.7$)}
+    \[
+      r \in [1,n], \; r \in \mathbb{Z}^{+}
+    \]
+    \vspace{-0.80cm}
+
+    \begin{columns}
+      \column{0.40\textwidth}
+	\[
+	  P\set{r = i} = \left\{\begin{array}{lr}
+	    \frac{1}{n}, & 1 \le i \le \frac{n}{4} \\[6pt]
+	    \frac{2}{n}, & \frac{n}{4} < i \le \frac{n}{2} \\[6pt]
+	    \frac{1}{2n}, & \frac{n}{2} < i \le n
+	  \end{array}\right.
+	\]
+      \column{0.50\textwidth}
+	\[
+	  T(r) = \left\{\begin{array}{lr}
+	    10, & r \le \frac{n}{4} \\[6pt]
+	    20, & \frac{n}{4} < r \le \frac{n}{2} \\[6pt]
+	    30, & \frac{n}{2} < r \le \frac{3n}{4} \\[6pt]
+	    n, & \frac{3n}{4} < r \le n \\[6pt]
+	  \end{array}\right.
+	\]
+	% \input{algs/op-perform}
+    \end{columns}
+  \end{exampleblock}
+
+  \pause
+  \vspace{-0.30cm}
+  \begin{align*}
+	A &= \sum_{x \in \mathcal{X}} T(x) \cdot P(x) \onslide<6->{\red{= \sum_{t \in T(\mathcal{X}_{n})} t \cdot P(T = t)}} \\ 
+	  \onslide<3->{&= T(1) P(1) + T(2) P(2) + \cdots + T(n) P(n) \\ }
+      \onslide<4->{&= 10 \times \frac{n}{4} \times \frac{1}{n} \red{+} 20 \times \frac{n}{4} \times \frac{2}{n} \red{+} 
+					  30 \times \frac{n}{4} \times \frac{1}{2n} \red{+} n \times \frac{n}{4} \times \frac{1}{2n} \\}
+      % &= \frac{1}{8} n + \frac{65}{4}
+	  \onslide<5->{&= \cdots}
+  \end{align*}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+% \begin{frame}{Average-case Analysis of Quicksort}
+%   \[
+%     A(n) = n-1 + \frac{1}{n} \sum_{i=0}^{i=n-1} (A(i) + A(n-i-1))
+%   \]
+% 
+%   \[
+%     A(n) = \underset{X \in \mathcal{X}_{n}}{\mathbb{E}} [T(X)] = \sum_{X \in \mathcal{X}_{n}} T(X) \cdot P(X)
+%   \]
+% 
+%   \pause
+%   \begin{align*}
+%     A(n) &= \mathbb{E}[T(X)] \\
+% 	 &\;\red{= \mathbb{E}[\mathbb{E}[T(X)|I]]} \\
+% 	 &= \sum_{i=0}^{i=n-1} P(I = i)\; \mathbb{E}[T(X) \mid I = i] \\
+% 	 &= \sum_{i=0}^{i=n-1} \frac{1}{n} [n-1 + A(i) + A(n-i-1)]
+%   \end{align*}
+% \end{frame}
+%%%%%%%%%%%%%%%

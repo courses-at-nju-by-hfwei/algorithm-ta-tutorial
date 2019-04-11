@@ -1,0 +1,144 @@
+% file: parts/max-subarray.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Maximal-sum Subarray (Problem $3.7$)}
+    \begin{itemize}
+      \item Array $A[1 \cdots n], a_{i} >=< 0$
+      \item To find (the sum of) an MS in $A$
+    \end{itemize}
+	
+    \[
+      A[-2,1 ,-3, \boxed{\red{4,-1,2,1}} ,-5,4]
+    \]
+  \end{exampleblock}
+
+  \[
+    \red{O(n)}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+% \begin{frame}{}
+%   \centerline{$\text{MSS}[i]$: the sum of the MS ($\text{MS}[i]$) in $A[1 \cdots i]$}
+% 
+%   \pause
+%   \vspace{0.30cm}
+%   \[
+%     \text{mss} = \text{MSS}[n]
+%   \]
+% 
+%   \pause
+%   \vspace{0.60cm}
+%   \centerline{\red{$Q:$} Is $a_{i} \in \text{MS}[i]$?}
+%   
+%   \pause
+%   \vspace{0.30cm}
+%   \[ 
+%     \text{MSS}[i] = \max \set{\text{MSS}[i-1], \red{???}}
+%   \]
+% \end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{$\text{MSS}[i]$: the sum of the MS \textcolor{red}{\it ending with} $a_{i}$ or 0}
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    \boxed{\teal{\text{mss} = \max\limits_{1 \le i \le n} \text{MSS}[i]}}
+  \]
+
+  \pause
+  \vspace{0.30cm}
+  \[ 
+    \boxed{\red{\text{MSS}[i] = \max \left\{\text{MSS}[i-1] + a_{i}, 0\right\}}}
+  \]
+
+  \vspace{0.60cm}
+  \centerline{\red{$Q:$} Where does the $\text{MSS}[i]$ start?}
+
+  \pause
+  \vspace{0.30cm}
+  \[
+    \text{MSS}[0] = 0
+  \]
+
+    % \begin{displaymath}
+    %   \text{MSS}[i] = \left\{ \begin{array}{ll}
+    %     0 & i = 0 \\
+    %     \max \set{\text{MSS}[i-1] + a_{i}, 0} & i > 0
+    %   \end{array} \right.
+    % \end{displaymath}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \input{algs/max-subarray-origin}
+
+  \pause
+  \vspace{-0.30cm}
+  \input{algs/max-subarray}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{columns}
+    \column{0.40\textwidth}
+      \fignocaption{width = 0.60\textwidth}{figs/programming-pearls.jpg}
+    \column{0.60\textwidth}
+      \begin{description}[<+->][Michael Shamos]
+	\setlength{\itemsep}{6pt}
+	\item[Ulf Grenander] $O(n^3) \implies O(n^2)$
+	\item[Michael Shamos] $O(n \log n)$, onenight
+	\item[Jon Bentley] Conjecture: $\Omega(n \log n)$
+	\item[Michael Shamos] Carnegie Mellon seminar
+	\item[Jay Kadane] $O(n)$, \uncover<6->{\textcolor{red}{$\le 1$ minute}}
+      \end{description}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+% \begin{frame}{Maximum-product subarray}
+%   \begin{exampleblock}{Maximum-product subarray (Problem 7.4)}
+%     \begin{itemize}
+%       \item Array $A[1 \dots n]$
+%       \item Find maximum-product subarray of $A$
+%     \end{itemize}
+%   \end{exampleblock}
+% \end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+% \begin{frame}{}
+%   \centerline{\teal{\large Ending with $i$}}
+% 
+%   \begin{table}
+%     \renewcommand{\arraystretch}{1.8}
+%     \centering
+%     \begin{tabular}{|L||C|C|C|C|C|C|C|}
+%       \hline
+%       &	& \frac{1}{2} & 4 & -2 & \textcolor{red}{5} & \textcolor{red}{-\frac{1}{5}} & 8 \\ \hline \pause 
+%       \text{MaxP}[i] & 1	& \frac{1}{2} & 4 & -2 & 5 & 8 & 64 \\ \hline \pause
+%       \text{MinP}[i] & 1	& \frac{1}{2} & 2 & -8 & -40 & -1 & -8  \\ \hline
+%     \end{tabular}
+%   \end{table}
+% 
+%   \pause
+%   \begin{align*}
+%     \text{MaxP}[i] &= \max\set{\text{MaxP}[i-1] \cdot a_i, \text{MinP}[i-1] \cdot a_i, a_i} \\
+%     \text{MinP}[i] &= \min\set{\text{MaxP}[i-1] \cdot a_i, \text{MinP}[i-1] \cdot a_i, a_i}
+%   \end{align*}
+% \end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+% \begin{frame}{}
+%   2d
+% \end{frame}
+%%%%%%%%%%%%%%%
