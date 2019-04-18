@@ -1,0 +1,82 @@
+% file: parts/searching.tex
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Local Minimum (Problem $9.12$)}
+    \[
+      A[1 \cdots n]
+    \]
+    \[
+      A[0] \ge A[1] \;\red{\land}\; A[n-2] \le A[n-1]
+    \]
+
+    \[
+      A[i-1] \ge \red{A[i]} \le A[i+1]
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    \red{\exists}
+  \]
+
+  \pause
+  \[
+    \text{\it Scan}: T(n) = O(n)
+  \]
+
+  \pause
+  \[
+    \min A: T(n) = O(n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Local Minimum (Problem $9.12$)}
+    \[
+      A[1 \cdots n]
+    \]
+    \[
+      A[0] \ge A[1] \;\red{\land}\; A[n-2] \le A[n-1]
+    \]
+
+    \[
+      A[i-1] \ge \red{A[i]} \le A[i+1]
+    \]
+  \end{exampleblock}
+
+  \vspace{0.60cm}
+  \begin{columns}
+    \column{0.40\textwidth}
+      \pause
+      \[
+	\red{T(n) = O(\log n)}
+      \]
+
+      \pause
+      \[
+	T(n) = T(\frac{n}{2}) + 1
+      \]
+    \column{0.60\textwidth}
+      \pause
+      \[
+	m = \frac{n}{2}
+      \]
+
+      \pause
+      \[
+	A[m-1] \ge \red{A[m]} \le A[m+1]
+      \]
+      \[
+	A[m-1] < A[m] \;\red{\lor}\; A[m+1] < A[m]
+      \]
+
+      \pause
+      \[
+	n = 1 \quad \lor \quad n = 2
+      \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%

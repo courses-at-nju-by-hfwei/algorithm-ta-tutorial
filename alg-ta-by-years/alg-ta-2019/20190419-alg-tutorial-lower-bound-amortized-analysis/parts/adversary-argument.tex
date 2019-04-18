@@ -1,0 +1,78 @@
+% adversary-argument.tex
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Searching in Matrix (Problem $9.8$)}
+    \[
+      M: m \times n
+    \]
+
+    \begin{center}
+      {Row: increasing from left to right} \\[6pt]
+      {Col: increasing from top to down}
+    \end{center}
+
+    \vspace{-0.50cm}
+    \[
+      \red{x \in M?}
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{Divide \& Conquer}
+
+  \pause
+  \[
+    T(m,n) = 3T(\frac{m}{2}, \frac{n}{2}) + 1 
+  \]
+
+  % \pause
+  % \[
+  %   m = n \implies T(n) = 3T(\frac{n}{2}) + 1 \pause \implies T(n) = \Theta(n^{\log_{2}3})
+  % \]
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{\red{\large Always checking the lower left corner.}}
+
+  \pause
+  \[
+    T(m, n) = m + n - 1
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \text{Assume } M: n \times n 
+  \]
+
+  \[
+    W(n) \le 2n - 1
+  \]
+
+  \pause
+  \[
+    \boxed{\red{W(n) \ge 2n - 1}}
+  \]
+
+  \pause
+  \centerline{\teal{By Adversary Argument!}}
+
+  \pause
+  \[
+    \text{Diagonals: } i + j = n - 1 \quad\&\quad i + j = n
+  \]
+
+  \pause
+  \centerline{\teal{No particular ordering requirements on these two diagonals!}}
+
+  \pause
+  \begin{align*}
+    i + j \le n - 1 &\implies x > M_{ij} \\
+    i + j > n - 1 &\implies x < M_{ij} \\
+  \end{align*}
+\end{frame}
+%%%%%%%%%%%%%

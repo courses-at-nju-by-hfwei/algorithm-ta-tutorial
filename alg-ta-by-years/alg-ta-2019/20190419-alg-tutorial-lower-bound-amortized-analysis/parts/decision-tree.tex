@@ -1,0 +1,391 @@
+% file: parts/lower-bound.tex
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Lower Bound for Comparison-based Sorting}
+    Prove a lower bound of $\Omega(n \log n)$
+    on the time complexity of any \red{\bf\large comparison-based} sorting 
+    algorithm on inputs of size $n$.
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \begin{columns}
+    \column{0.60\textwidth}
+      \fig{width = 0.90\textwidth}{figs/gates-paper}
+    \column{0.40\textwidth}
+      \fig{width = 0.60\textwidth}{figs/pancake-sorting}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \teal{Decision Tree Model}} 
+
+    \pause
+    \vspace{0.20cm}
+    \begin{columns}
+      \column{0.40\textwidth}
+	\fig{width = 0.90\textwidth}{figs/decision-tree-model}
+      \column{0.55\textwidth}
+	\begin{description}[Leaves:]
+	  \item[Nodes:] comparisions \red{$a_i : a_j$}
+	    \[
+	      <,\; \le,\; =,\; \ge,\; >
+	    \]
+	    %\[
+	    %  a_i < a_j, \; a_i \le a_j, \; a_i = a_j 
+	    %\]
+	    %\[
+	    %  a_i \ge a_j, \; a_i > a_j
+	    %\]
+	  \item[Edges:] two-way decisions (\blue{$Y/N$})
+	  \item[Leaves:] possible permutations
+	\end{description}
+    \end{columns}
+
+    \pause
+    \vspace{0.60cm}
+    \begin{alertblock}{Assumption:}
+      \centerline{All the input elements are \red{\bf\large distinct}.}
+      \[
+		\red{a_i < a_j}
+      \]
+    \end{alertblock}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \teal{Decision Tree Model}} 
+  \end{center}
+
+  \vspace{-0.40cm}
+  \[
+    \boxed{\text{Any Comparison-based Sorting Algorithm} \;\red{\xRightarrow{ \textsf{modeled by} }}\; \text{A Decision Tree}}
+  \]
+
+  \pause
+  \fig{width = 0.50\textwidth}{figs/think-kenan}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \teal{Decision Tree Model}} 
+  \end{center}
+
+  \vspace{-0.40cm}
+  \[
+    \boxed{\text{Any Comparison-based Sorting Algorithm} \;\red{\xRightarrow{ \textsf{modeled by} }}\; \text{A Decision Tree}}
+  \]
+
+  \pause
+  \fig{width = 0.70\textwidth}{figs/decision-tree-insertion-sort}
+  \centerline{The decision tree for \teal{insertion sort} on three elements.}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \teal{Decision Tree Model}} 
+  \end{center}
+
+  \vspace{-0.40cm}
+  \[
+    \boxed{\text{Any Comparison-based Sorting Algorithm} \;\red{\xRightarrow{ \textsf{modeled by} }}\; \text{A Decision Tree}}
+  \]
+
+  \input{algs/selection-sort}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \teal{Decision Tree Model}} 
+  \end{center}
+
+  \vspace{-0.40cm}
+  \[
+    \boxed{\text{Any Comparison-based Sorting Algorithm} \;\red{\xRightarrow{ \textsf{modeled by} }}\; \text{A Decision Tree}}
+  \]
+
+  \fig{width = 0.85\textwidth}{figs/decision-tree-selection-sort}{\centerline{The decision tree for \teal{selection sort} on three elements.}}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \teal{Decision Tree Model}} 
+  \end{center}
+
+  \vspace{-0.40cm}
+  \[
+    \boxed{\text{Any Comparison-based Sorting Algorithm } \mathcal{A} \;\red{\xRightarrow{\textsf{modeled by}}}\; \text{A Decision Tree } \mathcal{T}}
+  \]
+
+  \pause
+  \[
+    \text{Algorithm $\mathcal{A}$ on a specific input of size } n \;\red{\xRightarrow{\textsf{modeled by}}}\; \text{A path through } \mathcal{T}
+  \]
+
+  \pause
+  \[
+    \text{Worst-case time complexity of $\mathcal{A}$} \;\red{\xRightarrow{\textsf{modeled by}}}\; \text{The height of } \mathcal{T}
+  \]
+
+  \pause
+  \vspace{0.50cm}
+  \centering
+  \fbox{\begin{tabular}{@{}c@{}}
+    Worst-case Lower Bound of Comparison-based Sorting \\ (on inputs of size $n$) \\
+    \red{$\xRightarrow{\textsf{modeled by}}$} \\
+    The Minimum Height of All  $\mathcal{T}$s
+  \end{tabular}}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centering
+  \fbox{\begin{tabular}{@{}c@{}}
+    Worst-case Lower Bound of Comparison-based Sorting \\ (on inputs of size $n$) \\
+    \red{$\xRightarrow{\textsf{modeled by}}$} \\
+    \teal{The Minimum Height of All  $\mathcal{T}$s}
+  \end{tabular}}
+
+  \pause
+  \vspace{0.30cm}
+  \begin{alertblock}{To be a \blue{correct} sorting algorithm:}
+    \[
+      \# \text{ of leaves } \;\red{\ge}\; n!
+    \]
+  \end{alertblock}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{alertblock}{To be a full binary tree:}
+    \[
+      \# \text{ of leaves } \;\red{\le}\; 2^h
+    \]
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+    {\Large \teal{Lower Bound for Comparison-based Sorting}} 
+  \end{center}
+
+  \[
+    \boxed{n! \le \# \text{ of leaves} \le 2^h}
+  \]
+
+  \pause
+  \[
+    h \ge \log n! = \Omega(n \log n)
+  \]
+
+  \pause
+  \vspace{0.60cm}
+  \begin{alertblock}{Stirling Formula (by {\it James Stirling}):}
+    \begin{columns}
+      \column{0.50\textwidth}
+	\[
+	  n! = \Theta\Big(\sqrt{2 \pi n} \Big(\frac{n}{e}\Big)^{n}\Big)
+	\]
+      \column{0.50\textwidth}
+	\fig{width = 0.30\textwidth}{figs/stirling-formula-wiki-qrcode}
+    \end{columns}
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{definition}[$K$-sorting (Problem $6.8$)]
+    \fig{width = 0.40\textwidth}{figs/k-sorting}
+
+	\pause
+    \vspace{-0.50cm}
+	\[
+	  \blue{O(n \log k)}
+	\]
+  \end{definition}
+
+  \pause
+  \[
+    n = 16,\; k = 4,\; \frac{n}{k} = 4
+  \]
+
+  \[
+    1,\;2,\;4,\;3;\quad 7,\;6,\;8,\;5;\quad 10,\;11,\;9,\;12;\quad 15,\;13,\;16,\;14
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+	{\purple{\large $k$-sorted}}
+  \end{center}
+
+  \pause
+  \[
+    1\text{-sorted} \pause \to 2\text{-sorted} \pause \to 4\text{-sorted} \pause \to \cdots \to n\text{-sorted}
+  \]
+
+  \pause
+  \centerline{Quicksort \red{(with median as pivot)} stops after the \red{$\log k$} recursions.}
+
+  \pause
+  \vspace{0.50cm}
+  \[
+    \blue{\boxed{\Theta(n \log k)}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+    \red{\Omega(n \log k)}
+  \]
+
+  \pause
+  \[
+	L \;\red{\ge}\; \pause \binom{n}{n/k} \binom{n-n/k}{n/k} \cdots \binom{n/k}{n/k}
+	\pause = \binom{n}{n/k, \ldots, n/k} \pause = \frac{n!}{\left( (\frac{n}{k})! \right)^{k}}
+  \]
+
+  \pause
+  \[
+	H \;\red{\ge}\; \log \left(\frac{n!}{\left( (\frac{n}{k})! \right)^{k}} \right) \pause = \Omega(n \log k)
+  \]
+
+  \pause
+  \vspace{0.30cm}
+  \[
+	\blue{\boxed{n! \;\red{\sim}\; \sqrt{2 \pi n} \Big(\frac{n}{e}\Big)^{n} \implies \log n! \;\red{\sim}\; n \log n}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{center}
+	{\purple{\large Sorting the $k$-sorted array}}
+  \end{center}
+
+  \fig{width = 0.35\textwidth}{figs/k-sorting}
+
+  \begin{columns}
+	\column{0.50\textwidth}
+	  \pause
+	  \[
+		O(n \log \frac{n}{k})
+	  \]
+	\column{0.50\textwidth}
+	  \pause
+	  \[
+		L \;\red{\ge}\; ((\frac{n}{k})!)^k
+	  \]
+
+	  \pause
+	  \[
+		H \;\red{\ge}\; \log ((\frac{n}{k})!)^k = \Omega(n \log \frac{n}{k})
+	  \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large Bolts and Nuts {\small (Problem $6.9$)}}}
+  \fig{width = 0.35\textwidth}{figs/bolts-nuts}
+
+  \pause
+  \centerline{\blue{\large Quicksort}}
+
+  \pause
+  \[
+    \red{A(n)} = O(n \log n)
+  \]
+
+  \pause
+  \begin{alertblock}{In the worst case:}
+	{\small
+    \begin{itemize}
+      \item ``Matching Nuts and Bolts'' by Alon \emph{et al.}, \hfill $\Theta(n \log^4 n)$
+	  \item ``Matching Nuts and Bolts \red{Optimality}'' by Bradford, 1995, \hfill $\Theta(n \log n)$ 
+    \end{itemize}
+  }
+  \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \fig{width = 0.35\textwidth}{figs/bolts-nuts}
+
+  \[
+    \red{\Omega(n \log n)}
+  \]
+
+  \pause
+  \[
+    \red{3^{H}} \ge L \;\red{\ge n!}\; \pause \implies H \ge \log n! \implies H = \Omega(n \log n)
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Repeated Elements (Problem $6.13$)}
+    \[
+      R[1 \dots n]
+    \]
+    \[
+      \# > \lfloor \frac{n}{13} \rfloor
+    \]
+    \[
+      \text{To find all $\frac{n}{13}$-repeated elements}
+    \]
+
+    \[
+      \red{\textsc{Check}(R[i], R[j])}
+    \]
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \[
+	\# > \lfloor \frac{n}{k} \rfloor
+  \]
+
+  \pause
+  \[
+    \red{\Omega(n \log k)}
+  \]
+
+  \pause
+  \fig{width = 0.25\textwidth}{figs/qrcode-finding-repeated-elements-paper}
+
+  % \begin{alertblock}{Reference:}
+  %   \begin{center}
+  %     {\it ``Finding Repeated Elements''} by Misra and Gries, $1982$
+  %   \end{center}
+  % \end{alertblock}
+\end{frame}
+%%%%%%%%%%%%%

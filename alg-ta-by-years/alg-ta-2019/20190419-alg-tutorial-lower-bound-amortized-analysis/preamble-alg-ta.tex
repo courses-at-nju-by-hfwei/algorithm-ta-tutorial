@@ -1,0 +1,56 @@
+% preamble-alg-ta.tex
+
+\usepackage{lmodern}
+
+\usetheme{CambridgeUS} % try Madrid, Pittsburgh
+\usecolortheme{beaver}
+\usefonttheme[]{serif} % try "professionalfonts"
+
+\setbeamertemplate{itemize items}[default]
+\setbeamertemplate{enumerate items}[default]
+
+\usepackage{amsmath, amsfonts, latexsym, mathtools}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\usepackage{pifont}
+\usepackage{hyperref}
+\usepackage{comment}
+
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\cyan}[1]{\textcolor{cyan}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+\newcommand{\teal}[1]{\textcolor{teal}{#1}}
+\newcommand{\purple}[1]{\textcolor{purple}{#1}}
+\newcommand{\gray}[1]{\textcolor{gray}{#1}}
+
+\usepackage[normalem]{ulem}
+\newcommand{\middlewave}[1]{\raisebox{0.5em}{\uwave{\hspace{#1}}}}
+
+\usepackage{graphicx, subcaption}
+
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+\newcommand{\hStatex}[0]{\vspace{5pt}}
+
+\newcommand{\pno}[1]{\textcolor{blue}{\scriptsize [Problem: #1]}}
+\newcommand{\set}[1]{\{#1\}}
+
+\newcommand{\cmark}{\textcolor{red}{\ding{51}}}
+\newcommand{\xmark}{\textcolor{red}{\ding{55}}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% for fig without caption: #1: width/size; #2: fig file
+\newcommand{\fig}[2]{
+  \begin{figure}[htp]
+    \centering
+      \includegraphics[#1]{#2}
+  \end{figure}
+}
+
+\newcommand{\titletext}{What You Should Know About Algorithm Design}
+
+\newcommand{\thankyou}{
+  \begin{frame}[noframenumbering]{}
+    \fig{width = 0.50\textwidth}{figs/thankyou.png}
+  \end{frame}
+}
