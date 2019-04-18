@@ -1,0 +1,136 @@
+% file: sections/array-merge-dictionary.tex
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Array Merging Dictionary (Additional Problem)}
+    \begin{columns}
+      \column{0.50\textwidth}
+        \pause
+	\begin{align*}
+	  \red{i} & \quad \red{s_i} \\
+	  A_{0} & \quad 1 \\
+	  A_{1} & \quad 2 \\
+	  A_{2} & \quad 4 \\
+	  A_{3} & \quad 8 \\
+	  \vdots & \quad \cdots \\
+	  A_{i} & \quad 2^{i}
+	\end{align*}
+      \column{0.50\textwidth}
+        \pause
+        \[
+	  11 = 2^{0} + 2^{1} + 2^{3} 
+	\]
+	\begin{align*}
+	  \red{i} & \quad \red{e_i} \\
+	  A_{0} & \quad [5] \\
+	  A_{1} & \quad [4,8] \\
+	  A_{2} & \quad [\;] \\
+	  A_{3} & \quad [2, 6, 9, 12, 13, 16, 20, 25]
+	\end{align*}
+  \end{columns}
+    
+  \pause
+  \vspace{0.30cm}
+  \[
+    \textsc{Create}: 1 \quad \textsc{Merge$(A_i, A_i)$}: 2 \cdot 2^i
+  \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    \textsc{\teal{Insert(10)}}: 1 + 2 + 4; \quad \pause \textsc{\teal{Insert()}}: 1; \quad \pause \textsc{\teal{Insert()}}: 1 + 2
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{The Summation Method for ``Array Merging Dictionary''}
+    \[
+      \textsc{Create}: 1 \quad \textsc{Merge$(A_i, A_i)$}: 2 \cdot 2^i
+    \]
+  \end{exampleblock}
+
+  \begin{columns}
+    \column{0.40\textwidth}
+      \pause
+      \begin{align*}
+	i & \quad c_i \\
+	1 & \quad 1  \\
+	2 & \quad 1 + 2 \\
+	3 & \quad 1 \\
+	4 & \quad 1 + 2 + 4 \\
+	5 & \quad 1 \\
+	6 & \quad 1 + 2 \\
+	7 & \quad 1 \\
+	8 & \quad 1 + 2 + 4 + 8 \\
+	\vdots & \quad \cdots
+      \end{align*}
+    \column{0.55\textwidth}
+      \pause
+      \[
+	\sum_{i=1}^{n} c_i = \sum_{j=0}^{\lfloor \log n \rfloor} \lfloor \frac{n}{2^j} \rfloor 2^j \le n (\lfloor \log n \rfloor + 1)
+      \]
+
+      \pause
+      \[
+	\forall i,\; \hat{c_i} = 1 + \lfloor \log n \rfloor
+      \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{The Accounting Method for ``Array Merging Dictionary''}
+    \[
+      \textsc{Create}: 1 \quad \textsc{Merge$(A_i, A_i)$}: 2 \cdot 2^i
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    \hat{c_i} = 1 + \lfloor \log n \rfloor
+  \]
+
+  \pause
+  \fignocaption{width = 0.40\textwidth}{figs/why}
+
+  \pause
+  \[
+    \forall n,\; \sum_{i=1}^{n} a_i \geq 0
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{The Potential Method for ``Array Merging Dictionary''}
+    \[
+      \textsc{Create}: 1 \quad \textsc{Merge$(A_i, A_i)$}: 2 \cdot 2^i
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    j = \sum_{i=1}^{k} 2^{x_{i}} \implies \pause
+    \boxed{\red{\Phi(D_{j}) = \sum_{i=1}^{k} 2^{x_{i}} \Big(\lfloor \log n \rfloor - x_{i} \Big)}}
+  \]
+
+  \pause
+  \[
+    \teal{\textsc{Insert}_{j}}: \purple{A_0, A_1, \cdots, A_t \leadsto A_{t+1}}
+  \]
+
+  \pause
+  \begin{align*}
+    \hat{c}_{j} &= c_{j} + \Big(\Phi(D_{j}) - \Phi(D_{j-1})\Big) \\
+    \onslide<6->{
+      &= 1 + \sum_{i=0}^{t} 2^{i+1} - \Big(\sum_{i=0}^{t} 2^i (\lfloor \log n \rfloor - i)\Big) + 2^{t+1} \Big(\lfloor \log n \rfloor - (t+1)\Big) \\
+    }
+    \onslide<7->{
+      &= \red{1 + \lfloor \log n \rfloor}
+    }
+  \end{align*}
+\end{frame}
+%%%%%%%%%%%%%%%%%%

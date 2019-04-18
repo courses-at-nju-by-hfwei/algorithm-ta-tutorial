@@ -2,6 +2,14 @@
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
+  \centerline{\teal{\Large Amortized Analysis}}
+
+  \fig{width = 0.45\textwidth}{figs/amortized-analysis-pig}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
   \begin{quote}
     \centering
     {\large
@@ -18,8 +26,21 @@
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\teal{\large The Summation Method}}
+  \fig{width = 0.75\textwidth}{figs/amortization-three-methods}
+\end{frame}
+%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large The Summation Method}}
+
+  \vspace{0.50cm}
+  \fig{width = 0.20\textwidth}{figs/sigma}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
   \[
     o_1, o_2, \ldots, o_n
   \]
@@ -70,16 +91,22 @@
 
   \pause
   \[
-    \boxed{\teal{\forall i,\; \hat{c_i} = 3}}
+    \red{\boxed{\forall i,\; \hat{c_i} = 3}}
   \]
 \end{frame}
 %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%
 \begin{frame}{}
-  \centerline{\teal{\large The Accounting Method}}
+  \centerline{\teal{\Large The Accounting Method}}
 
-  \vspace{-0.50cm}
+  \vspace{0.50cm}
+  \fig{width = 0.40\textwidth}{figs/accounting}
+\end{frame}
+%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%
+\begin{frame}{}
   \begin{gather*}
     o_1, o_2, \ldots, o_n \\[5pt]
     c_1, c_2, \ldots, c_n \\[5pt]
@@ -89,7 +116,7 @@
   \pause
   \vspace{-0.30cm}
   \[
-    \boxed{\red{\hat{c_i} = c_i + a_i, \; a_i >=< 0}}
+    \red{\boxed{\hat{c_i} = c_i + a_i, \; a_i >=< 0}}
   \]
 
   \[
@@ -98,7 +125,7 @@
 
   \pause
   \[
-    \forall n,\; \sum_{i=1}^{n} c_i \le \sum_{i=1}^{n} \hat{c_i} \pause \implies \boxed{\red{\forall n,\; \sum_{i=1}^{n} a_i \geq 0}}
+	\blue{\forall n,\; \sum_{i=1}^{n} c_i \le \sum_{i=1}^{n} \hat{c_i}} \pause \implies \red{\boxed{\forall n,\; \sum_{i=1}^{n} a_i \geq 0}}
   \]
 
   \pause
@@ -136,73 +163,31 @@
 %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%
-% \begin{frame}{Array merging (Problem 4.13): the summation method}
-%   \centerline{\textsc{Create} ($1$); \textsc{Merge} ($2m$)}
-% 
-%   \begin{columns}
-% 	\column{0.40\textwidth}
-% 	  \pause
-% 	  \begin{align*}
-% 		i & \quad c_i \\
-% 		1 & \quad 1  \\
-% 		2 & \quad 1 + 2 \\
-% 		3 & \quad 1 \\
-% 		4 & \quad 1 + 2 + 4 \\
-% 		5 & \quad 1 \\
-% 		6 & \quad 1 + 2 \\
-% 		7 & \quad 1 \\
-% 		8 & \quad 1 + 2 + 4 \\
-% 		\vdots & \quad \cdots
-% 	  \end{align*}
-% 	\column{0.55\textwidth}
-% 	  \pause
-% 	  \[
-% 		\sum_{i=1}^{n} c_i = \sum_{j=0}^{\lfloor \log n \rfloor} \lfloor \frac{n}{2^j} \rfloor 2^j \le n (\lfloor \log n \rfloor + 1)
-% 	  \]
-% 
-% 	  \pause
-% 	  \[
-% 		\forall i, \hat{c_i} = 1 + \lfloor \log n \rfloor
-% 	  \]
-%   \end{columns}
-% \end{frame}
-%%%%%%%%%%%%%%%%%%%%
-% \begin{frame}{Array merging (Problem 4.13): the accounting method}
-%   \[
-% 	\hat{c_i} = 1 + \lfloor \log n \rfloor
-%   \]
-% 
-%   \pause
-%   \vspace{0.60cm}
-%   \centerline{What does it mean?}
-% 
-%   \pause
-%   \vspace{0.80cm}
-%   \[
-% 	\forall n, \sum_{i=1}^{n} a_i \geq 0
-%   \]
-% \end{frame}
-%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \centerline{\teal{\large Simulating a queue $Q$ using two stacks $S_1, S_2$ {\small (Problem $\mathbb{E}3$)}}}
 
-  \begin{algorithm}[H]
-    \begin{algorithmic}[]
-      \Procedure{Enq}{$x$}
-	\State \textsl{Push}($S_1, x$)
-      \EndProcedure
+  \begin{columns}
+	\column{0.20\textwidth}
+	\column{0.60\textwidth}
+	  \begin{algorithm}[H]
+		\begin{algorithmic}[]
+		  \Procedure{Enq}{$x$}
+		\State \textsl{Push}($S_1, x$)
+		  \EndProcedure
 
-      \Statex
-      \Procedure{Deq}{\null}
-        \If{$S_2 = \emptyset$}
-          \While{$S_1 \neq \emptyset$}
-            \State \textsl{Push}($S_2$, \textsl{Pop}($S_1$))
-          \EndWhile
-        \EndIf
-        \textsl{Pop}($S_2$)
-      \EndProcedure
-    \end{algorithmic}
-  \end{algorithm}
+		  \Statex
+		  \Procedure{Deq}{\null}
+			\If{$S_2 = \emptyset$}
+			  \While{$S_1 \neq \emptyset$}
+				\State \textsl{Push}($S_2$, \textsl{Pop}($S_1$))
+			  \EndWhile
+			\EndIf
+			\textsl{Pop}($S_2$)
+		  \EndProcedure
+		\end{algorithmic}
+	  \end{algorithm}
+	\column{0.20\textwidth}
+  \end{columns}
 \end{frame}
 %%%%%%%%%%%%%
 
@@ -242,7 +227,7 @@
   \pause
   \vspace{-0.60cm}
   \[ 
-    \sum_{i=1}^{n} a_i \ge 0 \pause \Longleftarrow \sum_{i=1}^{n} a_i = \#S_1 \times 2
+	\red{\sum_{i=1}^{n} a_i \ge 0} \pause \Longleftarrow \sum_{i=1}^{n} a_i = \#S_1 \times 2
   \]
 \end{frame}
 %%%%%%%%%%%%%
@@ -258,16 +243,119 @@
 
   \vspace{-0.60cm}
   \[
-    \#S_1 = t
+	\blue{\#S_1 = t}
   \]
 
   \begin{table}
     \begin{tabular}{c|ccc}
-      & $\hat{c_i}$ & $c_i$ {\it (actual cost)} & $a_i$ {\it (accounting cost)} \\
+      & $\hat{c_i}$ & $c_i$ {\it (actual cost)} & $a_i$ {\it (accounting cost)} \\ \hline
       \textsc{Enqueue} & $3$ & $1$ & $2$ \\
-      \textsc{Dequeue} ($S_2 = \emptyset$) & $1$ & $1$ & $0$ \\
-      \textsc{Dequeue} ($S_2 \neq \emptyset$) & $1$ & $1+2t$ & $-2t$
+      \textsc{Dequeue} ($S_2 \neq \emptyset$) & $1$ & $1$ & $0$ \\
+      \textsc{Dequeue} ($S_2 = \emptyset$) & $1$ & $1+2t$ & $-2t$
     \end{tabular}
   \end{table}
 \end{frame}
 %%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Array Merging Dictionary (Problem $\mathbb{E}\; 2$)}
+    \begin{columns}
+      \column{0.50\textwidth}
+        \pause
+		\begin{align*}
+		  \red{i} & \quad \red{s_i = 2^i} \\
+		  A_{0} & \quad 1 \\
+		  A_{1} & \quad 2 \\
+		  A_{2} & \quad 4 \\
+		  A_{3} & \quad 8 \\
+		  \vdots & \quad \cdots \\
+		  A_{i} & \quad 2^{i}
+		\end{align*}
+      \column{0.50\textwidth}
+        \pause
+        \[
+		  11 = 2^{0} + 2^{1} + 2^{3} 
+		\]
+	\begin{align*}
+	  \red{i} & \quad \red{e_i} \\
+	  A_{0} & \quad [5] \\
+	  A_{1} & \quad [4,8] \\
+	  A_{2} & \quad [\;] \\
+	  A_{3} & \quad [2, 6, 9, 12, 13, 16, 20, 25]
+	\end{align*}
+  \end{columns}
+    
+  \pause
+  \vspace{0.30cm}
+  \[
+	\blue{\textsc{Create}: 1 \quad \textsc{Merge$(A_i, A_i)$}: 2 \cdot 2^i}
+  \]
+  \end{exampleblock}
+
+  \pause
+  \[
+    \textsc{\teal{Insert()}}: 1 + 2 + 4; \quad \pause \textsc{\teal{Insert()}}: 1; \quad \pause \textsc{\teal{Insert()}}: 1 + 2
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{The Summation Method for ``Array Merging Dictionary''}
+    \[
+	  \blue{\textsc{Create}: 1 \quad \textsc{Merge$(A_i, A_i)$}: 2 \cdot 2^i}
+    \]
+  \end{exampleblock}
+
+  \begin{columns}
+    \column{0.40\textwidth}
+      \pause
+      \begin{align*}
+	i & \quad c_i \\
+	1 & \quad 1  \\
+	2 & \quad 1 + 2 \\
+	3 & \quad 1 \\
+	4 & \quad 1 + 2 + 4 \\
+	5 & \quad 1 \\
+	6 & \quad 1 + 2 \\
+	7 & \quad 1 \\
+	8 & \quad 1 + 2 + 4 + 8 \\
+	\vdots & \quad \cdots
+      \end{align*}
+    \column{0.55\textwidth}
+      \pause
+      \[
+	\sum_{i=1}^{n} c_i = \sum_{j=0}^{\lfloor \log n \rfloor} \lfloor \frac{n}{2^j} \rfloor 2^j \le n (\lfloor \log n \rfloor + 1)
+      \]
+
+      \pause
+      \[
+	\forall i,\; \hat{c_i} = 1 + \lfloor \log n \rfloor
+      \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{The Accounting Method for ``Array Merging Dictionary''}
+    \[
+	  \blue{\textsc{Create}: 1 \quad \textsc{Merge$(A_i, A_i)$}: 2 \cdot 2^i}
+    \]
+  \end{exampleblock}
+
+  \pause
+  \[
+	\red{\hat{c_i} = 1 + \lfloor \log n \rfloor}
+  \]
+
+  \pause
+  \fig{width = 0.40\textwidth}{figs/why-why-why}
+
+  \pause
+  \[
+    \forall n,\; \sum_{i=1}^{n} a_i \geq 0
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%
