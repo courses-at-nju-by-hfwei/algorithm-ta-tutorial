@@ -2,6 +2,10 @@
 
 %%%%%%%%%%%%%%%
 \begin{frame}
+  \begin{center}
+	{\teal{\Large When You Design Algorithms:}}
+  \end{center}
+
   \fig{width = 0.50\textwidth}{figs/as-fast-as-possible}
 \end{frame}
 %%%%%%%%%%%%%%%
@@ -11,12 +15,22 @@
   \begin{columns}
 	\column{0.50\textwidth}
 	  \fig{width = 0.80\textwidth}{figs/bolt-run}
+	  \begin{center}
+		\teal{Design Faster Algorithms}
+	  \end{center}
 	\column{0.50\textwidth}
 	  \pause
 	  \fig{width = 0.60\textwidth}{figs/know-your-limits}
-	  \pause
-	  \fig{width = 0.35\textwidth}{figs/bolt-auto}
+	  \begin{center}
+		\teal{When to Stop?}
+	  \end{center}
   \end{columns}
+
+  \pause
+  \vspace{0.60cm}
+  \begin{center}
+	\red{\large The Complexity of Problems}
+  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%
 
@@ -32,10 +46,12 @@
 	W_{A}(n) = \max_{x \in \mathcal{X}_{n}} T_{A}(x)
   \]
 
+  \pause
   \[
 	B_{A}(n) = \min_{x \in \mathcal{X}_{n}} T_{A}(x)
   \]
 
+  \pause
   \[
 	A_{A}(n) = \sum_{x \in \mathcal{X}_{n}} T_{A}(x) \cdot P(x)
 		     = \mathbb{E} [T_{A}]
@@ -45,27 +61,27 @@
   \pause
   \vspace{0.40cm}
   \[
-	\red{T_{P}(n) = \pause \min_{A \text{ solves } P} W_{A}(n) \pause = \min_{A \text{ solves } P} \max_{x \in \mathcal{X}_{n}} T_{A}(x)}
+	\red{\boxed{T_{P}(n) = \pause \min_{A \text{ solves } P} W_{A}(n) \pause = \min_{A \text{ solves } P} \max_{x \in \mathcal{X}_{n}} T_{A}(x)}}
   \]
 \end{frame}
 %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%
-\begin{frame}
-  \begin{columns}
-	\column{0.50\textwidth}
-	  \fig{width = 0.80\textwidth}{figs/algorithm-hat}
-	  \[
-		\text{\purple{Algorithm Designer}}
-	  \]
-	\pause
-	\column{0.50\textwidth}
-	  \fig{width = 0.75\textwidth}{figs/lower-hat}
-	  \[
-		\text{\purple{Lower Bound Prover}}
-	  \]
-  \end{columns}
-\end{frame}
+% \begin{frame}
+%   \begin{columns}
+% 	\column{0.50\textwidth}
+% 	  \fig{width = 0.80\textwidth}{figs/algorithm-hat}
+% 	  \[
+% 		\text{\purple{Algorithm Designer}}
+% 	  \]
+% 	\pause
+% 	\column{0.50\textwidth}
+% 	  \fig{width = 0.75\textwidth}{figs/lower-hat}
+% 	  \[
+% 		\text{\purple{Lower Bound Prover}}
+% 	  \]
+%   \end{columns}
+% \end{frame}
 %%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%
@@ -74,7 +90,7 @@
 	\column{0.50\textwidth}
 	  \fig{width = 0.70\textwidth}{figs/decision-tree-model}
 	  \[
-		\text{\purple{Decision Trees}}
+		\text{\purple{Decision Tree}}
 	  \]
 	\column{0.50\textwidth}
 	  \fig{width = 0.68\textwidth}{figs/adversary}
