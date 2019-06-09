@@ -1,0 +1,100 @@
+% file: sections/biconn.tex
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centerline{\Large \textsc{Bicomp}: \red{\huge Back!}}
+
+  \pause
+  \begin{center}
+    \input{tikz/bicomp-dfs-tree}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \centerline{\red{$\text{back}[v]$:} the earliest reachable ancestor of $v$} % by tree + back edges
+
+  \vspace{0.30cm}
+  \begin{enumerate}[(I)]
+    \centering
+    \item When and how to \brown{update} $\text{back}[v]$? \\[6pt]
+    \item When and how to \brown{identify} a bicomponent?
+  \end{enumerate}
+
+  \pause
+  \fig{width = 0.30\textwidth}{figs/bicomp-dfs-alg}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{exampleblock}{Initialization of $\text{back}[v]$ (Problem $4.9$)}
+    \[
+      \text{back}[v] = d[v] \text{\emph{ vs. }} \text{back}[v] = \infty \lor 2(n+1) 
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \begin{description}[backtracking from $w$:]
+    \item[tree edge ($\to v$):]   $\text{back}[v] = \red{d[v]}$
+    \item[back edge ($v \to w$):] $\text{back}[v] = \min \set{\text{back}[v], d[w]}$
+    \item[backtracking from $w$:] $\text{back}[v] = \min \set{\text{back}[v], \text{back}[w] = \teal{\text{wBack}}}$
+  \end{description}
+
+  \pause
+  \begin{proof}
+    \begin{columns}
+      \column{0.30\textwidth}
+	\centerline{if ever updated}
+      \column{0.70\textwidth}
+	\pause
+	\centerline{if never updated:}
+	\pause
+	\[
+	  \text{wBack} = \infty > d[v] \text{\emph{ vs. }} \pause \text{wBack} = d[w] > d[v]
+	\]
+    \end{columns}
+    \vspace{-0.50cm}
+  \end{proof}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{exampleblock}{Root cutnode $v$ (Problem $4.8$)}
+    \[
+      v \text{ is a cutnode} \iff \text{out}[v] \ge 2
+    \]
+  \end{exampleblock}
+
+  \pause
+  \fig{width = 0.40\textwidth}{figs/cutnode-types.png}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Planning a party (Problem $5.11$)}
+	\begin{itemize}
+	  \item undirected graph $G$
+	  \item subgraph $G' = (V', E')$:
+		\[
+		  \forall v' \in V: K(v') \ge 5 \land D(v') \ge 5
+		\]
+	\end{itemize}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  $K$-core of a graph:
+  \[
+    \forall v' \in V': \text{deg}[v'] \ge k
+  \]
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{Iteratively delete nodes $v$ of $K(v) < 5 \lor D(v) < 5$}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
