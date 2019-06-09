@@ -1,18 +1,11 @@
-# 20190412-alg-tutorial-math
+# 20190612-alg-tutorial-graph-decomposition
 
 ## Lecture Notes
-- The first class: the first three parts
-- The second class: the fourth part in 30 minutes
+- The first class: 
+- The second class: 
 
 ## TODO
-- [ ] Mathematical Induction
-  - [ ] Diagram for loop invariant (I; I /\ c => I; I /\ ~C => P)
-  - [ ] Loop invariant in terms of i (instead of k)
-  - [ ] Tree example
-  - [ ] Survey recommendation
-- [ ] mma demonstration and recommendation
+- external tikz figs for states of nodes and types of edges
+- dfs/bfs edges figs redrawn using TikZ
 
 ## Suggestions
-- A litter faster
-- A litter deeper
-- More problems

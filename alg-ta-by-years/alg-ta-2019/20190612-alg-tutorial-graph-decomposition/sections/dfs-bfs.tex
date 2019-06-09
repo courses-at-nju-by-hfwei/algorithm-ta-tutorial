@@ -17,7 +17,7 @@
       \begin{center}
 	\purple{life time} of \tikz{\node[draw, circle]{$v$}}: \\[15pt]
 
-	$\brown{v:} \text{d}[v], \text{f}[v]$ \\[10pt]
+	$\brown{v:} \text{ d}[v], \text{f}[v]$ \\[10pt]
 
 	\brown{$\text{d}[v]$:} \textsc{Bicomp} \\[10pt]
 
@@ -46,11 +46,9 @@
 
   \pause
   \vspace{0.50cm}
-  \begin{itemize}
-    \centering
-    \item Also applicable to BFS
-    \item w.r.t. DFS/BFS trees
-  \end{itemize}
+  \begin{center}
+	\blue{\large Also applicable to BFS}
+  \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -85,8 +83,29 @@
       \includegraphics[width = 0.95\textwidth]{figs/bfs-undirected.png}
 
       \vspace{0.50cm}
-      \centerline{\purple{BFS on undirected graph} \teal{\footnotesize (Problem $5.1$)}}
+	  \centerline{\purple{BFS on undirected graph}}
   \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{center}
+	\red{\Large $Q:$ How to identify the types of edges in DFS?} \\[15pt] \pause
+	\brown{\Large Coloring}
+  \end{center}
+
+  \pause
+  \vspace{0.50cm}
+  \tikz{\node (u) [circle]{}; \node (v) [draw, circle, right = 2.5cm of u] {$v$}; \draw[->, very thick, blue] (u) to node [above] {Tree Edge} (v);}
+  \pause
+  \tikz{\node (u) [circle]{}; \node (v) [draw, circle, right = 2.5cm of u, fill = lightgray] {$v$}; \draw[->, very thick, violet!60!black] (u) to node [above] {Back Edge} (v);}
+  \pause
+  \tikz{\node (u) [circle]{}; \node (v) [draw, circle, right = 3.5cm of u, fill = black!60] {$v$}; \draw[->, very thick, purple] (u) to node [above] {Cross/Forward Edge} (v);}
+
+  \pause
+  \vspace{0.50cm}
+  \fig{width = 0.35\textwidth}{figs/timing}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -118,21 +137,24 @@
   \end{center}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
   \centerline{\red{\Large Life time of vertices in DFS}}
   \fig{width = 0.45\textwidth}{figs/active-interval.png}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
   \begin{theorem}[Disjoint or Contained (Problem $4.2: (1) \& (2)$)]
     \[
-      \forall u,v: [_{u} \; ]_{u} \cap [_{v} \; ]_{v} = \emptyset \bigvee 
-      \Big([_{u} \; ]_{u} \subset [_{v} \; ]_{v} \lor [_{v} \; ]_{v} \subset [_{u} \; ]_{u}\Big)
+	  \forall u,v: [_{u} \; ]_{u} \cap [_{v} \; ]_{v} = \emptyset \;\red{\bigvee}\;
+	  \Big([_{u} \; ]_{u} \subset [_{v} \; ]_{v} \;\red{\lor}\; [_{v} \; ]_{v} \subset [_{u} \; ]_{u}\Big)
     \]
   \end{theorem}
 
   \pause
-
   \begin{proof}
 	\fig{width = 0.30\textwidth}{figs/stack.png}
   \end{proof}
@@ -175,15 +197,15 @@
 
   \pause
   \[
-    \text{f}[v] < \text{d}[u] \iff \text{ \uncover<3->{\brown{cross}} edge}
+	\boxed{\text{f}[v] < \text{d}[u] \iff \text{\brown{cross} edge}}
   \]
 
-
+  \pause
   \[
-    \uncover<4->{\text{f}[u] < \text{f}[v] \iff } \uncover<5->{\text{ \red{back} edge }}
+    \text{f}[u] < \text{f}[v] \iff \text{\red{back} edge }
   \]
   \[
-    \uncover<6->{\nexists \text{ cycle} \implies \red{\boxed{u \to v \iff \text{f}[v] < \text{f}[u]}}}
+    \uncover<4->{\nexists \text{ cycle} \implies \red{\boxed{u \to v \iff \text{f}[v] < \text{f}[u]}}}
   \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
@@ -283,7 +305,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+\begin{frame}<presentation:0>[noframenumbering]
   \begin{exampleblock}{Counting shortest paths (Problem $5.10$)}
     Counting \# of shortest paths in (un)directed graphs using BFS.
   \end{exampleblock}

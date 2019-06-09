@@ -13,6 +13,6 @@
 - [ ] mma demonstration and recommendation
 
 ## Suggestions
-- A litter faster
-- A litter deeper
+- A little faster
+- A little deeper
 - More problems
