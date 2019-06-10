@@ -1,0 +1,195 @@
+% unique-mst.tex
+
+%%%%%%%%%%%%
+\begin{frame}
+  \centerline{\teal{\Large Uniqueness of MST}}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}
+  \begin{exampleblock}{Uniqueness of MST \pno{$10.18\; (1)$}}
+    \centerline{Distinct weights $\implies$ Unique MST.}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{\teal{By Contradiction.}}
+
+  \pause
+  \[
+    \exists \text{ MSTs } T_1 \neq T_2
+  \]
+
+  \pause
+  \[
+	\Delta E = \Big\{e \mid e \in T_1 \setminus T_2 \;\red{\lor}\; e \in T_2 \setminus T_1\Big\}
+  \]
+
+  \pause
+  \[
+    e = \min \Delta E
+  \]
+
+  \pause
+  \[
+    e \in T_1 \setminus T_2 \;\text{\small \it (w.l.o.g)}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}
+  \[
+    e \in T_1 \setminus T_2
+  \]
+
+  \fig{width = 0.40\textwidth}{figs/mst-unique.pdf}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    T_2 + \set{e} \implies C
+  \]
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    \exists (e' \in C) \red{\;\notin\; T_1} \pause \implies e' \in T_{2} \setminus T_{1} \implies e' \in \Delta E \pause \implies w(e') > w(e)
+  \]
+
+  \pause
+  \vspace{-0.50cm}
+  \[
+    T' = T_{2} + \set{e} - \set{e'} \implies w(T') < w(T_{2})
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Condition for Uniqueness of MST \pno{$10.18\; (2)$}}
+    \centerline{Unique MST $\centernot\implies$ Equal weights.}
+  \end{exampleblock}
+
+  \pause
+  \fig{width = 0.30\textwidth}{figs/unique-mst-partition.pdf}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Unique MST \pno{$10.18\; (3)$}}
+    \centerline{Unique MST $\centernot\implies$ Minimum-weight edge across any cut is unique.}
+  \end{exampleblock}
+
+  \pause
+  \fig{width = 0.30\textwidth}{figs/unique-mst-cut-counterexample.pdf}
+
+  \pause
+  \begin{theorem}
+    \centerline{Minimum-weight edge across any cut is unique $\implies$ Unique MST.}
+  \end{theorem}
+
+  \pause
+  \begin{center}
+	Construct T by \red{adding} all \red{such} edges.
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Unique MST \pno{$10.18\; (3)$}}
+    Unique MST $\centernot\implies$ Maximum-weight edge in any cycle is unique.
+  \end{exampleblock}
+
+  \pause
+  \fig{width = 0.30\textwidth}{figs/unique-mst-cycle-counterexample.pdf}
+
+  \pause
+  \begin{theorem}
+    \centerline{Maximum-weight edge in any cycle is unique $\implies$ Unique MST.}
+  \end{theorem}
+
+  \pause
+  \begin{center}
+	Construct T by \red{deleting} all \red{such} edges.
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \fig{width = 0.20\textwidth}{figs/qrcode-jeffe-unique-mst}
+
+  \begin{columns}
+    \column{0.50\textwidth}
+      \fig{width = 0.40\textwidth}{figs/qrcode-cut-unique-mst}
+    \column{0.50\textwidth}
+      \fig{width = 0.40\textwidth}{figs/qrcode-cycle-unique-mst}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Unique MST \pno{$10.18\; (4)$}}
+    To decide whether a graph has a unique MST.
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.80cm}
+  \centerline{\large \red{Ties} in Prim's and Kruskal's algorithms}
+
+  \pause
+  \fig{width = 0.25\textwidth}{figs/unique-mst-cut-counterexample.pdf}
+
+  \pause
+  \vspace{-0.30cm}
+  \[
+    \underbrace{\red{T}}_{\teal{\text{Any MST}}} +\; \underbrace{\red{\set{e}}, \forall e \notin T}_{\teal{\text{Cycle}}}
+  \]
+
+  \pause
+  \centerline{\purple{By Kruskal Algorithm.}}
+\end{frame}
+%%%%%%%%%%%%
+
+%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Critical Edges \pno{$10.12$}}
+    \[
+      G \to T, \qquad G' \triangleq G \setminus \red{\set{e}} \to T'
+    \]
+    \[
+      w(T') > w(T)
+    \]
+
+    \pause
+    \vspace{0.30cm}
+    \centerline{To find all critical edges in $O(m \log m)$ time.}
+  \end{exampleblock}
+
+  \pause
+  \begin{columns}
+    \column{0.50\textwidth}
+      \fig{width = 0.50\textwidth}{figs/critical-edges}
+      \[
+	w(e) = 3 \quad w(e) = 2
+      \]
+    \column{0.50\textwidth}
+      \pause
+      \centerline{\teal{By Kruskal Algorithm.}}
+
+      \pause
+      \vspace{0.50cm}
+      \centerline{\purple{No missing: Check all cycles.}}
+
+      \pause
+      \[
+	\red{O(m \log m)}
+      \]
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%

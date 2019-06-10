@@ -1,0 +1,142 @@
+% file: sections/cut-property.tex
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large Cut Property}}
+
+  \[
+    G = (V, E, w)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Cut Property (I)}
+    \begin{description}
+      \item[$X:$] A part of some MST $T$ of $G$
+      \item[$(S, V \setminus S):$] A \red{\it cut} such that $X$ does \red{\it not} cross $(S, V \setminus S)$
+    ­ \item[$e:$] \brown{\it A} lightest edge across $(S, V \setminus S)$
+    \end{description}
+
+    \pause
+    \vspace{0.30cm}
+    \centerline{Then \blue{$X \cup \set{e}$} is a part of some MST $T'$ of $G$.}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.60cm}
+  \centerline{\red{\large Correctness of Prim's and Kruskal's algorithms.}}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\large By Exchange Argument.}}
+
+  \pause
+  \vspace{0.30cm}
+  \fig{width = 0.50\textwidth}{figs/cut-property}
+
+  \pause
+  \[
+    T' = \underbrace{T + \set{e}}_{\red{\text{if } e \;\notin\; T}} - \set{e'}
+  \]
+
+  \pause
+  \centerline{``a'' $\to$ ``the'' \red{$\implies$} ``some'' $\to$ ``all''}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Cut Property (II)}
+    \begin{center}
+      A cut $(S, V \setminus S)$ \\[6pt]
+      Let $e = (u,v)$ be \red{\emph{a}} lightest edge across $(S, V \setminus S)$
+      \[
+	\purple{\red{\exists} \text{ MST $T$ of } G: e \in T}
+      \]
+    \end{center}
+  \end{exampleblock}
+
+  \fig{width = 0.40\textwidth}{figs/cut-property-no-name}
+
+  \pause
+  \vspace{-0.50cm}
+  \[
+    T' = \underbrace{T + \set{e}}_{\red{\text{if } e \;\notin\; T}} - \set{e'}
+  \]
+  
+  \pause
+  \centerline{``a'' $\to$ ``the'' \red{$\implies$} ``$\exists$'' $\to$ ``$\forall$''}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Converse of Cut Property (II)}
+    \begin{center}
+      $e = (u,v) \in \exists$ MST $T$ of $G$ \\[6pt]
+      $\implies$ \\[6pt]
+      $e$ is a lightest edge across some cut $(S, V \setminus S)$
+    \end{center}
+  \end{exampleblock}
+
+  \pause
+  \fig{width = 0.40\textwidth}{figs/cut-property-no-name}
+  \[
+    T' = \underbrace{T - \set{e}}_{\teal{\text{to find } (S, V \setminus S)}} +\; \underbrace{\set{e'}}_{\red{\exists?}}
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Application of Cut Property \pno{$10.15\; (3)$}}
+	\centerline{$e = (u,v) \in G$ is \red{a} lightest edge $\implies$ $e \in \exists$ MST of $G$}
+  \end{exampleblock}
+
+  \uncover<2->{
+    \[
+      \Big(S = \set{u}, V \setminus S\Big)
+    \]
+  }
+
+  \begin{exampleblock}{Application of Cut Property \pno{$10.15\; (4)$}}
+	\centerline{$e = (u,v) \in G$ is \red{the} unique lightest edge $\implies$ $e \in \forall$ MST}
+  \end{exampleblock}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Application of Cut Property \pno{$10.15\; (4)$}}
+    \centerline{$e = (u,v) \in G$ is the unique lightest edge $\implies$ $e \in \forall$ MST}
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \[
+    T' = \underbrace{T + \set{e}}_{\red{\text{if } e \;\notin\; T}} - \set{e'} \implies w(T') < w(T)
+  \]
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Wrong Divide\&Conquer Algorithm for MST \pno{$10.21$}}
+    \[
+      (V_{1}, V_{2}): \Big\rvert |V_{1}| - |V_{2}| \Big\rvert \le 1
+    \]
+    
+    \[
+      T_{1} + T_{2} + \set{e}: e \text{ is a lightest edge across } (V_{1}, V_{2})
+    \]
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \fig{width = 0.40\textwidth}{figs/divide-conquer-mst-counterexample.pdf}
+\end{frame}
+%%%%%%%%%%%%%

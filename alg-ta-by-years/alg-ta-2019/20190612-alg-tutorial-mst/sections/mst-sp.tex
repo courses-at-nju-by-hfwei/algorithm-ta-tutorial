@@ -1,0 +1,44 @@
+% file: sections/mst-sp.tex
+
+%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large MST \emph{v.s.} Shortest Path}}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{MST vs. Shortest Paths \pno{$10.15 \; (6)$}}
+    \centerline{\xmark\; The shortest path between $s$ and $t$ is necessarily part of some MST.}
+  \end{exampleblock}
+
+  \fig{width = 0.25\textwidth}{figs/mst-sssp.pdf}
+\end{frame}
+%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Sharing Edges \pno{$10.9$}}
+    \[
+      G = (V, E, w), \quad w(e) > 0, \quad \blue{s \in V}
+    \]
+
+    \centerline{All sssp trees from \blue{$s$} must share some edge with \textcolor{red}{all} {\small (\textcolor{gray}{some})} MSTs of $G$.}
+  \end{exampleblock}
+
+  \pause
+  \[
+    \red{E' \subseteq E: \text{ lightest edges leaving } s}
+  \]
+
+  \pause
+  \[
+    E' \subseteq \forall \text{ sssp tree from } s
+  \]
+
+  \pause
+  \[
+    \forall \text{ MST } T \text{ of } G: T \cap E' \neq \emptyset
+  \]
+\end{frame}
+%%%%%%%%%%%%%
