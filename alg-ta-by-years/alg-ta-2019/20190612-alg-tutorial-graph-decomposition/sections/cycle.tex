@@ -7,14 +7,14 @@
       \centering
       \renewcommand{\arraystretch}{1.3}
       \begin{tabular}{c||c|c}
-	\hline
-	& Digraph 			& Undirected graph  \\ \hline \hline
-	DFS & {\uncover<2->{back edge $\iff$ cycle}}
-	& {\uncover<3->{back edge $\iff$ cycle}}
-	\\ \hline
-	BFS & {\uncover<5->{\begin{tabular}[c]{@{}l@{}}back edge $\implies$ cycle\\ cycle \textcolor{red}{$\centernot\implies$} back edge \end{tabular}}}
-	& {\uncover<4->{cross edge $\iff$ cycle}}
-	\\ \hline
+		\hline
+		& Digraph 			& Undirected graph  \\ \hline \hline
+		DFS & {\uncover<2->{back edge $\iff$ cycle}}
+		& {\uncover<3->{back edge $\iff$ cycle}}
+		\\ \hline
+		BFS & {\uncover<5->{\begin{tabular}[c]{@{}l@{}}back edge $\implies$ cycle\\ cycle \textcolor{red}{$\centernot\implies$} back edge \end{tabular}}}
+		& {\uncover<4->{cross edge $\iff$ cycle}}
+		\\ \hline
       \end{tabular}
     \end{table}
   \end{exampleblock}
@@ -84,7 +84,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}<presentation:0>[noframenumbering]
   \begin{exampleblock}{After-class Exercise: Evasiveness of connectivity of undirected graphs}
     \[
       \text{Evasiveness } \triangleq \text{ check } \binom{n}{2} \text{ edges \teal{\small (adjacency matrix)}}

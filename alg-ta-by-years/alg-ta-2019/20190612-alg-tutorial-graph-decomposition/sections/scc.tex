@@ -9,7 +9,7 @@
   \pause
   \vspace{0.60cm}
   \begin{center}
-    \red{\large Two tiered structure of digraphs:} \\[10pt] 
+    \red{\Large Two tiered structure of digraphs:} \\[15pt] 
 
     digraph $\equiv$ a \teal{dag} of SCCs \\[6pt]
 
@@ -19,7 +19,7 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}{}
+\begin{frame}<presentation:0>[noframenumbering]
   \centerline{\red{\fbox{\large \text{digraph} $\equiv$ a \teal{dag} of SCCs}}}
 
   \vspace{0.50cm}
@@ -47,7 +47,7 @@
 
 %%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
-  \begin{exampleblock}{One-to-all reachability in a digraph (Problem $5.12$)}
+  \begin{exampleblock}{One-to-all reachability in a digraph (Problem $4.17$)}
     \[
       v: v \leadsto^{?} \forall u
     \]
@@ -60,8 +60,9 @@
   \vspace{0.60cm}
   \centerline{\red{SCC}}
 
+  \pause
   \[
-    \exists!\; \text{source vertex } v \iff v \leadsto \forall u
+	\red{\boxed{\exists!\; \text{source vertex } v \iff v \leadsto \forall u}}
   \]
 
   \pause
@@ -102,7 +103,7 @@
 
   \pause
   \vspace{0.30cm}
-  \centerline{\red{$Q:$ $\forall v,$ computing $\text{impact}(v)$}}
+  \centerline{\red{\fbox{$Q:$ $\forall v,$ computing $\text{impact}(v)$}}}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -163,19 +164,7 @@
   \end{center}
 
   \pause
-  \begin{theorem}[2SAT]
-    \[
-      \exists \text{ SCC } \exists x: v_x \in \text{SCC} \land v_{\overline{x}} \in \text{SCC} \iff I \text{ is not satisfiable}.
-    \]
-  \end{theorem}
-
-  \pause
-  \begin{alertblock}{Reference:}
-    \begin{itemize}
-      \item {\it ``A Linear-time Algorithm for Testing the Truth of Certain Quantified Boolean Formulas''} 
-	by Bengt Aspvall, Michael Plass, and Robert Tarjan, $1979$.
-    \end{itemize}
-  \end{alertblock}
+  \fig{width = 0.40\textwidth}{figs/2sat-implication-graph.pdf}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 
@@ -186,14 +175,32 @@
   %   (x_2\lor\lnot x_4)\land (x_0\lor\lnot x_5)\land (x_1\lor\lnot x_5)\land (x_2\lor\lnot x_5)\land\\
   %   (x_3\lor x_6)\land (x_4\lor x_6)\land (x_5\lor x_6)
   % \end{gather*}
-  \begin{columns}
-    \column{0.50\textwidth}
-      % \fig{width = 0.80\textwidth}{figs/2sat-implication-graph-wiki.png}
-      \fig{width = 0.80\textwidth}{figs/2sat-implication-graph.pdf}
-    \column{0.50\textwidth}
-      \pause
-      \fig{width = 0.80\textwidth}{figs/2sat-implication-graph.png}
-  \end{columns}
+  % \begin{columns}
+  %   \column{0.50\textwidth}
+  %     \fig{width = 0.80\textwidth}{figs/2sat-implication-graph-wiki.png}
+  %     \fig{width = 0.80\textwidth}{figs/2sat-implication-graph.pdf}
+  %   \column{0.50\textwidth}
+  %     \pause
+  %     \fig{width = 0.80\textwidth}{figs/2sat-implication-graph.png}
+  % \end{columns}
+
+  \fig{width = 0.50\textwidth}{figs/2sat-implication-graph.png}
+  \begin{theorem}[2SAT]
+    \[
+	  \exists \text{ SCC } \red{\exists x}: v_x \in \text{SCC} \land v_{\overline{x}} \in \text{SCC} \iff I \text{ is not satisfiable}.
+    \]
+  \end{theorem}
+
+  \pause
+  \begin{center}
+	\red{$\bot$ for source SCC \& $\top$ for sink SCC}
+  \end{center}
+
+  \pause
+  \begin{quote}
+	{\footnotesize ``A Linear-time Algorithm for Testing the Truth of Certain Quantified Boolean Formulas'',
+	  Bengt Aspvall, Michael Plass, \red{Robert Tarjan}, $1979$}
+  \end{quote}
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
 

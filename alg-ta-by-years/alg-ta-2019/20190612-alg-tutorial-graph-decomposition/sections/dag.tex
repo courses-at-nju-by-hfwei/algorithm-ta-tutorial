@@ -4,7 +4,7 @@
 \begin{frame}
   \centerline{\large On digraphs:}
   \[
-    \nexists\; \text{\red{back edge}} \iff \text{ DAG } \pause \iff \exists \text{ topo. ordering}
+	\nexists\; \text{back edge} \iff \text{ DAG } \iff \exists \red{\text{ topo. ordering}}
   \]
 
   \pause
@@ -14,7 +14,6 @@
       \nexists \text{ cycle} \implies \red{\boxed{u \to v \iff \text{f}[v] < \text{f}[u]}}
     \]
 
-    \pause
     \vspace{0.50cm}
     \centerline{Sort vertices in \textcolor{blue}{\emph{decreasing}} order of their \textcolor{blue}{\emph{finish}} times.}
   \end{block}
@@ -22,12 +21,12 @@
 %%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%%%%%
-\begin{frame}
+\begin{frame}<presentation:0>[noframenumbering]
   \begin{exampleblock}{Kahn's \textsc{Toposort} algorithm ($1962$; Problem $4.16$) }
     \begin{itemize}
       \setlength{\itemsep}{5pt}
       \item \red{Queue $Q$} for source vertices ($\text{in}[v] = 0$)
-      \item \red{Repeat:} $\textsc{Dequeue}(\exists u \in Q)$, output $u$ \\[6pt]
+	  \item \red{Repeat:} $\textsc{Dequeue}(\red{\exists u \in Q})$, output $u$ \\[6pt]
 	\hspace{1.3cm} delete $u$ and $u \to v$ from $Q$, \\[5pt]
 	\hspace{1.3cm} $\textsc{Enqueue}(v)$ if $\text{in}[v] = 0$
     \end{itemize}
@@ -125,12 +124,12 @@
   \pause
   \fig{width = 0.70\textwidth}{figs/hamiltonian-path-dag-topo}
 
-  \pause
-  \vspace{0.30cm}
-  \centerline{Kahn's \textsc{Toposort} \teal{\small (Problem $4.16$)}}
-  \pause
-  \[
-    |Q| \le 1
-  \]
+  % \pause
+  % \vspace{0.30cm}
+  % \centerline{Kahn's \textsc{Toposort} \teal{\small (Problem $4.16$)}}
+  % \pause
+  % \[
+  %   |Q| \le 1
+  % \]
 \end{frame}
 %%%%%%%%%%%%%%%%%%%%
