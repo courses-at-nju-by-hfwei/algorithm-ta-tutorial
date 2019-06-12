@@ -1,0 +1,192 @@
+% floyd-warshall.tex
+% use <presentation:0>[noframenumbering] to hide frames
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \centerline{\teal{\large Floyd-Warshall algorithm}}
+
+  \[
+    \text{dist}[i,j,k] = \min \Big(\text{dist}[i,j,k-1], \text{dist}[i,k,k-1] + \text{dist}[k,j,k-1]\Big)
+  \]
+
+  \fig{width = 0.50\textwidth}{figs/floyd-warshall}
+
+  \[
+    \text{dist}[i,j,0] = \left\{\begin{array}{ll}
+      \textcolor{red}{0} & i = j \\
+      w(i,j) & (i,j) \in E \\
+      \infty & \text{o.w.}
+    \end{array} \right.
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \input{algs/floyd-warshall-alg}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Bellman-Ford algorithm (Problem 6.30)}
+    \begin{itemize}
+      \item digraph $G = (V, E), \exists e: w(e) < 0$
+      \item $\forall s, t: |s \leadsto^{\SP} t| \le k$
+      \item Given $s,t$, find $s \leadsto^{\SP} t$.
+    \end{itemize}
+  \end{exampleblock}
+
+  $\text{d}(v,k)$: shortest path distance from $s$ to $v$ using $\le k$ edges
+
+  \[
+    s \leadsto^{\SP; \le k-1} u \to^{=1} v
+  \]
+
+  \[
+    \text{d}(v, k) = \min_{u \in N(v)} \text{d}(u, k-1) + w(u,v)
+  \]
+
+  \begin{center}
+    \begin{minipage}{0.50\linewidth}
+      \begin{algorithmic}[c]
+	\ForAll{$i = 1 \to n - 1$}
+	  \ForAll{$e \in E$}
+		\State update $e$
+	  \EndFor
+	\EndFor
+      \end{algorithmic}
+    \end{minipage}
+  \end{center}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Max-Min Path (Problem $13.2\; (2)$)}
+    \[
+      G = (V, E): \text{ network of oil pipelines}
+    \]
+    \[
+      c(u,v): \text{ capacity of } (u,v)
+    \]
+    \[
+      \text{cap}(s,t): \max \min s \leadsto t
+    \]
+      
+    \vspace{0.30cm}
+    \centerline{\teal{Compute all-pair $\text{cap}(i,j)$.}}
+  \end{exampleblock}
+
+  \pause
+  \[
+    \text{cap}(i,j,k) = \red{\max}\Big(\text{cap}(i,j,k-1), \red{\min}\big(\text{cap}(i,k,k-1), \text{cap}(k,j,k-1)\big)\Big)
+  \]
+
+  \pause
+  \fig{width = 0.50\textwidth}{figs/floyd-warshall}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Routing table (Problem $13.1$)}
+    \[
+      \text{Go}(i,j) = k \implies v_i \to v_k \leadsto v_j
+    \]
+
+    Contruct routing table and extract shortest paths from it.
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.30cm}
+  \begin{algorithmic}
+    \ForAll{$k \gets 1 \dots n$}
+      \ForAll{$i \gets 1 \dots n$}
+	\ForAll{$j \gets 1 \dots n$}
+	  \If{\red{$\text{dist}[i,j,k-1] > \text{dist}[i,k,k-1] + \text{dist}[k,j,k-1]$}}
+	    \State $\text{dist}[i,j,k] \gets \text{dist}[i,k,k-1] + \text{dist}[k,j,k-1]$
+	    \uncover<3->{\State \textcolor{red}{$\text{Go}[i,j] \gets \text{Go}[i,k]$}}
+	  \Else
+	    \State $\text{dist}[i,j,k] \gets \text{dist}[i,j,k-1]$
+	  \EndIf
+	\EndFor
+      \EndFor
+    \EndFor
+  \end{algorithmic}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Routing table (Problem $13.1$)}
+    \[
+      \text{Go}(i,j) = k \implies v_i \to v_k \leadsto v_j
+    \]
+
+    Contruct routing table and extract shortest paths from it.
+  \end{exampleblock}
+
+  \begin{columns}
+    \column{0.50\textwidth}
+      \begin{algorithmic}
+	\ForAll{$i \gets 1 \dots n$}
+	  \ForAll{$j \gets 1 \dots n$}
+	    \State $\text{dist}[i,j] \gets \infty$
+	    \State \textcolor{teal}{$\text{Go}[i,j] \gets \text{Nil}$}
+	  \EndFor
+	\EndFor
+
+	\hStatex
+	\ForAll{$(i,j) \in E$}
+	  \State $\text{dist}[i,j] \gets w(i,j)$
+	  \State \textcolor{red}{$\text{Go}[i,j] \gets j$}
+	\EndFor
+
+	\hStatex
+	\ForAll{$i \gets 1 \dots n$}
+	  \State $\text{dist}[i,i] \gets 0$
+	  \State \textcolor{teal}{$\text{Go}[i,i] \gets \text{Nil}$}
+	\EndFor
+      \end{algorithmic}
+      \pause
+    \column{0.50\textwidth}
+      \begin{algorithmic}
+	\Procedure{Path}{$i,j$}
+	  \If{$\text{Go}[i,j] = \text{Nil}$}
+	  \State Output ``No Path.''
+	  \EndIf
+
+	  \Statex
+	  \State Output ``$i$''
+	  \While{$i \neq j$}
+	    \textcolor{red}{\State $i \gets \text{Go}[i,j]$}
+	    \State Output ``$i$''
+	  \EndWhile
+	\EndProcedure
+      \end{algorithmic}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Shortest Cycle in Digraph (Problem $13.9$)}
+    Find shortest cycle in digraph $G = (V, E), \quad w(e) > 0$.
+  \end{exampleblock}
+
+  \pause
+  \vspace{0.50cm}
+  \centerline{Initialize \red{$\dist[v][v] \gets \infty$} in Floyd-Warshall algorithm} 
+
+  \pause
+  \[
+    \forall v: \dist[v][v] = \infty
+  \]
+
+  \pause
+  \[
+    \exists v: \dist[v][v] < \infty \pause \implies \min_{i} \dist[v][v]
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%

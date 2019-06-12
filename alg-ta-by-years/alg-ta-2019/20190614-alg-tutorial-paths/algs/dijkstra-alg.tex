@@ -1,0 +1,24 @@
+% file: algs/dijkstra-alg.tex
+
+\begin{algorithm}[H]
+  \begin{algorithmic}
+    \ForAll{$v \in V$}
+	  \State $\dist[v] \gets \blue{\infty}$
+    \EndFor
+    \State $\dist[s] \gets 0$
+
+    \Statex
+    \State $Q \gets \red{\textsc{MinPQ}}(V)$
+    \While{$Q \neq \emptyset$}
+	  \State $u \gets \red{\textsc{DeleteMin}}(Q)$
+
+      \hStatex
+      \ForAll{$(u,v) \in E \land v \notin Q$}
+		\If{$\dist[v] \blue{\;> \dist[u] + l(u,v)}$}
+		  \State $\dist[v] \gets \dist[u] + l(u,v)$
+		  \State $\red{\textsc{DecreaseKey}}(Q, v)$
+		\EndIf
+      \EndFor
+    \EndWhile
+  \end{algorithmic}
+\end{algorithm}

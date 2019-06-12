@@ -1,0 +1,20 @@
+% file: algs/eulerian-circuit-hierholzer.tex
+
+\begin{algorithm}[H]
+  \begin{algorithmic}
+    \State $VE \gets \emptyset$	\Comment{\teal{Visited Edges}}
+    \State $C \gets \emptyset$	\Comment{\teal{Current Circuit}}
+
+    \Statex
+    \While{$VE \neq E$}
+      \State $u \gets \Call{Choose}{u : (u \to v) \notin VE}$
+
+      \hStatex
+      \State $C' \gets \Call{Circuit}{u, E \setminus VE}$
+
+      \hStatex
+      \State $VE \gets VE \cup C'$
+      \State $C \gets C \cup C'$
+    \EndWhile
+  \end{algorithmic}
+\end{algorithm}

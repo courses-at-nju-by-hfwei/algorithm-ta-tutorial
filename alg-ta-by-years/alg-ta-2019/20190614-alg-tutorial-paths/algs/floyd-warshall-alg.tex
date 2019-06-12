@@ -1,0 +1,22 @@
+% file: algs/floyd-warshall-alg.tex
+
+\begin{algorithm}[H]
+  \begin{algorithmic}
+    % \ForAll{$(i,j)$}
+    %   \If{$(i,j) \in E$}
+    %     \State $\dist(i,j,0) \gets l(i,j)$
+    %   \Else
+    %     \State \teal{$\dist(i,j,0) \gets \infty$}
+    %   \EndIf
+    % \EndFor
+
+    % \Statex
+    \For{$k \gets 1 \;\text{\bf to}\; n$}
+      \For{$i \gets 1 \;\text{\bf to}\; n$}
+	\For{$j \gets 1 \;\text{\bf to}\; n$}
+	  \State \teal{$\dist(i,j,k) = \red{\min}\Big(\dist(i,j,k-1), \dist(i,k,k-1) \;\red{+}\; \dist(k,j,k-1)\Big)$}
+	\EndFor
+      \EndFor
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}

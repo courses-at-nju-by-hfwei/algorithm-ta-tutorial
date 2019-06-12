@@ -1,0 +1,176 @@
+% dijkstra-framework.tex
+% use <presentation:0>[noframenumbering] to hide frames
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \centerline{\teal{\Large Dijkstra's Algorithm as a Framework}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{columns}
+    \column{0.60\textwidth}
+      \input{algs/dijkstra-alg}
+    \column{0.40\textwidth}
+      \fig{width = 1.00\textwidth}{figs/dijkstra-correctness}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Unique shortest paths (Problem 6.18)}
+    Undirected graph $G = (V, E), w(e) > 0, s \in V$:
+    \[
+      \text{usp}[v] = T \iff \exists! s \leadsto^{\SP} v 
+    \]
+  \end{exampleblock}
+
+  \begin{columns}[t]
+    \column{0.30\textwidth}
+      \begin{algorithmic}
+	\ForAll{$v \in V$}
+	  \State $\text{usp}[v] \gets F$
+	\EndFor
+	\State $\text{usp}[s] \gets T$
+      \end{algorithmic}
+    \column{0.60\textwidth}
+      \begin{algorithmic}
+	\If{$\dist[v] > \dist[u] + l(u,v)$}
+	  \State $\dist[v] \gets \dist[u] + l(u,v)$
+	  \State $\text{usp}[v] \gets \text{usp}[u]$
+	\ElsIf{$\dist[v] = \dist[u] + l(u,v)$}
+	  \State $\text{usp}[v] \gets F$
+	\EndIf
+      \end{algorithmic}
+  \end{columns}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Number of shortest paths (Problem 6.31, 5.26)}
+    \[
+      \# s \leadsto^{\SP} v
+    \]
+
+    \[
+      O(n + m) \text{\emph{ if }} w(e) = 1
+    \]
+  \end{exampleblock}
+
+  \[
+    \text{Num}[s] = 1 \text{\emph{ vs. }} \text{Num}[s] = 0
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \begin{exampleblock}{Min-Max Path (Problem $11.12$)}
+    \[
+      G = (V, E): \text{ network of highways}
+    \]
+    \[
+      l_e: \text{ road length} \quad L: \text{ tank capacity}
+    \]
+
+    \vspace{0.30cm}
+    \centerline{\teal{Given $L$, $\exists? s \leadsto t$ in $O(n + m)$.}}
+  \end{exampleblock}
+
+  \pause
+  \[
+	\text{delete } l_e > L
+  \]
+
+  \pause
+  \[
+    s \leadsto^{?} t
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{exampleblock}{Min-Max Path (Problem $11.12$)}
+    \[
+      G = (V, E): \text{ network of highways}
+    \]
+    \[
+      l_e: \text{ road length} \quad L: \text{ tank capacity}
+    \]
+	  
+    \vspace{0.30cm}
+    \centerline{\teal{Given $G$, to compute $\min L$ in $O(m \log n)$ from $s$ to $t$.}}
+  \end{exampleblock}
+
+  \pause
+  \[
+    \red{Q \gets \text{MinPQ}(V)}
+  \]
+
+  \pause
+  \begin{columns}
+    \column{0.30\textwidth}
+      \begin{algorithmic}
+		\ForAll{$v \in V$}
+		  \State $L[v] \gets \blue{\infty}$
+		\EndFor
+		\State $L[s] \gets 0$
+	  \end{algorithmic}
+	\column{0.55\textwidth}
+	  \begin{algorithmic}
+		\If{$L[v] > \blue{\max\Big(L[u], l(u,v)\Big)}$}
+		  \State $L[v] \gets \max\Big(L[u], l(u,v)\Big)$
+		\EndIf
+	  \end{algorithmic}
+  \end{columns}
+  % \pause
+  % \fig{width = 0.45\textwidth}{figs/max-min-path}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \begin{exampleblock}{Max-Min Path (Problem $13.2\; (1)$)}
+    \[
+      G = (V, E): \text{ network of oil pipelines}
+    \]
+    \[
+      c(u,v): \text{ capacity of } (u,v)
+    \]
+    \[
+      \text{cap}(s,t): \max \min s \leadsto t
+    \]
+    
+    \vspace{0.30cm}
+    \centerline{\teal{Given $s$, to compute $\text{cap}(s, v)$.}}
+  \end{exampleblock}
+
+  \pause
+  \[
+    \red{Q \gets \text{MaxPQ}(V)}
+  \]
+
+  \pause
+  \begin{columns}
+    \column{0.30\textwidth}
+      \begin{algorithmic}
+		\ForAll{$v \in V$}
+		  \State $\text{cap}[v] \gets \teal{-\infty}$
+		\EndFor
+		\State $\text{cap}[s] \gets 0$
+      \end{algorithmic}
+    \column{0.60\textwidth}
+      \begin{algorithmic}
+		\If{$\text{cap}[v] \;\teal{<}\; \red{\min\Big(\text{cap}[u], c(u,v)\Big)}$}
+		  \State $\text{cap}[v] \gets \min\Big(\text{cap}[u], c(u,v)\Big)$
+		\EndIf
+      \end{algorithmic}
+  \end{columns}
+  % \pause
+  % \fig{width = 0.45\textwidth}{figs/max-min-path}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
