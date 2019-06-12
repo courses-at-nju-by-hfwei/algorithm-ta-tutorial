@@ -1,8 +1,7 @@
 # 20190612-alg-tutorial-mst
 
 ## Lecture Notes
-- The first class: 
-- The second class: 
+- The second class: Unique MST
 
 ## TODO
 - cut property, cycle property: dashed/solid lines for e'
