@@ -118,11 +118,18 @@
   \]
 
   \pause
-  \vspace{0.60cm}
-  \centerline{Tarjan's \textsc{Toposort} + \teal{Check edges $(v_i, v_{i+1})$}}
+  \[
+	\blue{\Longleftarrow}
+  \]
+  \[
+	\text{ By contradiction; Perform Toposort; Swap}
+  \]
+
+  \fig{width = 0.70\textwidth}{figs/hamiltonian-path-dag-topo}
 
   \pause
-  \fig{width = 0.70\textwidth}{figs/hamiltonian-path-dag-topo}
+  \vspace{0.60cm}
+  \centerline{Tarjan's \textsc{Toposort} + \red{Check edges $(v_i, v_{i+1})$}}
 
   % \pause
   % \vspace{0.30cm}
