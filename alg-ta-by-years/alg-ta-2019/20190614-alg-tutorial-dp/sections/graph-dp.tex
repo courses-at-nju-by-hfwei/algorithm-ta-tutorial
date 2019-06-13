@@ -1,0 +1,58 @@
+% graph-dp.tex
+% use <presentation:0>[noframenumbering] to hide frame
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}<presentation:0>[noframenumbering]
+  \centerline{\teal{\Large DP on Graphs}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \begin{exampleblock}{Minimum Vertex Cover on Trees (Problem $14.14$)}
+    \begin{itemize}
+      \item Undirected tree $T = (V, E)$; \textcolor{red}{No designated root!}
+      \item Compute (the size of) a minimum vertex cover of $T$
+    \end{itemize}
+  \end{exampleblock}
+
+  \fig{width = 0.50\textwidth}{figs/vertex-cover.png}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\blue{Rooted $T$ at any node $r$.}}
+  \pause
+  \vspace{0.30cm}
+
+  \begin{description}
+	\item[Subproblem:] $I(u)$: the size of an MVC of subtree $T_{u}$ rooted at $u$
+	\item[Goal:] $I(r)$
+	  \pause
+	\item[Make choice:] Is $u$ in $\text{MVC}[u]$?
+	\item[Recurrence:] 
+	  \begin{align*}
+		I(u) = \min \{\text{\# children of } u &+ \sum_{v: \text{ grandchildren of } u} I(v), \\
+			1 &+ \sum_{v: \text{ children of } u} I(v)\}
+	  \end{align*}
+	  \pause
+	\item[Init:] $I(u) = 0$, if $u$ is a leave
+  \end{description}
+
+  \pause
+  \vspace{0.30cm}
+  \centerline{\red{DFS from root $r$.}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}
+  \fig{width = 0.40\textwidth}{figs/is-greed-good}
+
+  \pause
+  \vspace{0.50cm}
+  \begin{quote}
+    \centering
+	\red{There is an MVC which contains \red{no} leaves.}
+  \end{quote}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%

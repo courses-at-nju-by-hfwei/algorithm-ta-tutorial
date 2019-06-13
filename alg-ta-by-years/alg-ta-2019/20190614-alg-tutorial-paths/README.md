@@ -1,11 +1,21 @@
-# 20190612-alg-tutorial-graph-decomposition
+# 20190614-alg-tutorial-paths
+
+## Content
+Problem		Vote
+- 11.9		4
+- 11.12
+- 13.2		3
+- 13.7		7
+- 11.3		10
+- 11.7
 
 ## Lecture Notes
-- The first class: leave the last problem (2SAT)
+- The first class: 
 
 ## TODO
-- external tikz figs for states of nodes and types of edges
-- dfs/bfs edges figs redrawn using TikZ
+- [ ] tikz for dijkstra-correctness-minmax-path
+- [ ] article: dijkstra + algebraic + monotonic
+- [ ] critical edges
+- [ ] bitonic shortest path
 
 ## Suggestions
-- a little bit faster

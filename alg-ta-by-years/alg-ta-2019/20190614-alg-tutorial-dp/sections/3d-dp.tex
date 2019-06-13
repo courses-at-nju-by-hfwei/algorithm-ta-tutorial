@@ -1,0 +1,28 @@
+% 3d-dp.tex
+% use <presentation:0>[noframenumbering] to hide frame
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\teal{\Large 3D DP}}
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{}
+  \centerline{\large Floyd-Warshall algorithm}
+
+  \[
+    \text{dist}[i,j,k] = \min \set{\text{dist}[i,j,k-1], \text{dist}[i,k,k-1] + \text{dist}[k,j,k-1]}
+  \]
+
+  \fig{width = 0.50\textwidth}{figs/floyd-warshall.png}
+
+  \[
+    \text{dist}[i,j,0] = \left\{\begin{array}{ll}
+      0 & i = j \\
+      w(i,j) & (i,j) \in E \\
+      \infty & \text{o.w.}
+    \end{array} \right.
+  \]
+\end{frame}
+%%%%%%%%%%%%%%%%%%%%
