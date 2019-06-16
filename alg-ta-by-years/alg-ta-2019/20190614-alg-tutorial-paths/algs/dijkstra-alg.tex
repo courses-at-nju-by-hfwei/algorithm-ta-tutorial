@@ -13,7 +13,7 @@
 	  \State $u \gets \red{\textsc{DeleteMin}}(Q)$
 
       \hStatex
-      \ForAll{$(u,v) \in E \land v \notin Q$}
+      \ForAll{$(u,v) \in E \land v \in Q$}
 		\If{$\dist[v] \blue{\;> \dist[u] + l(u,v)}$}
 		  \State $\dist[v] \gets \dist[u] + l(u,v)$
 		  \State $\red{\textsc{DecreaseKey}}(Q, v)$
